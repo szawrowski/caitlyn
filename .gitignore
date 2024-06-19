@@ -1,0 +1,13 @@
+# Build output directories
+/bin
+/build
+/cmake-build-debug
+/cmake-build-release
+/lib
+/out
+/target
+
+# Personal IDE config files
+.idea
+.vs
+.vscode

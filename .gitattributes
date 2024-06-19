@@ -1,0 +1,5 @@
+# Set line ending conversion for all text files
+* text=auto eol=lf
+
+# Prevent conversion for .cmd files
+*.cmd text eol=crlf
