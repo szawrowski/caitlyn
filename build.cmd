@@ -2,6 +2,26 @@
 
 setlocal enabledelayedexpansion
 
+set "project_root=%cd%"
+set "vcpkg_root=%USERPROFILE%\vcpkg"
+
+@REM Check if vcpkg is installed
+if not exist %vcpkg_root% (
+  echo Warning: vcpkg is not installed.
+  echo Installing vcpkg...
+
+  cd %USERPROFILE%
+  @REM Download vcpkg using Git
+  git clone https://github.com/microsoft/vcpkg.git
+
+  @REM Run the vcpkg installation script
+  cd vcpkg && bootstrap-vcpkg.bat
+
+  echo vcpkg was successfully installed.
+  echo Please rerun this script.
+  cd %project_root%
+)
+
 @REM Check if an argument is provided and validate it
 if "%~1"=="" (
   @REM If no arguments are provided, set build type to Debug
@@ -26,18 +46,21 @@ if "%~1"=="" (
 @REM Build type message
 echo Build type: %build_type%
 
+@REM Set build directory
+set "build_dir=build\%build_type%"
+
 @REM Run cmake with the appropriate build type
-cmake -G "Ninja" -S . -B build\%build_type% -DCMAKE_BUILD_TYPE=%build_type%
+cmake -S . -B %build_dir% -G "Ninja" -DCMAKE_BUILD_TYPE=%build_type%
 
 @REM Build the targets
-cmake --build build\%build_type% --parallel 4
+cmake --build %build_dir% --parallel 4
 
 if /I "!build_type!"=="Release" (
-  cmake --install build\%build_type%
+  cmake --install %build_dir%
 )
 
 @REM Run tests
-cd build\%build_type%\test
-ctest --build-config Debug --target all --output-on-failure --parallel 4
+set "test_dir=%project_root%\%build_dir%\test"
+ctest --test-dir %test_dir% --build-config Debug --output-on-failure --parallel 4
 
 endlocal
