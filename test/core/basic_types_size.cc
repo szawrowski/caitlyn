@@ -24,7 +24,7 @@ TEST(CoreTest, BasicTypesSizeUnix) {
   ASSERT_EQ(sizeof(cait::ssize_t), 8);
   ASSERT_EQ(sizeof(cait::float32_t), 4);
   ASSERT_EQ(sizeof(cait::float64_t), 8);
-  ASSERT_EQ(sizeof(cait::long_float_t), 16);
+  ASSERT_EQ(sizeof(cait::floatx_t), 16);
   ASSERT_EQ(sizeof(cait::null_t), 8);
 #endif
 }
@@ -51,7 +51,7 @@ TEST(CoreTest, BasicTypesSizeWindows) {
   ASSERT_EQ(sizeof(cait::ssize_t), 8);
   ASSERT_EQ(sizeof(cait::float32_t), 4);
   ASSERT_EQ(sizeof(cait::float64_t), 8);
-  ASSERT_EQ(sizeof(cait::long_float_t), 8);
+  ASSERT_EQ(sizeof(cait::floatx_t), 8);
   ASSERT_EQ(sizeof(cait::null_t), 8);
 #endif
 }

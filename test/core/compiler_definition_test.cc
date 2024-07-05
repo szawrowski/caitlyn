@@ -17,6 +17,13 @@ TEST(CoreTest, CompilerDefinition) {
   #else
     ASSERT_TRUE(false);
   #endif
+#elif defined(__INTEL_COMPILER) || defined(__ICC)
+  #if defined(__caitlyn_cxxstd) && (__caitlyn_cxxstd == __cplusplus) && \
+      defined(__caitlyn_compiler_intel)
+    ASSERT_TRUE(true);
+  #else
+    ASSERT_TRUE(false);
+  #endif
 #elif (_MSC_VER)
   #if defined(__caitlyn_cxxstd) && (__caitlyn_cxxstd == _MSVC_LANG) && \
       defined(__caitlyn_compiler_msvc)
