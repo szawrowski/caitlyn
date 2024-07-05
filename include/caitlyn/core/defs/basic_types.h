@@ -55,7 +55,7 @@ using ssize_t = ptrdiff_t;
 // Floating point
 using float32_t = float;
 using float64_t = double;
-using long_float_t = long double;
+using floatx_t = long double;
 
 // System
 using null_t = decltype(nullptr);
