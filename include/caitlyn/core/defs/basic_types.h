@@ -10,23 +10,25 @@
 
 namespace cait {
 
+// Characters
 using uchar_t = unsigned char;
 using schar_t = signed char;
 using u8char_t = char;
 using u16char_t = char16_t;
 using u32char_t = char32_t;
 
+// Integrals
 using int_t = signed int;
 using uint_t = unsigned int;
 
-#if defined(__caitlyn_linux) || defined(__caitlyn_apple)
+#if defined(__caitlyn_unix)
   using int8_t = signed char;
   using uint8_t = unsigned char;
   using int16_t = signed short int;
   using uint16_t = unsigned short int;
   using int32_t = signed int;
   using uint32_t = unsigned int;
-  #if defined(__caitlyn_x64)
+  #if (__caitlyn_arch == 64)
     using int64_t = signed long int;
     using uint64_t = unsigned long int;
   #else
@@ -50,10 +52,12 @@ using ptrdiff_t =
 using size_t = decltype(sizeof(0));
 using ssize_t = ptrdiff_t;
 
+// Floating point
 using float32_t = float;
 using float64_t = double;
 using long_float_t = long double;
 
+// System
 using null_t = decltype(nullptr);
 
 }  // namespace cait
