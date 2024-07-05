@@ -3,8 +3,7 @@
 #include "caitlyn/core/defs/basic_types.h"
 
 TEST(CoreTest, BasicTypesSizeUnix) {
-#if (defined(__caitlyn_linux) || defined(__caitlyn_apple)) && \
-    defined(__caitlyn_x64)
+#if defined(__caitlyn_unix) && (__caitlyn_arch == 64)
   ASSERT_EQ(sizeof(cait::schar_t), 1);
   ASSERT_EQ(sizeof(cait::uchar_t), 1);
   ASSERT_EQ(sizeof(cait::u8char_t), 1);
@@ -31,7 +30,7 @@ TEST(CoreTest, BasicTypesSizeUnix) {
 }
 
 TEST(CoreTest, BasicTypesSizeWindows) {
-#if defined(__caitlyn_windows) && defined(__caitlyn_x64)
+#if defined(__caitlyn_windows) && (__caitlyn_arch == 64)
   ASSERT_EQ(sizeof(cait::schar_t), 1);
   ASSERT_EQ(sizeof(cait::uchar_t), 1);
   ASSERT_EQ(sizeof(cait::u8char_t), 1);

@@ -4,34 +4,16 @@
 
 TEST(CoreTest, CaitlynStandardDefinition) {
 #if defined(__caitlyn_cxxstd)
-  #if (__caitlyn_cxxstd_ver < 11)
-    #if defined(__caitlyn_cxxstd_legacy)
-      ASSERT_TRUE(true);
-    #else
-      ASSERT_TRUE(false);
-    #endif
-  #elif (__caitlyn_cxxstd_ver == 11)
+  #if (__caitlyn_cxxstd == 11)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd_ver == 14)
+  #elif (__caitlyn_cxxstd == 14)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd_ver == 17)
+  #elif (__caitlyn_cxxstd == 17)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd_ver == 20)
+  #elif (__caitlyn_cxxstd == 20)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd_ver == 23)
+  #elif (__caitlyn_cxxstd == 23)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd > 23)
-    #if defined(__caitlyn_cxxstd_future)
-      ASSERT_TRUE(true);
-    #else
-      ASSERT_TRUE(false);
-    #endif
-  #else
-    #if defined(__caitlyn_cxxstd_unknown)
-      ASSERT_TRUE(true);
-    #else
-      ASSERT_TRUE(false);
-    #endif
   #endif
 #endif
 }

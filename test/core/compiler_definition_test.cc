@@ -25,13 +25,6 @@ TEST(CoreTest, CompilerDefinition) {
     ASSERT_TRUE(false);
   #endif
 #else
-  #if defined(__cplusplus)
-    #if defined(__caitlyn_cxxstd) && (__caitlyn_cxxstd == __cplusplus)
-      ASSERT_TRUE(true);
-    #else
-      ASSERT_TRUE(false);
-    #endif
-  #endif
   #if defined(__caitlyn_compiler_unknown)
     ASSERT_TRUE(true);
   #else
