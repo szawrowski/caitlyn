@@ -5,21 +5,21 @@
 TEST(CoreTest, CompilerDefinition) {
 #if defined(__clang__)
   #if defined(__caitlyn_cxxstd) && (__caitlyn_cxxstd == __cplusplus) && \
-          defined(__caitlyn_compiler_clang)
+      defined(__caitlyn_compiler_clang)
     ASSERT_TRUE(true);
   #else
     ASSERT_TRUE(false);
   #endif
 #elif (__GNUC__)
   #if defined(__caitlyn_cxxstd) && (__caitlyn_cxxstd == __cplusplus) && \
-          defined(__caitlyn_compiler_gcc)
+      defined(__caitlyn_compiler_gcc)
     ASSERT_TRUE(true);
   #else
     ASSERT_TRUE(false);
   #endif
 #elif (_MSC_VER)
   #if defined(__caitlyn_cxxstd) && (__caitlyn_cxxstd == _MSVC_LANG) && \
-          defined(__caitlyn_compiler_msvc)
+      defined(__caitlyn_compiler_msvc)
     ASSERT_TRUE(true);
   #else
     ASSERT_TRUE(false);

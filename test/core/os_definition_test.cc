@@ -4,19 +4,19 @@
 
 TEST(CoreTest, OsDefinition) {
 #if defined(__linux__)
-  #if defined(__caitlyn_os_linux)
+  #if defined(__caitlyn_linux)
     ASSERT_TRUE(true);
   #else
     ASSERT_TRUE(false);
   #endif
 #elif defined(__APPLE__)
-  #if defined(__caitlyn_os_osx)
+  #if defined(__caitlyn_apple)
     ASSERT_TRUE(true);
   #else
     ASSERT_TRUE(false);
   #endif
 #elif defined(_WIN32)
-  #if defined(__caitlyn_os_windows)
+  #if defined(__caitlyn_windows)
     ASSERT_TRUE(true);
   #else
     ASSERT_TRUE(false);

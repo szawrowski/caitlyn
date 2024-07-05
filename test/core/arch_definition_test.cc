@@ -5,13 +5,13 @@
 TEST(CoreTest, ArchDefinition) {
 #if defined(__linux__)
   #if !defined(__x86_64__)
-    #if defined(__caitlyn_arch32)
+    #if defined(__caitlyn_x32)
       ASSERT_TRUE(true);
     #else
       ASSERT_TRUE(false);
     #endif
   #else
-    #if defined(__caitlyn_arch64)
+    #if defined(__caitlyn_x64)
       ASSERT_TRUE(true);
     #else
       ASSERT_TRUE(false);
@@ -19,13 +19,13 @@ TEST(CoreTest, ArchDefinition) {
   #endif
 #elif defined(__APPLE__)
   #if !defined(__x86_64__)
-    #if defined(__caitlyn_arch32)
+    #if defined(__caitlyn_x32)
       ASSERT_TRUE(true);
     #else
       ASSERT_TRUE(false);
     #endif
   #else
-    #if defined(__caitlyn_arch64)
+    #if defined(__caitlyn_x64)
       ASSERT_TRUE(true);
     #else
       ASSERT_TRUE(false);
@@ -33,13 +33,13 @@ TEST(CoreTest, ArchDefinition) {
   #endif
 #elif defined(_WIN32)
   #if !defined(_WIN64)
-    #if defined(__caitlyn_arch32)
+    #if defined(__caitlyn_x32)
       ASSERT_TRUE(true);
     #else
       ASSERT_TRUE(false);
     #endif
   #else
-    #if defined(__caitlyn_arch64)
+    #if defined(__caitlyn_x64)
       ASSERT_TRUE(true);
     #else
       ASSERT_TRUE(false);
