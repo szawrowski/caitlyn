@@ -4,15 +4,17 @@
 
 TEST(CoreDefsTest, CaitlynStandardDefinition) {
 #if defined(__caitlyn_cxxstd)
-  #if (__caitlyn_cxxstd == 11)
+  #if (__caitlyn_cxxstd == __caitlyn_cxxstd_legacy_ver)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == 14)
+  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd11_ver)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == 17)
+  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd14_ver)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == 20)
+  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd17_ver)
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == 23)
+  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd20_ver)
+    ASSERT_TRUE(true);
+  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd23_ver)
     ASSERT_TRUE(true);
   #endif
 #endif
