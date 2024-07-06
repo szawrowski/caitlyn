@@ -37,15 +37,6 @@
   #define __caitlyn_os_unknown
 #endif
 
-// C++ standard detection
-#if defined(__caitlyn_unix)
-  #define __caitlyn_cxxstd __cplusplus
-#elif defined(__caitlyn_windows)
-  #define __caitlyn_cxxstd _MSVC_LANG
-#else
-  #error "C++ standard macro undefined"
-#endif
-
 // Compiler detection
 #if defined(__clang__)
   #define __caitlyn_compiler_clang
@@ -57,6 +48,28 @@
   #define __caitlyn_compiler_msvc
 #else
   #define __caitlyn_compiler_unknown
+#endif
+
+// C++ standard detection
+#if defined(__caitlyn_unix)
+  #define __caitlyn_cxxstd __cplusplus
+#elif defined(__caitlyn_windows)
+  #if defined(__caitlyn_compiler_msvc)
+    #define __caitlyn_cxxstd _MSVC_LANG
+  #else
+    #define __caitlyn_cxxstd __cplusplus
+  #endif
+#else
+  #error "C++ standard macro undefined"
+#endif
+
+#if defined(__caitlyn_cxxstd)
+  #define __caitlyn_cxxstd_legacy_ver = 199711L
+  #define __caitlyn_cxxstd11_ver = 201103L
+  #define __caitlyn_cxxstd14_ver = 201402L
+  #define __caitlyn_cxxstd17_ver = 201703L
+  #define __caitlyn_cxxstd20_ver = 202002L
+  #define __caitlyn_cxxstd23_ver = 202302L
 #endif
 
 // Additional platform-specific settings

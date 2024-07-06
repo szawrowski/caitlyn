@@ -12,6 +12,7 @@
 BEGIN_CAITLYN_NS
 
 // Characters
+using stdchar_t = char;
 using uchar_t = unsigned char;
 using schar_t = signed char;
 using xchar_t = wchar_t;
@@ -20,6 +21,7 @@ using u16char_t = char16_t;
 using u32char_t = char32_t;
 
 // Integrals
+using byte_t = unsigned char;
 using int_t = signed int;
 using uint_t = unsigned int;
 
@@ -49,7 +51,7 @@ using uint_t = unsigned int;
 #endif
 
 using ptrdiff_t =
-    decltype(static_cast<int_t*>(nullptr) - static_cast<int_t*>(nullptr));
+    decltype(static_cast<int*>(nullptr) - static_cast<int*>(nullptr));
 
 using size_t = decltype(sizeof(0));
 using ssize_t = ptrdiff_t;
@@ -59,7 +61,7 @@ using float32_t = float;
 using float64_t = double;
 using floatx_t = long double;
 
-// Logic
+// Logical
 using bool_t = bool;
 
 // System
