@@ -137,7 +137,7 @@ private:
 
 END_CAITLYN_NS
 
-static cait::string_t operator""_str(const cait::u8char_t* str,
+static cait::string_t operator""str(const cait::u8char_t* str,
                                      const std::size_t) {
   return cait::string_t{str};
 }
