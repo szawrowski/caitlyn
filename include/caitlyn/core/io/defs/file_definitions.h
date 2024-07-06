@@ -7,7 +7,6 @@
 #define CAITLYN_CORE_IO_FILE_DEFINITIONS_H_
 
 #include <fstream>
-#include <streambuf>
 
 #include "caitlyn/core/defs/basic_types.h"
 
@@ -35,4 +34,9 @@ using xfilebuf_t = std_basic_filebuf<xchar_t>;
 
 END_CAITLYN_NS
 
-#endif // CAITLYN_CORE_IO_FILE_DEFINITIONS_H_
+static cait::file_t operator""_file(const cait::u8char_t* symbol,
+                                    const std::size_t) {
+  return cait::file_t{symbol};
+}
+
+#endif  // CAITLYN_CORE_IO_FILE_DEFINITIONS_H_
