@@ -7,12 +7,14 @@
 #define CAITLYN_CORE_DEFS_BASIC_TYPES_H_
 
 #include "caitlyn/core/defs/core_definitions.h"
+#include "caitlyn/core/defs/global_definitions.h"
 
-namespace cait {
+BEGIN_CAITLYN_NS
 
 // Characters
 using uchar_t = unsigned char;
 using schar_t = signed char;
+using xchar_t = wchar_t;
 using u8char_t = char;
 using u16char_t = char16_t;
 using u32char_t = char32_t;
@@ -57,9 +59,12 @@ using float32_t = float;
 using float64_t = double;
 using floatx_t = long double;
 
+// Logic
+using bool_t = bool;
+
 // System
 using null_t = decltype(nullptr);
 
-}  // namespace cait
+END_CAITLYN_NS
 
 #endif  // CAITLYN_CORE_DEFS_BASIC_TYPES_H_
