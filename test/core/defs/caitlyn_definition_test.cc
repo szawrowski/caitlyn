@@ -2,7 +2,7 @@
 
 #include "caitlyn/core/defs/core_definitions.h"
 
-TEST(CoreTest, CaitlynDefinition) {
+TEST(CoreDefsTest, CaitlynDefinition) {
 #if defined(__caitlyn__)
   ASSERT_TRUE(true);
 #else

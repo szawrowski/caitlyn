@@ -2,7 +2,7 @@
 
 #include "caitlyn/core/defs/core_definitions.h"
 
-TEST(CoreTest, CaitlynStandardDefinition) {
+TEST(CoreDefsTest, CaitlynStandardDefinition) {
 #if defined(__caitlyn_cxxstd)
   #if (__caitlyn_cxxstd == 11)
     ASSERT_TRUE(true);

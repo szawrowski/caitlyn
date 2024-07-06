@@ -2,7 +2,7 @@
 
 #include "caitlyn/core/defs/core_definitions.h"
 
-TEST(CoreTest, OsDefinition) {
+TEST(CoreDefsTest, OsDefinition) {
 #if defined(__linux) || defined(__linux__) || defined(__gnu_linux__)
   #if defined(__caitlyn_linux)
     ASSERT_TRUE(true);

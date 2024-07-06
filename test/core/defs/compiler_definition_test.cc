@@ -2,7 +2,7 @@
 
 #include "caitlyn/core/defs/core_definitions.h"
 
-TEST(CoreTest, CompilerDefinition) {
+TEST(CoreDefsTest, CompilerDefinition) {
 #if defined(__clang__)
   #if defined(__caitlyn_cxxstd) && (__caitlyn_cxxstd == __cplusplus) && \
       defined(__caitlyn_compiler_clang)

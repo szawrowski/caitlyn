@@ -2,7 +2,7 @@
 
 #include "caitlyn/core/defs/core_definitions.h"
 
-TEST(CoreTest, ArchDefinition) {
+TEST(CoreDefsTest, ArchDefinition) {
 #if defined(__linux) || defined(__linux__) || defined(__gnu_linux__)
   #if !defined(__x86_64__)
     ASSERT_EQ(__caitlyn_arch, 32);
