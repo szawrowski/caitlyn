@@ -17,32 +17,25 @@
 
 BEGIN_CAITLYN_NS
 
-using streambuf_t = std::basic_streambuf<u8char_t>;
-using xstreambuf_t = std::basic_streambuf<xchar_t>;
+template <typename CharT>
+using std_basic_istream = std::basic_istream<CharT>;
+using istream_t = std_basic_istream<u8char_t>;
+using xistream_t = std_basic_istream<xchar_t>;
 
-using istream_t = std::basic_istream<u8char_t>;
-using xistream_t = std::basic_istream<xchar_t>;
+template <typename CharT>
+using std_basic_ostream = std::basic_ostream<CharT>;
+using ostream_t = std_basic_ostream<u8char_t>;
+using xostream_t = std_basic_ostream<xchar_t>;
 
-using ostream_t = std::basic_ostream<u8char_t>;
-using xostream_t = std::basic_ostream<xchar_t>;
+template <typename CharT>
+using std_basic_iostream = std::basic_iostream<CharT>;
+using iostream_t = std_basic_iostream<u8char_t>;
+using xiostream_t = std_basic_iostream<xchar_t>;
 
-using iostream_t = std::basic_iostream<u8char_t>;
-using xiostream_t = std::basic_iostream<xchar_t>;
-
-using ifile_t = std::basic_ifstream<u8char_t>;
-using xifile_t = std::basic_ifstream<xchar_t>;
-
-using ofile_t = std::basic_ofstream<u8char_t>;
-using xofile_t = std::basic_ofstream<xchar_t>;
-
-using file_t = std::basic_fstream<u8char_t>;
-using xfile_t = std::basic_fstream<xchar_t>;
-
-using filebuf_t = std::basic_filebuf<u8char_t>;
-using xfilebuf_t = std::basic_filebuf<xchar_t>;
-
-#define std_input std::in
-#define std_output std::cout
+template <typename CharT>
+using std_basic_streambuf = std::basic_streambuf<CharT>;
+using streambuf_t = std_basic_streambuf<u8char_t>;
+using xstreambuf_t = std_basic_streambuf<xchar_t>;
 
 #if defined(__caitlyn_windows)
 inline void set_windows_utf8_encode() {
