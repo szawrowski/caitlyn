@@ -9,4 +9,7 @@
 #define BEGIN_CAITLYN_NS namespace cait {
 #define END_CAITLYN_NS }
 
+#define BEGIN_DETAIL_NS namespace __detail {
+#define END_DETAIL_NS }
+
 #endif  // CAITLYN_CORE_DEFS_GLOBAL_DEFINITIONS_H_
