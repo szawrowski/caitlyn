@@ -64,12 +64,12 @@
 #endif
 
 #if defined(__caitlyn_cxxstd)
-  #define __caitlyn_cxxstd_legacy_ver = 199711L
-  #define __caitlyn_cxxstd11_ver = 201103L
-  #define __caitlyn_cxxstd14_ver = 201402L
-  #define __caitlyn_cxxstd17_ver = 201703L
-  #define __caitlyn_cxxstd20_ver = 202002L
-  #define __caitlyn_cxxstd23_ver = 202302L
+  #define __caitlyn_cxxstd_legacy_ver 199711L
+  #define __caitlyn_cxxstd11_ver 201103L
+  #define __caitlyn_cxxstd14_ver 201402L
+  #define __caitlyn_cxxstd17_ver 201703L
+  #define __caitlyn_cxxstd20_ver 202002L
+  #define __caitlyn_cxxstd23_ver 202302L
 #endif
 
 // Additional platform-specific settings
