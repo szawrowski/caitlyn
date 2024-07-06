@@ -27,6 +27,14 @@ inline size_t calculate_char_count<u8char_t>(const code_point_t code_point) {
   return 4;
 }
 
+template <>
+inline size_t calculate_char_count<u16char_t>(const code_point_t code_point) {
+  if (code_point <= 0xFFFF) {
+    return 1;
+  }
+  return 2;
+}
+
 END_CAITLYN_NS
 
 #endif  // CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_CALCULATOR_H_

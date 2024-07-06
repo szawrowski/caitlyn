@@ -9,7 +9,9 @@
 #include <string>
 #include <vector>
 
+#include "caitlyn/core/containers/defs/container_definitions.h"
 #include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/string/defs/string_definitions.h"
 #include "caitlyn/core/unicode/char/unicode_char.h"
 
 BEGIN_CAITLYN_NS
@@ -23,7 +25,7 @@ template <>
 class unicode_string<char_t> {
 public:
   using value_type = char_t;
-  using data_type = std::vector<char_t>;
+  using data_type = vector_t<value_type>;
   using iterator = data_type::iterator;
   using const_iterator = data_type::const_iterator;
   using size_type = size_t;
@@ -31,7 +33,7 @@ public:
 public:
   unicode_string() = default;
   unicode_string(const u8char_t* data) { from_chars(data); }
-  unicode_string(const std::basic_string<u8char_t>& data) { from_chars(data); }
+  unicode_string(const std_string_t& data) { from_chars(data); }
   unicode_string(const unicode_string& other) : data_{other.data_} {}
   unicode_string(unicode_string&& other) : data_{std::move(other.data_)} {}
 
@@ -41,7 +43,7 @@ public:
     return *this;
   }
 
-  unicode_string& operator=(const std::basic_string<u8char_t>& data) {
+  unicode_string& operator=(const std_string_t& data) {
     from_chars(data);
     return *this;
   }
@@ -81,8 +83,8 @@ public:
   }
 
 public:
-  [[nodiscard]] std::string to_std_string() const {
-    std::basic_ostringstream<u8char_t> oss;
+  [[nodiscard]] std_string_t to_std_string() const {
+    ostrstream_t oss;
     for (const auto& c : data_) {
       oss << char_to_std_string<u8char_t>(c.get_code_point());
     }
@@ -114,7 +116,7 @@ public:
   void clear() { data_.clear(); }
 
 private:
-  void from_chars(const std::basic_string<u8char_t>& data) {
+  void from_chars(const std_string_t& data) {
     const size_type size = data.size();
     data_type ret;
 
@@ -136,7 +138,7 @@ private:
 END_CAITLYN_NS
 
 static cait::string_t operator""_str(const cait::u8char_t* str,
-                                   const std::size_t) {
+                                     const std::size_t) {
   return cait::string_t{str};
 }
 
@@ -157,25 +159,22 @@ static cait::bool_t operator!=(const cait::string_t& lhs,
   return !(lhs == rhs);
 }
 
-static std::basic_istream<cait::u8char_t>& operator>>(
-    std::basic_istream<cait::u8char_t>& is, cait::string_t& str) {
+static cait::istream_t& operator>>(cait::istream_t& is, cait::string_t& str) {
 #if defined(__caitlyn_windows)
-  SetConsoleOutputCP(CP_UTF8);
-  SetConsoleCP(CP_UTF8);
+  cait::set_windows_utf8_encode();
 #endif
   if (is.good()) {
-    std::string input;
+    cait::std_string_t input;
     std::getline(is, input);
     str = input;
   }
   return is;
 }
 
-static std::basic_ostream<cait::u8char_t>& operator<<(
-    std::basic_ostream<cait::u8char_t>& os, const cait::string_t& str) {
+static cait::ostream_t& operator<<(cait::ostream_t& os,
+                                   const cait::string_t& str) {
 #if defined(__caitlyn_windows)
-  SetConsoleOutputCP(CP_UTF8);
-  SetConsoleCP(CP_UTF8);
+  cait::set_windows_utf8_encode();
 #endif
   if (os.good()) {
     os << str.to_std_string();

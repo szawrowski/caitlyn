@@ -13,11 +13,10 @@
 BEGIN_CAITLYN_NS
 
 template <typename CharT>
-static std::basic_string<CharT> char_to_std_string(code_point_t code_point);
+static std_basic_string<CharT> char_to_std_string(code_point_t code_point);
 
 template <>
-inline std::basic_string<u8char_t> char_to_std_string(
-    const code_point_t code_point) {
+inline std_string_t char_to_std_string(const code_point_t code_point) {
   std::basic_ostringstream<u8char_t> oss;
   const auto [first, second, third, fourth] =
       get_char_seq<u8char_t>(code_point);

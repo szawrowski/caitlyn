@@ -8,10 +8,12 @@
 
 #include <string>
 
+#include "caitlyn/core/io/defs/io_definitions.h"
+#include "caitlyn/core/string/defs/string_definitions.h"
 #include "caitlyn/core/unicode/converters/unicode_string_converters.h"
 
 #if defined(__caitlyn_windows)
-  #include <windows.h>
+#include <windows.h>
 #endif
 
 BEGIN_CAITLYN_NS
@@ -25,14 +27,14 @@ template <>
 class unicode_char<u8char_t> {
 public:
   using value_type = u8char_t;
-  using char_seq_type = std::basic_string<u8char_t>;
+  using sequence_type = std_string_t;
   using code_point_type = code_point_t;
   using size_type = size_t;
 
 public:
   unicode_char() = default;
   unicode_char(const value_type* symbol) { from_chars(symbol); }
-  unicode_char(const char_seq_type& symbol) { from_chars(symbol); }
+  unicode_char(const sequence_type& symbol) { from_chars(symbol); }
   unicode_char(const code_point_type code_point) : code_point_{code_point} {}
 
 public:
@@ -41,7 +43,7 @@ public:
     return *this;
   }
 
-  unicode_char& operator=(const char_seq_type& symbol) {
+  unicode_char& operator=(const sequence_type& symbol) {
     from_chars(symbol);
     return *this;
   }
@@ -59,24 +61,23 @@ public:
   }
 
 private:
-  void from_chars(const char_seq_type& seq) {
+  void from_chars(const sequence_type& seq) {
     code_point_type code_point;
-    const auto lead = static_cast<uchar_t>(seq[0]);
-
+    const auto lead = static_cast<byte_t>(seq[0]);
     if ((lead & 0x80) == 0x0) {
       code_point = lead;
     } else if ((lead & 0xE0) == 0xC0) {
       code_point = (lead & 0x1F) << 6;
-      code_point |= static_cast<uchar_t>(seq[1]) & 0x3F;
+      code_point |= static_cast<byte_t>(seq[1]) & 0x3F;
     } else if ((lead & 0xF0) == 0xE0) {
       code_point = (lead & 0x0F) << 12;
-      code_point |= (static_cast<uchar_t>(seq[1]) & 0x3F) << 6;
-      code_point |= static_cast<uchar_t>(seq[2]) & 0x3F;
+      code_point |= (static_cast<byte_t>(seq[1]) & 0x3F) << 6;
+      code_point |= static_cast<byte_t>(seq[2]) & 0x3F;
     } else if ((lead & 0xF8) == 0xF0) {
       code_point = (lead & 0x07) << 18;
-      code_point |= (static_cast<uchar_t>(seq[1]) & 0x3F) << 12;
-      code_point |= (static_cast<uchar_t>(seq[2]) & 0x3F) << 6;
-      code_point |= static_cast<uchar_t>(seq[3]) & 0x3F;
+      code_point |= (static_cast<byte_t>(seq[1]) & 0x3F) << 12;
+      code_point |= (static_cast<byte_t>(seq[2]) & 0x3F) << 6;
+      code_point |= static_cast<byte_t>(seq[3]) & 0x3F;
     } else {
       code_point = 0x0;
     }
@@ -118,11 +119,10 @@ static cait::bool_t operator!=(const cait::char_t lhs, const cait::char_t rhs) {
   return lhs.get_code_point() != rhs.get_code_point();
 }
 
-static std::basic_istream<cait::u8char_t>& operator>>(
-    std::basic_istream<cait::u8char_t>& input_stream, cait::char_t& value) {
+static cait::istream_t& operator>>(cait::istream_t& input_stream,
+                                   cait::char_t& value) {
 #if defined(__caitlyn_windows)
-  SetConsoleOutputCP(CP_UTF8);
-  SetConsoleCP(CP_UTF8);
+  cait::set_windows_utf8_encode();
 #endif
   if (!input_stream.good()) {
     return input_stream;
@@ -143,12 +143,10 @@ static std::basic_istream<cait::u8char_t>& operator>>(
   return input_stream;
 }
 
-static std::basic_ostream<cait::u8char_t>& operator<<(
-    std::basic_ostream<cait::u8char_t>& output_stream,
-    const cait::char_t& value) {
+static cait::ostream_t& operator<<(cait::ostream_t& output_stream,
+                                   const cait::char_t& value) {
 #if defined(__caitlyn_windows)
-  SetConsoleOutputCP(CP_UTF8);
-  SetConsoleCP(CP_UTF8);
+  cait::set_windows_utf8_encode();
 #endif
   if (output_stream.good()) {
     output_stream << cait::char_to_std_string<cait::u8char_t>(
