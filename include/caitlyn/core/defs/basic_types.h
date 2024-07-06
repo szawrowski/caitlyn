@@ -24,30 +24,18 @@ using u32char_t = char32_t;
 using byte_t = unsigned char;
 using int_t = signed int;
 using uint_t = unsigned int;
-
-#if defined(__caitlyn_unix)
-  using int8_t = signed char;
-  using uint8_t = unsigned char;
-  using int16_t = signed short int;
-  using uint16_t = unsigned short int;
-  using int32_t = signed int;
-  using uint32_t = unsigned int;
-  #if (__caitlyn_arch == 64)
-    using int64_t = signed long int;
-    using uint64_t = unsigned long int;
-  #else
-    using int64_t = signed long long int;
-    using uint64_t = unsigned long long int;
-  #endif
-#elif defined(__caitlyn_windows)
-  using int8_t = __int8;
-  using uint8_t = unsigned __int8;
-  using int16_t = __int16;
-  using uint16_t = unsigned __int16;
-  using int32_t = __int32;
-  using uint32_t = unsigned __int32;
-  using int64_t = __int64;
-  using uint64_t = unsigned __int64;
+using int8_t = signed char;
+using uint8_t = unsigned char;
+using int16_t = signed short int;
+using uint16_t = unsigned short int;
+using int32_t = signed int;
+using uint32_t = unsigned int;
+#if defined(__caitlyn_unix) && (__caitlyn_arch == 64)
+  using int64_t = signed long int;
+  using uint64_t = unsigned long int;
+#else
+  using int64_t = signed long long int;
+  using uint64_t = unsigned long long int;
 #endif
 
 using ptrdiff_t =
