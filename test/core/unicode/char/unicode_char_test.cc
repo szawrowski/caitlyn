@@ -17,7 +17,7 @@ TEST(CoreUnicodeTest, CharEmojiInit) {
   ASSERT_TRUE(emoji == "🙂");
 }
 
-TEST(CoreUnicodeTest, CharEqOperator) {
+TEST(CoreUnicodeTest, CharAssignmentOperator) {
   cait::char_t symbol{};
   symbol = 'A';
   ASSERT_TRUE(symbol == cait::char_t{'A'});
