@@ -135,6 +135,11 @@ private:
 
 END_CAITLYN_NS
 
+static cait::string_t operator""_str(const cait::u8char_t* str,
+                                   const std::size_t) {
+  return cait::string_t{str};
+}
+
 static cait::bool_t operator==(const cait::string_t& lhs,
                                const cait::string_t& rhs) {
   for (auto lhs_it = lhs.begin(), lhs_end = lhs.end(), rhs_it = rhs.begin(),

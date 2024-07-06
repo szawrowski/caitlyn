@@ -7,5 +7,6 @@
 #define CAITLYN_CORE_H_
 
 #include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/unicode/string/unicode_string.h"
 
 #endif  // CAITLYN_CORE_H_

@@ -85,6 +85,11 @@ private:
 
 END_CAITLYN_NS
 
+static cait::char_t operator""_char(const cait::u8char_t* symbol,
+                                    const std::size_t) {
+  return cait::char_t{symbol};
+}
+
 static cait::bool_t operator<(const cait::char_t lhs, const cait::char_t rhs) {
   return lhs.get_code_point() < rhs.get_code_point();
 }
