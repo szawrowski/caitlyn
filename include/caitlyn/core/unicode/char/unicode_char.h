@@ -8,7 +8,6 @@
 
 #include <string>
 
-#include "caitlyn/core/unicode/char/unicode_char.h"
 #include "caitlyn/core/unicode/defs/unicode_types.h"
 
 BEGIN_CAITLYN_NS
