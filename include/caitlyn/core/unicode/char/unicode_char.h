@@ -10,6 +10,10 @@
 
 #include "caitlyn/core/unicode/converters/unicode_string_converters.h"
 
+#if defined(__caitlyn_windows)
+  #include <windows.h>
+#endif
+
 BEGIN_CAITLYN_NS
 
 template <typename CharT>
@@ -116,6 +120,10 @@ static cait::bool_t operator!=(const cait::char_t lhs, const cait::char_t rhs) {
 
 static std::basic_istream<cait::u8char_t>& operator>>(
     std::basic_istream<cait::u8char_t>& input_stream, cait::char_t& value) {
+#if defined(__caitlyn_windows)
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
+#endif
   if (!input_stream.good()) {
     return input_stream;
   }
@@ -138,6 +146,10 @@ static std::basic_istream<cait::u8char_t>& operator>>(
 static std::basic_ostream<cait::u8char_t>& operator<<(
     std::basic_ostream<cait::u8char_t>& output_stream,
     const cait::char_t& value) {
+#if defined(__caitlyn_windows)
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
+#endif
   if (output_stream.good()) {
     output_stream << cait::char_to_std_string<cait::u8char_t>(
         value.get_code_point());

@@ -159,6 +159,10 @@ static cait::bool_t operator!=(const cait::string_t& lhs,
 
 static std::basic_istream<cait::u8char_t>& operator>>(
     std::basic_istream<cait::u8char_t>& is, cait::string_t& str) {
+#if defined(__caitlyn_windows)
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
+#endif
   if (is.good()) {
     std::string input;
     std::getline(is, input);
@@ -169,6 +173,10 @@ static std::basic_istream<cait::u8char_t>& operator>>(
 
 static std::basic_ostream<cait::u8char_t>& operator<<(
     std::basic_ostream<cait::u8char_t>& os, const cait::string_t& str) {
+#if defined(__caitlyn_windows)
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
+#endif
   if (os.good()) {
     os << str.to_std_string();
   }
