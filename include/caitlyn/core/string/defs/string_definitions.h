@@ -10,6 +10,13 @@
 
 #include "caitlyn/core/defs/basic_types.h"
 
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd14_ver)
+  using namespace std::literals::string_literals;
+#endif
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+using namespace std::literals::string_view_literals;
+#endif
+
 BEGIN_CAITLYN_NS
 
 template <typename CharT>
