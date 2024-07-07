@@ -8,5 +8,6 @@
 
 #include "caitlyn/core/memory.h"
 #include "caitlyn/core/string.h"
+#include "caitlyn/core/utility.h"
 
 #endif  // CAITLYN_CORE_H_
