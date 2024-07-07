@@ -17,7 +17,7 @@ BEGIN_CAITLYN_NS
 template <typename CharT>
 class unicode_char;
 
-using char_t = unicode_char<u8char_t>;
+using unichar_t = unicode_char<u8char_t>;
 
 template <>
 class unicode_char<u8char_t> {
@@ -86,37 +86,37 @@ private:
 
 END_CAITLYN_NS
 
-static cait::char_t operator""_char(const cait::u8char_t* symbol,
+static cait::unichar_t operator""_char(const cait::u8char_t* symbol,
                                     const std::size_t) {
-  return cait::char_t{symbol};
+  return cait::unichar_t{symbol};
 }
 
-static cait::bool_t operator<(const cait::char_t lhs, const cait::char_t rhs) {
+static cait::bool_t operator<(const cait::unichar_t lhs, const cait::unichar_t rhs) {
   return lhs.get_code_point() < rhs.get_code_point();
 }
 
-static cait::bool_t operator>(const cait::char_t lhs, const cait::char_t rhs) {
+static cait::bool_t operator>(const cait::unichar_t lhs, const cait::unichar_t rhs) {
   return lhs.get_code_point() > rhs.get_code_point();
 }
 
-static cait::bool_t operator<=(const cait::char_t lhs, const cait::char_t rhs) {
+static cait::bool_t operator<=(const cait::unichar_t lhs, const cait::unichar_t rhs) {
   return lhs.get_code_point() <= rhs.get_code_point();
 }
 
-static cait::bool_t operator>=(const cait::char_t lhs, const cait::char_t rhs) {
+static cait::bool_t operator>=(const cait::unichar_t lhs, const cait::unichar_t rhs) {
   return lhs.get_code_point() >= rhs.get_code_point();
 }
 
-static cait::bool_t operator==(const cait::char_t lhs, const cait::char_t rhs) {
+static cait::bool_t operator==(const cait::unichar_t lhs, const cait::unichar_t rhs) {
   return lhs.get_code_point() == rhs.get_code_point();
 }
 
-static cait::bool_t operator!=(const cait::char_t lhs, const cait::char_t rhs) {
+static cait::bool_t operator!=(const cait::unichar_t lhs, const cait::unichar_t rhs) {
   return lhs.get_code_point() != rhs.get_code_point();
 }
 
 static cait::istream_t& operator>>(cait::istream_t& input_stream,
-                                   cait::char_t& value) {
+                                   cait::unichar_t& value) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
@@ -140,7 +140,7 @@ static cait::istream_t& operator>>(cait::istream_t& input_stream,
 }
 
 static cait::ostream_t& operator<<(cait::ostream_t& output_stream,
-                                   const cait::char_t& value) {
+                                   const cait::unichar_t& value) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif

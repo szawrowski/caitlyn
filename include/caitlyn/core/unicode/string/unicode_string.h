@@ -19,12 +19,12 @@ BEGIN_CAITLYN_NS
 template <typename CharT>
 class unicode_string;
 
-using string_t = unicode_string<char_t>;
+using unistring_t = unicode_string<unichar_t>;
 
 template <>
-class unicode_string<char_t> {
+class unicode_string<unichar_t> {
 public:
-  using value_type = char_t;
+  using value_type = unichar_t;
   using data_type = vector_t<value_type>;
   using iterator = data_type::iterator;
   using const_iterator = data_type::const_iterator;
@@ -56,13 +56,13 @@ public:
   }
 
 public:
-  [[nodiscard]] const char_t& operator[](const size_type pos) const {
+  [[nodiscard]] const unichar_t& operator[](const size_type pos) const {
     return data_[pos];
   }
 
-  [[nodiscard]] char_t& operator[](const size_type pos) { return data_[pos]; }
+  [[nodiscard]] unichar_t& operator[](const size_type pos) { return data_[pos]; }
 
-  unicode_string& operator+=(const char_t& c) {
+  unicode_string& operator+=(const unichar_t& c) {
     push_back(c);
     return *this;
   }
@@ -76,7 +76,7 @@ public:
   [[nodiscard]] const_iterator cend() const { return data_.cend(); }
 
 public:
-  void append(const char_t& value) { data_.push_back(value); }
+  void append(const unichar_t& value) { data_.push_back(value); }
 
   void append(const unicode_string& other) {
     data_.insert(data_.end(), other.data_.begin(), other.data_.end());
@@ -109,7 +109,7 @@ public:
 
   [[nodiscard]] bool is_empty() const { return data_.empty(); }
 
-  void push_back(const char_t& c) { data_.push_back(c); }
+  void push_back(const unichar_t& c) { data_.push_back(c); }
 
   void pop_back() { data_.pop_back(); }
 
@@ -124,7 +124,7 @@ private:
       if (pos >= size) {
         break;
       }
-      char_t tmp = data.substr(pos).c_str();
+      unichar_t tmp = data.substr(pos).c_str();
       ret.emplace_back(tmp);
       pos += tmp.byte_count();
     }
@@ -137,13 +137,13 @@ private:
 
 END_CAITLYN_NS
 
-static cait::string_t operator""_str(const cait::u8char_t* str,
+static cait::unistring_t operator""_str(const cait::u8char_t* str,
                                      const std::size_t) {
-  return cait::string_t{str};
+  return cait::unistring_t{str};
 }
 
-static cait::bool_t operator==(const cait::string_t& lhs,
-                               const cait::string_t& rhs) {
+static cait::bool_t operator==(const cait::unistring_t& lhs,
+                               const cait::unistring_t& rhs) {
   for (auto lhs_it = lhs.begin(), lhs_end = lhs.end(), rhs_it = rhs.begin(),
             rhs_end = rhs.end();
        lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
@@ -154,12 +154,12 @@ static cait::bool_t operator==(const cait::string_t& lhs,
   return true;
 }
 
-static cait::bool_t operator!=(const cait::string_t& lhs,
-                               const cait::string_t& rhs) {
+static cait::bool_t operator!=(const cait::unistring_t& lhs,
+                               const cait::unistring_t& rhs) {
   return !(lhs == rhs);
 }
 
-static cait::istream_t& operator>>(cait::istream_t& is, cait::string_t& str) {
+static cait::istream_t& operator>>(cait::istream_t& is, cait::unistring_t& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
@@ -172,7 +172,7 @@ static cait::istream_t& operator>>(cait::istream_t& is, cait::string_t& str) {
 }
 
 static cait::ostream_t& operator<<(cait::ostream_t& os,
-                                   const cait::string_t& str) {
+                                   const cait::unistring_t& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
