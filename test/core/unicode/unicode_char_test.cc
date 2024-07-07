@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "caitlyn/core/unicode/char/unicode_char.h"
+#include "caitlyn/core/string.h"
 
 TEST(CoreUnicodeTest, CharDefaultInit) {
   constexpr cait::unichar_t symbol{};

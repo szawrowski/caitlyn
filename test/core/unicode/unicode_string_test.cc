@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "caitlyn/core/unicode/string/unicode_string.h"
+#include "caitlyn/core/string.h"
 
 TEST(CoreUnicodeTest, StringDefaultInit) {
   const cait::unistring_t str{};
