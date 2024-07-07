@@ -13,6 +13,7 @@
 #include <system_error>
 
 #include "caitlyn/core/defs/core_definitions.h"
+#include "caitlyn/core/error/error.h"
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
   #include <expected>
