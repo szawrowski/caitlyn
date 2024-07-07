@@ -9,7 +9,7 @@
 #include <random>
 
 #include "caitlyn/core/defs/basic_types.h"
-#include "caitlyn/core/numeric/limits.h"
+#include "caitlyn/core/numeric/utility/limits.h"
 
 BEGIN_CAITLYN_NS
 
