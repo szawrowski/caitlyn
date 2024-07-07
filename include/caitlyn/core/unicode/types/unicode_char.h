@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_UNICODE_CHAR_UNICODE_CHAR_H_
-#define CAITLYN_CORE_UNICODE_CHAR_UNICODE_CHAR_H_
+#ifndef CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_
+#define CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_
 
 #include <string>
 
@@ -157,4 +157,4 @@ static cait::ostream_t& operator<<(cait::ostream_t& output_stream,
   return output_stream;
 }
 
-#endif  // CAITLYN_CORE_UNICODE_CHAR_UNICODE_CHAR_H_
+#endif  // CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_

@@ -6,6 +6,7 @@
 #ifndef CAITLYN_CORE_UNICODE_UNICODE_H_
 #define CAITLYN_CORE_UNICODE_UNICODE_H_
 
-#include "caitlyn/core/unicode/string/unicode_string.h"
+#include "caitlyn/core/unicode/types/unicode_char.h"
+#include "caitlyn/core/unicode/types/unicode_string.h"
 
 #endif // CAITLYN_CORE_UNICODE_UNICODE_H_

@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_UNICODE_STRING_UNICODE_STRING_H_
-#define CAITLYN_CORE_UNICODE_STRING_UNICODE_STRING_H_
+#ifndef CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
+#define CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
 
 #include <string>
 #include <vector>
@@ -12,7 +12,7 @@
 #include "caitlyn/core/containers/defs/container_definitions.h"
 #include "caitlyn/core/defs/basic_types.h"
 #include "caitlyn/core/string/defs/string_definitions.h"
-#include "caitlyn/core/unicode/char/unicode_char.h"
+#include "caitlyn/core/unicode/types/unicode_char.h"
 
 BEGIN_CAITLYN_NS
 
@@ -185,4 +185,4 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
   return os;
 }
 
-#endif  // CAITLYN_CORE_UNICODE_STRING_UNICODE_STRING_H_
+#endif  // CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
