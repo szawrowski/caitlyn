@@ -6,6 +6,14 @@
 #ifndef CAITLYN_CORE_MEMORY_H_
 #define CAITLYN_CORE_MEMORY_H_
 
-#include "caitlyn/core/memory/size_calculation.h"
+#include <memory>
+#include <new>
+#include <scoped_allocator>
+
+#include "caitlyn/core/memory/memory.h"
+
+#if (__caitlyn_cxxstd > __caitlyn_cxxstd14_ver)
+  #include <memory_resource>
+#endif
 
 #endif  // CAITLYN_CORE_MEMORY_H_
