@@ -12,10 +12,6 @@
 #include "caitlyn/core/string/defs/string_definitions.h"
 #include "caitlyn/core/unicode/converters/unicode_string_converters.h"
 
-#if defined(__caitlyn_windows)
-#include <windows.h>
-#endif
-
 BEGIN_CAITLYN_NS
 
 template <typename CharT>
