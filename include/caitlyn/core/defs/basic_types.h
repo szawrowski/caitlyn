@@ -11,46 +11,53 @@
 
 BEGIN_CAITLYN_NS
 
-// Characters
+// Common haracters
 using char_t = char;
 using uchar_t = unsigned char;
 using schar_t = signed char;
 using xchar_t = wchar_t;
-using u8char_t = char;
+
+// Unicode characters
+using u8char_t = char_t;
 using u16char_t = char16_t;
 using u32char_t = char32_t;
 
-// Integrals
-using byte_t = unsigned char;
-using int_t = signed int;
-using uint_t = unsigned int;
-using int8_t = signed char;
-using uint8_t = unsigned char;
+// Special integrals
+using byte_t = uchar_t;
+using int_t = decltype(0);
+using uint_t = decltype(0U);
+
+// Common integrals
+using int8_t = schar_t;
+using uint8_t = uchar_t;
 using int16_t = signed short int;
 using uint16_t = unsigned short int;
-using int32_t = signed int;
-using uint32_t = unsigned int;
+using int32_t = int_t;
+using uint32_t = uint_t;
 #if defined(__caitlyn_unix) && (__caitlyn_arch == 64)
-  using int64_t = signed long int;
-  using uint64_t = unsigned long int;
+  using int64_t = decltype(0L);
+  using uint64_t = decltype(0UL);
 #else
-  using int64_t = signed long long int;
-  using uint64_t = unsigned long long int;
+  using int64_t = decltype(0LL);
+  using uint64_t = decltype(0ULL);
 #endif
 
+// System integrals
 using ptrdiff_t =
-    decltype(static_cast<int*>(nullptr) - static_cast<int*>(nullptr));
+    decltype(static_cast<int_t*>(nullptr) - static_cast<int_t*>(nullptr));
 
 using size_t = decltype(sizeof(0));
 using ssize_t = ptrdiff_t;
+using uintmax_t = size_t;
+using uintptr_t = size_t;
 
 // Floating point
-using float32_t = float;
-using float64_t = double;
-using floatx_t = long double;
+using float32_t = decltype(.0f);
+using float64_t = decltype(.0);
+using floatx_t = decltype(.0L);
 
 // Logical
-using bool_t = bool;
+using bool_t = decltype(true);
 
 // System
 using null_t = decltype(nullptr);
