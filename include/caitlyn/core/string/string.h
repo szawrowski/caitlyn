@@ -6,6 +6,7 @@
 #ifndef CAITLYN_CORE_STRING_STRING_H_
 #define CAITLYN_CORE_STRING_STRING_H_
 
+#include "caitlyn/core/string/utility/string_utility.h"
 #include "caitlyn/core/unicode/unicode.h"
 
 #endif  // CAITLYN_CORE_STRING_STRING_H_

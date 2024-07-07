@@ -12,6 +12,7 @@
 #include <cwctype>
 #include <cuchar>
 
+#include "caitlyn/core/char/char.h"
 #include "caitlyn/core/string/string.h"
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
