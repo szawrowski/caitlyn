@@ -7,6 +7,7 @@
 #define CAITLYN_CORE_MEMORY_MEMORY_H_
 
 #include "caitlyn/core/memory/defs/memory_types.h"
+#include "caitlyn/core/memory/pointers/pointers.h"
 #include "caitlyn/core/memory/size_calculation.h"
 
 #endif  // CAITLYN_CORE_MEMORY_MEMORY_H_
