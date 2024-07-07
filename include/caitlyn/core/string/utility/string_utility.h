@@ -6,6 +6,7 @@
 #ifndef CAITLYN_CORE_STRING_UTILITY_STRING_UTILITY_H_
 #define CAITLYN_CORE_STRING_UTILITY_STRING_UTILITY_H_
 
+#include "caitlyn/core/char/char.h"
 #include "caitlyn/core/containers.h"
 #include "caitlyn/core/string/defs/string_definitions.h"
 
