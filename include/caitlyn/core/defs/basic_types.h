@@ -12,7 +12,7 @@
 BEGIN_CAITLYN_NS
 
 // Characters
-using stdchar_t = char;
+using char_t = char;
 using uchar_t = unsigned char;
 using schar_t = signed char;
 using xchar_t = wchar_t;

@@ -12,14 +12,14 @@
 
 BEGIN_CAITLYN_NS
 
-static constexpr int_t char_to_digit(const stdchar_t value) {
+static constexpr int_t char_to_digit(const char_t value) {
   if (value >= 0x30 && value <= 0x39) {
     return value - 0x30;
   }
   return -1;
 }
 
-static constexpr int_t char_to_int(const stdchar_t value) {
+static constexpr int_t char_to_int(const char_t value) {
   return std::isdigit(value) ? value - 0x30 : std::tolower(value - 0x61) + 0xA;
 }
 

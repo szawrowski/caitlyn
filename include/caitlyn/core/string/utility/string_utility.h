@@ -11,7 +11,7 @@
 BEGIN_CAITLYN_NS
 
 static vector_t<std_string_t> split(const std_string_t& text,
-                                    const stdchar_t delim) {
+                                    const char_t delim) {
   strstream_t ss{text};
   std_string_t item;
   vector_t<std_string_t> data;
@@ -33,15 +33,15 @@ static std_string_t repeat(const std_string_t& str, const size_t count) {
   return std::move(ss.str());
 }
 
-static std_string_t to_uppercase(const std_string_t& value) {
-  std::transform(value.begin(), value.end(), value.begin(), [](stdchar_t c) {
+static std_string_t to_uppercase(std_string_t value) {
+  std::transform(value.begin(), value.end(), value.begin(), [](char_t c) {
       return to_uppercase(c);
   });
   return value;
 }
 
-static std_string_t to_lowercase(const std_string_t& value) {
-  std::transform(value.begin(), value.end(), value.begin(), [](stdchar_t c) {
+static std_string_t to_lowercase(std_string_t value) {
+  std::transform(value.begin(), value.end(), value.begin(), [](char_t c) {
       return to_lowercase(c);
   });
   return value;
