@@ -8,6 +8,7 @@
 
 #include "caitlyn/core/utility/comparators.h"
 #include "caitlyn/core/utility/converters/char_converter.h"
+#include "caitlyn/core/utility/defs/utility_definitions.h"
 #include "caitlyn/core/utility/random.h"
 
 #endif  // CAITLYN_CORE_UTILITY_UTILITY_H_
