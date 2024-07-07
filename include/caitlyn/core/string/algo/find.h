@@ -6,7 +6,8 @@
 #ifndef CAITLYN_CORE_STRING_ALGO_FIND_H_
 #define CAITLYN_CORE_STRING_ALGO_FIND_H_
 
-#include "caitlyn/core/string/string.h"
+#include "caitlyn/core/containers/containers.h"
+#include "caitlyn/core/string/defs/string_definitions.h"
 
 BEGIN_CAITLYN_NS
 BEGIN_DETAIL_NS
