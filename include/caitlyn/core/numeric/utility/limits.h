@@ -14,16 +14,16 @@
 BEGIN_CAITLYN_NS
 
 template <typename T>
-static constexpr size_t min_value() {
+static constexpr T min_value() {
   return std::numeric_limits<T>::min();
 }
 
 template <typename T>
-static constexpr size_t max_value() {
+static constexpr T max_value() {
   return std::numeric_limits<T>::max();
 }
 
-template<typename T>
+template <typename T>
 static constexpr std::pair<T, T> value_range() {
   return std::make_pair(min_value<T>(), max_value<T>());
 }
