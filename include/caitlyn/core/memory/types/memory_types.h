@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_MEMORY_DEFS_MEMORY_TYPES_H_
-#define CAITLYN_CORE_MEMORY_DEFS_MEMORY_TYPES_H_
+#ifndef CAITLYN_CORE_MEMORY_TYPES_MEMORY_TYPES_H_
+#define CAITLYN_CORE_MEMORY_TYPES_MEMORY_TYPES_H_
 
 #include "caitlyn/core/defs/basic_types.h"
 
@@ -30,4 +30,4 @@ enum class datasize_t : byte_t {
 
 END_CAITLYN_NS
 
-#endif // CAITLYN_CORE_MEMORY_DEFS_MEMORY_TYPES_H_
+#endif // CAITLYN_CORE_MEMORY_TYPES_MEMORY_TYPES_H_
