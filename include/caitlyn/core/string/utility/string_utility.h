@@ -19,7 +19,7 @@ static vector_t<string_t> split(const string_t& text, const char_t delim) {
   while (std::getline(ss, item, delim)) {
     data.emplace_back(item);
   }
-  return std::move(data);
+  return data;
 }
 
 static string_t repeat(const string_t& str, const size_t count) {
@@ -30,7 +30,7 @@ static string_t repeat(const string_t& str, const size_t count) {
   for (size_t i = 0; i < count; ++i) {
     ss << str;
   }
-  return std::move(ss.str());
+  return ss.str();
 }
 
 static string_t to_uppercase(string_t value) {
