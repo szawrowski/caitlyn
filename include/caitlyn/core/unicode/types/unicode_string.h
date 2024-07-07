@@ -19,7 +19,7 @@ BEGIN_CAITLYN_NS
 template <typename CharT>
 class unicode_string;
 
-using unistring_t = unicode_string<unichar_t>;
+using unistr_t = unicode_string<unichar_t>;
 
 template <>
 class unicode_string<unichar_t> {
@@ -139,13 +139,13 @@ private:
 
 END_CAITLYN_NS
 
-static cait::unistring_t operator""_str(const cait::u8char_t* str,
+static cait::unistr_t operator""_str(const cait::u8char_t* str,
                                         const std::size_t) {
-  return cait::unistring_t{str};
+  return cait::unistr_t{str};
 }
 
-static cait::bool_t operator==(const cait::unistring_t& lhs,
-                               const cait::unistring_t& rhs) {
+static cait::bool_t operator==(const cait::unistr_t& lhs,
+                               const cait::unistr_t& rhs) {
   for (auto lhs_it = lhs.begin(), lhs_end = lhs.end(), rhs_it = rhs.begin(),
             rhs_end = rhs.end();
        lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
@@ -156,13 +156,13 @@ static cait::bool_t operator==(const cait::unistring_t& lhs,
   return true;
 }
 
-static cait::bool_t operator!=(const cait::unistring_t& lhs,
-                               const cait::unistring_t& rhs) {
+static cait::bool_t operator!=(const cait::unistr_t& lhs,
+                               const cait::unistr_t& rhs) {
   return !(lhs == rhs);
 }
 
 static cait::istream_t& operator>>(cait::istream_t& is,
-                                   cait::unistring_t& str) {
+                                   cait::unistr_t& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
@@ -175,7 +175,7 @@ static cait::istream_t& operator>>(cait::istream_t& is,
 }
 
 static cait::ostream_t& operator<<(cait::ostream_t& os,
-                                   const cait::unistring_t& str) {
+                                   const cait::unistr_t& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
