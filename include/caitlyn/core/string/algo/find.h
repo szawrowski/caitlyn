@@ -11,8 +11,8 @@
 BEGIN_CAITLYN_NS
 BEGIN_DETAIL_NS
 
-static vector_t<size_t> get_kmp_failure_vec(const string_t& pattern,
-                                            const size_t pattern_size) {
+static vector_t<size_t> get_kmp_failure_vec(const string_t& pattern) {
+  const size_t pattern_size = pattern.size();
   auto failure = vector_t<size_t>(pattern_size + 1);
   failure[0] = -1;
 
@@ -30,7 +30,7 @@ END_DETAIL_NS
 static bool_t kmp(const string_t& pattern, const string_t& text) {
   const size_t text_size = text.size();
   const size_t pattern_size = pattern.size();
-  const auto failure = __detail::get_kmp_failure_vec(pattern, pattern_size);
+  const auto failure = __detail::get_kmp_failure_vec(pattern);
 
   for (size_t i = 0, j = 0; i < text_size; ++i) {
     while (j != string_t::npos && pattern[j] != text[i]) {
