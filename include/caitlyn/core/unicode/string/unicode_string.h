@@ -33,7 +33,7 @@ public:
 public:
   unicode_string() = default;
   unicode_string(const u8char_t* data) { from_chars(data); }
-  unicode_string(const std_string_t& data) { from_chars(data); }
+  unicode_string(const string_t& data) { from_chars(data); }
   unicode_string(const unicode_string& other) : data_{other.data_} {}
   unicode_string(unicode_string&& other) : data_{std::move(other.data_)} {}
 
@@ -43,7 +43,7 @@ public:
     return *this;
   }
 
-  unicode_string& operator=(const std_string_t& data) {
+  unicode_string& operator=(const string_t& data) {
     from_chars(data);
     return *this;
   }
@@ -60,7 +60,9 @@ public:
     return data_[pos];
   }
 
-  [[nodiscard]] unichar_t& operator[](const size_type pos) { return data_[pos]; }
+  [[nodiscard]] unichar_t& operator[](const size_type pos) {
+    return data_[pos];
+  }
 
   unicode_string& operator+=(const unichar_t& c) {
     push_back(c);
@@ -83,7 +85,7 @@ public:
   }
 
 public:
-  [[nodiscard]] std_string_t to_std_string() const {
+  [[nodiscard]] string_t to_std_string() const {
     ostrstream_t oss;
     for (const auto& c : data_) {
       oss << char_to_std_string<u8char_t>(c.get_code_point());
@@ -116,7 +118,7 @@ public:
   void clear() { data_.clear(); }
 
 private:
-  void from_chars(const std_string_t& data) {
+  void from_chars(const string_t& data) {
     const size_type size = data.size();
     data_type ret;
 
@@ -138,7 +140,7 @@ private:
 END_CAITLYN_NS
 
 static cait::unistring_t operator""_str(const cait::u8char_t* str,
-                                     const std::size_t) {
+                                        const std::size_t) {
   return cait::unistring_t{str};
 }
 
@@ -159,12 +161,13 @@ static cait::bool_t operator!=(const cait::unistring_t& lhs,
   return !(lhs == rhs);
 }
 
-static cait::istream_t& operator>>(cait::istream_t& is, cait::unistring_t& str) {
+static cait::istream_t& operator>>(cait::istream_t& is,
+                                   cait::unistring_t& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
   if (is.good()) {
-    cait::std_string_t input;
+    cait::string_t input;
     std::getline(is, input);
     str = input;
   }

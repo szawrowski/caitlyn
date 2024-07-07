@@ -10,11 +10,10 @@
 
 BEGIN_CAITLYN_NS
 
-static vector_t<std_string_t> split(const std_string_t& text,
-                                    const char_t delim) {
+static vector_t<string_t> split(const string_t& text, const char_t delim) {
   strstream_t ss{text};
-  std_string_t item;
-  vector_t<std_string_t> data;
+  string_t item;
+  vector_t<string_t> data;
 
   while (std::getline(ss, item, delim)) {
     data.emplace_back(item);
@@ -22,7 +21,7 @@ static vector_t<std_string_t> split(const std_string_t& text,
   return std::move(data);
 }
 
-static std_string_t repeat(const std_string_t& str, const size_t count) {
+static string_t repeat(const string_t& str, const size_t count) {
   if (count < 2) {
     return str;
   }
@@ -33,17 +32,15 @@ static std_string_t repeat(const std_string_t& str, const size_t count) {
   return std::move(ss.str());
 }
 
-static std_string_t to_uppercase(std_string_t value) {
-  std::transform(value.begin(), value.end(), value.begin(), [](char_t c) {
-      return to_uppercase(c);
-  });
+static string_t to_uppercase(string_t value) {
+  std::transform(value.begin(), value.end(), value.begin(),
+                 [](const char_t c) { return to_uppercase(c); });
   return value;
 }
 
-static std_string_t to_lowercase(std_string_t value) {
-  std::transform(value.begin(), value.end(), value.begin(), [](char_t c) {
-      return to_lowercase(c);
-  });
+static string_t to_lowercase(string_t value) {
+  std::transform(value.begin(), value.end(), value.begin(),
+                 [](const char_t c) { return to_lowercase(c); });
   return value;
 }
 

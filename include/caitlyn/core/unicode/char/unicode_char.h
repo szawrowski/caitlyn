@@ -23,7 +23,7 @@ template <>
 class unicode_char<u8char_t> {
 public:
   using value_type = u8char_t;
-  using sequence_type = std_string_t;
+  using sequence_type = string_t;
   using code_point_type = code_point_t;
   using size_type = size_t;
 
@@ -87,31 +87,37 @@ private:
 END_CAITLYN_NS
 
 static cait::unichar_t operator""_char(const cait::u8char_t* symbol,
-                                    const std::size_t) {
+                                       const std::size_t) {
   return cait::unichar_t{symbol};
 }
 
-static cait::bool_t operator<(const cait::unichar_t lhs, const cait::unichar_t rhs) {
+static cait::bool_t operator<(const cait::unichar_t lhs,
+                              const cait::unichar_t rhs) {
   return lhs.get_code_point() < rhs.get_code_point();
 }
 
-static cait::bool_t operator>(const cait::unichar_t lhs, const cait::unichar_t rhs) {
+static cait::bool_t operator>(const cait::unichar_t lhs,
+                              const cait::unichar_t rhs) {
   return lhs.get_code_point() > rhs.get_code_point();
 }
 
-static cait::bool_t operator<=(const cait::unichar_t lhs, const cait::unichar_t rhs) {
+static cait::bool_t operator<=(const cait::unichar_t lhs,
+                               const cait::unichar_t rhs) {
   return lhs.get_code_point() <= rhs.get_code_point();
 }
 
-static cait::bool_t operator>=(const cait::unichar_t lhs, const cait::unichar_t rhs) {
+static cait::bool_t operator>=(const cait::unichar_t lhs,
+                               const cait::unichar_t rhs) {
   return lhs.get_code_point() >= rhs.get_code_point();
 }
 
-static cait::bool_t operator==(const cait::unichar_t lhs, const cait::unichar_t rhs) {
+static cait::bool_t operator==(const cait::unichar_t lhs,
+                               const cait::unichar_t rhs) {
   return lhs.get_code_point() == rhs.get_code_point();
 }
 
-static cait::bool_t operator!=(const cait::unichar_t lhs, const cait::unichar_t rhs) {
+static cait::bool_t operator!=(const cait::unichar_t lhs,
+                               const cait::unichar_t rhs) {
   return lhs.get_code_point() != rhs.get_code_point();
 }
 
