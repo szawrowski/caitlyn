@@ -6,8 +6,8 @@
 #ifndef CAITLYN_CORE_NUMERIC_NUMERIC_H_
 #define CAITLYN_CORE_NUMERIC_NUMERIC_H_
 
-#include "caitlyn/core/numeric/limits.h"
-#include "caitlyn/core/numeric/radix.h"
-#include "caitlyn/core/numeric/sign.h"
+#include "caitlyn/core/numeric/types/sign.h"
+#include "caitlyn/core/numeric/types/radix.h"
+#include "caitlyn/core/numeric/utility/limits.h"
 
 #endif  // CAITLYN_CORE_NUMERIC_NUMERIC_H_

@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_NUMERIC_RADIX_H_
-#define CAITLYN_CORE_NUMERIC_RADIX_H_
+#ifndef CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_
+#define CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_
 
 #include "caitlyn/core/string/defs/string_definitions.h"
 
@@ -32,4 +32,4 @@ static constexpr auto numeric_base_chars(const radix_t radix) {
 
 END_CAITLYN_NS
 
-#endif  // CAITLYN_CORE_NUMERIC_RADIX_H_
+#endif  // CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_

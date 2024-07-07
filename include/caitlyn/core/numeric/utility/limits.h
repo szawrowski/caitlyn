@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_NUMERIC_LIMITS_H_
-#define CAITLYN_CORE_NUMERIC_LIMITS_H_
+#ifndef CAITLYN_CORE_NUMERIC_UTILITY_LIMITS_H_
+#define CAITLYN_CORE_NUMERIC_UTILITY_LIMITS_H_
 
 #include <limits>
 #include <utility>
@@ -26,4 +26,4 @@ static constexpr std::pair<T, T> value_range() {
 
 END_CAITLYN_NS
 
-#endif  // CAITLYN_CORE_NUMERIC_LIMITS_H_
+#endif  // CAITLYN_CORE_NUMERIC_UTILITY_LIMITS_H_
