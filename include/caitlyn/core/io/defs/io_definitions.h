@@ -8,7 +8,7 @@
 
 #include <streambuf>
 
-#include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/core.h"
 
 #if defined(__caitlyn_windows)
   #include <windows.h>

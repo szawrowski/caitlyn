@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_UNICODE_DEFS_UNICODE_TYPES_H_
 #define CAITLYN_CORE_UNICODE_DEFS_UNICODE_TYPES_H_
 
-#include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/core.h"
 
 BEGIN_CAITLYN_NS
 

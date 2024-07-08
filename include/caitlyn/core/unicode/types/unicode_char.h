@@ -6,8 +6,6 @@
 #ifndef CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_
 #define CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_
 
-#include <string>
-
 #include "caitlyn/core/io/defs/io_definitions.h"
 #include "caitlyn/core/string/defs/string_definitions.h"
 #include "caitlyn/core/unicode/converters/unicode_string_converters.h"
@@ -53,7 +51,7 @@ public:
   [[nodiscard]] code_point_type get_code_point() const { return code_point_; }
 
   [[nodiscard]] size_type byte_count() const {
-    return calculate_char_count<u8char_t>(code_point_);
+    return calculate_char_count<value_type>(code_point_);
   }
 
 private:
@@ -145,16 +143,17 @@ static cait::istream_t& operator>>(cait::istream_t& input_stream,
   return input_stream;
 }
 
-static cait::ostream_t& operator<<(cait::ostream_t& output_stream,
+static cait::ostream_t& operator<<(cait::ostream_t& os,
                                    const cait::unichar_t& value) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
-  if (output_stream.good()) {
-    output_stream << cait::char_to_std_string<cait::u8char_t>(
-        value.get_code_point());
+  if (os.good()) {
+    os.write(cait::char_to_std_string<cait::u8char_t>(value.get_code_point())
+                 .c_str(),
+             static_cast<cait::streamsize_t>(value.byte_count()));
   }
-  return output_stream;
+  return os;
 }
 
 #endif  // CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_

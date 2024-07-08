@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_
 #define CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_
 
-#include "caitlyn/core/string/defs/string_definitions.h"
+#include "caitlyn/core/core.h"
 
 BEGIN_CAITLYN_NS
 

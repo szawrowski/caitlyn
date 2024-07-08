@@ -14,9 +14,12 @@
 #include "caitlyn/core/io/io.h"
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
-  #include <print>
   #include <spanstream>
   #include <syncstream>
+#endif
+
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd23_ver)
+  #include <print>
 #endif
 
 #endif  // CAITLYN_CORE_IO_H_

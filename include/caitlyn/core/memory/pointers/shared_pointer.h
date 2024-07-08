@@ -9,7 +9,7 @@
 #include <stdexcept>
 #include <atomic>
 
-#include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/error.h"
 
 BEGIN_CAITLYN_NS
 
@@ -18,13 +18,12 @@ class sptr_t {
 public:
   using value_type = T;
   using pointer = T*;
-  using const_pointer = const T*;
   using reference = T&;
   using counter = std::atomic_size_t;
 
 public:
   sptr_t() = default;
-  sptr_t(const_pointer data) : data_{data}, ref_count_{data ? new counter(1) : nullptr} {}
+  sptr_t(pointer data) : data_{data}, ref_count_{data ? new counter(1) : nullptr} {}
   sptr_t(const sptr_t& other) : data_{other.data_}, ref_count_{other.ref_count_} {
     ref_count_->fetch_add(1, std::memory_order_relaxed);
   }

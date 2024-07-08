@@ -6,11 +6,7 @@
 #ifndef CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
 #define CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
 
-#include <string>
-#include <vector>
-
 #include "caitlyn/core/containers/defs/container_definitions.h"
-#include "caitlyn/core/defs/basic_types.h"
 #include "caitlyn/core/string/defs/string_definitions.h"
 #include "caitlyn/core/unicode/types/unicode_char.h"
 
@@ -140,7 +136,7 @@ private:
 END_CAITLYN_NS
 
 static cait::unistr_t operator""_str(const cait::u8char_t* str,
-                                        const std::size_t) {
+                                     const std::size_t) {
   return cait::unistr_t{str};
 }
 
@@ -161,8 +157,7 @@ static cait::bool_t operator!=(const cait::unistr_t& lhs,
   return !(lhs == rhs);
 }
 
-static cait::istream_t& operator>>(cait::istream_t& is,
-                                   cait::unistr_t& str) {
+static cait::istream_t& operator>>(cait::istream_t& is, cait::unistr_t& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
@@ -180,7 +175,9 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
   cait::set_windows_utf8_encode();
 #endif
   if (os.good()) {
-    os << str.to_std_string();
+    for (auto& value : str) {
+      os << value;
+    }
   }
   return os;
 }

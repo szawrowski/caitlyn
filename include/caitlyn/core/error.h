@@ -12,12 +12,15 @@
 #include <stdexcept>
 #include <system_error>
 
-#include "caitlyn/core/defs/core_definitions.h"
+#include "caitlyn/core/core.h"
 #include "caitlyn/core/error/error.h"
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
-  #include <expected>
   #include <stacktrace>
+#endif
+
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd23_ver)
+  #include <expected>
 #endif
 
 #endif  // CAITLYN_CORE_ERROR_H_

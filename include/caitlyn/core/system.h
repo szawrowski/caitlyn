@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_SYSTEM_H_
 #define CAITLYN_CORE_SYSTEM_H_
 
-#include "caitlyn/core/defs/core_definitions.h"
+#include "caitlyn/core/core.h"
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
   #include <filesystem>

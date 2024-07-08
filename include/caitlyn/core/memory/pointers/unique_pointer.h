@@ -6,9 +6,7 @@
 #ifndef CAITLYN_CORE_MEMORY_UNIQUE_POINTER_H
 #define CAITLYN_CORE_MEMORY_UNIQUE_POINTER_H
 
-#include <stdexcept>
-
-#include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/error.h"
 
 BEGIN_CAITLYN_NS
 
@@ -17,12 +15,11 @@ class uptr_t {
 public:
   using value_type = T;
   using pointer = T*;
-  using const_pointer = const T*;
   using reference = T&;
 
 public:
   uptr_t() = default;
-  uptr_t(const_pointer data) : data_{data} {}
+  uptr_t(pointer data) : data_{data} {}
   uptr_t(const uptr_t& other) = delete;
   uptr_t(uptr_t&& other) noexcept : data_{other.data_} { other.data_ = nullptr; }
   ~uptr_t() { delete data_; }
@@ -76,7 +73,7 @@ public:
   }
 
   pointer release() {
-    const_pointer tmp = data_;
+    pointer tmp = data_;
     data_ = nullptr;
     return tmp;
   }

@@ -8,7 +8,7 @@
 
 #include <sstream>
 
-#include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/core.h"
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd14_ver)
   using namespace std::literals::string_literals;

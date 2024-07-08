@@ -7,11 +7,9 @@
 #define CAITLYN_CORE_ERROR_TYPES_RESULT_H_
 
 #include <stdexcept>
-#include <type_traits>
 
 #include "caitlyn/core/error/types/error.h"
-#include "caitlyn/core/string/string.h"
-#include "caitlyn/core/utility/defs/utility_definitions.h"
+#include "caitlyn/core/utility.h"
 
 BEGIN_CAITLYN_NS
 

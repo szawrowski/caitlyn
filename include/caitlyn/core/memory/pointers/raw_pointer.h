@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_MEMORY_RAW_POINTER_H_
 #define CAITLYN_CORE_MEMORY_RAW_POINTER_H_
 
-#include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/core.h"
 
 BEGIN_CAITLYN_NS
 
@@ -15,12 +15,11 @@ class ptr_t final {
 public:
   using value_type = T;
   using pointer = T*;
-  using const_pointer = const T*;
   using reference = T&;
 
 public:
   ptr_t() = default;
-  ptr_t(const_pointer data) : data_{data} {}
+  ptr_t(pointer data) : data_{data} {}
   ptr_t(const ptr_t& other) : data_{other.data_} {}
 
 public:
