@@ -41,7 +41,6 @@ Hello, 世界!
 Seamlessly serialize and deserialize data in JSON format.
 
 #### Usage
-
 - Using brackets operator
 ```c++
 #include <caitlyn/core.h>
@@ -125,8 +124,7 @@ config.to_string();
 
 Pass **true** for mangling and optional indent width (2 by default)
 ```c++
-config.to_string(true);
-// or
+config.to_string(true);  // or
 config.to_string(true, 2);
 ```
 ```json
@@ -145,5 +143,38 @@ config.to_string(true, 2);
     "555-1234",
     "555-5678"
   ]
+}
+```
+##
+
+### Error handling
+Easily handle error without Exceptions.
+
+#### Usage
+- Using brackets operator
+```c++
+#include <caitlyn/core.h>
+
+enum class MathError {
+  kDivideByZero
+};
+
+auto Divide(const double lhs, const double rhs)
+    -> cait::result_t<double, MathError> {
+  if (lhs == 0 || rhs == 0) {
+    return cait::error_t{MathError::kDivideByZero};
+  }
+  return lhs / rhs;
+}
+
+int main() {
+  auto result = Divide(64, 4);
+  
+  if (result.has_value()) {
+    std::cout << "64 / 4 = " << result.get() << std::endl;
+  } else if (result.get_error() == MathError::kDivideByZero) {
+    std::cerr << "Error: divide by zero" << std::endl;
+  }
+  return 0;
 }
 ```
