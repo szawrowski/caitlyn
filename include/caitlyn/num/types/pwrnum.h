@@ -1,8 +1,3 @@
-// Copyright (c) 2024, Alexander Szawrowski
-//
-// This file is distributed under the MIT License.
-// See LICENSE file for details.
-
 #ifndef CAITLYN_NUM_TYPES_PWRNUM_H_
 #define CAITLYN_NUM_TYPES_PWRNUM_H_
 
@@ -37,7 +32,6 @@ public:
       if (fractional_str.empty()) {
         fractional_str = "0";
       }
-
       integer_part_ = pwrint_t{integer_str};
       fractional_part_ = pwrint_t{fractional_str};
     }
@@ -74,38 +68,131 @@ public:
 
 public:
   [[nodiscard]] pwrnum_t add(const pwrnum_t& other) const {
-    pwrnum_t result;
-    result.integer_part_ = integer_part_.add(other.integer_part_);
-    result.fractional_part_ = fractional_part_.add(other.fractional_part_);
-    result.remove_leading_zeros();
-    return result;
+    pwrint_t this_fractional = fractional_part_;
+    pwrint_t other_fractional = other.fractional_part_;
+
+    // Normalize fractional part lengths by adding leading zeros
+    while (this_fractional.size() < other_fractional.size()) {
+      this_fractional = this_fractional.multiply(pwrint_t{"10"});
+    }
+    while (other_fractional.size() < this_fractional.size()) {
+      other_fractional = other_fractional.multiply(pwrint_t{"10"});
+    }
+    pwrint_t fractional_result = this_fractional.add(other_fractional);
+    bool carry = false;
+
+    // If the result of fractional addition exceeds the fractional limit, carry
+    // over to integer part
+    if (fractional_result.size() > this_fractional.size()) {
+      carry = true;
+      fractional_result = fractional_result.subtract(
+          pwrint_t{"10"}.multiply(std::to_string(this_fractional.size())));
+    }
+    pwrint_t integer_result = integer_part_.add(other.integer_part_);
+    if (carry) {
+      integer_result = integer_result.add(pwrint_t{"1"});
+    }
+    return pwrnum_t{integer_result.to_string() + "." +
+                    fractional_result.to_string()};
   }
 
   [[nodiscard]] pwrnum_t subtract(const pwrnum_t& other) const {
-    pwrnum_t result;
-    result.integer_part_ = integer_part_.subtract(other.integer_part_);
-    result.fractional_part_ = fractional_part_.subtract(other.fractional_part_);
-    result.remove_leading_zeros();
-    return result;
+    pwrint_t this_fractional = fractional_part_;
+    pwrint_t other_fractional = other.fractional_part_;
+
+    // Normalize fractional part lengths by adding leading zeros
+    while (this_fractional.size() < other_fractional.size()) {
+      this_fractional = this_fractional.multiply(pwrint_t{"10"});
+    }
+    while (other_fractional.size() < this_fractional.size()) {
+      other_fractional = other_fractional.multiply(pwrint_t{"10"});
+    }
+
+    bool borrow = false;
+    if (this_fractional.less_than(other_fractional)) {
+      borrow = true;
+      this_fractional = this_fractional.add(
+          pwrint_t{"10"}.multiply(std::to_string(this_fractional.size())));
+    }
+    const pwrint_t fractional_result =
+        this_fractional.subtract(other_fractional);
+
+    pwrint_t integer_result = integer_part_.subtract(other.integer_part_);
+    if (borrow) {
+      integer_result = integer_result.subtract(pwrint_t{"1"});
+    }
+    return pwrnum_t{integer_result.to_string() + "." +
+                    fractional_result.to_string()};
   }
 
   [[nodiscard]] pwrnum_t multiply(const pwrnum_t& other) const {
-    pwrnum_t result;
-    result.integer_part_ = integer_part_.multiply(other.integer_part_);
-    result.fractional_part_ = fractional_part_.multiply(other.fractional_part_);
-    result.remove_leading_zeros();
-    return result;
+    // Convert both numbers to their full string representation without the
+    // decimal point
+    const string_t this_full =
+        integer_part_.to_string() + fractional_part_.to_string();
+    const string_t other_full =
+        other.integer_part_.to_string() + other.fractional_part_.to_string();
+
+    // Count the number of digits after the decimal point in both numbers
+    const size_t this_frac_size = fractional_part_.size();
+    const size_t other_frac_size = other.fractional_part_.size();
+
+    // Perform the multiplication on the full strings
+    const pwrint_t result_full =
+        pwrint_t{this_full}.multiply(pwrint_t{other_full});
+
+    // The total number of fractional digits in the result
+    const size_t total_frac_size = this_frac_size + other_frac_size;
+
+    // Convert the result back to a string
+    string_t result_str = result_full.to_string();
+
+    // Insert the decimal point at the correct position
+    if (total_frac_size >= result_str.size()) {
+      result_str.insert(0,
+                        string_t(total_frac_size - result_str.size() + 1, '0'));
+    }
+    result_str.insert(result_str.size() - total_frac_size, 1, '.');
+
+    // Construct and return the pwrnum_t result
+    return pwrnum_t{result_str};
   }
 
   [[nodiscard]] pwrnum_t divide(const pwrnum_t& other) const {
     if (other.equal(pwrnum_t{"0"})) {
       throw std::invalid_argument{"Division by zero"};
     }
-    pwrnum_t result;
-    result.integer_part_ = integer_part_.divide(other.integer_part_);
-    result.fractional_part_ = fractional_part_.divide(other.fractional_part_);
-    result.remove_leading_zeros();
-    return result;
+    // Convert both numbers to their full string representation without the
+    // decimal point
+    const string_t this_full =
+        integer_part_.to_string() + fractional_part_.to_string();
+
+    const string_t other_full =
+        other.integer_part_.to_string() + other.fractional_part_.to_string();
+
+    // Count the number of digits after the decimal point in both numbers
+    const size_t this_frac_size = fractional_part_.size();
+    const size_t other_frac_size = other.fractional_part_.size();
+
+    // Perform the division on the full strings
+    const pwrint_t result_full =
+        pwrint_t{this_full}.divide(pwrint_t{other_full});
+
+    // The total number of fractional digits in the result
+    const size_t total_frac_size = this_frac_size - other_frac_size;
+
+    // Convert the result back to a string
+    string_t result_str = result_full.to_string();
+
+    // Insert the decimal point at the correct position
+    if (total_frac_size >= result_str.size()) {
+      result_str.insert(0,
+                        string_t(total_frac_size - result_str.size() + 1, '0'));
+    }
+    result_str.insert(result_str.size() - total_frac_size, 1, '.');
+
+    // Construct and return the pwrnum_t result
+    return pwrnum_t{result_str};
   }
 
 public:
