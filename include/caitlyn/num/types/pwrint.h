@@ -369,4 +369,9 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
   return os;
 }
 
+static cait::pwrint_t operator""_pwrint(const cait::char_t* number,
+                                        const cait::size_t) {
+  return cait::pwrint_t{number};
+}
+
 #endif  // CAITLYN_NUM_TYPES_PWRINT_H_
