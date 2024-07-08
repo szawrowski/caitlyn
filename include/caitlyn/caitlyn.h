@@ -7,6 +7,7 @@
 #define CAITLYN_CAITLYN_H_
 
 #include "caitlyn/core.h"
+#include "caitlyn/num.h"
 #include "caitlyn/ser.h"
 
 #endif  // CAITLYN_CAITLYN_H_
