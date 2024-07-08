@@ -8,4 +8,4 @@
 
 
 
-#endif // CAITLYN_NUM_NUM_H_
+#endif  // CAITLYN_NUM_NUM_H_
