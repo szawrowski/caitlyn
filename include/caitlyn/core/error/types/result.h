@@ -238,6 +238,11 @@ private:
   result_type inner_;
 };
 
+template <typename T, typename E>
+static result_t<T, E> make_result(T value) {
+  return value;
+}
+
 END_CAITLYN_NS
 
 #endif  // CAITLYN_CORE_ERROR_TYPES_RESULT_H_
