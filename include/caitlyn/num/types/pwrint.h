@@ -338,4 +338,29 @@ static cait::bool_t operator!=(const cait::pwrint_t& lhs,
   return !lhs.equal(rhs);
 }
 
+static cait::pwrint_t operator+(const cait::pwrint_t& lhs,
+                                const cait::pwrint_t& rhs) {
+  return lhs.add(rhs);
+}
+
+static cait::pwrint_t operator-(const cait::pwrint_t& lhs,
+                                const cait::pwrint_t& rhs) {
+  return lhs.subtract(rhs);
+}
+
+static cait::pwrint_t operator*(const cait::pwrint_t& lhs,
+                                const cait::pwrint_t& rhs) {
+  return lhs.multiply(rhs);
+}
+
+static cait::pwrint_t operator/(const cait::pwrint_t& lhs,
+                                const cait::pwrint_t& rhs) {
+  return lhs.divide(rhs);
+}
+
+static cait::pwrint_t operator%(const cait::pwrint_t& lhs,
+                                const cait::pwrint_t& rhs) {
+  return lhs.modulo(rhs);
+}
+
 #endif  // CAITLYN_NUM_TYPES_PWRINT_H_
