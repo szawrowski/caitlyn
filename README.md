@@ -175,3 +175,37 @@ int main() {
   return 0;
 }
 ```
+##
+
+### Arbitrarily large numbers
+
+#### Usage
+- Integral
+```c++
+#include <caitlyn/caitlyn.h>
+
+int main() {
+  const cait::pwrint_t lhs = "47011878636176761032731633812398273982371829";
+  const cait::pwrint_t rhs = "10218827321893782973821793709217371273";
+
+  std::cout << lhs * rhs << std::endl;
+  return 0;
+}
+```
+- Floating point
+```c++
+#include <caitlyn/caitlyn.h>
+
+int main() {
+  const cait::pwrnum_t lhs = "182.81278920101871298728193797392737812737";
+  const cait::pwrnum_t rhs = "7.8827318902910380293782646543821795732418";
+
+  std::cout << lhs * rhs << std::endl;
+  return 0;
+}
+```
+#### Output
+```text
+480406269860917721318957511814148894618259818296995209585410018969574705029068317
+1441.64203387923303265813084431780163079588042340079866748019604087803446244208066
+```
