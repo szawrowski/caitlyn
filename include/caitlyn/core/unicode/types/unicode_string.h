@@ -135,11 +135,6 @@ private:
 
 END_CAITLYN_NS
 
-static cait::unistr_t operator""_str(const cait::u8char_t* str,
-                                     const std::size_t) {
-  return cait::unistr_t{str};
-}
-
 static cait::bool_t operator==(const cait::unistr_t& lhs,
                                const cait::unistr_t& rhs) {
   for (auto lhs_it = lhs.begin(), lhs_end = lhs.end(), rhs_it = rhs.begin(),
@@ -180,6 +175,11 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
     }
   }
   return os;
+}
+
+static cait::unistr_t operator""_str(const cait::char_t* str,
+                                     const std::size_t) {
+  return cait::unistr_t{str};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_

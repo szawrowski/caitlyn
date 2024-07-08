@@ -84,11 +84,6 @@ private:
 
 END_CAITLYN_NS
 
-static cait::unichar_t operator""_char(const cait::u8char_t* symbol,
-                                       const std::size_t) {
-  return cait::unichar_t{symbol};
-}
-
 static cait::bool_t operator<(const cait::unichar_t lhs,
                               const cait::unichar_t rhs) {
   return lhs.get_code_point() < rhs.get_code_point();
@@ -154,6 +149,11 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
              static_cast<cait::streamsize_t>(value.byte_count()));
   }
   return os;
+}
+
+static cait::unichar_t operator""_char(const cait::char_t* symbol,
+                                       const std::size_t) {
+  return cait::unichar_t{symbol};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_
