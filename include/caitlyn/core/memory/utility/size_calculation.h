@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_MEMORY_SIZE_CALCULATION_H_
-#define CAITLYN_CORE_MEMORY_SIZE_CALCULATION_H_
+#ifndef CAITLYN_CORE_MEMORY_UTILITY_SIZE_CALCULATION_H_
+#define CAITLYN_CORE_MEMORY_UTILITY_SIZE_CALCULATION_H_
 
 #include "caitlyn/core/memory/types/memory_types.h"
 
@@ -23,4 +23,4 @@ static constexpr size_t size_of(const T& value,
 
 END_CAITLYN_NS
 
-#endif  // CAITLYN_CORE_MEMORY_SIZE_CALCULATION_H_
+#endif  // CAITLYN_CORE_MEMORY_UTILITY_SIZE_CALCULATION_H_
