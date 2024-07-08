@@ -6,6 +6,6 @@
 #ifndef CAITLYN_NUM_NUM_H_
 #define CAITLYN_NUM_NUM_H_
 
-
+#include "caitlyn/num/types/types.h"
 
 #endif  // CAITLYN_NUM_NUM_H_

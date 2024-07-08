@@ -6,4 +6,12 @@
 #ifndef CAITLYN_NUM_TYPES_PWRINT_H_
 #define CAITLYN_NUM_TYPES_PWRINT_H_
 
+#include "caitlyn/num/defs/global_definitions.h"
+
+BEGIN_CAITLYN_NS
+
+
+
+END_CAITLYN_NS
+
 #endif  // CAITLYN_NUM_TYPES_PWRINT_H_
