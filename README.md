@@ -1,5 +1,6 @@
 # Caitlyn
-A general-purpose library designed to enhance productivity for everyday tasks.
+A general-purpose library designed to enhance productivity for everyday tasks.\
+Supported standard: C++17
 
 ## Features
 
@@ -14,12 +15,12 @@ Supported platforms: **Linux, Windows, macOS**.
 int main() {
   const auto str = "Hello, 世界!"_str;
   const auto emoji = "🙂"_char;
-
-  std::cout << str << ' ' << emoji << std::endl;
+  
+  auto text = cait::fmt("{} {}", str, emoji);
+  cait::println("{}", text);
 
   auto file = "somefile.txt"_ofile;
-  file.write_line(str);
-  file.append(emoji);
+  file.write_line("Text: {} {}", str, emoji);
   file.close();
 
   return 0;
@@ -32,8 +33,7 @@ Hello, 世界! 🙂
 ```
 - File (_somefile.txt_)
 ```text
-Hello, 世界!
-🙂
+Text: Hello, 世界! 🙂
 ```
 ##
 
