@@ -30,7 +30,7 @@ int main() {
 ```text
 Hello, 世界! 🙂
 ```
-- File (somefile.txt)
+- File (_somefile.txt_)
 ```text
 Hello, 世界!
 🙂
