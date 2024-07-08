@@ -14,7 +14,7 @@ inline cait::char_t operator""_c(const char val) {
 inline cait::uchar_t operator""_uc(const unsigned long long val) {
   return static_cast<cait::uchar_t>(val);
 }
-inline cait::schar_t operator""_sc(const signed long long val) {
+inline cait::schar_t operator""_sc(const unsigned long long val) {
   return static_cast<cait::schar_t>(val);
 }
 inline cait::xchar_t operator""_xc(const wchar_t val) {
