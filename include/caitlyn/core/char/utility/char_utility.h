@@ -8,7 +8,8 @@
 
 #include <cctype>
 
-#include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/core.h"
+#include "caitlyn/core/char/types/char_hex.h"
 
 BEGIN_CAITLYN_NS
 
@@ -41,6 +42,21 @@ static auto to_uppercase(const char_t value) {
 static auto to_lowercase(const char_t value) {
   const auto tmp = static_cast<uchar_t>(value);
   return static_cast<char_t>(std::tolower(tmp));
+}
+
+static constexpr uchar_t get_symbol(const char_hex_t value) {
+  return static_cast<uchar_t>(value);
+}
+
+static constexpr int_t char_to_digit(const char_t value) {
+  if (value >= 0x30 && value <= 0x39) {
+    return value - 0x30;
+  }
+  return -1;
+}
+
+static constexpr int_t char_to_int(const char_t value) {
+  return std::isdigit(value) ? value - 0x30 : std::tolower(value - 0x61) + 0xA;
 }
 
 END_CAITLYN_NS
