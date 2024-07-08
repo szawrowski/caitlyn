@@ -5,7 +5,7 @@
 
 TEST(ResultTest, MapError) {
   const cait::result_t<int, cait::string_t> result{
-      cait::error_t<cait::string_t>{"Error message"}};
+      cait::make_error("Error message")};
 
   const auto mapped = result.map_error(
       [](const cait::string_t& error) { return error + " fixed"; });

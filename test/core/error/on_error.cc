@@ -5,7 +5,7 @@
 
 TEST(ResultTest, OnError) {
   const cait::result_t<int, cait::string_t> result{
-      cait::error_t<cait::string_t>{"Error message"}};
+      cait::make_error("Error message")};
 
   bool error_handled = false;
 

@@ -4,15 +4,15 @@
 #include "caitlyn/core/string.h"
 
 TEST(ResultTest, Customize) {
-  const cait::result_t<int, cait::string_t> result{42};
+  const auto result = cait::result_t<int, cait::string_t>(42);
 
   const auto custom_result =
       result.customize([](const cait::result_t<int, cait::string_t>& res) {
         if (res.has_value()) {
-          return cait::result_t<int, cait::string_t>{res.get() * 2};
+          return cait::make_result<int, cait::string_t>(res.get() * 2);
         }
         return cait::result_t<int, cait::string_t>{
-            cait::error_t<cait::string_t>{"Custom error"}};
+            cait::make_error("Custom error")};
       });
 
   ASSERT_TRUE(custom_result.has_value());

@@ -5,10 +5,10 @@
 
 TEST(ResultTest, OrElse) {
   const cait::result_t<int, cait::string_t> result{
-      cait::error_t<cait::string_t>{"Error message"}};
+      cait::make_error("Error message")};
 
   const auto next_result = result.or_else([](const cait::string_t&) {
-    return cait::result_t<int, cait::string_t>{42};
+    return cait::make_result<int, cait::string_t>(42);
   });
 
   ASSERT_TRUE(next_result.has_value());

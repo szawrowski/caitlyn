@@ -4,7 +4,7 @@
 #include "caitlyn/core/string.h"
 
 TEST(ResultTest, FoldValue) {
-  const cait::result_t<int, cait::string_t> result{42};
+  const auto result = cait::make_result<int, cait::string_t>(42) ;
 
   const auto folded = result.fold(
       10, [](const int acc, const int value) { return acc + value; });
@@ -14,7 +14,7 @@ TEST(ResultTest, FoldValue) {
 
 TEST(ResultTest, FoldError) {
   const cait::result_t<int, cait::string_t> result{
-      cait::error_t<cait::string_t>{"Error message"}};
+      cait::make_error("Error message")};
 
   const auto folded = result.fold(
       10, [](const int acc, const int value) { return acc + value; });

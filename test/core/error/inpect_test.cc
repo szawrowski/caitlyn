@@ -4,7 +4,7 @@
 #include "caitlyn/core/string.h"
 
 TEST(ResultTest, InspectValue) {
-  const cait::result_t<int, cait::string_t> success_result{42};
+  const auto success_result = cait::make_result<int, cait::string_t>(42);
 
   success_result.inspect(
       [](const int value) { ASSERT_EQ(value, 42); },
@@ -13,7 +13,7 @@ TEST(ResultTest, InspectValue) {
 
 TEST(ResultTest, InspectError) {
   const cait::result_t<int, cait::string_t> error_result{
-      cait::error_t<cait::string_t>{"Error message"}};
+      cait::make_error("Error message")};
 
   error_result.inspect(
       [](int) { FAIL() << "Expected error"; },

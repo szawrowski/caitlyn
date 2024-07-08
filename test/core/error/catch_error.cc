@@ -5,12 +5,12 @@
 
 TEST(ResultTest, CatchError) {
   const cait::result_t<int, cait::string_t> result{
-      cait::error_t<cait::string_t>{"Error message"}};
+      cait::make_error("Error message")};
 
   const auto caught_result =
       result.catch_error([](const cait::string_t& error) {
-        return cait::result_t<int, cait::string_t>{
-            static_cast<int>(error.length())};
+        return cait::make_result<int, cait::string_t>(
+            static_cast<int>(error.length()));
       });
 
   ASSERT_TRUE(caught_result.has_value());
