@@ -109,7 +109,7 @@ int main() {
   return 0;
 }
 ```
-#### Output strings
+#### Output
 - Optimized
 ```c++
 config.to_string();
@@ -144,8 +144,8 @@ config.to_string(true, 2);
 ```
 ##
 
-### Error handling
-Easily handle errors without Exceptions.
+### Error Handling
+Easily handle errors without exceptions.
 
 #### Usage
 - Using brackets operator
@@ -177,7 +177,7 @@ int main() {
 ```
 ##
 
-### Arbitrarily large numbers
+### Arbitrarily Large Numbers
 
 #### Usage
 - Integral
