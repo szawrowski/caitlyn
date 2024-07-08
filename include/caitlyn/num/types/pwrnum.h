@@ -165,13 +165,13 @@ public:
     return integer_part_.size() + fractional_part_.size();
   }
 
-  [[nodiscard]] bool equal(const pwrnum_t& other) const {
+  [[nodiscard]] bool_t equal(const pwrnum_t& other) const {
     return integer_part_.equal(other.integer_part_) &&
            fractional_part_.equal(other.fractional_part_) &&
            is_negative_ == other.is_negative_;
   }
 
-  [[nodiscard]] bool less_than(const pwrnum_t& other) const {
+  [[nodiscard]] bool_t less_than(const pwrnum_t& other) const {
     if (is_negative_ != other.is_negative_) {
       return is_negative_;
     }
@@ -184,13 +184,14 @@ public:
     return fractional_part_.less_than(other.fractional_part_);
   }
 
-  [[nodiscard]] bool greater_than(const pwrnum_t& other) const {
+  [[nodiscard]] bool_t greater_than(const pwrnum_t& other) const {
     return !less_than(other) && !equal(other);
   }
 
   [[nodiscard]] string_t to_string() const {
     string_t result = integer_part_.to_string();
-    if (!fractional_part_.to_string().empty() && fractional_part_.to_string() != "0") {
+    if (!fractional_part_.to_string().empty() &&
+        fractional_part_.to_string() != "0") {
       result.push_back('.');
       result += fractional_part_.to_string();
     }
@@ -210,5 +211,35 @@ private:
 };
 
 END_CAITLYN_NS
+
+static cait::bool_t operator<(const cait::pwrnum_t& lhs,
+                              const cait::pwrnum_t& rhs) {
+  return lhs.less_than(rhs);
+}
+
+static cait::bool_t operator>(const cait::pwrnum_t& lhs,
+                              const cait::pwrnum_t& rhs) {
+  return lhs.greater_than(rhs);
+}
+
+static cait::bool_t operator<=(const cait::pwrnum_t& lhs,
+                               const cait::pwrnum_t& rhs) {
+  return lhs.less_than(rhs) || lhs.equal(rhs);
+}
+
+static cait::bool_t operator>=(const cait::pwrnum_t& lhs,
+                               const cait::pwrnum_t& rhs) {
+  return lhs.greater_than(rhs) || lhs.equal(rhs);
+}
+
+static cait::bool_t operator==(const cait::pwrnum_t& lhs,
+                               const cait::pwrnum_t& rhs) {
+  return lhs.equal(rhs);
+}
+
+static cait::bool_t operator!=(const cait::pwrnum_t& lhs,
+                               const cait::pwrnum_t& rhs) {
+  return !lhs.equal(rhs);
+}
 
 #endif  // CAITLYN_NUM_TYPES_PWRNUM_H_

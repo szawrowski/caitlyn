@@ -70,7 +70,8 @@ public:
     if (is_negative_ == other.is_negative_) {
       pwrint_t result;
       result.is_negative_ = is_negative_;
-      result.digits_.resize(std::max(digits_.size(), other.digits_.size()) + 1, 0);
+      result.digits_.resize(std::max(digits_.size(), other.digits_.size()) + 1,
+                            0);
       int_t carry = 0;
       for (size_type i = 0; i < result.digits_.size(); ++i) {
         int_t sum = carry;
@@ -108,7 +109,7 @@ public:
     if (equal(other)) {
       return pwrint_t{"0"};
     }
-    const bool result_is_negative = less_than(other);
+    const bool_t result_is_negative = less_than(other);
     const pwrint_t& larger = result_is_negative ? other : *this;
     const pwrint_t& smaller = result_is_negative ? *this : other;
 
@@ -253,11 +254,11 @@ public:
 public:
   [[nodiscard]] size_type size() const { return digits_.size(); }
 
-  [[nodiscard]] bool equal(const pwrint_t& other) const {
+  [[nodiscard]] bool_t equal(const pwrint_t& other) const {
     return digits_ == other.digits_ && is_negative_ == other.is_negative_;
   }
 
-  [[nodiscard]] bool less_than(const pwrint_t& other) const {
+  [[nodiscard]] bool_t less_than(const pwrint_t& other) const {
     if (is_negative_ != other.is_negative_) {
       return is_negative_;
     }
@@ -272,7 +273,7 @@ public:
     return false;
   }
 
-  [[nodiscard]] bool greater_than(const pwrint_t& other) const {
+  [[nodiscard]] bool_t greater_than(const pwrint_t& other) const {
     return !less_than(other) && !equal(other);
   }
 
@@ -306,5 +307,35 @@ private:
 };
 
 END_CAITLYN_NS
+
+static cait::bool_t operator<(const cait::pwrint_t& lhs,
+                              const cait::pwrint_t& rhs) {
+  return lhs.less_than(rhs);
+}
+
+static cait::bool_t operator>(const cait::pwrint_t& lhs,
+                              const cait::pwrint_t& rhs) {
+  return lhs.greater_than(rhs);
+}
+
+static cait::bool_t operator<=(const cait::pwrint_t& lhs,
+                               const cait::pwrint_t& rhs) {
+  return lhs.less_than(rhs) || lhs.equal(rhs);
+}
+
+static cait::bool_t operator>=(const cait::pwrint_t& lhs,
+                               const cait::pwrint_t& rhs) {
+  return lhs.greater_than(rhs) || lhs.equal(rhs);
+}
+
+static cait::bool_t operator==(const cait::pwrint_t& lhs,
+                               const cait::pwrint_t& rhs) {
+  return lhs.equal(rhs);
+}
+
+static cait::bool_t operator!=(const cait::pwrint_t& lhs,
+                               const cait::pwrint_t& rhs) {
+  return !lhs.equal(rhs);
+}
 
 #endif  // CAITLYN_NUM_TYPES_PWRINT_H_
