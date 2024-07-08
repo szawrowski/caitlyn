@@ -15,10 +15,10 @@ static constexpr auto cmp_eq(T t, U u) noexcept {
   using UT = typename std::make_unsigned<T>::type;
   using UU = typename std::make_unsigned<U>::type;
 
-  if __caitlyn_constexpr (std::is_signed<T>::value == std::is_signed<U>::value) {
+  if (std::is_signed<T>::value == std::is_signed<U>::value) {
     return t == u;
   }
-  if __caitlyn_constexpr (std::is_signed<T>::value) {
+  if (std::is_signed<T>::value) {
     return t >= 0 && UT(t) == u;
   }
   return u >= 0 && t == UU(u);
@@ -30,14 +30,14 @@ static constexpr auto cmp_ne(T t, U u) noexcept {
 }
 
 template<typename T, typename U>
-constexpr auto cmp_less(T t, U u) noexcept {
+static constexpr auto cmp_less(T t, U u) noexcept {
   using UT = typename std::make_unsigned<T>::type;
   using UU = typename std::make_unsigned<U>::type;
 
-  if __caitlyn_constexpr (std::is_signed<T>::value == std::is_signed<U>::value) {
+  if (std::is_signed<T>::value == std::is_signed<U>::value) {
     return t < u;
   }
-  if __caitlyn_constexpr (std::is_signed<T>::value) {
+  if (std::is_signed<T>::value) {
     return t < 0 || UT(t) < u;
   }
   return u >= 0 && t < UU(u);
