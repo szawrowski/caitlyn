@@ -79,6 +79,11 @@ public:
                 static_cast<streamsize_t>(data.byte_count()));
   }
 
+  template <typename... Args>
+  void write(const string_t& str, Args&&... args) {
+    write(fmt(str, std::forward<Args>(args)...));
+  }
+
   void write_line(const char* data) {
     write(data);
     file_.put('\n');
@@ -96,6 +101,12 @@ public:
 
   void write_line(const unistr_t& data) {
     write(data);
+    file_.put('\n');
+  }
+
+  template <typename... Args>
+  void write_line(const string_t& str, Args&&... args) {
+    write(fmt(str, std::forward<Args>(args)...));
     file_.put('\n');
   }
 
@@ -136,6 +147,18 @@ public:
     file_.flush();
   }
 
+  template <typename... Args>
+  void append(const string_t& str, Args&&... args) {
+    auto data = fmt(str, std::forward<Args>(args)...);
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_.write(data.to_std_string().c_str(),
+                static_cast<std::streamsize>(data.byte_count()));
+    file_.flush();
+  }
+
   void append_line(const char* data) {
     append(data);
     file_.put('\n');
@@ -153,6 +176,12 @@ public:
 
   void append_line(const unistr_t& data) {
     append(data);
+    file_.put('\n');
+  }
+
+  template <typename... Args>
+  void append_line(const string_t& str, Args&&... args) {
+    append(fmt(str, std::forward<Args>(args)...));
     file_.put('\n');
   }
 
