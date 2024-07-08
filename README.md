@@ -9,7 +9,7 @@ Supported platforms: **Linux, Windows, macOS**.
 
 #### Usage
 ```c++
-#include <caitlyn/core.h>
+#include <caitlyn/caitlyn.h>
 
 int main() {
   const auto str = "Hello, 世界!"_str;
@@ -43,8 +43,7 @@ Seamlessly serialize and deserialize data in JSON format.
 #### Usage
 - Using brackets operator
 ```c++
-#include <caitlyn/core.h>
-#include <caitlyn/ser.h>
+#include <caitlyn/caitlyn.h>
 
 int main() {
   auto config = cait::make_json();
@@ -65,8 +64,7 @@ int main() {
 
 - Using methods
 ```c++
-#include <caitlyn/core.h>
-#include <caitlyn/ser.h>
+#include <caitlyn/caitlyn.h>
 
 int main() {
   auto config = cait::make_json();
@@ -86,8 +84,7 @@ int main() {
 ```
 - Using native JSON
 ```c++
-#include <caitlyn/core.h>
-#include <caitlyn/ser.h>
+#include <caitlyn/caitlyn.h>
 
 int main() {
   const auto config = json_str(
@@ -148,12 +145,12 @@ config.to_string(true, 2);
 ##
 
 ### Error handling
-Easily handle error without Exceptions.
+Easily handle errors without Exceptions.
 
 #### Usage
 - Using brackets operator
 ```c++
-#include <caitlyn/core.h>
+#include <caitlyn/caitlyn.h>
 
 enum class MathError {
   kDivideByZero
