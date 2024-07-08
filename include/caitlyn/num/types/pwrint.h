@@ -363,4 +363,10 @@ static cait::pwrint_t operator%(const cait::pwrint_t& lhs,
   return lhs.modulo(rhs);
 }
 
+static cait::ostream_t& operator<<(cait::ostream_t& os,
+                                   const cait::pwrint_t& number) {
+  os << number.to_string();
+  return os;
+}
+
 #endif  // CAITLYN_NUM_TYPES_PWRINT_H_

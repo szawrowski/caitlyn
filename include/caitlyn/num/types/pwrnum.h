@@ -262,4 +262,10 @@ static cait::pwrnum_t operator/(const cait::pwrnum_t& lhs,
   return lhs.divide(rhs);
 }
 
+static cait::ostream_t& operator<<(cait::ostream_t& os,
+                                   const cait::pwrnum_t& number) {
+  os << number.to_string();
+  return os;
+}
+
 #endif  // CAITLYN_NUM_TYPES_PWRNUM_H_
