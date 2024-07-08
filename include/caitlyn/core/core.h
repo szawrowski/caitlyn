@@ -6,6 +6,6 @@
 #ifndef CAITLYN_CORE_CORE_H_
 #define CAITLYN_CORE_CORE_H_
 
-#include "caitlyn/core/defs/basic_types.h"
+#include "caitlyn/core/defs/defs.h"
 
 #endif  // CAITLYN_CORE_CORE_H_
