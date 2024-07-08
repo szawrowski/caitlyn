@@ -10,6 +10,7 @@
 #include <iomanip>
 #include <ios>
 #include <iosfwd>
+#include <iostream>
 
 #include "caitlyn/core/io/io.h"
 
