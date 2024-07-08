@@ -6,7 +6,6 @@
 #ifndef CAITLYN_CORE_DEFS_BASIC_TYPES_H_
 #define CAITLYN_CORE_DEFS_BASIC_TYPES_H_
 
-#include "caitlyn/core/defs/core_definitions.h"
 #include "caitlyn/core/defs/global_definitions.h"
 
 BEGIN_CAITLYN_NS
@@ -50,6 +49,7 @@ using size_t = decltype(sizeof(0));
 using ssize_t = ptrdiff_t;
 using uintmax_t = size_t;
 using uintptr_t = size_t;
+using streamsize_t = ptrdiff_t;
 
 // Floating point
 using float32_t = decltype(.0f);
