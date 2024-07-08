@@ -81,4 +81,12 @@
   #endif
 #endif
 
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+  #define __caitlyn_nodiscard [[nodiscard]]
+  #define __caitlyn_constexpr [[nodiscard]]
+#else
+  #define __caitlyn_nodiscard
+  #define __caitlyn_constexpr
+#endif
+
 #endif  // CAITLYN_CORE_DEFS_CORE_DEFINITIONS_H_

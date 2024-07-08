@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 enum class char_hex_t : byte_t {
   audible_bell = 0x07,
@@ -46,6 +46,6 @@ enum class char_hex_t : byte_t {
   closing_curly_bracket = 0x7D
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_CHAR_TYPES_CHAR_HEX_H_

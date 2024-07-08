@@ -10,7 +10,7 @@
 #include "caitlyn/core/string/defs/string_definitions.h"
 #include "caitlyn/core/unicode/converters/unicode_string_converters.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 class unicode_char;
@@ -48,9 +48,11 @@ public:
   }
 
 public:
-  [[nodiscard]] code_point_type get_code_point() const { return code_point_; }
+  __caitlyn_nodiscard code_point_type get_code_point() const {
+    return code_point_;
+  }
 
-  [[nodiscard]] size_type byte_count() const {
+  __caitlyn_nodiscard size_type byte_count() const {
     return calculate_char_count<value_type>(code_point_);
   }
 
@@ -82,7 +84,7 @@ private:
   code_point_type code_point_{};
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 static cait::bool_t operator<(const cait::unichar_t lhs,
                               const cait::unichar_t rhs) {

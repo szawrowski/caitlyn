@@ -6,9 +6,9 @@
 #ifndef CAITLYN_SER_JSON_TYPES_JSON_CLASS_H_
 #define CAITLYN_SER_JSON_TYPES_JSON_CLASS_H_
 
-#include "caitlyn/ser/defs/global_definitions.h"
+#include "caitlyn/ser/defs/serializing_definitions.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 enum class json_class_t {
   null,
@@ -20,6 +20,6 @@ enum class json_class_t {
   boolean
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_SER_JSON_TYPES_JSON_CLASS_H_

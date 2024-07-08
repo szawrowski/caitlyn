@@ -8,13 +8,13 @@
 
 #include <caitlyn/core/string/defs/string_definitions.h>
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename E>
 class error_t {
 public:
   explicit error_t(E error) : error_{std::move(error)} {}
-  [[nodiscard]] const E& get() const noexcept { return error_; }
+  __caitlyn_nodiscard const E& get() const noexcept { return error_; }
 
 private:
   E error_;
@@ -26,14 +26,14 @@ static error_t<E> make_error(E error) {
 }
 
 static error_t<string_t> make_error(const char_t* error) {
-  return error_t(string_t{error});
+  return error_t<string_t>(string_t{error});
 }
 
 static error_t<string_t> make_error(const string_t& error) {
-  return error_t(error);
+  return error_t<string_t>(error);
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 template <typename E>
 bool operator==(const cait::error_t<E>& lhs, const cait::error_t<E>& rhs) {

@@ -10,7 +10,7 @@
 #include "caitlyn/core/string/defs/string_definitions.h"
 #include "caitlyn/core/unicode/types/unicode_char.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 class unicode_string;
@@ -52,11 +52,11 @@ public:
   }
 
 public:
-  [[nodiscard]] const unichar_t& operator[](const size_type pos) const {
+  __caitlyn_nodiscard const unichar_t& operator[](const size_type pos) const {
     return data_[pos];
   }
 
-  [[nodiscard]] unichar_t& operator[](const size_type pos) {
+  __caitlyn_nodiscard unichar_t& operator[](const size_type pos) {
     return data_[pos];
   }
 
@@ -66,12 +66,12 @@ public:
   }
 
 public:
-  [[nodiscard]] iterator begin() { return {data_.begin()}; }
-  [[nodiscard]] iterator end() { return {data_.end()}; }
-  [[nodiscard]] const_iterator begin() const { return data_.begin(); }
-  [[nodiscard]] const_iterator end() const { return data_.end(); }
-  [[nodiscard]] const_iterator cbegin() const { return data_.cbegin(); }
-  [[nodiscard]] const_iterator cend() const { return data_.cend(); }
+  __caitlyn_nodiscard iterator begin() { return {data_.begin()}; }
+  __caitlyn_nodiscard iterator end() { return {data_.end()}; }
+  __caitlyn_nodiscard const_iterator begin() const { return data_.begin(); }
+  __caitlyn_nodiscard const_iterator end() const { return data_.end(); }
+  __caitlyn_nodiscard const_iterator cbegin() const { return data_.cbegin(); }
+  __caitlyn_nodiscard const_iterator cend() const { return data_.cend(); }
 
 public:
   void append(const unichar_t& value) { data_.push_back(value); }
@@ -81,7 +81,7 @@ public:
   }
 
 public:
-  [[nodiscard]] string_t to_std_string() const {
+  __caitlyn_nodiscard string_t to_std_string() const {
     ostrstream_t oss;
     for (const auto& c : data_) {
       oss << char_to_std_string<u8char_t>(c.get_code_point());
@@ -90,9 +90,9 @@ public:
   }
 
 public:
-  [[nodiscard]] size_type char_count() const { return data_.size(); }
+  __caitlyn_nodiscard size_type char_count() const { return data_.size(); }
 
-  [[nodiscard]] size_type byte_count() const {
+  __caitlyn_nodiscard size_type byte_count() const {
     size_type byte_count{};
     for (const auto& c : data_) {
       byte_count += c.byte_count();
@@ -101,11 +101,9 @@ public:
   }
 
 public:
-  [[nodiscard]] size_type size() const { return data_.size(); }
-
-  [[nodiscard]] size_type length() const { return data_.size(); }
-
-  [[nodiscard]] bool is_empty() const { return data_.empty(); }
+  __caitlyn_nodiscard size_type size() const { return data_.size(); }
+  __caitlyn_nodiscard size_type length() const { return data_.size(); }
+  __caitlyn_nodiscard bool_t is_empty() const { return data_.empty(); }
 
   void push_back(const unichar_t& c) { data_.push_back(c); }
 
@@ -133,10 +131,10 @@ private:
   data_type data_;
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
-static cait::bool_t operator==(const cait::unistr_t& lhs,
-                               const cait::unistr_t& rhs) {
+static cait::bool_t
+operator==(const cait::unistr_t& lhs, const cait::unistr_t& rhs) {
   for (auto lhs_it = lhs.begin(), lhs_end = lhs.end(), rhs_it = rhs.begin(),
             rhs_end = rhs.end();
        lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {

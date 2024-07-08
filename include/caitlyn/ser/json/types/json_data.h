@@ -9,11 +9,11 @@
 #include "caitlyn/core/string.h"
 #include "caitlyn/core/utility.h"
 #include "caitlyn/core/memory.h"
-#include "caitlyn/ser/defs/global_definitions.h"
+#include "caitlyn/ser/defs/serializing_definitions.h"
 #include "caitlyn/ser/json/types/json_class.h"
 
-BEGIN_CAITLYN_NS
-BEGIN_DETAIL_NS
+__caitlyn_begin_global_namespace
+__caitlyn_begin_detail_namespace
 
 class json_data_t {
 public:
@@ -467,8 +467,9 @@ private:
   data_type data_{null_type{}};
   json_class_t type_{json_class_t::null};
 };
-END_DETAIL_NS
-BEGIN_JSON_NS
+
+__caitlyn_end_detail_namespace
+__caitlyn_begin_json_namespace
 
 static __detail::json_data_t make(const json_class_t value) {
   return __detail::json_data_t::__internal_make(value);
@@ -509,7 +510,7 @@ static __detail::json_data_t make_boolean(
   return __detail::json_data_t{value};
 }
 
-END_JSON_NS
-END_CAITLYN_NS
+__caitlyn_end_json_namespace
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_SER_JSON_TYPES_JSON_DATA_H_

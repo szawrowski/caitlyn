@@ -8,10 +8,10 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 using code_point_t = uint32_t;
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_UNICODE_DEFS_UNICODE_TYPES_H_

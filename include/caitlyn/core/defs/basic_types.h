@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/defs/global_definitions.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 // Common haracters
 using char_t = char;
@@ -62,6 +62,6 @@ using bool_t = decltype(true);
 // System
 using null_t = decltype(nullptr);
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_DEFS_BASIC_TYPES_H_

@@ -10,7 +10,7 @@
 
 #include "caitlyn/core/unicode/converters/unicode_char_converters.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 static basic_string_t<CharT> char_to_std_string(code_point_t code_point);
@@ -18,22 +18,21 @@ static basic_string_t<CharT> char_to_std_string(code_point_t code_point);
 template <>
 inline string_t char_to_std_string(const code_point_t code_point) {
   std::basic_ostringstream<u8char_t> oss;
-  const auto [first, second, third, fourth] =
-      get_char_seq<u8char_t>(code_point);
+  const auto seq = get_char_seq<u8char_t>(code_point);
 
-  oss << first;
-  if (second) {
-    oss << second;
+  oss << std::get<0>(seq);
+  if (std::get<1>(seq)) {
+    oss << std::get<1>(seq);
   }
-  if (third) {
-    oss << third;
+  if (std::get<2>(seq)) {
+    oss << std::get<2>(seq);
   }
-  if (fourth) {
-    oss << fourth;
+  if (std::get<3>(seq)) {
+    oss << std::get<3>(seq);
   }
   return oss.str();
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_UNICODE_CONVERTERS_STRING_CONVERTERS_H

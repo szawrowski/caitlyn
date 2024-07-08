@@ -20,7 +20,7 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 // Sequence containers
 template <typename T, size_t N>
@@ -75,6 +75,6 @@ using queue_t = std::queue<T>;
 template <typename T>
 using prqueue_t = std::priority_queue<T>;
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_CONTAINERS_DEFS_CONTAINER_DEFINITIONS_H_

@@ -10,7 +10,7 @@
 #include "caitlyn/ser/json/types/json_parser.h"
 #include "caitlyn/ser/json/utility/json_error_strings.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 class json_t {
 public:
@@ -161,7 +161,7 @@ static json_t make_json(json_t&& value) { return json_t{std::move(value)}; }
 
 static json_t make_json(const ifstream_t& stream) { return json_t{stream}; }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 static cait::istream_t& operator>>(cait::istream_t& is, cait::json_t& value) {
   cait::ostrstream_t buffer;

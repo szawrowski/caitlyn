@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 enum class radix_t : byte_t {
   binary = 0x2,
@@ -30,6 +30,6 @@ static constexpr auto numeric_base_chars(const radix_t radix) {
   }
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_

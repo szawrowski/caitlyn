@@ -10,7 +10,7 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 using basic_ifstream_t = std::basic_ifstream<CharT>;
@@ -32,6 +32,6 @@ using basic_filebuf = std::basic_filebuf<CharT>;
 using filebuf_t = basic_filebuf<u8char_t>;
 using xfilebuf_t = basic_filebuf<xchar_t>;
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_IO_FILE_DEFINITIONS_H_

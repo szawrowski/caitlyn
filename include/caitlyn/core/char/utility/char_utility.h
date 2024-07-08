@@ -11,7 +11,7 @@
 #include "caitlyn/core/core.h"
 #include "caitlyn/core/char/types/char_hex.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 static constexpr auto is_space(const char_t value) {
   return value == '\x0A' || value == '\x0B' || value == '\x0C' ||
@@ -59,6 +59,6 @@ static constexpr int_t char_to_int(const char_t value) {
   return std::isdigit(value) ? value - 0x30 : std::tolower(value - 0x61) + 0xA;
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_CHAR_UTILITY_CHAR_UTILITY_H_

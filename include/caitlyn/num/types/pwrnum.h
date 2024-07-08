@@ -3,7 +3,7 @@
 
 #include "caitlyn/num/types/pwrint.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 class pwrnum_t {
 public:
@@ -297,7 +297,7 @@ private:
   sign_flag is_negative_ = false;
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 static cait::bool_t operator<(const cait::pwrnum_t& lhs,
                               const cait::pwrnum_t& rhs) {

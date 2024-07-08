@@ -9,7 +9,7 @@
 #include "caitlyn/core/io/defs/file_definitions.h"
 #include "caitlyn/core/unicode/types/unicode_string.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 class unicode_file_reader;
@@ -20,8 +20,14 @@ template <>
 class unicode_file_reader<u8char_t> {
 public:
   unicode_file_reader() = default;
-  explicit unicode_file_reader(string_t filename)
-      : filename_(std::move(filename)) {
+  unicode_file_reader(const char_t* filename) : filename_(filename) {
+    open();
+  }
+  unicode_file_reader(string_t filename) : filename_(std::move(filename)) {
+    open();
+  }
+  unicode_file_reader(const unicode_file_reader& other)
+      : filename_{other.filename_} {
     open();
   }
   ~unicode_file_reader() { close(); }
@@ -44,7 +50,7 @@ public:
   }
 
 public:
-  [[nodiscard]] unistr_t read() {
+  __caitlyn_nodiscard unistr_t read() {
     if (!file_.is_open()) {
       open();
     }
@@ -59,7 +65,7 @@ public:
     return unistr_t{};
   }
 
-  [[nodiscard]] unistr_t read_line() {
+  __caitlyn_nodiscard unistr_t read_line() {
     if (!file_.is_open()) {
       open();
     }
@@ -75,11 +81,11 @@ private:
   ifstream_t file_;
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
-static cait::ifile_t operator""_ifile(const cait::u8char_t* symbol,
+static cait::ifile_t operator""_ifile(const cait::char_t* filename,
                                       const cait::size_t) {
-  return cait::ifile_t{symbol};
+  return cait::ifile_t{filename};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_READER_H_

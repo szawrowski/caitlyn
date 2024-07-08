@@ -6,11 +6,13 @@
 #ifndef CAITLYN_CORE_STRING_UTILITY_STRING_UTILITY_H_
 #define CAITLYN_CORE_STRING_UTILITY_STRING_UTILITY_H_
 
+#include <algorithm>
+
 #include "caitlyn/core/char/char.h"
 #include "caitlyn/core/containers.h"
 #include "caitlyn/core/string/defs/string_definitions.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 static vector_t<string_t> split(const string_t& text, const char_t delim) {
   strstream_t ss{text};
@@ -35,14 +37,26 @@ static string_t repeat(const string_t& str, const size_t count) {
 }
 
 static string_t to_uppercase(string_t value) {
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
   std::transform(value.begin(), value.end(), value.begin(),
                  [](const char_t c) { return to_uppercase(c); });
+#else
+  for (char& c : value) {
+    c = to_uppercase(c);
+  }
+#endif
   return value;
 }
 
 static string_t to_lowercase(string_t value) {
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
   std::transform(value.begin(), value.end(), value.begin(),
                  [](const char_t c) { return to_lowercase(c); });
+#else
+  for (char& c : value) {
+    c = to_lowercase(c);
+  }
+#endif
   return value;
 }
 
@@ -112,10 +126,7 @@ static string_t escape_string(const string_t& str) {
 }
 
 static bool_t is_number(const string_t& str) {
-  return !str.empty() &&
-         std::find_if(str.begin(), str.end(), [](const unsigned char c) {
-           return !std::isdigit(c);
-         }) == str.end();
+  return !str.empty() && std::all_of(str.begin(), str.end(), is_digit);
 }
 
 static size_t find_first_nonws(const string_t& str) {
@@ -149,6 +160,6 @@ inline auto get_as_string(null_t) {
   return "null";
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_STRING_UTILITY_STRING_UTILITY_H_

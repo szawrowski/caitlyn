@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/memory/types/memory_types.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename T>
 static constexpr size_t size_of(const memfmt_t mf = memfmt_t::byte) {
@@ -21,6 +21,6 @@ static constexpr size_t size_of(const T& value,
   return mf == memfmt_t::byte ? sizeof(value) : sizeof(value) * 8;
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_MEMORY_UTILITY_SIZE_CALCULATION_H_

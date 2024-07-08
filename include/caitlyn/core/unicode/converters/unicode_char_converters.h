@@ -11,7 +11,7 @@
 #include "caitlyn/core/unicode/defs/unicode_char_sequence.h"
 #include "caitlyn/core/unicode/utility/sequence_calculator.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 static typename char_seq_t<CharT>::type get_char_seq(code_point_t codepoint);
@@ -44,6 +44,6 @@ inline char_seq_t<u8char_t>::type get_char_seq<u8char_t>(
       static_cast<u8char_t>(0x80 | (codepoint & 0x3F)));
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_UNICODE_CONVERTERS_CHAR_CONVERTERS_H

@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/memory/pointers/shared_pointer.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename T>
 class wptr_t {
@@ -79,6 +79,6 @@ private:
   resource_type data_;
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_MEMORY_WEAK_POINTER_H

@@ -8,20 +8,20 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template<typename T, typename U>
 static constexpr auto cmp_eq(T t, U u) noexcept {
-  using UT = std::make_unsigned_t<T>;
-  using UU = std::make_unsigned_t<U>;
+  using UT = typename std::make_unsigned<T>::type;
+  using UU = typename std::make_unsigned<U>::type;
 
-  if constexpr (std::is_signed_v<T> == std::is_signed_v<U>) {
-    return (t == u);
-  } else if constexpr (std::is_signed_v<T>) {
-    return (t >= 0) && (UT(t) == u);
-  } else {
-    return (u >= 0) && (t == UU(u));
+  if __caitlyn_constexpr (std::is_signed<T>::value == std::is_signed<U>::value) {
+    return t == u;
   }
+  if __caitlyn_constexpr (std::is_signed<T>::value) {
+    return t >= 0 && UT(t) == u;
+  }
+  return u >= 0 && t == UU(u);
 }
 
 template<typename T, typename U>
@@ -31,16 +31,16 @@ static constexpr auto cmp_ne(T t, U u) noexcept {
 
 template<typename T, typename U>
 constexpr auto cmp_less(T t, U u) noexcept {
-  using UT = std::make_unsigned_t<T>;
-  using UU = std::make_unsigned_t<U>;
+  using UT = typename std::make_unsigned<T>::type;
+  using UU = typename std::make_unsigned<U>::type;
 
-  if constexpr (std::is_signed_v<T> == std::is_signed_v<U>) {
-    return (t < u);
-  } else if constexpr (std::is_signed_v<T>) {
-    return (t < 0) || (UT(t) < u);
-  } else {
-    return (u >= 0) && (t < UU(u));
+  if __caitlyn_constexpr (std::is_signed<T>::value == std::is_signed<U>::value) {
+    return t < u;
   }
+  if __caitlyn_constexpr (std::is_signed<T>::value) {
+    return t < 0 || UT(t) < u;
+  }
+  return u >= 0 && t < UU(u);
 }
 
 template<typename T, typename U>
@@ -58,6 +58,6 @@ static constexpr auto cmp_ge(T t, U u) noexcept {
   return !compare_less(t, u);
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_UTILITY_COMPARATORS_H_

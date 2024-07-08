@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename T>
 class ptr_t final {
@@ -73,6 +73,6 @@ private:
   pointer data_{};
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_MEMORY_RAW_POINTER_H_

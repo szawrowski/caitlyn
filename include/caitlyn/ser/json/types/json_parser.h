@@ -10,8 +10,8 @@
 #include "caitlyn/ser/json/types/json_data.h"
 #include "caitlyn/ser/json/types/json_parse_error.h"
 
-BEGIN_CAITLYN_NS
-BEGIN_DETAIL_NS
+__caitlyn_begin_global_namespace
+__caitlyn_begin_detail_namespace
 
 class json_parser_t {
 public:
@@ -346,7 +346,7 @@ private:
   size_type error_position_;
 };
 
-END_DETAIL_NS
-END_CAITLYN_NS
+__caitlyn_end_detail_namespace
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_SER_JSON_TYPES_JSON_PARSER_H_

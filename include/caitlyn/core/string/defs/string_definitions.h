@@ -17,7 +17,7 @@
   using namespace std::literals::string_view_literals;
 #endif
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 using basic_string_t = std::basic_string<CharT>;
@@ -27,6 +27,7 @@ using u8string_t = basic_string_t<u8char_t>;
 using u16string_t = basic_string_t<u16char_t>;
 using u32string_t = basic_string_t<u32char_t>;
 
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
 template <typename CharT>
 using basic_strview_t = std::basic_string_view<CharT>;
 using strview_t = basic_strview_t<u8char_t>;
@@ -34,6 +35,7 @@ using xstrview_t = basic_strview_t<xchar_t>;
 using u8strview_t = basic_strview_t<u8char_t>;
 using u16strview_t = basic_strview_t<u16char_t>;
 using u32strview_t = basic_strview_t<u32char_t>;
+#endif
 
 template <typename CharT>
 using basic_istrstream_t = std::basic_istringstream<CharT>;
@@ -47,6 +49,6 @@ template <typename CharT>
 using basic_strstream_t = std::basic_stringstream<CharT>;
 using strstream_t = basic_strstream_t<u8char_t>;
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_STRING_DEFS_STRING_DEFINITIONS_H_

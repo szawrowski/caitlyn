@@ -8,10 +8,10 @@
 
 #include "caitlyn/core/defs/core_definitions.h"
 
-#define BEGIN_CAITLYN_NS namespace cait {
-#define END_CAITLYN_NS }
+#define __caitlyn_begin_global_namespace namespace cait {
+#define __caitlyn_end_global_namespace }
 
-#define BEGIN_DETAIL_NS namespace __detail {
-#define END_DETAIL_NS }
+#define __caitlyn_begin_detail_namespace namespace __detail {
+#define __caitlyn_end_detail_namespace }
 
 #endif  // CAITLYN_CORE_DEFS_GLOBAL_DEFINITIONS_H_

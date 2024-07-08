@@ -9,7 +9,7 @@
 #include "caitlyn/ser/json/types/json_parse_error.h"
 #include "caitlyn/core/string.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 static string_t get_json_parse_error_string(
     const std::pair<json_parse_error_t, size_t>& error) {
@@ -61,6 +61,6 @@ static string_t get_json_parse_error_string(
   return oss.str();
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_SER_JSON_UTILITY_JSON_ERROR_STRINGS_H_

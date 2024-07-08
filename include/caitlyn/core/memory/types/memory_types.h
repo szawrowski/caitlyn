@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 enum class memfmt_t : byte_t {
   bit,
@@ -28,6 +28,6 @@ enum class datasize_t : byte_t {
   yottabit, yobibit, yottabyte, yobibyte
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif // CAITLYN_CORE_MEMORY_TYPES_MEMORY_TYPES_H_

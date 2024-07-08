@@ -8,29 +8,30 @@
 
 #include "caitlyn/core/containers/defs/container_definitions.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 static auto get_map_keys = [](auto&& map) -> decltype(auto) {
-  using key_type = typename std::remove_reference_t<decltype(map)>::key_type;
+  using key_type =
+      typename std::remove_reference<decltype(map)>::type::key_type;
   vector_t<key_type> keys;
 
-  for (auto& [key, dummy_] : map) {
-    keys.emplace_back(key);
+  for (auto& element : map) {
+    keys.emplace_back(element.first);
   }
   return std::move(keys);
 };
 
 static auto get_map_values = [](auto&& map) -> decltype(auto) {
-  using value_type =
-      typename std::remove_reference_t<decltype(map)>::mapped_type;
-  vector_t<value_type> values;
+  using mapped_type =
+      typename std::remove_reference<decltype(map)>::type::mapped_type;
+  vector_t<mapped_type> values;
 
-  for (auto& [dummy_, value] : map) {
-    values.emplace_back(value);
+  for (auto& element : map) {
+    values.emplace_back(element.second);
   }
   return std::move(values);
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_CONTAINERS_UTILITY_MAP_UTILITY_H_

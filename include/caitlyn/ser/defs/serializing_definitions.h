@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/core.h"
 
-#define BEGIN_JSON_NS namespace json {
-#define END_JSON_NS }
+#define __caitlyn_begin_json_namespace namespace json {
+#define __caitlyn_end_json_namespace }
 
 #endif  // CAITLYN_SER_DEFS_GLOBAL_DEFINITIONS_H_

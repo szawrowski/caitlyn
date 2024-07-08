@@ -11,7 +11,7 @@
 #include "caitlyn/core/error/types/error.h"
 #include "caitlyn/core/utility.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename T, typename E>
 class result_t {
@@ -243,6 +243,6 @@ static result_t<T, E> make_result(T value) {
   return value;
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_ERROR_TYPES_RESULT_H_

@@ -10,7 +10,7 @@
 
 #include "caitlyn/core/core.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 class char_seq_t;
@@ -29,6 +29,6 @@ public:
   using type = std::tuple<u16char_t, u16char_t>;
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_UNICODE_DEFS_UNICODE_CHAR_SEQUENCE_H_

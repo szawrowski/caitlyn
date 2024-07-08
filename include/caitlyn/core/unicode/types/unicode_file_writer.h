@@ -9,7 +9,7 @@
 #include "caitlyn/core/io/defs/file_definitions.h"
 #include "caitlyn/core/unicode/types/unicode_string.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 class unicode_file_writer;
@@ -20,8 +20,14 @@ template <>
 class unicode_file_writer<u8char_t> {
 public:
   unicode_file_writer() = default;
-  explicit unicode_file_writer(string_t filename)
-      : filename_(std::move(filename)) {
+  unicode_file_writer(const char_t* filename) : filename_(filename) {
+    open();
+  }
+  unicode_file_writer(string_t filename) : filename_(std::move(filename)) {
+    open();
+  }
+  unicode_file_writer(const unicode_file_writer& other)
+      : filename_{other.filename_} {
     open();
   }
   ~unicode_file_writer() { close(); }
@@ -166,11 +172,11 @@ private:
   ofstream_t file_;
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
-static cait::ofile_t operator""_ofile(const cait::u8char_t* symbol,
+static cait::ofile_t operator""_ofile(const cait::char_t* filename,
                                       const cait::size_t) {
-  return cait::ofile_t{symbol};
+  return cait::ofile_t{filename};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_

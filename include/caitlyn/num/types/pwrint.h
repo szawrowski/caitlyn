@@ -1,9 +1,9 @@
 #ifndef CAITLYN_NUM_TYPES_PWRINT_H_
 #define CAITLYN_NUM_TYPES_PWRINT_H_
 
-#include "caitlyn/num/defs/global_definitions.h"
+#include "caitlyn/num/defs/numeric_definitions.h"
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 class pwrint_t {
 public:
@@ -306,7 +306,7 @@ private:
   sign_flag is_negative_ = false;
 };
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 static cait::bool_t operator<(const cait::pwrint_t& lhs,
                               const cait::pwrint_t& rhs) {

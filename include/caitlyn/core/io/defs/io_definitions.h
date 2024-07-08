@@ -14,7 +14,7 @@
   #include <windows.h>
 #endif
 
-BEGIN_CAITLYN_NS
+__caitlyn_begin_global_namespace
 
 template <typename CharT>
 using basic_istream_t = std::basic_istream<CharT>;
@@ -43,6 +43,6 @@ inline void set_windows_utf8_encode() {
 }
 #endif
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif // CAITLYN_CORE_IO_IO_DEFINITIONS_H_

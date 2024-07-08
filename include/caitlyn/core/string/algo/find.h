@@ -9,8 +9,8 @@
 #include "caitlyn/core/containers/containers.h"
 #include "caitlyn/core/string/defs/string_definitions.h"
 
-BEGIN_CAITLYN_NS
-BEGIN_DETAIL_NS
+__caitlyn_begin_global_namespace
+__caitlyn_begin_detail_namespace
 
 static vector_t<size_t> get_kmp_failure_vec(const string_t& pattern) {
   const size_t pattern_size = pattern.size();
@@ -26,7 +26,7 @@ static vector_t<size_t> get_kmp_failure_vec(const string_t& pattern) {
   return failure;
 }
 
-END_DETAIL_NS
+__caitlyn_end_detail_namespace
 
 static bool_t kmp(const string_t& pattern, const string_t& text) {
   const size_t text_size = text.size();
@@ -44,6 +44,6 @@ static bool_t kmp(const string_t& pattern, const string_t& text) {
   return {};
 }
 
-END_CAITLYN_NS
+__caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_STRING_ALGO_FIND_H_
