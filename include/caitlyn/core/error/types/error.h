@@ -45,6 +45,4 @@ bool operator!=(const cait::error_t<E>& lhs, const cait::error_t<E>& rhs) {
   return !(lhs == rhs);
 }
 
-
-
 #endif  // CAITLYN_CORE_ERROR_TYPES_ERROR_H_
