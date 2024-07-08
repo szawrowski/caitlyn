@@ -14,7 +14,7 @@ static auto get_map_keys = [](auto&& map) -> decltype(auto) {
   using key_type = typename std::remove_reference_t<decltype(map)>::key_type;
   vector_t<key_type> keys;
 
-  for (auto& [key, _dummy] : map) {
+  for (auto& [key, dummy_] : map) {
     keys.emplace_back(key);
   }
   return std::move(keys);
@@ -25,7 +25,7 @@ static auto get_map_values = [](auto&& map) -> decltype(auto) {
       typename std::remove_reference_t<decltype(map)>::mapped_type;
   vector_t<value_type> values;
 
-  for (auto& [_dummy, value] : map) {
+  for (auto& [dummy_, value] : map) {
     values.emplace_back(value);
   }
   return std::move(values);
