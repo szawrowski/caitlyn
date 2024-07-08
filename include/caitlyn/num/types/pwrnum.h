@@ -79,7 +79,7 @@ public:
       other_fractional = other_fractional.multiply(pwrint_t{"10"});
     }
     pwrint_t fractional_result = this_fractional.add(other_fractional);
-    bool carry = false;
+    bool_t carry = false;
 
     // If the result of fractional addition exceeds the fractional limit, carry
     // over to integer part
@@ -108,7 +108,7 @@ public:
       other_fractional = other_fractional.multiply(pwrint_t{"10"});
     }
 
-    bool borrow = false;
+    bool_t borrow = false;
     if (this_fractional.less_than(other_fractional)) {
       borrow = true;
       this_fractional = this_fractional.add(
