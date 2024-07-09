@@ -7,33 +7,33 @@
 #define CAITLYN_SER_JSON_TYPES_JSON_H_
 
 #include "caitlyn/core/io.h"
-#include "caitlyn/ser/json/types/json_parser.h"
-#include "caitlyn/ser/json/utility/json_error_strings.h"
+#include "caitlyn/ser/json/types/parser.h"
 
 __caitlyn_begin_global_namespace
 
 class json_t {
 public:
-  using json_data_type = __detail::json_data_t;
-  using json_parser_type = __detail::json_parser_t;
+  using error_type = json::parse_error_t;
+  using json_data_type = json::__detail::data_t;
+  using json_parser_type = json::__detail::parser_t;
+  using string_type = string_t;
   using size_type = size_t;
 
 public:
   json_t() = default;
-  json_t(const string_t& value) { parse(value); }
+  json_t(const string_type& value) { parse(value); }
   json_t(const ifstream_t& stream) { parse(stream); }
   json_t(const json_t& other) : root_{other.root_}, error_{other.error_} {}
   json_t(json_t&& other) noexcept
-      : root_{std::move(other.root_)}, error_{other.error_} {
+      : root_{std::move(other.root_)}, error_{std::move(other.error_)} {
     other.root_ = json::make_null();
-    other.error_ =
-        std::make_pair(json_parse_error_t::no_error, max_value<size_type>());
+    other.error_ = json::parse_error_t::no_error;
   }
 
   ~json_t() = default;
 
 public:
-  json_t& operator=(const string_t& value) {
+  json_t& operator=(const string_type& value) {
     parse(value);
     return *this;
   }
@@ -56,26 +56,26 @@ public:
       root_ = std::move(other.root_);
       error_ = other.error_;
       other.root_ = json::make_null();
-      other.error_ = std::make_pair(json_parse_error_t::no_error, 0);
+      other.error_ = json::parse_error_t::no_error;
     }
     return *this;
   }
 
 public:
-  json_data_type& operator[](const string_t& key) { return root_[key]; }
+  json_data_type& operator[](const string_type& key) { return root_[key]; }
 
-  const json_data_type& operator[](const string_t& key) const {
+  const json_data_type& operator[](const string_type& key) const {
     return root_.at(key);
   }
 
 public:
-  void parse(const string_t& value) {
+  void parse(const string_type& value) {
     if (const auto parser = json_parser_type::parse(value);
         parser.has_error()) {
       error_ = parser.get_error();
       root_ = json::make_null();
     } else {
-      error_ = std::make_pair(json_parse_error_t::no_error, 0);
+      error_ = json::parse_error_t::no_error;
       root_ = parser.get_data();
     }
   }
@@ -86,11 +86,11 @@ public:
     parse(buffer.str());
   }
 
-  void add_member(const string_t& key, const json_data_type& value) {
+  void add_member(const string_type& key, const json_data_type& value) {
     root_[key] = value;
   }
 
-  void add_member(const vector_t<string_t>& keys, const json_data_type& value) {
+  void add_member(const vector_t<string_type>& keys, const json_data_type& value) {
     json_data_type* current = &root_;
 
     // Traverse through keys to navigate the nested structure
@@ -123,32 +123,64 @@ public:
     }
   }
 
-  [[nodiscard]] bool_t has_member(const string_t& key) const {
+  [[nodiscard]] bool_t has_member(const string_type& key) const {
     return root_.has_member(key);
   }
 
   [[nodiscard]] size_type size() const { return root_.size(); }
 
   [[nodiscard]] bool_t has_error() const {
-    return error_.first != json_parse_error_t::no_error;
+    return error_ != json::parse_error_t::no_error;
   }
 
-  [[nodiscard]] json_parse_error_t get_error() const { return error_.first; }
+  [[nodiscard]] json::parse_error_t get_error() const { return error_; }
 
-  [[nodiscard]] auto get_error_string() const {
-    return get_json_parse_error_string(error_);
+  [[nodiscard]] string_type get_error_string() const {
+    return get_parse_error_string();
   }
 
-  [[nodiscard]] json_class_t get_type() const { return root_.get_type(); }
+  [[nodiscard]] json::class_t get_type() const { return root_.get_type(); }
 
-  [[nodiscard]] string_t to_string(const bool_t mangling = false,
+  [[nodiscard]] string_type to_string(const bool_t mangling = false,
                                    const size_type indent = 2) const {
     return root_.to_string(mangling, indent);
   }
 
 private:
+  [[nodiscard]] string_type get_parse_error_string() const {
+    switch (error_) {
+      case json::parse_error_t::no_error:
+        return "No error.";
+      case json::parse_error_t::unterminated_string:
+        return "Unterminated string.";
+      case json::parse_error_t::expected_string_key:
+        return "Expected string key.";
+      case json::parse_error_t::missing_colon:
+        return "Missing colon.";
+      case json::parse_error_t::unterminated_object:
+        return "Unterminated object.";
+      case json::parse_error_t::unterminated_array:
+        return "Unterminated array.";
+      case json::parse_error_t::invalid_number:
+        return "Invalid number.";
+      case json::parse_error_t::number_conversion_error:
+        return "Number conversion error.";
+      case json::parse_error_t::invalid_value:
+        return "Invalid value.";
+      case json::parse_error_t::unexpected_character:
+        return "Unexpected character.";
+      case json::parse_error_t::trailing_comma:
+        return "Trailing comma.";
+      case json::parse_error_t::invalid_json:
+        return "Invalid JSON.";
+      default:
+        return "Unknown error.";
+    }
+  }
+
+private:
   json_data_type root_{json::make_object()};
-  pair_t<json_parse_error_t, size_type> error_{json_parse_error_t::no_error, 0};
+  error_type error_{json::parse_error_t::no_error};
 };
 
 static json_t make_json() { return json_t{}; }
@@ -163,7 +195,8 @@ static json_t make_json(const ifstream_t& stream) { return json_t{stream}; }
 
 __caitlyn_end_global_namespace
 
-static cait::istream_t& operator>>(cait::istream_t& is, cait::json_t& value) {
+static cait::istream_t&
+operator>>(cait::istream_t& is, cait::json_t& value) {
   cait::ostrstream_t buffer;
   buffer << is.rdbuf();
   value.parse(buffer.str());
