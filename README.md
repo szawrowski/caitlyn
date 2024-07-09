@@ -167,9 +167,9 @@ int main() {
   const auto result = Divide(64, 4);
   
   if (result.has_value()) {
-    std::cout << "64 / 4 = " << result.get() << std::endl;
+    cait::println("64 / 4 = {}", result.get());
   } else if (result.get_error() == MathError::kDivideByZero) {
-    std::cerr << "Error: divide by zero" << std::endl;
+    cait::eprintln("Error: divide by zero");;
   }
   return 0;
 }
@@ -186,8 +186,9 @@ int main() {
 int main() {
   const auto a = "47011878636176761032731633812398273982371829"_pwrint;
   const auto b = "10218827321893782973821793709217371273"_pwrint;
+  const auto result = a * b;
 
-  std::cout << a * b << std::endl;
+  cait::println(result)
   return 0;
 }
 ```
@@ -198,8 +199,9 @@ int main() {
 int main() {
   const auto a = "182.81278920101871298728193797392737812737"_pwrnum;
   const auto b = "7.8827318902910380293782646543821795732418"_pwrnum;
+  const auto result = a * b;
 
-  std::cout << a * b << std::endl;
+  cait::println(result)
   return 0;
 }
 ```
