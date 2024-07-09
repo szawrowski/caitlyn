@@ -17,7 +17,7 @@ int main() {
   const auto emoji = "🙂"_char;
   
   const auto text = cait::fmt("{} {}", str, emoji);
-  cait::println("{}", text);
+  cait::println(text);
 
   auto file = "somefile.txt"_ofile;
   file.write_line("Text: {} {}", str, emoji);
@@ -190,7 +190,7 @@ int main() {
   const auto b = "10218827321893782973821793709217371273"_pwrint;
   const auto result = a * b;
 
-  cait::println(result)
+  cait::println(result.to_string())
   return 0;
 }
 ```
@@ -203,7 +203,7 @@ int main() {
   const auto b = "7.8827318902910380293782646543821795732418"_pwrnum;
   const auto result = a * b;
 
-  cait::println(result)
+  cait::println(result.to_string())
   return 0;
 }
 ```
