@@ -12,6 +12,7 @@
 
 #include "caitlyn/core/string/algo/algo.h"
 #include "caitlyn/core/string/format/format.h"
+#include "caitlyn/core/string/text/text.h"
 #include "caitlyn/core/string/types/types.h"
 #include "caitlyn/core/string/utility/utility.h"
 
