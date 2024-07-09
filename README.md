@@ -168,8 +168,13 @@ int main() {
   
   if (result.has_value()) {
     cait::println("64 / 4 = {}", result.get());
-  } else if (result.get_error() == MathError::kDivideByZero) {
-    cait::eprintln("Error: divide by zero");;
+  } else {
+    switch (result.get_error()) {
+      case MathError::kDivideByZero:
+        cait::eprintln("Error: divide by zero");
+      default:
+        cait::eprintln("Other error");
+    }
   }
   return 0;
 }
