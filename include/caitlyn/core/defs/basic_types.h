@@ -22,6 +22,7 @@ using u16char_t = char16_t;
 using u32char_t = char32_t;
 
 // Special integrals
+using sbyte_t = schar_t;
 using byte_t = uchar_t;
 using int_t = decltype(0);
 using uint_t = decltype(0U);
@@ -45,16 +46,16 @@ using uint32_t = uint_t;
 using ptrdiff_t =
     decltype(static_cast<int_t*>(nullptr) - static_cast<int_t*>(nullptr));
 
-using size_t = decltype(sizeof(0));
 using ssize_t = ptrdiff_t;
+using size_t = decltype(sizeof(0));
 using uintmax_t = size_t;
 using uintptr_t = size_t;
 using streamsize_t = ptrdiff_t;
 
 // Floating point
-using float32_t = decltype(.0f);
-using float64_t = decltype(.0);
-using floatx_t = decltype(.0L);
+using float32_t = decltype(0.0f);
+using float64_t = decltype(0.0);
+using floatx_t = decltype(0.0L);
 
 // Logical
 using bool_t = decltype(true);
