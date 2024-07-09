@@ -6,7 +6,21 @@
 #ifndef CAITLYN_CORE_IO_IO_H_
 #define CAITLYN_CORE_IO_IO_H_
 
-#include "caitlyn/core/io/defs/file_definitions.h"
-#include "caitlyn/core/io/defs/io_definitions.h"
+#include <cstdio>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+
+#include "caitlyn/core/io/types/types.h"
+
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
+  #include <spanstream>
+  #include <syncstream>
+#endif
+
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd23_ver)
+  #include <print>
+#endif
 
 #endif  // CAITLYN_CORE_IO_IO_H_

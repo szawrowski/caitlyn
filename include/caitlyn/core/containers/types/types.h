@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_CONTAINERS_DEFS_CONTAINER_DEFINITIONS_H_
-#define CAITLYN_CORE_CONTAINERS_DEFS_CONTAINER_DEFINITIONS_H_
+#ifndef CAITLYN_CORE_CONTAINERS_TYPES_TYPES_H_
+#define CAITLYN_CORE_CONTAINERS_TYPES_TYPES_H_
 
 #include <array>
 #include <deque>
@@ -77,4 +77,4 @@ using prqueue_t = std::priority_queue<T>;
 
 __caitlyn_end_global_namespace
 
-#endif  // CAITLYN_CORE_CONTAINERS_DEFS_CONTAINER_DEFINITIONS_H_
+#endif  // CAITLYN_CORE_CONTAINERS_TYPES_TYPES_H_

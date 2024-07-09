@@ -8,22 +8,22 @@
 
 #include <limits>
 
-#include "caitlyn/core/utility/defs/utility_definitions.h"
+#include "caitlyn/core/utility/types/types.h"
 
 __caitlyn_begin_global_namespace
 
 template <typename T>
-static constexpr T min_value() {
+static __caitlyn_constexpr T min_value() {
   return std::numeric_limits<T>::min();
 }
 
 template <typename T>
-static constexpr T max_value() {
+static __caitlyn_constexpr T max_value() {
   return std::numeric_limits<T>::max();
 }
 
 template <typename T>
-static constexpr pair_t<T, T> value_range() {
+static __caitlyn_constexpr pair_t<T, T> value_range() {
   return std::make_pair(min_value<T>(), max_value<T>());
 }
 

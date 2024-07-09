@@ -6,11 +6,20 @@
 #ifndef CAITLYN_CORE_ERROR_ERROR_H_
 #define CAITLYN_CORE_ERROR_ERROR_H_
 
-#include "caitlyn/core/core.h"
+#include <cassert>
+#include <cerrno>
+#include <exception>
+#include <stdexcept>
+#include <system_error>
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
-#include "caitlyn/core/error/types/error.h"
-#include "caitlyn/core/error/types/result.h"
+#include "caitlyn/core/error/types/types.h"
+
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
+  #include <stacktrace>
+#endif
+
+#if (__caitlyn_cxxstd >= __caitlyn_cxxstd23_ver)
+  #include <expected>
 #endif
 
 #endif  // CAITLYN_CORE_ERROR_ERROR_H_

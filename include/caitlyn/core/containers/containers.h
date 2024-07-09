@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_CONTAINERS_CONTAINERS_H_
 #define CAITLYN_CORE_CONTAINERS_CONTAINERS_H_
 
-#include "caitlyn/core/containers/defs/container_definitions.h"
-#include "caitlyn/core/containers/utility/map_utility.h"
+#include "caitlyn/core/containers/types/types.h"
+#include "caitlyn/core/containers/utility/utility.h"
 
 #endif  // CAITLYN_CORE_CONTAINERS_CONTAINERS_H_

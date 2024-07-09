@@ -6,13 +6,13 @@
 #ifndef CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_
 #define CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_
 
-#include "caitlyn/core/io/defs/io_definitions.h"
-#include "caitlyn/core/string/defs/string_definitions.h"
-#include "caitlyn/core/unicode/converters/unicode_string_converters.h"
+#include "caitlyn/core/io/types/stream.h"
+#include "caitlyn/core/string/types/types.h"
+#include "caitlyn/core/unicode/converters/converters.h"
 
 __caitlyn_begin_global_namespace
 
-template <typename CharT>
+    template <typename CharT>
 class unicode_char;
 
 using unichar_t = unicode_char<u8char_t>;

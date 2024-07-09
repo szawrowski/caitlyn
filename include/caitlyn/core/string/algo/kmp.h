@@ -7,10 +7,9 @@
 #define CAITLYN_CORE_STRING_ALGO_FIND_H_
 
 #include "caitlyn/core/containers/containers.h"
-#include "caitlyn/core/string/defs/string_definitions.h"
+#include "caitlyn/core/string/types/types.h"
 
-__caitlyn_begin_global_namespace
-__caitlyn_begin_detail_namespace
+__caitlyn_begin_global_namespace __caitlyn_begin_detail_namespace
 
 static vector_t<size_t> get_kmp_failure_vec(const string_t& pattern) {
   const size_t pattern_size = pattern.size();

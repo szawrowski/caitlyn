@@ -83,7 +83,7 @@
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
   #define __caitlyn_nodiscard [[nodiscard]]
-  #define __caitlyn_constexpr [[nodiscard]]
+  #define __caitlyn_constexpr constexpr
 #else
   #define __caitlyn_nodiscard
   #define __caitlyn_constexpr

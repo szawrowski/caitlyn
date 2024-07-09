@@ -3,18 +3,18 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_UTILYTY_DEFS_UTILITY_DEFINITIONS_H_
-#define CAITLYN_CORE_UTILYTY_DEFS_UTILITY_DEFINITIONS_H_
+#ifndef CAITLYN_CORE_UTILITY_TYPES_TYPES_H_
+#define CAITLYN_CORE_UTILITY_TYPES_TYPES_H_
 
-#include <optional>
 #include <tuple>
+#include <utility>
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
-#include <utility>
-#include <variant>
+  #include <optional>
+  #include <variant>
 #endif
 
-#include "caitlyn/core/defs/core_definitions.h"
+#include "caitlyn/core/core.h"
 
 __caitlyn_begin_global_namespace
 
@@ -26,12 +26,12 @@ template <typename T>
 using option_t = std::optional<T>;
 #endif
 
-template <typename... Args>
-using tuple_t = std::tuple<Args...>;
-
 template <typename T, typename U>
 using pair_t = std::pair<T, U>;
 
+template <typename... Args>
+using tuple_t = std::tuple<Args...>;
+
 __caitlyn_end_global_namespace
 
-#endif  // CAITLYN_CORE_UTILYTY_DEFS_UTILITY_DEFINITIONS_H_
+#endif  // CAITLYN_CORE_UTILITY_TYPES_TYPES_H_

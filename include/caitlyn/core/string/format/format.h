@@ -6,31 +6,15 @@
 #ifndef CAITLYN_CORE_STRING_FORMAT_FORMAT_H_
 #define CAITLYN_CORE_STRING_FORMAT_FORMAT_H_
 
-#include "caitlyn/core/char/utility/char_utility.h"
-#include <caitlyn/core/unicode/types/unicode_string.h>
-#include "caitlyn/core/string/format/defs/format_definitions.h"
+#include <iomanip>
+
+#include "caitlyn/core/char.h"
+#include "caitlyn/core/io/io.h"
+#include "caitlyn/core/string/format/types/types.h"
+#include "caitlyn/core/string/types/types.h"
 
 __caitlyn_begin_global_namespace
 __caitlyn_begin_format_namespace
-
-enum class align_t { left, right, center };
-
-enum class type_t { string, integral, floating_point };
-
-struct format_spec_t {
-  align_t align = align_t::left;
-  int_t width = 0;
-  char_t fill = ' ';
-  type_t type = type_t::string;
-  int_t precision = -1;
-};
-
-class format_error_t final : public std::runtime_error {
-public:
-  explicit format_error_t(const string_t& message)
-      : std::runtime_error(message) {}
-};
-
 __caitlyn_begin_detail_namespace
 
 template <typename T>
@@ -39,7 +23,7 @@ to_string(const T& value, const format_spec_t& spec) {
   ostrstream_t oss;
   oss << std::fixed << std::setprecision(0);
 
-  if (spec.type == type_t::integral) {
+  if (spec.type == format_type_t::integral) {
     oss << static_cast<int64_t>(value);
   } else {
     oss << value;
@@ -48,13 +32,13 @@ to_string(const T& value, const format_spec_t& spec) {
 
   if (static_cast<int>(str.size()) < spec.width) {
     switch (spec.align) {
-      case align_t::left:
+      case format_align_t::left:
         str.append(spec.width - str.size(), spec.fill);
         break;
-      case align_t::right:
+      case format_align_t::right:
         str.insert(0, spec.width - str.size(), spec.fill);
         break;
-      case align_t::center: {
+      case format_align_t::center: {
         const size_t padding = spec.width - str.size();
         str.insert(0, padding / 2, spec.fill);
         str.append(padding - padding / 2, spec.fill);
@@ -72,19 +56,20 @@ to_string(const T& value, const format_spec_t& spec) {
   oss << std::fixed
       << std::setprecision(spec.precision >= 0 ? spec.precision : 6);
 
-  oss << (spec.type == type_t::floating_point ? static_cast<float64_t>(value)
-                                              : value);
+  oss << (spec.type == format_type_t::floating_point
+              ? static_cast<float64_t>(value)
+              : value);
 
   string_t str = oss.str();
   if (static_cast<ssize_t>(str.size()) < spec.width) {
     switch (spec.align) {
-      case align_t::left:
+      case format_align_t::left:
         str.append(spec.width - str.size(), spec.fill);
         break;
-      case align_t::right:
+      case format_align_t::right:
         str.insert(0, spec.width - str.size(), spec.fill);
         break;
-      case align_t::center: {
+      case format_align_t::center: {
         const size_t padding = spec.width - str.size();
         str.insert(0, padding / 2, spec.fill);
         str.append(padding - padding / 2, spec.fill);
@@ -99,13 +84,13 @@ static string_t to_string(const string_t& value, const format_spec_t& spec) {
   string_t str = value;
   if (static_cast<int_t>(str.size()) < spec.width) {
     switch (spec.align) {
-      case align_t::left:
+      case format_align_t::left:
         str.append(spec.width - str.size(), spec.fill);
         break;
-      case align_t::right:
+      case format_align_t::right:
         str.insert(0, spec.width - str.size(), spec.fill);
         break;
-      case align_t::center: {
+      case format_align_t::center: {
         const size_t padding = spec.width - str.size();
         str.insert(0, padding / 2, spec.fill);
         str.append(padding - padding / 2, spec.fill);
@@ -141,10 +126,11 @@ static format_spec_t parse_format_spec(const string_t& spec) {
   if (i < spec.size() && (spec[i] == get_symbol(char_hex_t::less_than) ||
                           spec[i] == get_symbol(char_hex_t::greater_then) ||
                           spec[i] == get_symbol(char_hex_t::caret))) {
-    result.align = spec[i] == get_symbol(char_hex_t::less_than) ? align_t::left
+    result.align = spec[i] == get_symbol(char_hex_t::less_than)
+                       ? format_align_t::left
                    : spec[i] == get_symbol(char_hex_t::greater_then)
-                       ? align_t::right
-                       : align_t::center;
+                       ? format_align_t::right
+                       : format_align_t::center;
     ++i;
   }
 
@@ -174,10 +160,10 @@ static format_spec_t parse_format_spec(const string_t& spec) {
                           spec[i] == get_symbol(char_hex_t::lowercase_d) ||
                           spec[i] == get_symbol(char_hex_t::lowercase_f))) {
     result.type = spec[i] == get_symbol(char_hex_t::lowercase_s)
-                      ? type_t::string
+                      ? format_type_t::string
                   : spec[i] == get_symbol(char_hex_t::lowercase_d)
-                      ? type_t::integral
-                      : type_t::floating_point;
+                      ? format_type_t::integral
+                      : format_type_t::floating_point;
   }
 
   return result;
@@ -189,7 +175,7 @@ __caitlyn_end_format_namespace
 template <typename... Args>
 static string_t fmt(const string_t& str, Args&&... args) {
   ostrstream_t result;
-  const std::vector<string_t> arguments = {
+  const vector_t<string_t> arguments = {
       format::__detail::to_string(std::forward<Args>(args), {})...};
   size_t arg_index{};
   size_t pos{};
@@ -201,8 +187,8 @@ static string_t fmt(const string_t& str, Args&&... args) {
         result << get_symbol(char_hex_t::opening_curly_bracket);
         pos += 2;
       } else {
-        const size_t end =
-            str.find(get_symbol(char_hex_t::closing_curly_bracket), pos);
+        constexpr auto bracket = get_symbol(char_hex_t::closing_curly_bracket);
+        const size_t end = str.find(static_cast<char_t>(bracket), pos);
         if (end == string_t::npos) {
           throw format::format_error_t{"Mismatched braces in format string"};
         }
@@ -231,26 +217,41 @@ static string_t fmt(const string_t& str, Args&&... args) {
 
 template <typename... Args>
 static void print(const string_t& str, Args&&... args) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
   std::cout << fmt(str, std::forward<Args>(args)...);
 }
 
 template <typename... Args>
 static void println(const string_t& str, Args&&... args) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
   std::cout << fmt(str, std::forward<Args>(args)...) << std::endl;
 }
 
 template <typename... Args>
 static void eprint(const string_t& str, Args&&... args) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
   std::cerr << fmt(str, std::forward<Args>(args)...);
 }
 
 template <typename... Args>
 static void eprintln(const string_t& str, Args&&... args) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
   std::cerr << fmt(str, std::forward<Args>(args)...) << std::endl;
 }
 
 template <typename... Args>
 static void log(const string_t& str, Args&&... args) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
   std::clog << fmt(str, std::forward<Args>(args)...) << std::endl;
 }
 

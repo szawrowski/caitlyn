@@ -6,8 +6,7 @@
 #ifndef CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
 #define CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
 
-#include "caitlyn/core/containers/defs/container_definitions.h"
-#include "caitlyn/core/string/defs/string_definitions.h"
+#include "caitlyn/core/containers/containers.h"
 #include "caitlyn/core/unicode/types/unicode_char.h"
 
 __caitlyn_begin_global_namespace

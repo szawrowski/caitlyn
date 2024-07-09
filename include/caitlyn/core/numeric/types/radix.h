@@ -17,19 +17,6 @@ enum class radix_t : byte_t {
   hexadecimal = 0x10,
 };
 
-static constexpr auto numeric_base_chars(const radix_t radix) {
-  switch (radix) {
-    case radix_t::binary:
-      return "01";
-    case radix_t::octal:
-      return "01234567";
-    case radix_t::hexadecimal:
-      return "0123456789ABCDEF";
-    default:
-      return "0123456789";
-  }
-}
-
 __caitlyn_end_global_namespace
 
 #endif  // CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_

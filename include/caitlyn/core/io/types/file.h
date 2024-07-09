@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_IO_FILE_DEFINITIONS_H_
-#define CAITLYN_CORE_IO_FILE_DEFINITIONS_H_
+#ifndef CAITLYN_CORE_IO_TYPES_FILE_H_
+#define CAITLYN_CORE_IO_TYPES_FILE_H_
 
 #include <fstream>
 
@@ -34,4 +34,4 @@ using xfilebuf_t = basic_filebuf<xchar_t>;
 
 __caitlyn_end_global_namespace
 
-#endif  // CAITLYN_CORE_IO_FILE_DEFINITIONS_H_
+#endif  // CAITLYN_CORE_IO_TYPES_FILE_H_

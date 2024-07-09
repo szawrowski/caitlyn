@@ -3,18 +3,18 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_STRING_DEFS_STRING_DEFINITIONS_H_
-#define CAITLYN_CORE_STRING_DEFS_STRING_DEFINITIONS_H_
+#ifndef CAITLYN_CORE_STRING_TYPES_TYPES_H_
+#define CAITLYN_CORE_STRING_TYPES_TYPES_H_
 
 #include <sstream>
 
 #include "caitlyn/core/core.h"
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd14_ver)
-  using namespace std::literals::string_literals;
+using namespace std::literals::string_literals;
 #endif
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
-  using namespace std::literals::string_view_literals;
+using namespace std::literals::string_view_literals;
 #endif
 
 __caitlyn_begin_global_namespace
@@ -51,4 +51,4 @@ using strstream_t = basic_strstream_t<u8char_t>;
 
 __caitlyn_end_global_namespace
 
-#endif  // CAITLYN_CORE_STRING_DEFS_STRING_DEFINITIONS_H_
+#endif  // CAITLYN_CORE_STRING_TYPES_TYPES_H_

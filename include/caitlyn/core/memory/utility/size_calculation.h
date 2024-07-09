@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_MEMORY_UTILITY_SIZE_CALCULATION_H_
 #define CAITLYN_CORE_MEMORY_UTILITY_SIZE_CALCULATION_H_
 
-#include "caitlyn/core/memory/types/memory_types.h"
+#include "caitlyn/core/memory/types/memory_format.h"
 
 __caitlyn_begin_global_namespace
 

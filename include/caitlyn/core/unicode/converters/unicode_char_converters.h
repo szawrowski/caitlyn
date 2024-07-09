@@ -8,7 +8,7 @@
 
 #include <tuple>
 
-#include "caitlyn/core/unicode/defs/unicode_char_sequence.h"
+#include "caitlyn/core/unicode/types/unicode_char_sequence.h"
 #include "caitlyn/core/unicode/utility/sequence_calculator.h"
 
 __caitlyn_begin_global_namespace

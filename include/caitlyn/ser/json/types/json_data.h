@@ -189,14 +189,14 @@ public:
     if (is_object()) {
       return std::get_if<object_type>(&data_)->size();
     }
-    return std::numeric_limits<size_type>::max();
+    return max_value<size_type>();
   }
 
   [[nodiscard]] size_type length() const {
     if (is_array()) {
       return std::get_if<array_type>(&data_)->size();
     }
-    return std::numeric_limits<size_type>::max();
+    return max_value<size_type>();
   }
 
 public:

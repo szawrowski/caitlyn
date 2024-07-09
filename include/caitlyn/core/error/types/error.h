@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_ERROR_TYPES_ERROR_H_
 #define CAITLYN_CORE_ERROR_TYPES_ERROR_H_
 
-#include <caitlyn/core/string/defs/string_definitions.h>
+#include "caitlyn/core/string.h"
 
 __caitlyn_begin_global_namespace
 

@@ -7,6 +7,7 @@
 #define CAITLYN_CORE_H_
 
 #include "caitlyn/core/algo.h"
+#include "caitlyn/core/char.h"
 #include "caitlyn/core/containers.h"
 #include "caitlyn/core/core.h"
 #include "caitlyn/core/date_time.h"

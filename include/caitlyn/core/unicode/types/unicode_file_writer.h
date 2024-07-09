@@ -6,7 +6,8 @@
 #ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_
 #define CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_
 
-#include "caitlyn/core/io/defs/file_definitions.h"
+#include "caitlyn/core/io/types/types.h"
+#include "caitlyn/core/string/types/types.h"
 #include "caitlyn/core/unicode/types/unicode_string.h"
 
 __caitlyn_begin_global_namespace

@@ -3,10 +3,12 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_UTILITY_RANDOM_H_
-#define CAITLYN_CORE_UTILITY_RANDOM_H_
+#ifndef CAITLYN_CORE_UTILITY_RANDOM_RANDOM_H_
+#define CAITLYN_CORE_UTILITY_RANDOM_RANDOM_H_
 
+#include <chrono>
 #include <random>
+#include <stdexcept>
 
 #include "caitlyn/core/core.h"
 #include "caitlyn/core/numeric/utility/limits.h"
@@ -90,4 +92,4 @@ static bool_t random_bool(const double percentage = 0.5) {
 
 __caitlyn_end_global_namespace
 
-#endif  // CAITLYN_CORE_UTILITY_RANDOM_H_
+#endif  // CAITLYN_CORE_UTILITY_RANDOM_RANDOM_H_

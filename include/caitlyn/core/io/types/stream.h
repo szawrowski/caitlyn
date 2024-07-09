@@ -3,14 +3,15 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_IO_IO_DEFINITIONS_H_
-#define CAITLYN_CORE_IO_IO_DEFINITIONS_H_
+#ifndef CAITLYN_CORE_IO_TYPES_STREAM_H_
+#define CAITLYN_CORE_IO_TYPES_STREAM_H_
 
 #include <streambuf>
 
 #include "caitlyn/core/core.h"
 
 #if defined(__caitlyn_windows)
+  #define NOMINMAX
   #include <windows.h>
 #endif
 
@@ -45,4 +46,4 @@ inline void set_windows_utf8_encode() {
 
 __caitlyn_end_global_namespace
 
-#endif // CAITLYN_CORE_IO_IO_DEFINITIONS_H_
+#endif  // CAITLYN_CORE_IO_TYPES_STREAM_H_
