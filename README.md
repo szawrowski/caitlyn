@@ -1,12 +1,12 @@
 # Caitlyn
 A general-purpose library designed to enhance productivity for everyday tasks.\
-Supported platforms: **Linux, Windows, macOS**.
+Supported platforms: **Linux, Windows, macOS**.\
 Supported standard: **C++17**
 
 ## Features
 
 ### Unicode Strings Support
-Easily handle Unicode strings, characters and files.\
+Easily handle Unicode strings, characters and files.
 
 #### Usage
 ```c++
