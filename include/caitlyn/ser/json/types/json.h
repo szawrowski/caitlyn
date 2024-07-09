@@ -24,7 +24,7 @@ public:
   json_t(const ifstream_t& stream) { parse(stream); }
   json_t(const json_t& other) : root_{other.root_}, error_{other.error_} {}
   json_t(json_t&& other) noexcept
-      : root_{std::move(other.root_)}, error_{std::move(other.error_)} {
+      : root_{std::move(other.root_)}, error_{other.error_} {
     other.root_ = json::make_null();
     other.error_ =
         std::make_pair(json_parse_error_t::no_error, max_value<size_type>());

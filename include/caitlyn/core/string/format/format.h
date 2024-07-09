@@ -123,12 +123,12 @@ static format_spec_t parse_format_spec(const string_t& spec) {
   size_t i{};
 
   // Parse alignment
-  if (i < spec.size() && (spec[i] == get_symbol(char_hex_t::less_than) ||
-                          spec[i] == get_symbol(char_hex_t::greater_then) ||
-                          spec[i] == get_symbol(char_hex_t::caret))) {
-    result.align = spec[i] == get_symbol(char_hex_t::less_than)
+  if (i < spec.size() && (spec[i] == get_char(ascii_t::less_than_sign) ||
+                          spec[i] == get_char(ascii_t::greater_than_sign) ||
+                          spec[i] == get_char(ascii_t::circumflex_accent))) {
+    result.align = spec[i] == get_char(ascii_t::less_than_sign)
                        ? format_align_t::left
-                   : spec[i] == get_symbol(char_hex_t::greater_then)
+                   : spec[i] == get_char(ascii_t::greater_than_sign)
                        ? format_align_t::right
                        : format_align_t::center;
     ++i;
@@ -156,12 +156,12 @@ static format_spec_t parse_format_spec(const string_t& spec) {
   }
 
   // Parse type
-  if (i < spec.size() && (spec[i] == get_symbol(char_hex_t::lowercase_s) ||
-                          spec[i] == get_symbol(char_hex_t::lowercase_d) ||
-                          spec[i] == get_symbol(char_hex_t::lowercase_f))) {
-    result.type = spec[i] == get_symbol(char_hex_t::lowercase_s)
+  if (i < spec.size() && (spec[i] == get_char(ascii_t::latin_small_lett_s) ||
+                          spec[i] == get_char(ascii_t::latin_small_lett_d) ||
+                          spec[i] == get_char(ascii_t::latin_small_lett_f))) {
+    result.type = spec[i] == get_char(ascii_t::latin_small_lett_s)
                       ? format_type_t::string
-                  : spec[i] == get_symbol(char_hex_t::lowercase_d)
+                  : spec[i] == get_char(ascii_t::latin_small_lett_d)
                       ? format_type_t::integral
                       : format_type_t::floating_point;
   }
@@ -181,14 +181,13 @@ static string_t fmt(const string_t& str, Args&&... args) {
   size_t pos{};
 
   while (pos < str.size()) {
-    if (str[pos] == get_symbol(char_hex_t::opening_curly_bracket)) {
+    if (str[pos] == get_char(ascii_t::left_curly_br)) {
       if (pos + 1 < str.size() &&
-          str[pos + 1] == get_symbol(char_hex_t::opening_curly_bracket)) {
-        result << get_symbol(char_hex_t::opening_curly_bracket);
+          str[pos + 1] == get_char(ascii_t::left_curly_br)) {
+        result << get_char(ascii_t::left_curly_br);
         pos += 2;
       } else {
-        constexpr auto bracket = get_symbol(char_hex_t::closing_curly_bracket);
-        const size_t end = str.find(static_cast<char_t>(bracket), pos);
+        const size_t end = str.find(get_char(ascii_t::right_curly_br), pos);
         if (end == string_t::npos) {
           throw format::format_error_t{"Mismatched braces in format string"};
         }
@@ -200,10 +199,10 @@ static string_t fmt(const string_t& str, Args&&... args) {
             arguments[arg_index++], format::__detail::parse_format_spec(spec));
         pos = end + 1;
       }
-    } else if (str[pos] == get_symbol(char_hex_t::closing_curly_bracket)) {
+    } else if (str[pos] == get_char(ascii_t::right_curly_br)) {
       if (pos + 1 < str.size() &&
-          str[pos + 1] == get_symbol(char_hex_t::closing_curly_bracket)) {
-        result << get_symbol(char_hex_t::closing_curly_bracket);
+          str[pos + 1] == get_char(ascii_t::right_curly_br)) {
+        result << get_char(ascii_t::right_curly_br);
         pos += 2;
       } else {
         throw format::format_error_t{"Single '}' in format string"};

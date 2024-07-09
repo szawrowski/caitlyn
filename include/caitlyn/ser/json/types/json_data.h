@@ -285,57 +285,57 @@ public:
 private:
   void make_output(std::ostringstream& oss, const boolean_type mangling,
                    const size_type base_indent, const size_type indent) const {
-    const string_type indent_str(indent, get_symbol(char_hex_t::space));
+    const string_type indent_str(indent, get_char(ascii_t::space));
 
     switch (type_) {
       case json_class_t::object: {
-        oss << get_symbol(char_hex_t::opening_curly_bracket);
+        oss << get_char(ascii_t::left_curly_br);
         const auto data = std::get_if<object_type>(&data_);
         if (data && !data->empty()) {
           if (mangling) {
-            oss << get_symbol(char_hex_t::line_feed);
+            oss << get_char(ascii_t::line_feed);
           }
           boolean_type first = true;
           for (const auto& [key, value] : *data) {
             if (!first) {
-              oss << get_symbol(char_hex_t::comma);
+              oss << get_char(ascii_t::comma);
               if (mangling) {
-                oss << get_symbol(char_hex_t::line_feed);
+                oss << get_char(ascii_t::line_feed);
               }
             }
             if (mangling) {
               oss << indent_str;
             }
-            oss << get_symbol(char_hex_t::double_quote) << escape_string(key)
-                << get_symbol(char_hex_t::double_quote)
-                << get_symbol(char_hex_t::colon)
-                << get_symbol(char_hex_t::space);
+            oss << get_char(ascii_t::quot_mark) << escape_string(key)
+                << get_char(ascii_t::quot_mark)
+                << get_char(ascii_t::colon)
+                << get_char(ascii_t::space);
             value->make_output(oss, mangling, base_indent,
                                indent + base_indent);
             first = false;
           }
           if (mangling) {
-            oss << get_symbol(char_hex_t::line_feed)
+            oss << get_char(ascii_t::line_feed)
                 << string_type(indent - base_indent,
-                               get_symbol(char_hex_t::space));
+                               get_char(ascii_t::space));
           }
         }
-        oss << get_symbol(char_hex_t::closing_curly_bracket);
+        oss << get_char(ascii_t::right_curly_br);
         break;
       }
       case json_class_t::array: {
-        oss << get_symbol(char_hex_t::opening_square_bracket);
+        oss << get_char(ascii_t::left_square_br);
         const auto data = std::get_if<array_type>(&data_);
         if (data && !data->empty()) {
           if (mangling) {
-            oss << get_symbol(char_hex_t::line_feed);
+            oss << get_char(ascii_t::line_feed);
           }
           boolean_type first = true;
           for (const auto& item : *data) {
             if (!first) {
-              oss << get_symbol(char_hex_t::comma);
+              oss << get_char(ascii_t::comma);
               if (mangling) {
-                oss << get_symbol(char_hex_t::line_feed);
+                oss << get_char(ascii_t::line_feed);
               }
             }
             if (mangling) {
@@ -345,21 +345,21 @@ private:
             first = false;
           }
           if (mangling) {
-            oss << get_symbol(char_hex_t::line_feed)
+            oss << get_char(ascii_t::line_feed)
                 << string_type(indent - base_indent,
-                               get_symbol(char_hex_t::space));
+                               get_char(ascii_t::space));
           }
         }
-        oss << get_symbol(char_hex_t::closing_square_bracket);
+        oss << get_char(ascii_t::right_square_br);
         break;
       }
       case json_class_t::null:
         oss << get_as_string(nullptr);
         break;
       case json_class_t::string:
-        oss << get_symbol(char_hex_t::double_quote)
+        oss << get_char(ascii_t::quot_mark)
             << escape_string(*std::get_if<string_type>(&data_))
-            << get_symbol(char_hex_t::double_quote);
+            << get_char(ascii_t::quot_mark);
         break;
       case json_class_t::floating:
         oss << *std::get_if<floating_type>(&data_);

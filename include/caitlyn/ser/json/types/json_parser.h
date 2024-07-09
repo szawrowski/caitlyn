@@ -30,12 +30,12 @@ public:
     const auto first = find_first_nonws(json);
     const auto last = find_last_nonws(json);
 
-    if (json[first] != get_symbol(char_hex_t::opening_curly_bracket)) {
+    if (json[first] != get_char(ascii_t::left_curly_br)) {
       parser.set_error(json_parse_error_t::invalid_json);
       parser.set_error_position(first);
       return parser;
     }
-    if (json[last] != get_symbol(char_hex_t::closing_curly_bracket)) {
+    if (json[last] != get_char(ascii_t::right_curly_br)) {
       parser.set_error(json_parse_error_t::invalid_json);
       parser.set_error_position(last);
       return parser;
@@ -65,21 +65,21 @@ private:
       return json_data_t{};
     }
     switch (json_[position_]) {
-      case get_symbol(char_hex_t::double_quote):
+      case get_char(ascii_t::quot_mark):
         return parse_string();
-      case get_symbol(char_hex_t::opening_curly_bracket):
+      case get_char(ascii_t::left_curly_br):
         return parse_object();
-      case get_symbol(char_hex_t::opening_square_bracket):
+      case get_char(ascii_t::left_square_br):
         return parse_array();
-      case get_symbol(char_hex_t::lowercase_t):
-      case get_symbol(char_hex_t::lowercase_f):
+      case get_char(ascii_t::latin_small_lett_t):
+      case get_char(ascii_t::latin_small_lett_f):
         return parse_boolean();
-      case get_symbol(char_hex_t::lowercase_n):
+      case get_char(ascii_t::latin_small_lett_n):
         return parse_null();
       default:
         if (std::isdigit(json_[position_]) ||
-            json_[position_] == get_symbol(char_hex_t::minus) ||
-            json_[position_] == get_symbol(char_hex_t::plus)) {
+            json_[position_] == get_char(ascii_t::hyphen_minus) ||
+            json_[position_] == get_char(ascii_t::plus_sign)) {
           return parse_number();
         }
         set_error(json_parse_error_t::unexpected_character);
@@ -96,14 +96,14 @@ private:
     while (position_ < json_.size()) {
       skip_ws();
 
-      if (json_[position_] == get_symbol(char_hex_t::closing_curly_bracket)) {
+      if (json_[position_] == get_char(ascii_t::right_curly_br)) {
         next();
         return result;
       }
-      if (json_[position_] == get_symbol(char_hex_t::double_quote)) {
+      if (json_[position_] == get_char(ascii_t::quot_mark)) {
         next();
         const auto key_end =
-            json_.find(get_symbol(char_hex_t::double_quote), position_);
+            json_.find(get_char(ascii_t::quot_mark), position_);
 
         if (key_end == string_type::npos) {
           set_error(json_parse_error_t::unterminated_string);
@@ -114,7 +114,7 @@ private:
         position_ = key_end + 1;
 
         skip_ws();
-        if (json_[position_] != get_symbol(char_hex_t::colon)) {
+        if (json_[position_] != get_char(ascii_t::colon)) {
           set_error(json_parse_error_t::missing_colon);
           set_error_position(position_);
           return json_data_t{};
@@ -124,18 +124,16 @@ private:
         result[key] = parse_value();
 
         skip_ws();
-        if (json_[position_] == get_symbol(char_hex_t::comma)) {
+        if (json_[position_] == get_char(ascii_t::comma)) {
           next();
           skip_ws();
 
-          if (json_[position_] ==
-              get_symbol(char_hex_t::closing_curly_bracket)) {
+          if (json_[position_] == get_char(ascii_t::right_curly_br)) {
             set_error(json_parse_error_t::trailing_comma);
             set_error_position(position_);
             return json_data_t{};
           }
-        } else if (json_[position_] ==
-                   get_symbol(char_hex_t::closing_curly_bracket)) {
+        } else if (json_[position_] == get_char(ascii_t::right_curly_br)) {
           next();
           return result;
         } else {
@@ -162,7 +160,7 @@ private:
     while (position_ < json_.size()) {
       skip_ws();
 
-      if (json_[position_] == get_symbol(char_hex_t::closing_square_bracket)) {
+      if (json_[position_] == get_char(ascii_t::right_square_br)) {
         next();
         return result;
       }
@@ -170,18 +168,18 @@ private:
       result.append(value);
 
       skip_ws();
-      if (json_[position_] == get_symbol(char_hex_t::comma)) {
+      if (json_[position_] == get_char(ascii_t::comma)) {
         next();
         skip_ws();
 
         if (json_[position_] ==
-            get_symbol(char_hex_t::closing_square_bracket)) {
+            get_char(ascii_t::right_square_br)) {
           set_error(json_parse_error_t::trailing_comma);
           set_error_position(position_);
           return json_data_t{};
         }
       } else if (json_[position_] ==
-                 get_symbol(char_hex_t::closing_square_bracket)) {
+                 get_char(ascii_t::right_square_br)) {
         next();
         return result;
       } else {
@@ -210,30 +208,29 @@ private:
     std::ostringstream escaped_stream;
 
     while (position_ < json_.size() &&
-           json_[position_] != get_symbol(char_hex_t::double_quote)) {
-      if (json_[position_] == get_symbol(char_hex_t::backslash)) {
+           json_[position_] != get_char(ascii_t::quot_mark)) {
+      if (json_[position_] == get_char(ascii_t::rev_solidus)) {
         next();
         if (position_ >= json_.size()) {
           set_error(json_parse_error_t::unterminated_string);
           set_error_position(position_);
           return json_data_t{};
         }
-        if (json_[position_] == get_symbol(char_hex_t::double_quote)) {
-          escaped_stream << get_symbol(char_hex_t::double_quote);
-        } else if (json_[position_] == get_symbol(char_hex_t::backslash)) {
-          escaped_stream << get_symbol(char_hex_t::backslash);
-        } else if (json_[position_] == get_symbol(char_hex_t::lowercase_b)) {
-          escaped_stream << get_symbol(char_hex_t::backspace);
-        } else if (json_[position_] == get_symbol(char_hex_t::lowercase_f)) {
-          escaped_stream << get_symbol(char_hex_t::form_feed);
-        } else if (json_[position_] == get_symbol(char_hex_t::lowercase_n)) {
-          escaped_stream << get_symbol(char_hex_t::line_feed);
-        } else if (json_[position_] == get_symbol(char_hex_t::lowercase_r)) {
-          escaped_stream << get_symbol(char_hex_t::carriage_return);
-        } else if (json_[position_] == get_symbol(char_hex_t::lowercase_t)) {
-          escaped_stream << get_symbol(char_hex_t::horizontal_tab);
-          ;
-        } else if (json_[position_] == get_symbol(char_hex_t::lowercase_u)) {
+        if (json_[position_] == get_char(ascii_t::quot_mark)) {
+          escaped_stream << get_char(ascii_t::quot_mark);
+        } else if (json_[position_] == get_char(ascii_t::rev_solidus)) {
+          escaped_stream << get_char(ascii_t::rev_solidus);
+        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_b)) {
+          escaped_stream << get_char(ascii_t::backspace);
+        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_f)) {
+          escaped_stream << get_char(ascii_t::form_feed);
+        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_n)) {
+          escaped_stream << get_char(ascii_t::line_feed);
+        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_r)) {
+          escaped_stream << get_char(ascii_t::carriage_ret);
+        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_t)) {
+          escaped_stream << get_char(ascii_t::char_tab);
+        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_u)) {
           if (position_ + 4 >= json_.size()) {
             set_error(json_parse_error_t::invalid_escape_sequence);
             set_error_position(position_);
@@ -260,7 +257,7 @@ private:
       }
       next();
     }
-    if (json_[position_] == get_symbol(char_hex_t::double_quote)) {
+    if (json_[position_] == get_char(ascii_t::quot_mark)) {
       next();
       return escaped_stream.str();
     }
@@ -288,20 +285,20 @@ private:
     auto end_number = position_;
     while (end_number < json_.size() &&
            (std::isdigit(json_[end_number]) ||
-            json_[end_number] == get_symbol(char_hex_t::point) ||
-            json_[end_number] == get_symbol(char_hex_t::lowercase_e) ||
-            json_[end_number] == get_symbol(char_hex_t::capital_e) ||
-            json_[end_number] == get_symbol(char_hex_t::minus) ||
-            json_[end_number] == get_symbol(char_hex_t::plus))) {
+            json_[end_number] == get_char(ascii_t::full_stop) ||
+            json_[end_number] == get_char(ascii_t::latin_small_lett_e) ||
+            json_[end_number] == get_char(ascii_t::latin_cap_lett_e) ||
+            json_[end_number] == get_char(ascii_t::hyphen_minus) ||
+            json_[end_number] == get_char(ascii_t::plus_sign))) {
       ++end_number;
     }
     const string_type number_str =
         json_.substr(position_, end_number - position_);
     try {
-      if (number_str.find(get_symbol(char_hex_t::plus)) != string_type::npos ||
-          number_str.find(get_symbol(char_hex_t::lowercase_e)) !=
+      if (number_str.find(get_char(ascii_t::plus_sign)) != string_type::npos ||
+          number_str.find(get_char(ascii_t::latin_small_lett_e)) !=
               string_type::npos ||
-          number_str.find(get_symbol(char_hex_t::capital_e)) !=
+          number_str.find(get_char(ascii_t::latin_cap_lett_e)) !=
               string_type::npos) {
         result = std::stod(number_str);
       } else {
@@ -322,10 +319,10 @@ private:
 
   void skip_ws() {
     while (position_ < json_.size() &&
-           (json_[position_] == get_symbol(char_hex_t::space) ||
-            json_[position_] == get_symbol(char_hex_t::horizontal_tab) ||
-            json_[position_] == get_symbol(char_hex_t::line_feed) ||
-            json_[position_] == get_symbol(char_hex_t::carriage_return))) {
+           (json_[position_] == get_char(ascii_t::space) ||
+            json_[position_] == get_char(ascii_t::char_tab) ||
+            json_[position_] == get_char(ascii_t::line_feed) ||
+            json_[position_] == get_char(ascii_t::carriage_ret))) {
       next();
     }
   }

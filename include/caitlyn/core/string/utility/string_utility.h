@@ -64,42 +64,42 @@ static string_t escape_string(const string_t& str) {
   ostrstream_t oss;
 
   for (size_t i = 0; i < str.size(); ++i) {
-    if (str[i] == get_symbol(char_hex_t::backslash) && i + 1 < str.size()) {
+    if (str[i] == get_char(ascii_t::rev_solidus) && i + 1 < str.size()) {
       switch (str[i + 1]) {
-        case get_symbol(char_hex_t::double_quote):
-          oss << get_symbol(char_hex_t::double_quote);
+        case get_char(ascii_t::quot_mark):
+          oss << get_char(ascii_t::quot_mark);
           break;
-        case get_symbol(char_hex_t::question_mark):
-          oss << get_symbol(char_hex_t::question_mark);
+        case get_char(ascii_t::quest_mark):
+          oss << get_char(ascii_t::quest_mark);
           break;
-        case get_symbol(char_hex_t::backslash):
-          oss << get_symbol(char_hex_t::backslash);
+        case get_char(ascii_t::rev_solidus):
+          oss << get_char(ascii_t::rev_solidus);
           break;
-        case get_symbol(char_hex_t::slash):
-          oss << get_symbol(char_hex_t::slash);
+        case get_char(ascii_t::solidus):
+          oss << get_char(ascii_t::solidus);
           break;
-        case get_symbol(char_hex_t::lowercase_a):
-          oss << get_symbol(char_hex_t::audible_bell);
+        case get_char(ascii_t::latin_small_lett_a):
+          oss << get_char(ascii_t::bell);
           break;
-        case get_symbol(char_hex_t::lowercase_b):
-          oss << get_symbol(char_hex_t::backspace);
+        case get_char(ascii_t::latin_small_lett_b):
+          oss << get_char(ascii_t::backspace);
           break;
-        case get_symbol(char_hex_t::lowercase_f):
-          oss << get_symbol(char_hex_t::form_feed);
+        case get_char(ascii_t::latin_small_lett_f):
+          oss << get_char(ascii_t::form_feed);
           break;
-        case get_symbol(char_hex_t::lowercase_n):
-          oss << get_symbol(char_hex_t::line_feed);
+        case get_char(ascii_t::latin_small_lett_n):
+          oss << get_char(ascii_t::line_feed);
           break;
-        case get_symbol(char_hex_t::lowercase_r):
-          oss << get_symbol(char_hex_t::carriage_return);
+        case get_char(ascii_t::latin_small_lett_r):
+          oss << get_char(ascii_t::carriage_ret);
           break;
-        case get_symbol(char_hex_t::lowercase_t):
-          oss << get_symbol(char_hex_t::horizontal_tab);
+        case get_char(ascii_t::latin_small_lett_t):
+          oss << get_char(ascii_t::char_tab);
           break;
-        case get_symbol(char_hex_t::lowercase_v):
-          oss << get_symbol(char_hex_t::vertical_tab);
+        case get_char(ascii_t::latin_small_lett_v):
+          oss << get_char(ascii_t::line_tab);
           break;
-        case get_symbol(char_hex_t::lowercase_u): {
+        case get_char(ascii_t::latin_small_lett_u): {
           if (i + 5 < str.size()) {
             auto hex = str.substr(i + 2, 4);
             // Convert the hexadecimal representation to a character
@@ -108,13 +108,13 @@ static string_t escape_string(const string_t& str) {
             i += 5;  // Skip the escaped sequence
           } else {
             // Incomplete escape sequence, handle it as an error
-            oss << get_symbol(char_hex_t::backslash) + str[i + 1];
+            oss << get_char(ascii_t::rev_solidus) + str[i + 1];
           }
           break;
         }
         default:
           // Invalid escape sequence, handle it as an error
-          oss << get_symbol(char_hex_t::backslash) + str[i + 1];
+          oss << get_char(ascii_t::rev_solidus) + str[i + 1];
           break;
       }
       ++i;  // Skip the escaped character
