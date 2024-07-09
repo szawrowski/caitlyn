@@ -6,6 +6,6 @@
 #ifndef CAITLYN_CORE_CHAR_TYPES_TYPES_H_
 #define CAITLYN_CORE_CHAR_TYPES_TYPES_H_
 
-#include "caitlyn/core/char/types/char_hex.h"
+#include "caitlyn/core/char/types/ascii.h"
 
 #endif  // CAITLYN_CORE_CHAR_TYPES_TYPES_H_

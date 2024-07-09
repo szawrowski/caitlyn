@@ -13,6 +13,7 @@
 #include "caitlyn/core/date_time.h"
 #include "caitlyn/core/error.h"
 #include "caitlyn/core/io.h"
+#include "caitlyn/core/math.h"
 #include "caitlyn/core/memory.h"
 #include "caitlyn/core/numeric.h"
 #include "caitlyn/core/string.h"

@@ -8,7 +8,7 @@
 
 #include <cctype>
 
-#include "caitlyn/core/char/types/char_hex.h"
+#include "caitlyn/core/char/types/types.h"
 
 __caitlyn_begin_global_namespace
 
@@ -43,8 +43,8 @@ static auto to_lowercase(const char_t value) {
   return static_cast<char_t>(std::tolower(tmp));
 }
 
-static __caitlyn_constexpr uchar_t get_symbol(const char_hex_t value) {
-  return static_cast<uchar_t>(value);
+static __caitlyn_constexpr char_t get_char(const ascii_t value) {
+  return static_cast<char_t>(value);
 }
 
 static __caitlyn_constexpr int_t char_to_digit(const char_t value) {
