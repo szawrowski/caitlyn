@@ -1,12 +1,12 @@
 # Caitlyn
 A general-purpose library designed to enhance productivity for everyday tasks.\
-Supported standard: C++17
+Supported platforms: **Linux, Windows, macOS**.
+Supported standard: **C++17**
 
 ## Features
 
 ### Unicode Strings Support
 Easily handle Unicode strings, characters and files.\
-Supported platforms: **Linux, Windows, macOS**.
 
 #### Usage
 ```c++
@@ -16,7 +16,7 @@ int main() {
   const auto str = "Hello, 世界!"_str;
   const auto emoji = "🙂"_char;
   
-  auto text = cait::fmt("{} {}", str, emoji);
+  const auto text = cait::fmt("{} {}", str, emoji);
   cait::println("{}", text);
 
   auto file = "somefile.txt"_ofile;
@@ -165,7 +165,7 @@ auto Divide(const double lhs, const double rhs)
 }
 
 int main() {
-  auto result = Divide(64, 4);
+  const auto result = Divide(64, 4);
   
   if (result.has_value()) {
     std::cout << "64 / 4 = " << result.get() << std::endl;
@@ -185,10 +185,10 @@ int main() {
 #include <caitlyn/caitlyn.h>
 
 int main() {
-  const cait::pwrint_t lhs = "47011878636176761032731633812398273982371829";
-  const cait::pwrint_t rhs = "10218827321893782973821793709217371273";
+  const auto a = "47011878636176761032731633812398273982371829"_pwrint;
+  const auto b = "10218827321893782973821793709217371273"_pwrint;
 
-  std::cout << lhs * rhs << std::endl;
+  std::cout << a * b << std::endl;
   return 0;
 }
 ```
@@ -197,10 +197,10 @@ int main() {
 #include <caitlyn/caitlyn.h>
 
 int main() {
-  const cait::pwrnum_t lhs = "182.81278920101871298728193797392737812737";
-  const cait::pwrnum_t rhs = "7.8827318902910380293782646543821795732418";
+  const auto a = "182.81278920101871298728193797392737812737"_pwrnum;
+  const auto b = "7.8827318902910380293782646543821795732418"_pwrnum;
 
-  std::cout << lhs * rhs << std::endl;
+  std::cout << a * b << std::endl;
   return 0;
 }
 ```
