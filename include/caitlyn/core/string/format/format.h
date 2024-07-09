@@ -214,6 +214,20 @@ static string_t fmt(const string_t& str, Args&&... args) {
   return result.str();
 }
 
+static void print(const string_t& str) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::cout << str;
+}
+
+static void println(const string_t& str) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::cout << str << std::endl;
+}
+
 template <typename... Args>
 static void print(const string_t& str, Args&&... args) {
 #if defined(__caitlyn_windows)
@@ -230,6 +244,20 @@ static void println(const string_t& str, Args&&... args) {
   std::cout << fmt(str, std::forward<Args>(args)...) << std::endl;
 }
 
+static void eprint(const string_t& str) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::cerr << str;
+}
+
+static void eprintln(const string_t& str) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::cerr << str << std::endl;
+}
+
 template <typename... Args>
 static void eprint(const string_t& str, Args&&... args) {
 #if defined(__caitlyn_windows)
@@ -244,6 +272,13 @@ static void eprintln(const string_t& str, Args&&... args) {
   set_windows_utf8_encode();
 #endif
   std::cerr << fmt(str, std::forward<Args>(args)...) << std::endl;
+}
+
+static void log(const string_t& str) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::clog << str;
 }
 
 template <typename... Args>
