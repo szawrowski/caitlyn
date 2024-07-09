@@ -56,8 +56,8 @@ int main() {
   config["address"]["city"] = "Anytown";
   config["address"]["zip"] = "12345";
   config["phone_numbers"] = cait::json::make_array("555-1234", "555-5678");
-  
-  std::cout << config << std::endl;
+
+  cait::println(config.to_string());
   return 0;
 }
 ```
@@ -78,7 +78,7 @@ int main() {
   config.add_member(json_path("address", "zip"), "12345");
   config.add_member("phone_numbers", cait::json::make_array("555-1234", "555-5678"));
   
-  std::cout << config << std::endl;
+  cait::println(config.to_string());
   return 0;
 }
 ```
@@ -105,7 +105,7 @@ int main() {
       ]
     }
   );
-  std::cout << config << std::endl;
+  cait::println(config.to_string());
   return 0;
 }
 ```
