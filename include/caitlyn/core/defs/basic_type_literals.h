@@ -29,6 +29,9 @@ inline cait::u16char_t operator""_c16(const unsigned long long val) {
 inline cait::u32char_t operator""_c32(const unsigned long long val) {
   return static_cast<cait::u32char_t>(val);
 }
+inline cait::sbyte_t operator""_sbyte(const unsigned long long val) {
+  return static_cast<cait::sbyte_t>(val);
+}
 inline cait::byte_t operator""_byte(const unsigned long long val) {
   return static_cast<cait::byte_t>(val);
 }
@@ -62,11 +65,11 @@ inline cait::int64_t operator""_i64(const unsigned long long val) {
 inline cait::uint64_t operator""_u64(const unsigned long long val) {
   return static_cast<cait::uint64_t>(val);
 }
-inline cait::size_t operator""_uz(const unsigned long long val) {
-  return static_cast<cait::size_t>(val);
-}
 inline cait::ssize_t operator""_sz(const unsigned long long val) {
   return static_cast<cait::ssize_t>(val);
+}
+inline cait::size_t operator""_ssz(const unsigned long long val) {
+  return static_cast<cait::size_t>(val);
 }
 inline cait::float32_t operator""_f32(const long double val) {
   return static_cast<cait::float32_t>(val);
