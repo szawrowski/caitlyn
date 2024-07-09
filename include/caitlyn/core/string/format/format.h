@@ -218,6 +218,7 @@ static void print(const string_t& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::cout << str;
 }
 
@@ -225,6 +226,7 @@ static void println(const string_t& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::cout << str << std::endl;
 }
 
@@ -233,6 +235,7 @@ static void print(const string_t& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::cout << fmt(str, std::forward<Args>(args)...);
 }
 
@@ -241,6 +244,7 @@ static void println(const string_t& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::cout << fmt(str, std::forward<Args>(args)...) << std::endl;
 }
 
@@ -248,6 +252,7 @@ static void eprint(const string_t& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::cerr << str;
 }
 
@@ -255,6 +260,7 @@ static void eprintln(const string_t& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::cerr << str << std::endl;
 }
 
@@ -263,6 +269,7 @@ static void eprint(const string_t& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::cerr << fmt(str, std::forward<Args>(args)...);
 }
 
@@ -271,6 +278,7 @@ static void eprintln(const string_t& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::cerr << fmt(str, std::forward<Args>(args)...) << std::endl;
 }
 
@@ -278,6 +286,7 @@ static void log(const string_t& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::clog << str;
 }
 
@@ -286,6 +295,7 @@ static void log(const string_t& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   std::clog << fmt(str, std::forward<Args>(args)...) << std::endl;
 }
 

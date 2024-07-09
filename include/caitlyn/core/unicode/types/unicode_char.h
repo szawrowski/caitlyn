@@ -121,6 +121,7 @@ static cait::istream_t& operator>>(cait::istream_t& input_stream,
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   if (!input_stream.good()) {
     return input_stream;
   }
@@ -145,6 +146,7 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
+  std::ios::sync_with_stdio(false);
   if (os.good()) {
     os.write(cait::char_to_std_string<cait::u8char_t>(value.get_code_point())
                  .c_str(),
