@@ -158,7 +158,7 @@ enum class MathError {
 auto Divide(const double lhs, const double rhs)
     -> cait::result_t<double, MathError> {
   if (lhs == 0 || rhs == 0) {
-    return cait::make_error{MathError::kDivideByZero};
+    return cait::make_error(MathError::kDivideByZero);
   }
   return lhs / rhs;
 }
