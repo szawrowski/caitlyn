@@ -109,20 +109,19 @@ int main() {
   return 0;
 }
 ```
-#### Output
-- Optimized
+- Optimized output
 ```c++
 config.to_string();
 ```
+- Structured output
+```c++
+// Pass true and optional indent width (2 by default)
+config.to_string(true);
+config.to_string(true, 2);
+```
+#### Output
 ```json
 {"name":{"first":"John","last":"Doe"},"age":30,"address":{"street":"123 Main St","city":"Anytown","zip":"12345"},"phone_numbers":["555-1234","555-5678"]}
-```
-- Beauty
-
-Pass **true** for mangling and optional indent width (2 by default)
-```c++
-config.to_string(true);  // or
-config.to_string(true, 2);
 ```
 ```json
 {
