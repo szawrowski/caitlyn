@@ -6,9 +6,10 @@
 #ifndef CAITLYN_SER_JSON_TYPES_JSON_DATA_H_
 #define CAITLYN_SER_JSON_TYPES_JSON_DATA_H_
 
+#include "caitlyn/core/io.h"
+#include "caitlyn/core/memory.h"
 #include "caitlyn/core/string.h"
 #include "caitlyn/core/utility.h"
-#include "caitlyn/core/memory.h"
 #include "caitlyn/ser/defs/serializing_definitions.h"
 #include "caitlyn/ser/json/types/json_class.h"
 
@@ -42,26 +43,32 @@ public:
   }
 
   template <typename T>
-  json_data_t(T value,
-              std::enable_if_t<std::is_same_v<T, boolean_type>>* = nullptr)
+  json_data_t(
+      T value,
+      typename std::enable_if<std::is_same<T, boolean_type>::value>::type* =
+          nullptr)
       : data_{value}, type_{json_class_t::boolean} {}
-
-  template <typename T>
-  json_data_t(T value,
-              std::enable_if_t<std::is_integral_v<T> &&
-                               !std::is_same_v<T, boolean_type>>* = nullptr)
-      : data_{static_cast<integral_type>(value)},
-        type_{json_class_t::integral} {}
-
-  template <typename T>
-  json_data_t(T value, std::enable_if_t<std::is_floating_point_v<T>>* = nullptr)
-      : data_{static_cast<floating_type>(value)},
-        type_{json_class_t::floating} {}
 
   template <typename T>
   json_data_t(
       T value,
-      std::enable_if_t<std::is_convertible_v<T, string_type>>* = nullptr)
+      typename std::enable_if<std::is_integral_v<T> &&
+                              !std::is_same<T, boolean_type>::value>::type* =
+          nullptr)
+      : data_{static_cast<integral_type>(value)},
+        type_{json_class_t::integral} {}
+
+  template <typename T>
+  json_data_t(T value,
+              typename std::enable_if<std::is_floating_point<T>::value>::type* =
+                  nullptr)
+      : data_{static_cast<floating_type>(value)},
+        type_{json_class_t::floating} {}
+
+  template <typename T>
+  json_data_t(T value,
+              typename std::enable_if<
+                  std::is_convertible<T, string_type>::value>::type* = nullptr)
       : data_{string_type{value}}, type_{json_class_t::string} {}
 
   ~json_data_t() { clear_internal(); }
@@ -88,16 +95,18 @@ public:
   }
 
   template <typename T>
-  std::enable_if_t<std::is_same_v<T, boolean_type>, json_data_t&> operator=(
-      T value) {
+  typename std::enable_if<std::is_same<T, boolean_type>::value,
+                          json_data_t&>::type
+  operator=(T value) {
     set_type(json_class_t::boolean);
     data_ = value;
     return *this;
   }
 
   template <typename T>
-  std::enable_if_t<std::is_integral_v<T> && !std::is_same_v<T, boolean_type>,
-                   json_data_t&>
+  typename std::enable_if<std::is_integral<T>::value &&
+                              !std::is_same<T, boolean_type>::value,
+                          json_data_t&>::type
   operator=(T value) {
     set_type(json_class_t::integral);
     data_ = static_cast<integral_type>(value);
@@ -105,15 +114,16 @@ public:
   }
 
   template <typename T>
-  std::enable_if_t<std::is_floating_point_v<T>, json_data_t&> operator=(
-      T value) {
+  typename std::enable_if<std::is_floating_point<T>::value, json_data_t&>::type
+  operator=(T value) {
     set_type(json_class_t::floating);
     data_ = static_cast<floating_type>(value);
     return *this;
   }
 
   template <typename T>
-  std::enable_if_t<std::is_convertible_v<T, string_type>, json_data_t&>
+  typename std::enable_if<std::is_convertible<T, string_type>::value,
+                          json_data_t&>::type
   operator=(T value) {
     set_type(json_class_t::string);
     data_ = string_type{value};
@@ -306,18 +316,18 @@ private:
             if (mangling) {
               oss << indent_str;
             }
-            oss << get_char(ascii_t::quot_mark) << escape_string(key)
-                << get_char(ascii_t::quot_mark)
-                << get_char(ascii_t::colon)
-                << get_char(ascii_t::space);
+            oss << fmt("{}{}{}{}{}", get_char(ascii_t::quot_mark),
+                       escape_string(key), get_char(ascii_t::quot_mark),
+                       get_char(ascii_t::colon), get_char(ascii_t::space));
+
             value->make_output(oss, mangling, base_indent,
                                indent + base_indent);
             first = false;
           }
           if (mangling) {
-            oss << get_char(ascii_t::line_feed)
-                << string_type(indent - base_indent,
-                               get_char(ascii_t::space));
+            oss << fmt(
+                "{}{}", get_char(ascii_t::line_feed),
+                string_type(indent - base_indent, get_char(ascii_t::space)));
           }
         }
         oss << get_char(ascii_t::right_curly_br);
@@ -345,9 +355,9 @@ private:
             first = false;
           }
           if (mangling) {
-            oss << get_char(ascii_t::line_feed)
-                << string_type(indent - base_indent,
-                               get_char(ascii_t::space));
+            oss << fmt(
+                "{}{}", get_char(ascii_t::line_feed),
+                string_type(indent - base_indent, get_char(ascii_t::space)));
           }
         }
         oss << get_char(ascii_t::right_square_br);
@@ -357,9 +367,9 @@ private:
         oss << get_as_string(nullptr);
         break;
       case json_class_t::string:
-        oss << get_char(ascii_t::quot_mark)
-            << escape_string(*std::get_if<string_type>(&data_))
-            << get_char(ascii_t::quot_mark);
+        oss << fmt("{}{}{}", get_char(ascii_t::quot_mark),
+                   escape_string(*std::get_if<string_type>(&data_)),
+                   get_char(ascii_t::quot_mark));
         break;
       case json_class_t::floating:
         oss << *std::get_if<floating_type>(&data_);
