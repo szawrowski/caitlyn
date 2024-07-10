@@ -6,9 +6,9 @@
 #ifndef CAITLYN_CORE_IO_TYPES_FILE_H_
 #define CAITLYN_CORE_IO_TYPES_FILE_H_
 
-#include <fstream>
+#include <caitlyn/core/unicode/types/unicode_file_reader.h>
 
-#include "caitlyn/__detail.h"
+#include "caitlyn/core/unicode/unicode.h"
 
 __caitlyn_begin_global_namespace
 
@@ -16,6 +16,9 @@ using ifstream_t = std::basic_ifstream<char_t>;
 using ofstream_t = std::basic_ofstream<char_t>;
 using fstream_t = std::basic_fstream<char_t>;
 using filebuf_t = std::basic_filebuf<char_t>;
+
+using ifile = unicode_file_reader<u8char_t>;
+using ofile = unicode_file_writer<u8char_t>;
 
 __caitlyn_end_global_namespace
 

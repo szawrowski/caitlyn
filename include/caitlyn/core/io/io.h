@@ -13,6 +13,7 @@
 #include <iostream>
 
 #include "caitlyn/core/io/types/types.h"
+#include "caitlyn/core/io/print.h"
 
 #if __caitlyn_has_cxx20
   #include <spanstream>

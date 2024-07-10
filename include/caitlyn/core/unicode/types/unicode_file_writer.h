@@ -6,16 +6,15 @@
 #ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_
 #define CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_
 
-#include "caitlyn/core/io/types/types.h"
-#include "caitlyn/core/string/types/types.h"
+#include <fstream>
+
+#include "caitlyn/core/format/format.h"
 #include "caitlyn/core/unicode/types/unicode_string.h"
 
 __caitlyn_begin_global_namespace
 
 template <typename CharT>
 class unicode_file_writer;
-
-using ofile_t = unicode_file_writer<u8char_t>;
 
 template <>
 class unicode_file_writer<u8char_t> {
@@ -24,7 +23,7 @@ public:
   unicode_file_writer(const char_t* filename) : filename_(filename) {
     open();
   }
-  unicode_file_writer(string_t filename) : filename_(std::move(filename)) {
+  unicode_file_writer(std::string filename) : filename_(std::move(filename)) {
     open();
   }
   unicode_file_writer(const unicode_file_writer& other)
@@ -58,57 +57,67 @@ public:
     file_ << data;
   }
 
-  void write(const string_t& data) {
+  void write(const std::string& data) {
     if (!file_.is_open()) {
       open();
     }
     file_ << data;
   }
 
-  void write(const unichar_t& data) {
+  void write(const unicode_char<u8char_t>& data) {
     if (!file_.is_open()) {
       open();
     }
     file_ << data;
   }
 
-  void write(const unistring_t& data) {
+  void write(const unicode_string<unicode_char<u8char_t>>& data) {
     if (!file_.is_open()) {
       open();
     }
-    file_.write(data.to_std_string().c_str(),
-                static_cast<streamsize_t>(data.byte_count()));
+    file_ << data;
   }
 
   template <typename... Args>
-  void write(const string_t& str, Args&&... args) {
-    write(fmt(str, std::forward<Args>(args)...));
+  void write(const std::string& str, Args&&... args) {
+    file_ << fmt(str, std::forward<Args>(args)...);
   }
 
   void write_line(const char* data) {
-    write(data);
-    file_.put('\n');
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void write_line(const string_t& data) {
-    write(data);
-    file_.put('\n');
+  void write_line(const std::string& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void write_line(const unichar_t& data) {
-    write(data);
-    file_.put('\n');
+  void write_line(const unicode_char<u8char_t>& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void write_line(const unistring_t& data) {
-    write(data);
-    file_.put('\n');
+  void write_line(const unicode_string<unicode_char<u8char_t>>& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << data << get_char(ascii_t::line_feed);
   }
 
   template <typename... Args>
-  void write_line(const string_t& str, Args&&... args) {
-    write(fmt(str, std::forward<Args>(args)...));
-    file_.put('\n');
+  void write_line(const std::string& str, Args&&... args) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << fmt(str, std::forward<Args>(args)...)
+          << get_char(ascii_t::line_feed);
   }
 
   void append(const char_t* data) {
@@ -120,7 +129,7 @@ public:
     file_.flush();
   }
 
-  void append(const string_t& data) {
+  void append(const std::string& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -129,7 +138,7 @@ public:
     file_.flush();
   }
 
-  void append(const unichar_t& data) {
+  void append(const unicode_char<u8char_t>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -138,58 +147,72 @@ public:
     file_.flush();
   }
 
-  void append(const unistring_t& data) {
+  void append(const unicode_string<unicode_char<u8char_t>>& data) {
     if (!file_.is_open()) {
       open();
     }
     file_.seekp(0, std::ios::end);
-    file_.write(data.to_std_string().c_str(),
-                static_cast<std::streamsize>(data.byte_count()));
+    file_ << data;
     file_.flush();
   }
 
   template <typename... Args>
-  void append(const string_t& str, Args&&... args) {
-    auto data = fmt(str, std::forward<Args>(args)...);
+  void append(const std::string& str, Args&&... args) {
     if (!file_.is_open()) {
       open();
     }
     file_.seekp(0, std::ios::end);
-    file_.write(data.to_std_string().c_str(),
-                static_cast<std::streamsize>(data.byte_count()));
+    file_ << fmt(str, std::forward<Args>(args)...);
     file_.flush();
   }
 
   void append_line(const char* data) {
-    append(data);
-    file_.put('\n');
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << data << get_char(ascii_t::line_feed);
   }
 
   void append_line(const std::string& data) {
-    append(data);
-    file_.put('\n');
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void append_line(const unichar_t& data) {
-    append(data);
-    file_.put('\n');
+  void append_line(const unicode_char<u8char_t>& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void append_line(const unistring_t& data) {
-    append(data);
-    file_.put('\n');
+  void append_line(const unicode_string<unicode_char<u8char_t>>& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << data << get_char(ascii_t::line_feed);
   }
 
   template <typename... Args>
-  void append_line(const string_t& str, Args&&... args) {
-    append(fmt(str, std::forward<Args>(args)...));
-    file_.put('\n');
+  void append_line(const std::string& str, Args&&... args) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << fmt(str, std::forward<Args>(args)...)
+          << get_char(ascii_t::line_feed);
+    file_.flush();
   }
 
   void clear() {
     close();
-    ofstream_t clear_file(filename_,
-                          std::ios::out | std::ios::trunc | std::ios::binary);
+    std::ofstream clear_file{
+        filename_, std::ios::out | std::ios::trunc | std::ios::binary};
     if (!clear_file.is_open()) {
       throw std::ios_base::failure{"Failed to open file for clearing"};
     }
@@ -198,15 +221,15 @@ public:
   }
 
 private:
-  string_t filename_;
-  ofstream_t file_;
+  std::string filename_;
+  std::ofstream file_;
 };
 
 __caitlyn_end_global_namespace
 
-static cait::ofile_t operator""_ofile(const cait::char_t* filename,
-                                      const cait::size_t) {
-  return cait::ofile_t{filename};
+static cait::unicode_file_writer<cait::u8char_t> operator""_ofile(
+    const cait::char_t* filename, const cait::size_t) {
+  return cait::unicode_file_writer<cait::u8char_t>{filename};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_

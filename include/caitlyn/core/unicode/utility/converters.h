@@ -3,9 +3,10 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_UNICODE_CONVERTERS_CHAR_CONVERTERS_H
-#define CAITLYN_CORE_UNICODE_CONVERTERS_CHAR_CONVERTERS_H
+#ifndef CAITLYN_CORE_UNICODE_UTILITY_CONVERTERS_H
+#define CAITLYN_CORE_UNICODE_UTILITY_CONVERTERS_H
 
+#include <sstream>
 #include <tuple>
 
 #include "caitlyn/core/unicode/types/unicode_char_sequence.h"
@@ -44,6 +45,27 @@ inline char_seq_t<u8char_t>::type get_char_seq<u8char_t>(
       static_cast<u8char_t>(0x80 | (codepoint & 0x3F)));
 }
 
+template <typename CharT>
+static std::basic_string<CharT> char_to_string(code_point_t code_point);
+
+template <>
+inline std::string char_to_string(const code_point_t code_point) {
+  std::ostringstream oss;
+  const auto seq = get_char_seq<u8char_t>(code_point);
+
+  oss << std::get<0>(seq);
+  if (std::get<1>(seq)) {
+    oss << std::get<1>(seq);
+  }
+  if (std::get<2>(seq)) {
+    oss << std::get<2>(seq);
+  }
+  if (std::get<3>(seq)) {
+    oss << std::get<3>(seq);
+  }
+  return oss.str();
+}
+
 __caitlyn_end_global_namespace
 
-#endif  // CAITLYN_CORE_UNICODE_CONVERTERS_CHAR_CONVERTERS_H
+#endif  // CAITLYN_CORE_UNICODE_UTILITY_CONVERTERS_H

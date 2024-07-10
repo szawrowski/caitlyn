@@ -7,20 +7,20 @@
 #define CAITLYN_CORE_STRING_FORMAT_FORMAT_H_
 
 #include <iomanip>
+#include <vector>
 
 #include "caitlyn/core/char.h"
-#include "caitlyn/core/io/io.h"
-#include "caitlyn/core/string/format/types/types.h"
-#include "caitlyn/core/string/types/types.h"
+#include "caitlyn/core/format/types/types.h"
+#include "caitlyn/core/unicode/types/unicode_string.h"
 
 __caitlyn_begin_global_namespace
 __caitlyn_begin_format_namespace
 __caitlyn_begin_detail_namespace
 
 template <typename T>
-static typename std::enable_if<std::is_integral<T>::value, string_t>::type
+static typename std::enable_if<std::is_integral<T>::value, std::string>::type
 to_string(const T& value, const format_spec_t& spec) {
-  ostrstream_t oss;
+  std::ostringstream oss;
   oss << std::fixed << std::setprecision(0);
 
   if (spec.type == format_type_t::integral) {
@@ -28,7 +28,7 @@ to_string(const T& value, const format_spec_t& spec) {
   } else {
     oss << value;
   }
-  string_t str = oss.str();
+  std::string str = oss.str();
 
   if (static_cast<int>(str.size()) < spec.width) {
     switch (spec.align) {
@@ -50,9 +50,10 @@ to_string(const T& value, const format_spec_t& spec) {
 }
 
 template <typename T>
-static typename std::enable_if<std::is_floating_point<T>::value, string_t>::type
-to_string(const T& value, const format_spec_t& spec) {
-  ostrstream_t oss;
+static
+    typename std::enable_if<std::is_floating_point<T>::value, std::string>::type
+    to_string(const T& value, const format_spec_t& spec) {
+  std::ostringstream oss;
   oss << std::fixed
       << std::setprecision(spec.precision >= 0 ? spec.precision : 6);
 
@@ -60,7 +61,7 @@ to_string(const T& value, const format_spec_t& spec) {
               ? static_cast<float64_t>(value)
               : value);
 
-  string_t str = oss.str();
+  std::string str = oss.str();
   if (static_cast<ssize_t>(str.size()) < spec.width) {
     switch (spec.align) {
       case format_align_t::left:
@@ -80,8 +81,9 @@ to_string(const T& value, const format_spec_t& spec) {
   return str;
 }
 
-static string_t to_string(const string_t& value, const format_spec_t& spec) {
-  string_t str = value;
+static std::string to_string(const std::string& value,
+                             const format_spec_t& spec) {
+  std::string str = value;
   if (static_cast<int_t>(str.size()) < spec.width) {
     switch (spec.align) {
       case format_align_t::left:
@@ -101,25 +103,26 @@ static string_t to_string(const string_t& value, const format_spec_t& spec) {
   return str;
 }
 
-static string_t to_string(const char_t* value, const format_spec_t& spec) {
-  return to_string(string_t{value}, spec);
+static std::string to_string(const char_t* value, const format_spec_t& spec) {
+  return to_string(std::string{value}, spec);
 }
 
 template <typename T>
-static
-    typename std::enable_if<std::is_same<T, unistring_t>::value, string_t>::type
-    to_string(const T& value, const format_spec_t& spec) {
-  return to_string(value.to_std_string(), spec);
+static typename std::enable_if<std::is_same<T, unicode_char<u8char_t>>::value,
+                               std::string>::type
+to_string(const T& value, const format_spec_t& spec) {
+  return to_string(value.to_string(), spec);
 }
 
 template <typename T>
-static
-    typename std::enable_if<std::is_same<T, unichar_t>::value, string_t>::type
-    to_string(const T& value, const format_spec_t& spec) {
-  return to_string(char_to_string<u8char_t>(value.get_code_point()), spec);
+static typename std::enable_if<
+    std::is_same<T, unicode_string<unicode_char<u8char_t>>>::value,
+    std::string>::type
+to_string(const T& value, const format_spec_t& spec) {
+  return to_string(value.to_string(), spec);
 }
 
-static format_spec_t parse_format_spec(const string_t& spec) {
+static format_spec_t parse_format_spec(const std::string& spec) {
   format_spec_t result;
   size_t i{};
 
@@ -174,9 +177,9 @@ __caitlyn_end_detail_namespace
 __caitlyn_end_format_namespace
 
 template <typename... Args>
-static string_t fmt(const string_t& str, Args&&... args) {
-  ostrstream_t result;
-  const vector_t<string_t> arguments = {
+static std::string fmt(const std::string& str, Args&&... args) {
+  std::ostringstream result;
+  const std::vector<std::string> arguments = {
       format::__detail::to_string(std::forward<Args>(args), {})...};
   size_t arg_index{};
   size_t pos{};
@@ -189,10 +192,10 @@ static string_t fmt(const string_t& str, Args&&... args) {
         pos += 2;
       } else {
         const size_t end = str.find(get_char(ascii_t::right_curly_br), pos);
-        if (end == string_t::npos) {
+        if (end == std::string::npos) {
           throw format::format_error_t{"Mismatched braces in format string"};
         }
-        string_t spec = str.substr(pos + 1, end - pos - 1);
+        std::string spec = str.substr(pos + 1, end - pos - 1);
         if (arg_index >= arguments.size()) {
           throw format::format_error_t{"Argument index out of range"};
         }
@@ -213,91 +216,6 @@ static string_t fmt(const string_t& str, Args&&... args) {
     }
   }
   return result.str();
-}
-
-static void print(const string_t& str) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::cout << str;
-}
-
-static void println(const string_t& str) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::cout << str << std::endl;
-}
-
-template <typename... Args>
-static void print(const string_t& str, Args&&... args) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::cout << fmt(str, std::forward<Args>(args)...);
-}
-
-template <typename... Args>
-static void println(const string_t& str, Args&&... args) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::cout << fmt(str, std::forward<Args>(args)...) << std::endl;
-}
-
-static void eprint(const string_t& str) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::cerr << str;
-}
-
-static void eprintln(const string_t& str) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::cerr << str << std::endl;
-}
-
-template <typename... Args>
-static void eprint(const string_t& str, Args&&... args) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::cerr << fmt(str, std::forward<Args>(args)...);
-}
-
-template <typename... Args>
-static void eprintln(const string_t& str, Args&&... args) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::cerr << fmt(str, std::forward<Args>(args)...) << std::endl;
-}
-
-static void log(const string_t& str) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::clog << str;
-}
-
-template <typename... Args>
-static void log(const string_t& str, Args&&... args) {
-#if defined(__caitlyn_windows)
-  set_windows_utf8_encode();
-#endif
-  std::ios::sync_with_stdio(false);
-  std::clog << fmt(str, std::forward<Args>(args)...) << std::endl;
 }
 
 __caitlyn_end_global_namespace

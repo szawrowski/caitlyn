@@ -6,7 +6,9 @@
 #ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_CHAR_SEQUENCE_H_
 #define CAITLYN_CORE_UNICODE_TYPES_UNICODE_CHAR_SEQUENCE_H_
 
-#include "caitlyn/core/utility/types/types.h"
+#include <tuple>
+
+#include "caitlyn/__detail.h"
 
 __caitlyn_begin_global_namespace
 
@@ -17,7 +19,7 @@ template <>
 class char_seq_t<u8char_t> {
 public:
   using value_type = u8char_t;
-  using type = tuple_t<u8char_t, u8char_t, u8char_t, u8char_t>;
+  using type = std::tuple<u8char_t, u8char_t, u8char_t, u8char_t>;
 };
 
 __caitlyn_end_global_namespace

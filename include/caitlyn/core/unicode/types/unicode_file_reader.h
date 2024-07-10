@@ -6,16 +6,14 @@
 #ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_READER_H_
 #define CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_READER_H_
 
-#include "caitlyn/core/io/types/file.h"
-#include "caitlyn/core/string/types/types.h"
+#include <fstream>
+
 #include "caitlyn/core/unicode/types/unicode_string.h"
 
 __caitlyn_begin_global_namespace
 
 template <typename CharT>
 class unicode_file_reader;
-
-using ifile_t = unicode_file_reader<u8char_t>;
 
 template <>
 class unicode_file_reader<u8char_t> {
@@ -24,7 +22,7 @@ public:
   unicode_file_reader(const char_t* filename) : filename_(filename) {
     open();
   }
-  unicode_file_reader(string_t filename) : filename_(std::move(filename)) {
+  unicode_file_reader(std::string filename) : filename_(std::move(filename)) {
     open();
   }
   unicode_file_reader(const unicode_file_reader& other)
@@ -51,7 +49,7 @@ public:
   }
 
 public:
-  __caitlyn_nodiscard unistring_t read() {
+  __caitlyn_nodiscard unicode_string<unicode_char<u8char_t>> read() {
     if (!file_.is_open()) {
       open();
     }
@@ -59,34 +57,35 @@ public:
     const streamsize_t size = file_.tellg();
     file_.seekg(0, std::ios::beg);
 
-    vector_t<char_t> buffer(size);
+    std::vector<char_t> buffer(size);
     if (file_.read(buffer.data(), size)) {
-      return unistring_t{string_t(buffer.data(), size)};
+      return unicode_string<unicode_char<u8char_t>>{
+          std::string(buffer.data(), size)};
     }
-    return unistring_t{};
+    return unicode_string<unicode_char<u8char_t>>{};
   }
 
-  __caitlyn_nodiscard unistring_t read_line() {
+  __caitlyn_nodiscard unicode_string<unicode_char<u8char_t>> read_line() {
     if (!file_.is_open()) {
       open();
     }
-    string_t line;
+    std::string line;
     if (std::getline(file_, line)) {
-      return unistring_t{line};
+      return unicode_string<unicode_char<u8char_t>>{line};
     }
-    return unistring_t{};
+    return unicode_string<unicode_char<u8char_t>>{};
   }
 
 private:
-  string_t filename_;
-  ifstream_t file_;
+  std::string filename_;
+  std::ifstream file_;
 };
 
 __caitlyn_end_global_namespace
 
-static cait::ifile_t operator""_ifile(const cait::char_t* filename,
-                                      const cait::size_t) {
-  return cait::ifile_t{filename};
+static cait::unicode_file_reader<cait::u8char_t> operator""_ifile(
+    const cait::char_t* filename, const cait::size_t) {
+  return cait::unicode_file_reader<cait::u8char_t>{filename};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_READER_H_

@@ -3,11 +3,11 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_STRING_FORMAT_TYPES_FORMAT_SPEC_H_
-#define CAITLYN_CORE_STRING_FORMAT_TYPES_FORMAT_SPEC_H_
+#ifndef CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_
+#define CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_
 
-#include "caitlyn/core/string/format/types/format_align.h"
-#include "caitlyn/core/string/format/types/format_type.h"
+#include "caitlyn/core/format/types/format_align.h"
+#include "caitlyn/core/format/types/format_type.h"
 
 __caitlyn_begin_global_namespace
 __caitlyn_begin_format_namespace
@@ -23,4 +23,4 @@ struct format_spec_t {
 __caitlyn_end_format_namespace
 __caitlyn_end_global_namespace
 
-#endif  // CAITLYN_CORE_STRING_FORMAT_TYPES_FORMAT_SPEC_H_
+#endif  // CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_

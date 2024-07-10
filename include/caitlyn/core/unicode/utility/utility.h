@@ -6,6 +6,6 @@
 #ifndef CAITLYN_CORE_UNICODE_UTILITY_UTILITY_
 #define CAITLYN_CORE_UNICODE_UTILITY_UTILITY_
 
-#include "caitlyn/core/unicode/utility/sequence_calculator.h"
+#include "caitlyn/core/unicode/utility/converters.h"
 
 #endif // CAITLYN_CORE_UNICODE_UTILITY_UTILITY_

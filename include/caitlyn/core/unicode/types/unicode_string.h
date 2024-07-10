@@ -6,7 +6,8 @@
 #ifndef CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
 #define CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
 
-#include "caitlyn/core/containers/containers.h"
+#include <vector>
+
 #include "caitlyn/core/unicode/types/unicode_char.h"
 
 __caitlyn_begin_global_namespace
@@ -14,21 +15,19 @@ __caitlyn_begin_global_namespace
 template <typename CharT>
 class unicode_string;
 
-using unistring_t = unicode_string<unichar_t>;
-
 template <>
-class unicode_string<unichar_t> {
+class unicode_string<unicode_char<u8char_t>> {
 public:
-  using value_type = unichar_t;
-  using data_type = vector_t<value_type>;
+  using value_type = unicode_char<u8char_t>;
+  using data_type = std::vector<value_type>;
   using iterator = data_type::iterator;
   using const_iterator = data_type::const_iterator;
   using size_type = size_t;
 
 public:
   unicode_string() = default;
-  unicode_string(const u8char_t* data) { from_chars(data); }
-  unicode_string(const string_t& data) { from_chars(data); }
+  unicode_string(const char_t* data) { from_chars(data); }
+  unicode_string(const std::string& data) { from_chars(data); }
   unicode_string(const unicode_string& other) : data_{other.data_} {}
   unicode_string(unicode_string&& other) : data_{std::move(other.data_)} {}
 
@@ -38,7 +37,7 @@ public:
     return *this;
   }
 
-  unicode_string& operator=(const string_t& data) {
+  unicode_string& operator=(const std::string& data) {
     from_chars(data);
     return *this;
   }
@@ -51,15 +50,16 @@ public:
   }
 
 public:
-  __caitlyn_nodiscard const unichar_t& operator[](const size_type pos) const {
+  __caitlyn_nodiscard const unicode_char<u8char_t>& operator[](
+      const size_type pos) const {
     return data_[pos];
   }
 
-  __caitlyn_nodiscard unichar_t& operator[](const size_type pos) {
+  __caitlyn_nodiscard unicode_char<u8char_t>& operator[](const size_type pos) {
     return data_[pos];
   }
 
-  unicode_string& operator+=(const unichar_t& c) {
+  unicode_string& operator+=(const unicode_char<u8char_t>& c) {
     push_back(c);
     return *this;
   }
@@ -73,15 +73,15 @@ public:
   __caitlyn_nodiscard const_iterator cend() const { return data_.cend(); }
 
 public:
-  void append(const unichar_t& value) { data_.push_back(value); }
+  void append(const unicode_char<u8char_t>& value) { data_.push_back(value); }
 
   void append(const unicode_string& other) {
     data_.insert(data_.end(), other.data_.begin(), other.data_.end());
   }
 
 public:
-  __caitlyn_nodiscard string_t to_std_string() const {
-    ostrstream_t oss;
+  __caitlyn_nodiscard std::string to_string() const {
+    std::ostringstream oss;
     for (const auto& c : data_) {
       oss << char_to_string<u8char_t>(c.get_code_point());
     }
@@ -104,14 +104,14 @@ public:
   __caitlyn_nodiscard size_type length() const { return data_.size(); }
   __caitlyn_nodiscard bool_t is_empty() const { return data_.empty(); }
 
-  void push_back(const unichar_t& c) { data_.push_back(c); }
+  void push_back(const unicode_char<u8char_t>& c) { data_.push_back(c); }
 
   void pop_back() { data_.pop_back(); }
 
   void clear() { data_.clear(); }
 
 private:
-  void from_chars(const string_t& data) {
+  void from_chars(const std::string& data) {
     const size_type size = data.size();
     data_type ret;
 
@@ -119,7 +119,7 @@ private:
       if (pos >= size) {
         break;
       }
-      unichar_t tmp = data.substr(pos).c_str();
+      unicode_char<u8char_t> tmp = data.substr(pos).c_str();
       ret.emplace_back(tmp);
       pos += tmp.byte_count();
     }
@@ -133,7 +133,9 @@ private:
 __caitlyn_end_global_namespace
 
 static cait::bool_t
-operator==(const cait::unistring_t& lhs, const cait::unistring_t& rhs) {
+operator==(
+    const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& lhs,
+    const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& rhs) {
   for (auto lhs_it = lhs.begin(), lhs_end = lhs.end(), rhs_it = rhs.begin(),
             rhs_end = rhs.end();
        lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
@@ -144,25 +146,29 @@ operator==(const cait::unistring_t& lhs, const cait::unistring_t& rhs) {
   return true;
 }
 
-static cait::bool_t operator!=(const cait::unistring_t& lhs,
-                               const cait::unistring_t& rhs) {
+static cait::bool_t operator!=(
+    const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& lhs,
+    const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& rhs) {
   return !(lhs == rhs);
 }
 
-static cait::istream_t& operator>>(cait::istream_t& is, cait::unistring_t& str) {
+static std::istream& operator>>(
+    std::istream& is,
+    cait::unicode_string<cait::unicode_char<cait::u8char_t>>& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
   if (is.good()) {
-    cait::string_t input;
+    std::string input;
     std::getline(is, input);
     str = input;
   }
   return is;
 }
 
-static cait::ostream_t& operator<<(cait::ostream_t& os,
-                                   const cait::unistring_t& str) {
+static std::ostream& operator<<(
+    std::ostream& os,
+    const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
@@ -174,9 +180,9 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
   return os;
 }
 
-static cait::unistring_t operator""_str(const cait::char_t* str,
-                                     const std::size_t) {
-  return cait::unistring_t{str};
+static cait::unicode_string<cait::unicode_char<cait::u8char_t>> operator""_str(
+    const cait::char_t* str, const std::size_t) {
+  return cait::unicode_string<cait::unicode_char<cait::u8char_t>>{str};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
