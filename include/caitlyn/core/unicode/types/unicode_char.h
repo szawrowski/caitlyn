@@ -12,7 +12,7 @@
 
 __caitlyn_begin_global_namespace
 
-    template <typename CharT>
+template <typename CharT>
 class unicode_char;
 
 using unichar_t = unicode_char<u8char_t>;

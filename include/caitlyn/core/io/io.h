@@ -14,12 +14,12 @@
 
 #include "caitlyn/core/io/types/types.h"
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
+#if __caitlyn_has_cxx20
   #include <spanstream>
   #include <syncstream>
 #endif
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd23_ver)
+#if __caitlyn_has_cxx23
   #include <print>
 #endif
 

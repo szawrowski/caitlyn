@@ -1,7 +1,7 @@
 #ifndef CAITLYN_NUM_TYPES_PWRINT_H_
 #define CAITLYN_NUM_TYPES_PWRINT_H_
 
-#include "caitlyn/num/defs/numeric_definitions.h"
+#include "caitlyn/__detail.h"
 
 __caitlyn_begin_global_namespace
 

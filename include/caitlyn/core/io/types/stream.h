@@ -8,7 +8,7 @@
 
 #include <streambuf>
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
 #if defined(__caitlyn_windows)
   #define NOMINMAX

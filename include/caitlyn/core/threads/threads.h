@@ -11,13 +11,13 @@
 #include <mutex>
 #include <thread>
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd14_ver)
+#if __caitlyn_has_cxx14
   #include <shared_mutex>
 #endif
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
+#if __caitlyn_has_cxx20
   #include <barrier>
   #include <coroutine>
   #include <latch>

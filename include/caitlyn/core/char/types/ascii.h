@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_CHAR_TYPES_ASCII_H_
 #define CAITLYN_CORE_CHAR_TYPES_ASCII_H_
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
 __caitlyn_begin_global_namespace
 
@@ -146,10 +146,10 @@ enum class ascii_t : byte_t {
   latin_small_letter_y,
   latin_small_letter_z,
   // ASCII punctuation and symbols
-  left_curly_br ,
-  vertical_line ,
-  right_curly_br ,
-  tilde ,
+  left_curly_br,
+  vertical_line,
+  right_curly_br,
+  tilde,
   del
 };
 

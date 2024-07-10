@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_STRING_FORMAT_DEFS_FORMAT_DEFINITIONS_H_
 #define CAITLYN_CORE_STRING_FORMAT_DEFS_FORMAT_DEFINITIONS_H_
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
 #define __caitlyn_begin_format_namespace namespace format {
 #define __caitlyn_end_format_namespace }

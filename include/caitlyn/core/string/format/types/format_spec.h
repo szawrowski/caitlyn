@@ -18,8 +18,6 @@ struct format_spec_t {
   char_t fill = ' ';
   format_type_t type = format_type_t::string;
   int_t precision = -1;
-
-  format_spec_t() = default;
 };
 
 __caitlyn_end_format_namespace

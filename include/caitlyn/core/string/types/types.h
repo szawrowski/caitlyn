@@ -8,12 +8,12 @@
 
 #include <sstream>
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd14_ver)
+#if __caitlyn_has_cxx14
   using namespace std::literals::string_literals;
 #endif
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+#if __caitlyn_has_cxx17
   using namespace std::literals::string_view_literals;
 #endif
 
@@ -25,7 +25,7 @@ using u8string_t = std::basic_string<u8char_t>;
 using u16string_t = std::basic_string<u16char_t>;
 using u32string_t = std::basic_string<u32char_t>;
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+#if __caitlyn_has_cxx17
 using strview_t = std::basic_string_view<char_t>;
 using xstrview_t = std::basic_string_view<xchar_t>;
 using u8strview_t = std::basic_string_view<u8char_t>;

@@ -6,7 +6,7 @@
 #ifndef CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_
 #define CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
 __caitlyn_begin_global_namespace
 

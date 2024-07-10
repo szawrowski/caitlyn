@@ -14,7 +14,7 @@
 #include "caitlyn/core/char/types/types.h"
 #include "caitlyn/core/char/utility/utility.h"
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+#if __caitlyn_has_cxx17
   #include <charconv>
 #endif
 

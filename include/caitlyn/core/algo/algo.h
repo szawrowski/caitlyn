@@ -8,12 +8,12 @@
 
 #include <algorithm>
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+#if __caitlyn_has_cxx17
   #include <execution>
 #endif
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
+#if __caitlyn_has_cxx20
   #include <ranges>
 #endif
 

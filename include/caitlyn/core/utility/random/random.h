@@ -10,7 +10,7 @@
 #include <random>
 #include <stdexcept>
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 #include "caitlyn/core/numeric/utility/limits.h"
 
 __caitlyn_begin_global_namespace

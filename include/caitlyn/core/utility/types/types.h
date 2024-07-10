@@ -9,16 +9,16 @@
 #include <tuple>
 #include <utility>
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+#if __caitlyn_has_cxx17
   #include <optional>
   #include <variant>
 #endif
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
 __caitlyn_begin_global_namespace
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+#if __caitlyn_has_cxx17
 template <typename... Args>
 using variant_t = std::variant<Args...>;
 

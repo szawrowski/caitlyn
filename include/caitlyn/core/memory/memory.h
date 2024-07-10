@@ -14,7 +14,7 @@
 #include "caitlyn/core/memory/types/types.h"
 #include "caitlyn/core/memory/utility/utility.h"
 
-#if (__caitlyn_cxxstd > __caitlyn_cxxstd14_ver)
+#if __caitlyn_has_cxx14
   #include <memory_resource>
 #endif
 

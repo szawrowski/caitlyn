@@ -16,7 +16,7 @@
 #include "caitlyn/core/string/types/types.h"
 #include "caitlyn/core/string/utility/utility.h"
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
+#if __caitlyn_has_cxx20
   #include <format>
 #endif
 

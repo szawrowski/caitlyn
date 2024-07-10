@@ -6,7 +6,7 @@
 #ifndef CAITLYN_SER_JESON_DEFS_JSON_DEFINITIONS_H_
 #define CAITLYN_SER_JESON_DEFS_JSON_DEFINITIONS_H_
 
-#include "caitlyn/core/core.h"
+#include "caitlyn/__detail.h"
 
 #define __caitlyn_begin_json_namespace namespace json {
 #define __caitlyn_end_json_namespace }
