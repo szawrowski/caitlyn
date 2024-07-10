@@ -26,6 +26,7 @@ public:
 
 public:
   unicode_string() = default;
+  unicode_string(const char_t data) { from_chars(std::to_string(data)); }
   unicode_string(const char_t* data) { from_chars(data); }
   unicode_string(const std::string& data) { from_chars(data); }
   unicode_string(const unicode_string& other) : data_{other.data_} {}

@@ -80,6 +80,9 @@ public:
 
   template <typename... Args>
   void write(const std::string& str, Args&&... args) {
+    if (!file_.is_open()) {
+      open();
+    }
     file_ << fmt(str, std::forward<Args>(args)...);
   }
 

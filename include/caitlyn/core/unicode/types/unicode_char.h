@@ -21,6 +21,7 @@ public:
 
 public:
   unicode_char() = default;
+  unicode_char(const char_t symbol) { from_chars(std::to_string(symbol)); }
   unicode_char(const char_t* symbol) { from_chars(symbol); }
   unicode_char(const std::string& symbol) { from_chars(symbol); }
   unicode_char(const code_point_t code_point) : code_point_{code_point} {}

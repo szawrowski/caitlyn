@@ -21,7 +21,6 @@ __caitlyn_begin_global_namespace
 
 using unichar_t = unicode_char<u8char_t>;
 using unistring_t = unicode_string<unicode_char<u8char_t>>;
-using unitext_t = text_builder_t<unicode_char<u8char_t>>;
 
 using text_t = text_builder_t<u8char_t>;
 
