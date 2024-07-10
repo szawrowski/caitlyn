@@ -1,17 +1,17 @@
 # Caitlyn
 A general-purpose library designed to enhance productivity for everyday tasks.\
-Supported platforms: **Linux, Windows, macOS**\
-Supported standard: **C++17**
+Supported platforms: **Linux, Windows, macOS**.\
+Supported standard: **C++17**.
 
 ## Features
 
 ### Unicode Strings Support
-Easily handle Unicode strings, characters and files
+Easily handle Unicode strings, characters and files.
 
 Types
-- unichar_t - Unocode code point based character wrapper
-- unistring_t - Unicode code point based string wrapper with iterator support
-- unitext_t - Unicode string builder
+- unichar_t - Unocode code point character wrapper.
+- unistring_t - Unicode code point based string wrapper with iterator support.
+- text_t - Universal formatting string builder.
 
 Usage
 ```c++
@@ -20,16 +20,17 @@ Usage
 int main() {
   const auto str = "Hello, 世界!"_str;
   const auto emoji = "🙂"_char;
-  
+
   const auto text = cait::fmt("{} {}", str, emoji);
   cait::println(text);
-  
-  cait::text_t content{};
+
+  auto content = cait::make_text();
   content.append("Lorem ipsum dolor sit amet, ");
   content.append_line("consectetur adipiscing elit.");
+  content.append_line(text);
 
   auto file = "somefile.txt"_ofile;
-  file.write_line("Text: {}", content.to_string());
+  file.write("Text: {}", content.to_string());
   file.close();
 
   return 0;
@@ -43,6 +44,7 @@ Hello, 世界! 🙂
 - File (_somefile.txt_)
 ```text
 Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Hello, 世界! 🙂
 ```
 
 ##
@@ -51,7 +53,7 @@ Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 #### JSON
 
 Types
-- json_t - Full supported JSON format type
+- json_t - Full supported JSON format type.
 
 Usage
 - Brackets operator
@@ -137,11 +139,11 @@ Output
 ##
 
 ### Error Handling
-Easily handle errors without exceptions
+Easily handle errors without exceptions.
 
 Types
 - result_t<T, E> - Contains a result type and an error. 
-- error_t<E> - Contains and error type
+- error_t<E> - Contains and error type.
 
 Usage
 ```c++
@@ -177,8 +179,8 @@ int main() {
 
 ### Numeric
 #### Arbitrarily Large Numbers
-- pwrint_t - Integral type with basic arithmetic support
-- pwrnum_t - Floating point type with basic arithmetic support
+- pwrint_t - Integral type with basic arithmetic support.
+- pwrnum_t - Floating point type with basic arithmetic support.
 
 Usage
 - Integral
