@@ -17,25 +17,10 @@
 
 __caitlyn_begin_global_namespace
 
-template <typename CharT>
-using basic_istream_t = std::basic_istream<CharT>;
-using istream_t = basic_istream_t<u8char_t>;
-using xistream_t = basic_istream_t<xchar_t>;
-
-template <typename CharT>
-using basic_ostream_t = std::basic_ostream<CharT>;
-using ostream_t = basic_ostream_t<u8char_t>;
-using xostream_t = basic_ostream_t<xchar_t>;
-
-template <typename CharT>
-using basic_iostream_t = std::basic_iostream<CharT>;
-using iostream_t = basic_iostream_t<u8char_t>;
-using xiostream_t = basic_iostream_t<xchar_t>;
-
-template <typename CharT>
-using basic_streambuf_t = std::basic_streambuf<CharT>;
-using streambuf_t = basic_streambuf_t<u8char_t>;
-using xstreambuf_t = basic_streambuf_t<xchar_t>;
+using istream_t = std::basic_istream<char_t>;
+using ostream_t = std::basic_ostream<char_t>;
+using iostream_t = std::basic_iostream<char_t>;
+using streambuf_t = std::basic_streambuf<char_t>;
 
 #if defined(__caitlyn_windows)
 inline void set_windows_utf8_encode() {

@@ -11,43 +11,31 @@
 #include "caitlyn/core/core.h"
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd14_ver)
-using namespace std::literals::string_literals;
+  using namespace std::literals::string_literals;
 #endif
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
-using namespace std::literals::string_view_literals;
+  using namespace std::literals::string_view_literals;
 #endif
 
 __caitlyn_begin_global_namespace
 
-template <typename CharT>
-using basic_string_t = std::basic_string<CharT>;
-using string_t = basic_string_t<u8char_t>;
-using xstring_t = basic_string_t<xchar_t>;
-using u8string_t = basic_string_t<u8char_t>;
-using u16string_t = basic_string_t<u16char_t>;
-using u32string_t = basic_string_t<u32char_t>;
+using string_t = std::basic_string<char_t>;
+using xstring_t = std::basic_string<xchar_t>;
+using u8string_t = std::basic_string<u8char_t>;
+using u16string_t = std::basic_string<u16char_t>;
+using u32string_t = std::basic_string<u32char_t>;
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
-template <typename CharT>
-using basic_strview_t = std::basic_string_view<CharT>;
-using strview_t = basic_strview_t<u8char_t>;
-using xstrview_t = basic_strview_t<xchar_t>;
-using u8strview_t = basic_strview_t<u8char_t>;
-using u16strview_t = basic_strview_t<u16char_t>;
-using u32strview_t = basic_strview_t<u32char_t>;
+using strview_t = std::basic_string_view<char_t>;
+using xstrview_t = std::basic_string_view<xchar_t>;
+using u8strview_t = std::basic_string_view<u8char_t>;
+using u16strview_t = std::basic_string_view<u16char_t>;
+using u32strview_t = std::basic_string_view<u32char_t>;
 #endif
 
-template <typename CharT>
-using basic_istrstream_t = std::basic_istringstream<CharT>;
-using istrstream_t = basic_istrstream_t<u8char_t>;
-
-template <typename CharT>
-using basic_ostrstream_t = std::basic_ostringstream<CharT>;
-using ostrstream_t = basic_ostrstream_t<u8char_t>;
-
-template <typename CharT>
-using basic_strstream_t = std::basic_stringstream<CharT>;
-using strstream_t = basic_strstream_t<u8char_t>;
+using istrstream_t = std::basic_istringstream<char_t>;
+using ostrstream_t = std::basic_ostringstream<char_t>;
+using strstream_t = std::basic_stringstream<char_t>;
 
 __caitlyn_end_global_namespace
 

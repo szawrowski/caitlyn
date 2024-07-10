@@ -115,7 +115,7 @@ template <typename T>
 static
     typename std::enable_if<std::is_same<T, unichar_t>::value, string_t>::type
     to_string(const T& value, const format_spec_t& spec) {
-  return to_string(char_to_std_string<u8char_t>(value.get_code_point()), spec);
+  return to_string(char_to_string<u8char_t>(value.get_code_point()), spec);
 }
 
 static format_spec_t parse_format_spec(const string_t& spec) {
@@ -156,12 +156,12 @@ static format_spec_t parse_format_spec(const string_t& spec) {
   }
 
   // Parse type
-  if (i < spec.size() && (spec[i] == get_char(ascii_t::latin_small_lett_s) ||
-                          spec[i] == get_char(ascii_t::latin_small_lett_d) ||
-                          spec[i] == get_char(ascii_t::latin_small_lett_f))) {
-    result.type = spec[i] == get_char(ascii_t::latin_small_lett_s)
+  if (i < spec.size() && (spec[i] == get_char(ascii_t::latin_small_letter_s) ||
+                          spec[i] == get_char(ascii_t::latin_small_letter_d) ||
+                          spec[i] == get_char(ascii_t::latin_small_letter_f))) {
+    result.type = spec[i] == get_char(ascii_t::latin_small_letter_s)
                       ? format_type_t::string
-                  : spec[i] == get_char(ascii_t::latin_small_lett_d)
+                  : spec[i] == get_char(ascii_t::latin_small_letter_d)
                       ? format_type_t::integral
                       : format_type_t::floating_point;
   }

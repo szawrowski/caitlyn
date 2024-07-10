@@ -37,26 +37,16 @@ static string_t repeat(const string_t& str, const size_t count) {
 }
 
 static string_t to_uppercase(string_t value) {
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
-  std::transform(value.begin(), value.end(), value.begin(),
-                 [](const char_t c) { return to_uppercase(c); });
-#else
   for (char& c : value) {
     c = to_uppercase(c);
   }
-#endif
   return value;
 }
 
 static string_t to_lowercase(string_t value) {
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
-  std::transform(value.begin(), value.end(), value.begin(),
-                 [](const char_t c) { return to_lowercase(c); });
-#else
   for (char& c : value) {
     c = to_lowercase(c);
   }
-#endif
   return value;
 }
 
@@ -78,28 +68,28 @@ static string_t escape_string(const string_t& str) {
         case get_char(ascii_t::solidus):
           oss << get_char(ascii_t::solidus);
           break;
-        case get_char(ascii_t::latin_small_lett_a):
+        case get_char(ascii_t::latin_small_letter_a):
           oss << get_char(ascii_t::bell);
           break;
-        case get_char(ascii_t::latin_small_lett_b):
+        case get_char(ascii_t::latin_small_letter_b):
           oss << get_char(ascii_t::backspace);
           break;
-        case get_char(ascii_t::latin_small_lett_f):
+        case get_char(ascii_t::latin_small_letter_f):
           oss << get_char(ascii_t::form_feed);
           break;
-        case get_char(ascii_t::latin_small_lett_n):
+        case get_char(ascii_t::latin_small_letter_n):
           oss << get_char(ascii_t::line_feed);
           break;
-        case get_char(ascii_t::latin_small_lett_r):
+        case get_char(ascii_t::latin_small_letter_r):
           oss << get_char(ascii_t::carriage_ret);
           break;
-        case get_char(ascii_t::latin_small_lett_t):
+        case get_char(ascii_t::latin_small_letter_t):
           oss << get_char(ascii_t::char_tab);
           break;
-        case get_char(ascii_t::latin_small_lett_v):
+        case get_char(ascii_t::latin_small_letter_v):
           oss << get_char(ascii_t::line_tab);
           break;
-        case get_char(ascii_t::latin_small_lett_u): {
+        case get_char(ascii_t::latin_small_letter_u): {
           if (i + 5 < str.size()) {
             auto hex = str.substr(i + 2, 4);
             // Convert the hexadecimal representation to a character

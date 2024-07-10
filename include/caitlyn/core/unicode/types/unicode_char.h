@@ -148,7 +148,7 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
 #endif
   std::ios::sync_with_stdio(false);
   if (os.good()) {
-    os.write(cait::char_to_std_string<cait::u8char_t>(value.get_code_point())
+    os.write(cait::char_to_string<cait::u8char_t>(value.get_code_point())
                  .c_str(),
              static_cast<cait::streamsize_t>(value.byte_count()));
   }

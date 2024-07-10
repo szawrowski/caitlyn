@@ -83,7 +83,7 @@ public:
   __caitlyn_nodiscard string_t to_std_string() const {
     ostrstream_t oss;
     for (const auto& c : data_) {
-      oss << char_to_std_string<u8char_t>(c.get_code_point());
+      oss << char_to_string<u8char_t>(c.get_code_point());
     }
     return oss.str();
   }

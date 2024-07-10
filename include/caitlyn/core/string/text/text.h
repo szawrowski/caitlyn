@@ -80,7 +80,7 @@ public:
     data_.emplace_back(str);
   }
   text_builder_t(const unichar_t& symbol) {
-    data_.emplace_back(char_to_std_string<u8char_t>(symbol.get_code_point()));
+    data_.emplace_back(char_to_string<u8char_t>(symbol.get_code_point()));
   }
   text_builder_t(const unistr_t& str) {
     data_.emplace_back(str);
@@ -103,7 +103,7 @@ public:
     data_.emplace_back(str);
   }
   void append(const unichar_t& symbol) {
-    data_.emplace_back(char_to_std_string<u8char_t>(symbol.get_code_point()));
+    data_.emplace_back(char_to_string<u8char_t>(symbol.get_code_point()));
   }
   void append(const unistr_t& str) {
     data_.emplace_back(str);
@@ -123,7 +123,7 @@ public:
     data_.emplace_back("\n");
   }
   void append_line(const unichar_t& symbol) {
-    data_.emplace_back(char_to_std_string<u8char_t>(symbol.get_code_point()));
+    data_.emplace_back(char_to_string<u8char_t>(symbol.get_code_point()));
     data_.emplace_back("\n");
   }
   void append_line(const unistr_t& str) {

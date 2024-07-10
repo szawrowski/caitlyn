@@ -72,10 +72,10 @@ private:
         return parse_object();
       case get_char(ascii_t::left_square_br):
         return parse_array();
-      case get_char(ascii_t::latin_small_lett_t):
-      case get_char(ascii_t::latin_small_lett_f):
+      case get_char(ascii_t::latin_small_letter_t):
+      case get_char(ascii_t::latin_small_letter_f):
         return parse_boolean();
-      case get_char(ascii_t::latin_small_lett_n):
+      case get_char(ascii_t::latin_small_letter_n):
         return parse_null();
       default:
         if (std::isdigit(json_[position_]) ||
@@ -219,17 +219,17 @@ private:
           escaped_stream << get_char(ascii_t::quot_mark);
         } else if (json_[position_] == get_char(ascii_t::rev_solidus)) {
           escaped_stream << get_char(ascii_t::rev_solidus);
-        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_b)) {
+        } else if (json_[position_] == get_char(ascii_t::latin_small_letter_b)) {
           escaped_stream << get_char(ascii_t::backspace);
-        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_f)) {
+        } else if (json_[position_] == get_char(ascii_t::latin_small_letter_f)) {
           escaped_stream << get_char(ascii_t::form_feed);
-        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_n)) {
+        } else if (json_[position_] == get_char(ascii_t::latin_small_letter_n)) {
           escaped_stream << get_char(ascii_t::line_feed);
-        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_r)) {
+        } else if (json_[position_] == get_char(ascii_t::latin_small_letter_r)) {
           escaped_stream << get_char(ascii_t::carriage_ret);
-        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_t)) {
+        } else if (json_[position_] == get_char(ascii_t::latin_small_letter_t)) {
           escaped_stream << get_char(ascii_t::char_tab);
-        } else if (json_[position_] == get_char(ascii_t::latin_small_lett_u)) {
+        } else if (json_[position_] == get_char(ascii_t::latin_small_letter_u)) {
           if (position_ + 4 >= json_.size()) {
             set_error(parse_error_t::invalid_escape_sequence);
             set_error_position(position_);
@@ -285,8 +285,8 @@ private:
     while (end_number < json_.size() &&
            (std::isdigit(json_[end_number]) ||
             json_[end_number] == get_char(ascii_t::full_stop) ||
-            json_[end_number] == get_char(ascii_t::latin_small_lett_e) ||
-            json_[end_number] == get_char(ascii_t::latin_cap_lett_e) ||
+            json_[end_number] == get_char(ascii_t::latin_small_letter_e) ||
+            json_[end_number] == get_char(ascii_t::latin_cap_letter_e) ||
             json_[end_number] == get_char(ascii_t::hyphen_minus) ||
             json_[end_number] == get_char(ascii_t::plus_sign))) {
       ++end_number;
@@ -295,9 +295,9 @@ private:
         json_.substr(position_, end_number - position_);
     try {
       if (number_str.find(get_char(ascii_t::plus_sign)) != string_type::npos ||
-          number_str.find(get_char(ascii_t::latin_small_lett_e)) !=
+          number_str.find(get_char(ascii_t::latin_small_letter_e)) !=
               string_type::npos ||
-          number_str.find(get_char(ascii_t::latin_cap_lett_e)) !=
+          number_str.find(get_char(ascii_t::latin_cap_letter_e)) !=
               string_type::npos) {
         result = std::stod(number_str);
       } else {
