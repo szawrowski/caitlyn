@@ -11,7 +11,7 @@
 
 #include "caitlyn/core/error.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename T>
 class sptr_t {
@@ -112,6 +112,6 @@ private:
   counter* ref_count_{};
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_MEMORY_SHARED_POINTER_H

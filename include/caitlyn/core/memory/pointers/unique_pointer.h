@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/error.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename T>
 class uptr_t {
@@ -82,6 +82,6 @@ private:
   pointer data_{};
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_MEMORY_UNIQUE_POINTER_H
