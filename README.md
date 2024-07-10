@@ -23,9 +23,13 @@ int main() {
   
   const auto text = cait::fmt("{} {}", str, emoji);
   cait::println(text);
+  
+  cait::text_t content{};
+  content.append("Lorem ipsum dolor sit amet, ");
+  content.append_line("consectetur adipiscing elit.");
 
   auto file = "somefile.txt"_ofile;
-  file.write_line("Text: {} {}", str, emoji);
+  file.write_line("Text: {}", content.to_string());
   file.close();
 
   return 0;
@@ -66,26 +70,6 @@ int main() {
   config["address"]["zip"] = "12345";
   config["phone_numbers"] = cait::json::make_array("555-1234", "555-5678");
 
-  cait::println(config.to_string());
-  return 0;
-}
-```
-- Methods
-```c++
-#include <caitlyn/caitlyn.h>
-
-int main() {
-  auto config = cait::make_json();
-  config.add_member("name", cait::json::make_object());
-  config.add_member(json_path("name", "first"), "John");
-  config.add_member(json_path("name", "second"), "Doe");
-  config.add_member("age", 30);
-  config.add_member("address", cait::json::make_object());
-  config.add_member(json_path("address", "street"), "123 Main St");
-  config.add_member(json_path("address", "city"), "Anytown");
-  config.add_member(json_path("address", "zip"), "12345");
-  config.add_member("phone_numbers", cait::json::make_array("555-1234", "555-5678"));
-  
   cait::println(config.to_string());
   return 0;
 }
