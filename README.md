@@ -1,13 +1,14 @@
 # Caitlyn
 A general-purpose library designed to enhance productivity for everyday tasks.\
-Supported platforms: **Linux, Windows, macOS**.\
+Supported platforms: **Linux, Windows, macOS**\
 Supported standard: **C++17**
 
 ## Features
-
 ### Unicode Strings Support
-Easily handle Unicode strings, characters and files.
-
+- unichar_t - Unocode code point based character wrapper
+- unistr_t - Unicode code point based string wrapper with iterator support
+  
+Easily handle Unicode strings, characters and files
 #### Usage
 ```c++
 #include <caitlyn/caitlyn.h>
@@ -35,10 +36,12 @@ Hello, 世界! 🙂
 ```text
 Text: Hello, 世界! 🙂
 ```
+
 ##
 
-### JSON Support
-Seamlessly serialize and deserialize data in JSON format.
+### Serializing
+#### JSON
+- json_t - JSON format type
 
 #### Usage
 - Using brackets operator
@@ -144,7 +147,7 @@ config.to_string(true, 2);
 ##
 
 ### Error Handling
-Easily handle errors without exceptions.
+Easily handle errors without exceptions
 
 #### Usage
 - Using brackets operator
@@ -176,9 +179,13 @@ int main() {
   return 0;
 }
 ```
+
 ##
 
-### Arbitrarily Large Numbers
+### Numeric
+#### Arbitrarily Large Numbers
+- pwrint_t - Integral type with basic arithmetic support
+- pwrnum_t - Floating point type with basic arithmetic support
 
 #### Usage
 - Integral
