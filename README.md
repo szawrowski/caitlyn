@@ -10,7 +10,7 @@ Easily handle Unicode strings, characters and files
 
 Types
 - unichar_t - Unocode code point based character wrapper
-- unistr_t - Unicode code point based string wrapper with iterator support
+- unistring_t - Unicode code point based string wrapper with iterator support
 - unitext_t - Unicode string builder
 
 Usage
