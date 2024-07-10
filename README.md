@@ -42,7 +42,7 @@ Hello, 世界! 🙂
 ```
 - File (_somefile.txt_)
 ```text
-Text: Hello, 世界! 🙂
+Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 ```
 
 ##
