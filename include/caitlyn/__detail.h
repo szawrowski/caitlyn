@@ -83,9 +83,9 @@
 #endif
 
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd98_ver)
-  #define __caitlyn_has_cxxstd98 1
+  #define __caitlyn_has_cxx98 1
 #else
-  #define __caitlyn_has_cxxstd98 0
+  #define __caitlyn_has_cxx98 0
 #endif
 #if (__caitlyn_cxxstd >= __caitlyn_cxxstd11_ver)
   #define __caitlyn_has_cxx11 1
