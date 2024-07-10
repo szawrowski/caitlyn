@@ -17,6 +17,7 @@
 #include "caitlyn/core/numeric.h"
 #include "caitlyn/core/string.h"
 #include "caitlyn/core/system.h"
+#include "caitlyn/core/traits.h"
 #include "caitlyn/core/threads.h"
 #include "caitlyn/core/utility.h"
 
