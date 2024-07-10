@@ -4,7 +4,7 @@
 #include "caitlyn/core/io.h"
 
 TEST(JsonTest, IoOperator) {
-  const auto output_config = json_str(
+  const auto oconfig = json_str(
     {
       "name": {
         "first": "John",
@@ -22,24 +22,24 @@ TEST(JsonTest, IoOperator) {
       ]
     }
   );
-  ASSERT_FALSE(output_config.has_error());
+  ASSERT_FALSE(oconfig.has_error());
 
-  cait::ofstream_t output_file{"operator_test.json"};
-  if (output_file.is_open()) {
-    output_file << output_config;
-    output_file.close();
+  std::ofstream ofile{"operator_test.json"};
+  if (ofile.is_open()) {
+    ofile << oconfig;
+    ofile.close();
   }
 
-  auto input_config = cait::make_json();
+  auto iconfig = cait::make_json();
 
-  cait::ifstream_t input_file{"operator_test.json"};
-  if (input_file.is_open()) {
-    input_file >> input_config;
-    output_file.close();
+  std::ifstream ifile{"operator_test.json"};
+  if (ifile.is_open()) {
+    ifile >> iconfig;
+    ofile.close();
   }
 
-  ASSERT_FALSE(input_config.has_error());
+  ASSERT_FALSE(iconfig.has_error());
 
-  ASSERT_STREQ(output_config.to_string().c_str(),
-               input_config.to_string().c_str());
+  ASSERT_STREQ(oconfig.to_string().c_str(),
+               iconfig.to_string().c_str());
 }
