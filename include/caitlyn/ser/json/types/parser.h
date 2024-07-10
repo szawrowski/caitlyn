@@ -204,7 +204,7 @@ private:
 
   data_t parse_string() {
     next();
-    ostrstream_t escaped_stream;
+    std::ostringstream escaped_stream;
 
     while (position_ < json_.size() &&
            json_[position_] != get_char(ascii_t::quot_mark)) {
