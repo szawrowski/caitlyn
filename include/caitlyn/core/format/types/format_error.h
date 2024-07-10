@@ -8,10 +8,8 @@
 
 #include <stdexcept>
 
-#include "caitlyn/core/format/defs/defs.h"
-
-__caitlyn_begin_global_namespace
-__caitlyn_begin_format_namespace
+namespace cait {
+namespace strfmt {
 
 class format_error_t final : public std::runtime_error {
 public:
@@ -19,7 +17,7 @@ public:
       : std::runtime_error(message) {}
 };
 
-__caitlyn_end_format_namespace
-__caitlyn_end_global_namespace
+}  // namespace strfmt
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_FORMAT_TYPES_FORMAT_ERROR_H_

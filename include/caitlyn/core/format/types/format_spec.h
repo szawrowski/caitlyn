@@ -9,8 +9,8 @@
 #include "caitlyn/core/format/types/format_align.h"
 #include "caitlyn/core/format/types/format_type.h"
 
-__caitlyn_begin_global_namespace
-__caitlyn_begin_format_namespace
+namespace cait {
+namespace strfmt {
 
 struct format_spec_t {
   format_align_t align = format_align_t::left;
@@ -20,7 +20,7 @@ struct format_spec_t {
   int_t precision = -1;
 };
 
-__caitlyn_end_format_namespace
-__caitlyn_end_global_namespace
+}  // namespace strfmt
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_
