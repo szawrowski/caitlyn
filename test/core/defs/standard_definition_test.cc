@@ -1,20 +1,20 @@
 #include <gtest/gtest.h>
 
-#include "caitlyn/core/defs/core_definitions.h"
+#include "caitlyn/__detail.h"
 
 TEST(CoreDefsTest, CaitlynStandardDefinition) {
 #if defined(__caitlyn_cxxstd)
-  #if (__caitlyn_cxxstd == __caitlyn_cxxstd_legacy_ver)
+  #if __caitlyn_has_cxx98
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd11_ver)
+  #elif __caitlyn_has_cxx11
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd14_ver)
+  #elif __caitlyn_has_cxx14
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd17_ver)
+  #elif __caitlyn_has_cxx17
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd20_ver)
+  #elif __caitlyn_has_cxx20
     ASSERT_TRUE(true);
-  #elif (__caitlyn_cxxstd == __caitlyn_cxxstd23_ver)
+  #elif __caitlyn_has_cxx23
     ASSERT_TRUE(true);
   #endif
 #endif
