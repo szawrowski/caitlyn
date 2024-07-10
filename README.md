@@ -4,12 +4,16 @@ Supported platforms: **Linux, Windows, macOS**\
 Supported standard: **C++17**
 
 ## Features
+
 ### Unicode Strings Support
+Easily handle Unicode strings, characters and files
+
+Types
 - unichar_t - Unocode code point based character wrapper
 - unistr_t - Unicode code point based string wrapper with iterator support
-  
-Easily handle Unicode strings, characters and files
-#### Usage
+- unitext_t - Unicode string builder
+
+Usage
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -27,7 +31,7 @@ int main() {
   return 0;
 }
 ```
-#### Output
+Output
 - Terminal
 ```text
 Hello, 世界! 🙂
@@ -41,10 +45,12 @@ Text: Hello, 世界! 🙂
 
 ### Serializing
 #### JSON
-- json_t - JSON format type
 
-#### Usage
-- Using brackets operator
+Types
+- json_t - Full supported JSON format type
+
+Usage
+- Brackets operator
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -64,8 +70,7 @@ int main() {
   return 0;
 }
 ```
-
-- Using methods
+- Methods
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -85,7 +90,7 @@ int main() {
   return 0;
 }
 ```
-- Using native JSON
+- Native JSON
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -122,7 +127,7 @@ config.to_string();
 config.to_string(true);
 config.to_string(true, 2);
 ```
-#### Output
+Output
 ```json
 {"name":{"first":"John","last":"Doe"},"age":30,"address":{"street":"123 Main St","city":"Anytown","zip":"12345"},"phone_numbers":["555-1234","555-5678"]}
 ```
@@ -144,13 +149,17 @@ config.to_string(true, 2);
   ]
 }
 ```
+
 ##
 
 ### Error Handling
 Easily handle errors without exceptions
 
-#### Usage
-- Using brackets operator
+Types
+- result_t<T, E> - Contains a result type and an error. 
+- error_t<E> - Contains and error type
+
+Usage
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -187,7 +196,7 @@ int main() {
 - pwrint_t - Integral type with basic arithmetic support
 - pwrnum_t - Floating point type with basic arithmetic support
 
-#### Usage
+Usage
 - Integral
 ```c++
 #include <caitlyn/caitlyn.h>
@@ -214,7 +223,7 @@ int main() {
   return 0;
 }
 ```
-#### Output
+Output
 ```text
 480406269860917721318957511814148894618259818296995209585410018969574705029068317
 1441.64203387923303265813084431780163079588042340079866748019604087803446244208066
