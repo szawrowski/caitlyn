@@ -51,7 +51,7 @@ public:
   }
 
 public:
-  __caitlyn_nodiscard unistr_t read() {
+  __caitlyn_nodiscard unistring_t read() {
     if (!file_.is_open()) {
       open();
     }
@@ -61,20 +61,20 @@ public:
 
     vector_t<char_t> buffer(size);
     if (file_.read(buffer.data(), size)) {
-      return unistr_t{string_t(buffer.data(), size)};
+      return unistring_t{string_t(buffer.data(), size)};
     }
-    return unistr_t{};
+    return unistring_t{};
   }
 
-  __caitlyn_nodiscard unistr_t read_line() {
+  __caitlyn_nodiscard unistring_t read_line() {
     if (!file_.is_open()) {
       open();
     }
     string_t line;
     if (std::getline(file_, line)) {
-      return unistr_t{line};
+      return unistring_t{line};
     }
-    return unistr_t{};
+    return unistring_t{};
   }
 
 private:

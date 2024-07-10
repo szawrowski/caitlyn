@@ -27,7 +27,7 @@ public:
   text_builder_t(const char_t* str) { data_ << str; }
   text_builder_t(const string_t& str) { data_ << str; }
   text_builder_t(const unichar_t& symbol) { data_ << symbol; }
-  text_builder_t(const unistr_t& str) { data_ << str; }
+  text_builder_t(const unistring_t& str) { data_ << str; }
 
   template <typename... Args>
   text_builder_t(const string_t& str, Args&&... args) {
@@ -42,7 +42,7 @@ public:
   void append(const char_t* str) { data_ << str; }
   void append(const string_t& str) { data_ << str; }
   void append(const unichar_t& symbol) { data_ << symbol; }
-  void append(const unistr_t& str) { data_ << str; }
+  void append(const unistring_t& str) { data_ << str; }
 
   template <typename... Args>
   void append(const string_t& str, Args&&... args) {
@@ -52,7 +52,7 @@ public:
   void append_line(const char_t* str) { data_ << str << std::endl; }
   void append_line(const string_t& str) { data_ << str << std::endl; }
   void append_line(const unichar_t& str) { data_ << str << std::endl; }
-  void append_line(const unistr_t& str) { data_ << str << std::endl; }
+  void append_line(const unistring_t& str) { data_ << str << std::endl; }
 
   template <typename... Args>
   void append_line(const string_t& str, Args&&... args) {
@@ -69,7 +69,7 @@ private:
 template <>
 class text_builder_t<unichar_t> {
 public:
-  using data_type = list_t<unistr_t>;
+  using data_type = list_t<unistring_t>;
 
 public:
   text_builder_t() = default;
@@ -82,7 +82,7 @@ public:
   text_builder_t(const unichar_t& symbol) {
     data_.emplace_back(char_to_string<u8char_t>(symbol.get_code_point()));
   }
-  text_builder_t(const unistr_t& str) {
+  text_builder_t(const unistring_t& str) {
     data_.emplace_back(str);
   }
 
@@ -105,7 +105,7 @@ public:
   void append(const unichar_t& symbol) {
     data_.emplace_back(char_to_string<u8char_t>(symbol.get_code_point()));
   }
-  void append(const unistr_t& str) {
+  void append(const unistring_t& str) {
     data_.emplace_back(str);
   }
 
@@ -126,7 +126,7 @@ public:
     data_.emplace_back(char_to_string<u8char_t>(symbol.get_code_point()));
     data_.emplace_back("\n");
   }
-  void append_line(const unistr_t& str) {
+  void append_line(const unistring_t& str) {
     data_.emplace_back(str);
     data_.emplace_back("\n");
   }

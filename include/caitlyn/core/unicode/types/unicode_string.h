@@ -14,7 +14,7 @@ __caitlyn_begin_global_namespace
 template <typename CharT>
 class unicode_string;
 
-using unistr_t = unicode_string<unichar_t>;
+using unistring_t = unicode_string<unichar_t>;
 
 template <>
 class unicode_string<unichar_t> {
@@ -133,7 +133,7 @@ private:
 __caitlyn_end_global_namespace
 
 static cait::bool_t
-operator==(const cait::unistr_t& lhs, const cait::unistr_t& rhs) {
+operator==(const cait::unistring_t& lhs, const cait::unistring_t& rhs) {
   for (auto lhs_it = lhs.begin(), lhs_end = lhs.end(), rhs_it = rhs.begin(),
             rhs_end = rhs.end();
        lhs_it != lhs_end && rhs_it != rhs_end; ++lhs_it, ++rhs_it) {
@@ -144,12 +144,12 @@ operator==(const cait::unistr_t& lhs, const cait::unistr_t& rhs) {
   return true;
 }
 
-static cait::bool_t operator!=(const cait::unistr_t& lhs,
-                               const cait::unistr_t& rhs) {
+static cait::bool_t operator!=(const cait::unistring_t& lhs,
+                               const cait::unistring_t& rhs) {
   return !(lhs == rhs);
 }
 
-static cait::istream_t& operator>>(cait::istream_t& is, cait::unistr_t& str) {
+static cait::istream_t& operator>>(cait::istream_t& is, cait::unistring_t& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
@@ -162,7 +162,7 @@ static cait::istream_t& operator>>(cait::istream_t& is, cait::unistr_t& str) {
 }
 
 static cait::ostream_t& operator<<(cait::ostream_t& os,
-                                   const cait::unistr_t& str) {
+                                   const cait::unistring_t& str) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
@@ -174,9 +174,9 @@ static cait::ostream_t& operator<<(cait::ostream_t& os,
   return os;
 }
 
-static cait::unistr_t operator""_str(const cait::char_t* str,
+static cait::unistring_t operator""_str(const cait::char_t* str,
                                      const std::size_t) {
-  return cait::unistr_t{str};
+  return cait::unistring_t{str};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_

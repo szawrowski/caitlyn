@@ -106,8 +106,9 @@ static string_t to_string(const char_t* value, const format_spec_t& spec) {
 }
 
 template <typename T>
-static typename std::enable_if<std::is_same<T, unistr_t>::value, string_t>::type
-to_string(const T& value, const format_spec_t& spec) {
+static
+    typename std::enable_if<std::is_same<T, unistring_t>::value, string_t>::type
+    to_string(const T& value, const format_spec_t& spec) {
   return to_string(value.to_std_string(), spec);
 }
 

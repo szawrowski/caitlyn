@@ -72,7 +72,7 @@ public:
     file_ << data;
   }
 
-  void write(const unistr_t& data) {
+  void write(const unistring_t& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -100,7 +100,7 @@ public:
     file_.put('\n');
   }
 
-  void write_line(const unistr_t& data) {
+  void write_line(const unistring_t& data) {
     write(data);
     file_.put('\n');
   }
@@ -138,7 +138,7 @@ public:
     file_.flush();
   }
 
-  void append(const unistr_t& data) {
+  void append(const unistring_t& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -175,7 +175,7 @@ public:
     file_.put('\n');
   }
 
-  void append_line(const unistr_t& data) {
+  void append_line(const unistring_t& data) {
     append(data);
     file_.put('\n');
   }
