@@ -15,15 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_
-#define CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_
+#ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_TYPES_H_
+#define CAITLYN_CORE_UNICODE_TYPES_UNICODE_TYPES_H_
 
 #include "caitlyn/__detail.h"
 
 namespace cait {
 
-enum class memfmt_t : byte_t { bit, byte };
+using code_point_t = uint32_t;
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_
+#endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_TYPES_H_
