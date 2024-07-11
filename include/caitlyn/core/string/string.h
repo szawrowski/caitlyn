@@ -17,6 +17,14 @@
 #include "caitlyn/core/string/utility/utility.h"
 #include "caitlyn/core/unicode/unicode.h"
 
+#if __caitlyn_has_cxx11 && !(__caitlyn_has_cxx17)
+  #include <codecvt>
+#endif
+
+#if __caitlyn_has_cxx20
+  #include <format>
+#endif
+
 namespace cait {
 
 using unichar_t = unicode_char<u8char_t>;
@@ -26,8 +34,6 @@ using text_t = text_builder_t<u8char_t>;
 
 }  // namespace cait
 
-#if __caitlyn_has_cxx20
-  #include <format>
-#endif
+
 
 #endif  // CAITLYN_CORE_STRING_STRING_H_

@@ -19,12 +19,17 @@
 #include <ratio>
 #include <valarray>
 
+#include "caitlyn/core/math.h"
 #include "caitlyn/core/numeric/types/types.h"
 #include "caitlyn/core/numeric/utility/utility.h"
 
 #if __caitlyn_has_cxx20
   #include <bit>
   #include <numbers>
+#endif
+
+#if __caitlyn_has_cxx23
+  #include <stdfloat>
 #endif
 
 #endif  // CAITLYN_CORE_NUMERIC_NUMERIC_H_

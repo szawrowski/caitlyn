@@ -10,6 +10,7 @@
 #include <utility>
 
 #if __caitlyn_has_cxx17
+  #include <any>
   #include <optional>
   #include <variant>
 #endif
@@ -19,6 +20,8 @@
 namespace cait {
 
 #if __caitlyn_has_cxx17
+using any_t = std::any;
+
 template <typename... Args>
 using variant_t = std::variant<Args...>;
 

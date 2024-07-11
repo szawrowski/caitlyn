@@ -23,9 +23,6 @@
 #include "caitlyn/core/utility/random/random.h"
 #include "caitlyn/core/utility/types/types.h"
 
-#if __caitlyn_has_cxx17
-  #include <any>
-#endif
 #if __caitlyn_has_cxx20
   #include <source_location>
   #include <version>

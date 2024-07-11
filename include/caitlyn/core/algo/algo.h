@@ -13,8 +13,13 @@
 #if __caitlyn_has_cxx17
   #include <execution>
 #endif
+
 #if __caitlyn_has_cxx20
   #include <ranges>
+#endif
+
+#if __caitlyn_has_cxx23
+  #include <generator>
 #endif
 
 #endif  // CAITLYN_CORE_ALGO_ALGO_H_
