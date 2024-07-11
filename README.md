@@ -8,16 +8,23 @@ designed to enhance productivity for everyday tasks across multiple platforms.
 ## Features
 
 ### **Caitlyn** includes
-- Unicode String Handling
-- Text Formatting
-- JSON Serialization
-- I/O and File Management
-- Error Handling
-- Arbitrary precision arithmetic
-- Utility Functions
+- [String Handling](https://github.com/szawrowski/caitlyn/edit/main/README.md#unicode-strings-support)
+  - Unicode Strings
+  - Text Formatting
+  - I/O and File Management
+- [Serializing](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#serializing)
+  - JSON
+- [Error Handling](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#error-handling)
+- [Numeric](https://github.com/szawrowski/caitlyn/edit/main/README.md#numeric)
+  - Arbitrary Precision Arithmetic
 
-Supported platforms: **Linux, Windows, macOS**\
-Supported standard: **C++11** and higher
+### Supported Platforms
+- Windows
+- Linux
+- macOS
+
+### Supported Standard
+- C++11 and higher
 
 ## Installation Guide
 
