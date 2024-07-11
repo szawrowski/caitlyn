@@ -147,7 +147,7 @@ int main() {
   config["address"]["zip"] = "12345";
   config["phone_numbers"] = cait::json::make_array("555-1234", "555-5678");
 
-  cait::println(config.to_string());
+  cait::println(config);
   return 0;
 }
 ```
@@ -176,7 +176,7 @@ int main() {
       ]
     }
   );
-  cait::println(config.to_string());
+  cait::println(config);
   return 0;
 }
 ```
