@@ -19,7 +19,7 @@ template <>
 class unicode_string<unicode_char<u8char_t>> {
 public:
   using value_type = unicode_char<u8char_t>;
-  using data_type = std::vector<value_type>;
+  using data_type = std::vector<unicode_char<u8char_t>>;
   using iterator = data_type::iterator;
   using const_iterator = data_type::const_iterator;
   using size_type = size_t;
@@ -33,6 +33,11 @@ public:
   unicode_string(unicode_string&& other) : data_{std::move(other.data_)} {}
 
 public:
+  unicode_string& operator=(const u8char_t data) {
+    from_chars(std::to_string(data));
+    return *this;
+  }
+
   unicode_string& operator=(const u8char_t* data) {
     from_chars(data);
     return *this;

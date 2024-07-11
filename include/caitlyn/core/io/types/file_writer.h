@@ -3,8 +3,8 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_
-#define CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_
+#ifndef CAITLYN_CORE_IO_TYPES_FILE_WRITER_H_
+#define CAITLYN_CORE_IO_TYPES_FILE_WRITER_H_
 
 #include <fstream>
 
@@ -14,21 +14,19 @@
 namespace cait {
 
 template <typename CharT>
-class unicode_file_writer;
+class file_writer;
 
 template <>
-class unicode_file_writer<u8char_t> {
+class file_writer<char_t> {
 public:
-  unicode_file_writer() = default;
-  unicode_file_writer(const char_t* filename) : filename_(filename) { open(); }
-  unicode_file_writer(std::string filename) : filename_(std::move(filename)) {
-    open();
-  }
-  unicode_file_writer(const unicode_file_writer& other)
-      : filename_{other.filename_} {
-    open();
-  }
-  ~unicode_file_writer() { close(); }
+  file_writer() = default;
+  file_writer(const char_t* filename) : filename_(filename) { open(); }
+  file_writer(std::string filename) : filename_(std::move(filename)) { open(); }
+  template <typename... Args>
+  file_writer(const std::string& str, Args&&... args)
+      : filename_{format(str, std::forward<Args>(args)...)} {}
+  file_writer(const file_writer& other) : filename_{other.filename_} { open(); }
+  ~file_writer() { close(); }
 
 public:
   void open() {
@@ -228,9 +226,9 @@ private:
 
 }  // namespace cait
 
-static cait::unicode_file_writer<cait::u8char_t> operator""_ofile(
+static cait::file_writer<cait::u8char_t> operator""_ofile(
     const cait::char_t* filename, const cait::size_t) {
-  return cait::unicode_file_writer<cait::u8char_t>{filename};
+  return cait::file_writer<cait::u8char_t>{filename};
 }
 
-#endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_WRITER_H_
+#endif  // CAITLYN_CORE_IO_TYPES_FILE_WRITER_H_

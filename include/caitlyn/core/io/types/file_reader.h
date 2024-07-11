@@ -3,33 +3,30 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_READER_H_
-#define CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_READER_H_
+#ifndef CAITLYN_CORE_IO_TYPES_FILE_READER_H_
+#define CAITLYN_CORE_IO_TYPES_FILE_READER_H_
 
 #include <fstream>
 
+#include "caitlyn/core/format/format.h"
 #include "caitlyn/core/unicode/types/unicode_string.h"
 
 namespace cait {
 
 template <typename CharT>
-class unicode_file_reader;
+class file_reader;
 
 template <>
-class unicode_file_reader<u8char_t> {
+class file_reader<char_t> {
 public:
-  unicode_file_reader() = default;
-  unicode_file_reader(const char_t* filename) : filename_(filename) {
-    open();
-  }
-  unicode_file_reader(std::string filename) : filename_(std::move(filename)) {
-    open();
-  }
-  unicode_file_reader(const unicode_file_reader& other)
-      : filename_{other.filename_} {
-    open();
-  }
-  ~unicode_file_reader() { close(); }
+  file_reader() = default;
+  file_reader(const char_t* filename) : filename_(filename) { open(); }
+  file_reader(std::string filename) : filename_(std::move(filename)) { open(); }
+  template <typename... Args>
+  file_reader(const std::string& str, Args&&... args)
+      : filename_{format(str, std::forward<Args>(args)...)} {}
+  file_reader(const file_reader& other) : filename_{other.filename_} { open(); }
+  ~file_reader() { close(); }
 
 public:
   void open() {
@@ -60,7 +57,7 @@ public:
     std::vector<char_t> buffer(size);
     if (file_.read(buffer.data(), size)) {
       return unicode_string<unicode_char<u8char_t>>{
-        std::string(buffer.data(), size)};
+          std::string(buffer.data(), size)};
     }
     return unicode_string<unicode_char<u8char_t>>{};
   }
@@ -83,9 +80,9 @@ private:
 
 }  // namespace cait
 
-static cait::unicode_file_reader<cait::u8char_t> operator""_ifile(
+static cait::file_reader<cait::u8char_t> operator""_ifile(
     const cait::char_t* filename, const cait::size_t) {
-  return cait::unicode_file_reader<cait::u8char_t>{filename};
+  return cait::file_reader<cait::u8char_t>{filename};
 }
 
-#endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_FILE_READER_H_
+#endif  // CAITLYN_CORE_IO_TYPES_FILE_READER_H_
