@@ -30,7 +30,7 @@ int main() {
   content.append_line(text);
 
   auto file = "somefile.txt"_ofile;
-  file.write("Text: {}", content.to_string());
+  file.write("Text: {}", content);
   file.close();
 
   return 0;
