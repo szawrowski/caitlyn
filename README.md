@@ -222,6 +222,8 @@ config.to_string(true, 2);
 
 ### Error Handling
 
+Handling errors without standard exceptions.
+
 **Types:**
 
 - `result_t`: Represents a type to encapsulate the result of an operation that
