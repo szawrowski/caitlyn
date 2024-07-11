@@ -65,6 +65,7 @@ is the source file for your main executable.
 ### Unicode Strings Support
 
 Robust support for Unicode strings, characters, and files.
+You can continue using standard C++ strings, supplemented with Unicode wrappers.
 
 **Types:**
 
@@ -269,7 +270,7 @@ int main() {
 
 #### Arbitrary-precision Numbers
 
-Arbitrary-precision numbers provides tools for working with numbers of any size
+Arbitrary-precision types provides tools for working with numbers of any size
 or precision, unrestricted by standard data types like `int` or `float`.
 It enables performing arithmetic operations, comparisons, and other mathematical
 computations with high precision, avoiding data loss due to type limitations.
