@@ -7,7 +7,7 @@ designed to enhance productivity for everyday tasks across multiple platforms.
 
 ## Features
 
-### **Caitlyn** includes
+### Caitlyn includes
 - Unicode String Handling
 - Text Formatting
 - I/O and File Management
