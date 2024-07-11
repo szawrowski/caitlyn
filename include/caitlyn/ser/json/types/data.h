@@ -303,7 +303,7 @@ private:
             oss << '\n';
           }
           boolean_type first = true;
-          for (const auto& [key, value] : object) {
+          for (const auto& member : object) {
             if (!first) {
               oss << ',';
               if (mangling) {
@@ -313,9 +313,9 @@ private:
             if (mangling) {
               oss << indent_str;
             }
-            oss << '"' << key << "\": ";
-            value->make_output(oss, mangling, base_indent,
-                               indent + base_indent);
+            oss << '"' << member.first << "\": ";
+            member.second->make_output(oss, mangling, base_indent,
+                                       indent + base_indent);
             first = false;
           }
           if (mangling) {
