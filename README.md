@@ -64,7 +64,6 @@ is the source file for your main executable.
 
 ### Unicode Strings Support
 
-Robust support for Unicode strings, characters, and files.
 You can continue using standard C++ strings, supplemented with Unicode wrappers.
 
 **Types:**
