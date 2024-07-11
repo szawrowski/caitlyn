@@ -25,18 +25,21 @@ inline char_seq_t<u8char_t>::type get_char_seq<u8char_t>(
     return {};
   }
   if (length == 1) {
-    return std::make_tuple(static_cast<u8char_t>(codepoint), 0x0, 0x0, 0x0);
+    return std::make_tuple(static_cast<u8char_t>(codepoint),
+                           get_char(ascii_t::null), get_char(ascii_t::null),
+                           get_char(ascii_t::null));
   }
   if (length == 2) {
     return std::make_tuple(static_cast<u8char_t>(0xC0 | (codepoint >> 6)),
                            static_cast<u8char_t>(0x80 | (codepoint & 0x3F)),
-                           0x0, 0x0);
+                           get_char(ascii_t::null), get_char(ascii_t::null));
   }
   if (length == 3) {
     return std::make_tuple(
         static_cast<u8char_t>(0xE0 | (codepoint >> 12)),
         static_cast<u8char_t>(0x80 | ((codepoint >> 6) & 0x3F)),
-        static_cast<u8char_t>(0x80 | (codepoint & 0x3F)), 0x0);
+        static_cast<u8char_t>(0x80 | (codepoint & 0x3F)),
+        get_char(ascii_t::null));
   }
   return std::make_tuple(
       static_cast<u8char_t>(0xF0 | (codepoint >> 18)),
