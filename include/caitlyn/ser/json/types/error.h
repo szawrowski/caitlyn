@@ -3,15 +3,15 @@
 // This file is distributed under the MIT License.
 // See LICENSE file for details.
 
-#ifndef CAITLYN_SER_JSON_TYPES_PARSE_ERROR_H_
-#define CAITLYN_SER_JSON_TYPES_PARSE_ERROR_H_
+#ifndef CAITLYN_SER_JSON_TYPES_ERROR_H_
+#define CAITLYN_SER_JSON_TYPES_ERROR_H_
 
 #include "caitlyn/ser/json/defs/defs.h"
 
 namespace cait {
 namespace json {
 
-enum class parse_error_t {
+enum class error_t {
   no_error,
   unexpected_character,
   unterminated_string,
@@ -31,4 +31,4 @@ enum class parse_error_t {
 }  // namespace json
 }  // namespace cait
 
-#endif  // CAITLYN_SER_JSON_TYPES_PARSE_ERROR_H_
+#endif  // CAITLYN_SER_JSON_TYPES_ERROR_H_

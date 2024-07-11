@@ -8,12 +8,13 @@
 
 #include "caitlyn/core/io.h"
 #include "caitlyn/ser/json/types/parser.h"
+#include "caitlyn/ser/json/utility/utility.h"
 
 namespace cait {
 
 class json_t {
 public:
-  using error_type = json::parse_error_t;
+  using error_type = json::error_t;
   using data_type = json::__detail::data_t;
   using parser_type = json::__detail::parser_t;
 
@@ -25,7 +26,7 @@ public:
   json_t(json_t&& other) noexcept
       : root_{std::move(other.root_)}, error_{other.error_} {
     other.root_ = json::make_null();
-    other.error_ = json::parse_error_t::no_error;
+    other.error_ = json::error_t::no_error;
   }
 
   ~json_t() = default;
@@ -54,7 +55,7 @@ public:
       root_ = std::move(other.root_);
       error_ = other.error_;
       other.root_ = json::make_null();
-      other.error_ = json::parse_error_t::no_error;
+      other.error_ = error_type::no_error;
     }
     return *this;
   }
@@ -72,7 +73,7 @@ public:
       error_ = parser.get_error();
       root_ = json::make_null();
     } else {
-      error_ = json::parse_error_t::no_error;
+      error_ = error_type::no_error;
       root_ = parser.get_data();
     }
   }
@@ -97,66 +98,34 @@ public:
     }
   }
 
-  [[nodiscard]] bool has_member(const std::string& key) const {
+  __caitlyn_nodiscard bool has_member(const std::string& key) const {
     return root_.has_member(key);
   }
 
-  [[nodiscard]] size_t size() const { return root_.size(); }
+  __caitlyn_nodiscard size_t size() const { return root_.size(); }
 
-  [[nodiscard]] bool has_error() const {
-    return error_ != json::parse_error_t::no_error;
+  __caitlyn_nodiscard bool has_error() const {
+    return error_ != error_type::no_error;
   }
 
-  [[nodiscard]] json::parse_error_t get_error() const { return error_; }
+  __caitlyn_nodiscard error_type get_error() const { return error_; }
 
-  [[nodiscard]] std::string get_error_string() const {
-    return get_parse_error_string();
+  __caitlyn_nodiscard std::string get_error_string() const {
+    return json::get_error_string(error_);
   }
 
-  [[nodiscard]] json::class_t get_type() const {
+  __caitlyn_nodiscard json::class_t get_type() const {
     return root_.get_type();
   }
 
-  [[nodiscard]] std::string to_string(const bool mangling = false,
+  __caitlyn_nodiscard std::string to_string(const bool mangling = false,
                                       const size_t indent = 2) const {
     return root_.to_string(mangling, indent);
   }
 
 private:
-  [[nodiscard]] std::string get_parse_error_string() const {
-    switch (error_) {
-      case json::parse_error_t::no_error:
-        return "No error.";
-      case json::parse_error_t::unterminated_string:
-        return "Unterminated string.";
-      case json::parse_error_t::expected_string_key:
-        return "Expected string key.";
-      case json::parse_error_t::missing_colon:
-        return "Missing colon.";
-      case json::parse_error_t::unterminated_object:
-        return "Unterminated object.";
-      case json::parse_error_t::unterminated_array:
-        return "Unterminated array.";
-      case json::parse_error_t::invalid_number:
-        return "Invalid number.";
-      case json::parse_error_t::number_conversion_error:
-        return "Number conversion error.";
-      case json::parse_error_t::invalid_value:
-        return "Invalid value.";
-      case json::parse_error_t::unexpected_character:
-        return "Unexpected character.";
-      case json::parse_error_t::trailing_comma:
-        return "Trailing comma.";
-      case json::parse_error_t::invalid_json:
-        return "Invalid JSON.";
-      default:
-        return "Unknown error.";
-    }
-  }
-
-private:
   data_type root_{json::make_object()};
-  error_type error_{json::parse_error_t::no_error};
+  error_type error_{error_type::no_error};
 };
 
 static json_t make_json() { return json_t{}; }

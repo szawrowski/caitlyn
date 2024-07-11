@@ -21,14 +21,16 @@ public:
   using array_type = std::deque<data_t*>;
   using object_type = std::vector<std::pair<std::string, data_t*>>;
   using string_type = std::string;
-  using null_type = std::nullptr_t;
-  using floating_type = double;
+  using null_type = null_t;
+  using floating_type = float64_t;
   using integral_type = int64_t;
-  using boolean_type = bool;
+  using boolean_type = bool_t;
   using size_type = size_t;
 
 public:
-  data_t() : type_{class_t::null} { new (&data_.null_value) null_type(nullptr); }
+  data_t() : type_{class_t::null} {
+    new (&data_.null_value) null_type(nullptr);
+  }
 
   data_t(const data_t& other) : type_(other.type_) { copy_union(other); }
 
@@ -146,7 +148,7 @@ public:
       array.resize(index + 1, nullptr);
     }
     if (!array[index]) {
-      array[index] = new data_t();
+      new(array[index]) data_t{};
     }
     return *array[index];
   }
@@ -154,9 +156,9 @@ public:
 public:
   data_t& at(const string_type& key) { return operator[](key); }
 
-  [[nodiscard]] const data_t& at(const string_type& key) const {
+  __caitlyn_nodiscard const data_t& at(const string_type& key) const {
     const auto& object = data_.object_value;
-    auto it =
+    const auto it =
         std::find_if(object.begin(), object.end(),
                      [&key](const auto& pair) { return pair.first == key; });
     if (it == object.end()) {
@@ -165,9 +167,9 @@ public:
     return *it->second;
   }
 
-  data_t& at(size_type index) { return operator[](index); }
+  data_t& at(const size_type index) { return operator[](index); }
 
-  [[nodiscard]] const data_t& at(size_type index) const {
+  __caitlyn_nodiscard const data_t& at(const size_type index) const {
     return *data_.array_value.at(index);
   }
 
@@ -352,19 +354,19 @@ private:
       }
       case class_t::string:
         oss << '"' << data_.string_value << '"';
-      break;
+        break;
       case class_t::floating:
         oss << data_.floating_value;
-      break;
+        break;
       case class_t::integral:
         oss << data_.integral_value;
-      break;
+        break;
       case class_t::boolean:
         oss << (data_.boolean_value ? "true" : "false");
-      break;
+        break;
       case class_t::null:
         oss << "null";
-      break;
+        break;
       default:
         break;
     }
@@ -380,25 +382,25 @@ private:
     switch (type_) {
       case class_t::null:
         new (&data_.null_value) null_type(nullptr);
-      break;
+        break;
       case class_t::object:
         new (&data_.object_value) object_type();
-      break;
+        break;
       case class_t::array:
         new (&data_.array_value) array_type();
-      break;
+        break;
       case class_t::string:
         new (&data_.string_value) string_type();
-      break;
+        break;
       case class_t::floating:
         new (&data_.floating_value) floating_type();
-      break;
+        break;
       case class_t::integral:
         new (&data_.integral_value) integral_type();
-      break;
+        break;
       case class_t::boolean:
         new (&data_.boolean_value) boolean_type();
-      break;
+        break;
       default:
         break;
     }
@@ -408,25 +410,25 @@ private:
     switch (type_) {
       case class_t::object:
         std::destroy_at(&data_.object_value);
-      break;
+        break;
       case class_t::array:
         for (const auto* ptr : data_.array_value) {
           delete ptr;
         }
-      std::destroy_at(&data_.array_value);
-      break;
+        std::destroy_at(&data_.array_value);
+        break;
       case class_t::string:
         std::destroy_at(&data_.string_value);
-      break;
+        break;
       case class_t::floating:
         std::destroy_at(&data_.floating_value);
-      break;
+        break;
       case class_t::integral:
         std::destroy_at(&data_.integral_value);
-      break;
+        break;
       case class_t::boolean:
         std::destroy_at(&data_.boolean_value);
-      break;
+        break;
       default:
         break;
     }
@@ -436,30 +438,30 @@ private:
     switch (other.type_) {
       case class_t::null:
         new (&data_.null_value) null_type(other.data_.null_value);
-      break;
+        break;
       case class_t::object:
         new (&data_.object_value) object_type(other.data_.object_value);
-      break;
+        break;
       case class_t::array:
         new (&data_.array_value) array_type(other.data_.array_value);
-      for (auto* ptr : data_.array_value) {
-        if (ptr) {
-          *ptr = *other.data_.array_value[&ptr - &data_.array_value[0]];
+        for (auto* ptr : data_.array_value) {
+          if (ptr) {
+            *ptr = *other.data_.array_value[&ptr - &data_.array_value[0]];
+          }
         }
-      }
-      break;
+        break;
       case class_t::string:
         new (&data_.string_value) string_type(other.data_.string_value);
-      break;
+        break;
       case class_t::floating:
         new (&data_.floating_value) floating_type(other.data_.floating_value);
-      break;
+        break;
       case class_t::integral:
         new (&data_.integral_value) integral_type(other.data_.integral_value);
-      break;
+        break;
       case class_t::boolean:
         new (&data_.boolean_value) boolean_type(other.data_.boolean_value);
-      break;
+        break;
       default:
         break;
     }
@@ -469,30 +471,27 @@ private:
     switch (other.type_) {
       case class_t::null:
         new (&data_.null_value) null_type(other.data_.null_value);
-      break;
+        break;
       case class_t::object:
         new (&data_.object_value)
             object_type(std::move(other.data_.object_value));
-      break;
+        break;
       case class_t::array:
         new (&data_.array_value) array_type(std::move(other.data_.array_value));
-      break;
+        break;
       case class_t::string:
         new (&data_.string_value)
             string_type(std::move(other.data_.string_value));
-      break;
+        break;
       case class_t::floating:
-        new (&data_.floating_value)
-            floating_type(other.data_.floating_value);
-      break;
+        new (&data_.floating_value) floating_type(other.data_.floating_value);
+        break;
       case class_t::integral:
-        new (&data_.integral_value)
-            integral_type(other.data_.integral_value);
-      break;
+        new (&data_.integral_value) integral_type(other.data_.integral_value);
+        break;
       case class_t::boolean:
-        new (&data_.boolean_value)
-            boolean_type(other.data_.boolean_value);
-      break;
+        new (&data_.boolean_value) boolean_type(other.data_.boolean_value);
+        break;
       default:
         break;
     }
@@ -500,7 +499,7 @@ private:
 
 private:
   union data_union {
-    null_type null_value;
+    null_type null_value{};
     object_type object_value;
     array_type array_value;
     string_type string_value;
@@ -520,13 +519,9 @@ static __detail::data_t make(const class_t value) {
   return __detail::data_t::__internal_make(value);
 }
 
-static __detail::data_t make_object() {
-  return make(class_t::object);
-}
+static __detail::data_t make_object() { return make(class_t::object); }
 
-static __detail::data_t make_array() {
-  return make(class_t::array);
-}
+static __detail::data_t make_array() { return make(class_t::array); }
 
 template <typename... Args>
 static __detail::data_t make_array(Args... args) {
@@ -535,9 +530,7 @@ static __detail::data_t make_array(Args... args) {
   return array;
 }
 
-static __detail::data_t make_null() {
-  return make(class_t::null);
-}
+static __detail::data_t make_null() { return make(class_t::null); }
 
 static __detail::data_t make_string(
     const __detail::data_t::string_type& value) {
