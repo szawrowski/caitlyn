@@ -20,5 +20,5 @@ TEST(CoreUnicodeTest, CharEmojiInit) {
 TEST(CoreUnicodeTest, CharAssignmentOperator) {
   cait::unichar_t symbol{};
   symbol = 'A';
-  ASSERT_TRUE(symbol == cait::unichar_t{'A'});
+  ASSERT_TRUE(symbol == 'A');
 }
