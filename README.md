@@ -2,8 +2,8 @@
 
 ## About
 
-Caitlyn is a versatile general-purpose C++ library designed to enhance
-productivity for everyday tasks across multiple platforms.
+Caitlyn is a header-only versatile general-purpose C++ library
+designed to enhance productivity for everyday tasks across multiple platforms.
 
 It includes:
 - Unicode String Handling
@@ -16,6 +16,46 @@ It includes:
 
 Supported platforms: **Linux, Windows, macOS**.\
 Supported standard: **C++11** and higher.
+
+## Installation Guide
+
+### Step 1: Clone the Repository
+
+First, navigate to your project root directory and create a lib folder to hold
+external libraries. Then, clone the Caitlyn repository into this folder.
+Open your terminal and run the following commands:
+
+```shell
+mkdir lib
+cd lib
+git clone https://github.com/szawrowski/caitlyn.git
+```
+
+### Step 2: Integrate Caitlyn into Your CMake Project
+
+Add the necessary configurations to your `CMakeLists.txt` file
+to include Caitlyn in your project. Use the following template as a reference:
+
+```cmake
+cmake_minimum_required(VERSION 3.10)
+project(ProjectName)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Define the path to Caitlyn library
+set(CAITLYN_ROOT "${CMAKE_SOURCE_DIR}/lib/caitlyn")
+set(CAITLYN_INCLUDE_DIR "${CAITLYN_ROOT}/include")
+
+# Add your main executable
+add_executable(${PROJECT_NAME} main.cpp)
+
+# Include Caitlyn directories
+target_include_directories(${PROJECT_NAME} PUBLIC ${CAITLYN_INCLUDE_DIR})
+```
+
+Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
+is the source file for your main executable.
 
 ## Features
 
