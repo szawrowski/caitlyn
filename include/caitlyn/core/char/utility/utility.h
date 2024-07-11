@@ -40,11 +40,11 @@ static __caitlyn_constexpr14 bool_t is_digit(const char_t value) {
   return value >= 0x30 && value < 0x3A;
 }
 
-static __caitlyn_constexpr14 char_t to_uppercase(const char_t value) {
+static char_t to_uppercase(const char_t value) {
   return static_cast<char_t>(std::toupper(static_cast<uchar_t>(value)));
 }
 
-static __caitlyn_constexpr14 char_t to_lowercase(const char_t value) {
+static char_t to_lowercase(const char_t value) {
   return static_cast<char_t>(std::tolower(static_cast<uchar_t>(value)));
 }
 
