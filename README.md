@@ -14,6 +14,7 @@ designed to enhance productivity for everyday tasks across multiple platforms.
 - JSON Serializing
 - Error Handling
 - Arbitrary Precision Arithmetic
+- Utilities
 
 Supported Platforms: **Linux, Windows, macOS**\
 Supported Standard: **C++11** and higher
