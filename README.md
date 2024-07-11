@@ -81,7 +81,7 @@ int main() {
   const auto string = "Hello, 世界!"_str;
   const auto emoji = "🙂"_char;
 
-  const auto formatted = cait::format("{} {}", string, emoji);
+  const auto formatted = cait::fmt("{} {}", string, emoji);
   cait::println(formatted);
 
   auto content = cait::make_text();
