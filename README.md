@@ -7,7 +7,7 @@ designed to enhance productivity for everyday tasks across multiple platforms.
 
 ## Features
 
-It includes:
+**Caitlyn** includes:
 - Unicode String Handling
 - Text Formatting
 - JSON Serialization
