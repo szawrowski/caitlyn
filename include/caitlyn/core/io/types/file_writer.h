@@ -24,7 +24,7 @@ public:
   file_writer(std::string filename) : filename_(std::move(filename)) { open(); }
   template <typename... Args>
   file_writer(const std::string& str, Args&&... args)
-      : filename_{format(str, std::forward<Args>(args)...)} {}
+      : filename_{fmt(str, std::forward<Args>(args)...)} {}
   file_writer(const file_writer& other) : filename_{other.filename_} { open(); }
   ~file_writer() { close(); }
 
@@ -79,7 +79,7 @@ public:
     if (!file_.is_open()) {
       open();
     }
-    file_ << format(str, std::forward<Args>(args)...);
+    file_ << fmt(str, std::forward<Args>(args)...);
   }
 
   void write_line(const char* data) {
@@ -115,7 +115,7 @@ public:
     if (!file_.is_open()) {
       open();
     }
-    file_ << format(str, std::forward<Args>(args)...)
+    file_ << fmt(str, std::forward<Args>(args)...)
           << get_char(ascii_t::line_feed);
   }
 
@@ -161,7 +161,7 @@ public:
       open();
     }
     file_.seekp(0, std::ios::end);
-    file_ << format(str, std::forward<Args>(args)...);
+    file_ << fmt(str, std::forward<Args>(args)...);
     file_.flush();
   }
 
@@ -203,7 +203,7 @@ public:
       open();
     }
     file_.seekp(0, std::ios::end);
-    file_ << format(str, std::forward<Args>(args)...)
+    file_ << fmt(str, std::forward<Args>(args)...)
           << get_char(ascii_t::line_feed);
     file_.flush();
   }

@@ -24,7 +24,7 @@ public:
   file_reader(std::string filename) : filename_(std::move(filename)) { open(); }
   template <typename... Args>
   file_reader(const std::string& str, Args&&... args)
-      : filename_{format(str, std::forward<Args>(args)...)} {}
+      : filename_{fmt(str, std::forward<Args>(args)...)} {}
   file_reader(const file_reader& other) : filename_{other.filename_} { open(); }
   ~file_reader() { close(); }
 
