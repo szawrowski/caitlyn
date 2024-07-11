@@ -2,7 +2,7 @@
 
 ## About
 
-Caitlyn is a header-only versatile general-purpose C++ library
+**Caitlyn** is a header-only versatile general-purpose C++ library
 designed to enhance productivity for everyday tasks across multiple platforms.
 
 It includes:
@@ -21,8 +21,8 @@ Supported standard: **C++11** and higher.
 
 ### Step 1: Clone the Repository
 
-First, navigate to your project root directory and create a lib folder to hold
-external libraries. Then, clone the Caitlyn repository into this folder.
+First, navigate to your project root directory and create a `lib` folder to hold
+external libraries. Then, clone the **Caitlyn** repository into this folder.
 Open your terminal and run the following commands:
 
 ```shell
@@ -34,7 +34,8 @@ git clone https://github.com/szawrowski/caitlyn.git
 ### Step 2: Integrate Caitlyn into Your CMake Project
 
 Add the necessary configurations to your `CMakeLists.txt` file
-to include Caitlyn in your project. Use the following template as a reference:
+to include **Caitlyn** in your project.
+Use the following template as a reference:
 
 ```cmake
 cmake_minimum_required(VERSION 3.10)
@@ -119,11 +120,11 @@ applications that need efficient data exchange in a structured format.
 **Types:**
 
 - `json_t`: Provides comprehensive support for JSON handling.
-Facilitates parsing, generating, and manipulating JSON data structures.
-Enables easy serialization of complex data into JSON format for storage or
-transmission, and deserialization of JSON back into native data structures.
-Offers efficient methods for encoding and decoding JSON, handling nested objects
-and arrays, ensuring compatibility across various platforms and systems.
+  Facilitates parsing, generating, and manipulating JSON data structures.
+  Enables easy serialization of complex data into JSON format for storage or
+  transmission, and deserialization of JSON back into native data structures.
+  Offers efficient methods for encoding and decoding JSON, handling nested objects
+  and arrays, ensuring compatibility across various platforms and systems.
 
 **Usage:**
 
@@ -222,14 +223,14 @@ config.to_string(true, 2);
 **Types:**
 
 - `result_t`: Represents a type to encapsulate the result of an operation that
-may succeed or fail, along with an associated error type.
-It provides a type-safe way to handle both successful outcomes and errors
-without relying on exceptions.
+  may succeed or fail, along with an associated error type.
+  It provides a type-safe way to handle both successful outcomes and errors
+  without relying on exceptions.
 
 - `error_t`: Represents error types used in conjunction with `result_t`
-for detailed error reporting and handling within operations.
-It provides a structured way to categorize and manage errors that occur during
-computations or operations.
+  for detailed error reporting and handling within operations.
+  It provides a structured way to categorize and manage errors that occur during
+  computations or operations.
 
 **Usage:**
 
