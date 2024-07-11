@@ -25,5 +25,4 @@ set(OUTPUT_BINARY_DIR "${CMAKE_SOURCE_DIR}/bin")
 
 find_package(GTest CONFIG REQUIRED)
 
-add_subdirectory(src)
 add_subdirectory(test)
