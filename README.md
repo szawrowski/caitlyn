@@ -1,33 +1,50 @@
 # Caitlyn
-A general-purpose library designed to enhance productivity for everyday tasks.\
+
+## About
+
+Caitlyn is a versatile general-purpose C++ library designed to enhance
+productivity for everyday tasks across multiple platforms.
+
+It includes:
+- Unicode String Handling
+- Text Formatting
+- JSON Serialization
+- I/O and File Management
+- Error Handling
+- Arbitrary precision arithmetic
+- Utility Functions
+
 Supported platforms: **Linux, Windows, macOS**.\
-Supported standard: **C++11**.
+Supported standard: **C++11** and higher.
 
 ## Features
 
 ### Unicode Strings Support
-Easily handle Unicode strings, characters and files.
 
-Types
-- unichar_t - Unicode code point character wrapper.
-- unistring_t - Unicode code point based string wrapper with iterator support.
-- text_t - Universal formatting string builder.
+Robust support for Unicode strings, characters, and files.
 
-Usage
+**Types:**
+
+- `unichar_t`: Wrapper for Unicode code point characters.
+- `unistring_t`: String wrapper based on Unicode code points with iterator support.
+- `text_t`: Universal formatting string builder.
+
+**Usage:**
+
 ```c++
 #include <caitlyn/caitlyn.h>
 
 int main() {
-  const auto str = "Hello, 世界!"_str;
+  const auto string = "Hello, 世界!"_str;
   const auto emoji = "🙂"_char;
 
-  const auto text = cait::format("{} {}", str, emoji);
-  cait::println(text);
+  const auto formatted = cait::format("{} {}", string, emoji);
+  cait::println(formatted);
 
   auto content = cait::make_text();
   content.append("Lorem ipsum dolor sit amet, ");
   content.append_line("consectetur adipiscing elit.");
-  content.append_line(text);
+  content.append_line(formatted);
 
   auto file = "somefile.txt"_ofile;
   file.write("Text: {}", content);
@@ -35,28 +52,35 @@ int main() {
 
   return 0;
 }
+
 ```
-Output
+**Output:**
+
 - Terminal
+
 ```text
 Hello, 世界! 🙂
 ```
+
 - File (_somefile.txt_)
+
 ```text
 Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Hello, 世界! 🙂
 ```
 
-##
-
 ### Serializing
+
 #### JSON
 
-Types
-- json_t - Full supported JSON format type.
+**Types:**
 
-Usage
+- `json_t`: provides comprehensive support for JSON handling.
+
+**Usage:**
+
 - Brackets operator
+
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -76,7 +100,9 @@ int main() {
   return 0;
 }
 ```
+
 - Native JSON
+
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -87,7 +113,7 @@ int main() {
         "first": "John",
         "last": "Doe"
       },
-      "age": 30
+      "age": 30,
       "address": {
         "street": "123 Main St",
         "city": "Anytown",
@@ -103,20 +129,27 @@ int main() {
   return 0;
 }
 ```
+
 - Optimized output
+
 ```c++
 config.to_string();
 ```
+
 - Structured output
+
 ```c++
 // Pass true and optional indent width (2 by default)
 config.to_string(true);
 config.to_string(true, 2);
 ```
-Output
+
+**Output:**
+
 ```json
 {"name":{"first":"John","last":"Doe"},"age":30,"address":{"street":"123 Main St","city":"Anytown","zip":"12345"},"phone_numbers":["555-1234","555-5678"]}
 ```
+
 ```json
 {
   "name": {
@@ -136,16 +169,20 @@ Output
 }
 ```
 
-##
-
 ### Error Handling
-Easily handle errors without exceptions.
 
-Types
-- result_t<T, E> - Contains a result type and an error. 
-- error_t<E> - Contains and error type.
+The `result_t` class is designed to encapsulate the result of an operation that
+may succeed or fail, along with an associated error type.
+It provides a type-safe way to handle both successful outcomes and errors
+without relying on exceptions.
 
-Usage
+The `error_t` class represents error types used in conjunction with `result_t`
+for detailed error reporting and handling within operations.
+It provides a structured way to categorize and manage errors that occur during
+computations or operations.
+
+**Usage:**
+
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -175,15 +212,17 @@ int main() {
 }
 ```
 
-##
-
 ### Numeric
-#### Arbitrarily Large Numbers
-- pwrint_t - Integral type with basic arithmetic support.
-- pwrnum_t - Floating point type with basic arithmetic support.
 
-Usage
+#### Arbitrarily Large Numbers
+
+- `pwrint_t`: integral type with basic arithmetic support.
+- `pwrnum_t`: floating point type with basic arithmetic support.
+
+**Usage:**
+
 - Integral
+
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -192,11 +231,13 @@ int main() {
   const auto b = "10218827321893782973821793709217371273"_pwrint;
   const auto result = a * b;
 
-  cait::println(result.to_string())
+  cait::println(result);
   return 0;
 }
 ```
+
 - Floating point
+
 ```c++
 #include <caitlyn/caitlyn.h>
 
@@ -205,11 +246,13 @@ int main() {
   const auto b = "7.8827318902910380293782646543821795732418"_pwrnum;
   const auto result = a * b;
 
-  cait::println(result.to_string())
+  cait::println(result);
   return 0;
 }
 ```
-Output
+
+**Output:**
+
 ```text
 480406269860917721318957511814148894618259818296995209585410018969574705029068317
 1441.64203387923303265813084431780163079588042340079866748019604087803446244208066
