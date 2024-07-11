@@ -73,9 +73,17 @@ Hello, 世界! 🙂
 
 #### JSON
 
+The JSON format is crucial for web development, API integration, and any
+applications that need efficient data exchange in a structured format.
+
 **Types:**
 
-- `json_t`: provides comprehensive support for JSON handling.
+- `json_t`: Provides comprehensive support for JSON handling.
+Facilitates parsing, generating, and manipulating JSON data structures.
+Enables easy serialization of complex data into JSON format for storage or
+transmission, and deserialization of JSON back into native data structures.
+Offers efficient methods for encoding and decoding JSON, handling nested objects
+and arrays, ensuring compatibility across various platforms and systems.
 
 **Usage:**
 
@@ -171,12 +179,14 @@ config.to_string(true, 2);
 
 ### Error Handling
 
-The `result_t` class is designed to encapsulate the result of an operation that
+**Types:**
+
+- `result_t`: Represents a type to encapsulate the result of an operation that
 may succeed or fail, along with an associated error type.
 It provides a type-safe way to handle both successful outcomes and errors
 without relying on exceptions.
 
-The `error_t` class represents error types used in conjunction with `result_t`
+- `error_t`: Represents error types used in conjunction with `result_t`
 for detailed error reporting and handling within operations.
 It provides a structured way to categorize and manage errors that occur during
 computations or operations.
@@ -214,10 +224,19 @@ int main() {
 
 ### Numeric
 
-#### Arbitrarily Large Numbers
+#### Arbitrary-precision Numbers
 
-- `pwrint_t`: integral type with basic arithmetic support.
-- `pwrnum_t`: floating point type with basic arithmetic support.
+Arbitrary-precision numbers provides tools for working with numbers of any size
+or precision, unrestricted by standard data types like `int` or `float`.
+It enables performing arithmetic operations, comparisons, and other mathematical
+computations with high precision, avoiding data loss due to type limitations.
+Such types are often used in applications requiring high-precision calculations,
+such as financial applications, scientific research, or cryptography.
+
+**Types:**
+
+- `pwrint_t`: Integral type of arbitrary length
+- `pwrnum_t`: Floating point type with arbitrary precision
 
 **Usage:**
 
