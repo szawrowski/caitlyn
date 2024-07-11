@@ -164,7 +164,7 @@ auto Divide(const double lhs, const double rhs)
 int main() {
   const auto result = Divide(64, 4);
   
-  if (result.has_value()) {
+  if (result) {
     cait::println("64 / 4 = {}", result.get());
   } else {
     if (result.get_error() == MathError::kDivideByZero) {
