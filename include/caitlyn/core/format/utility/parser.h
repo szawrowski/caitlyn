@@ -26,7 +26,7 @@ static format_spec_t parse_format_spec(const std::string& spec) {
                        ? format_align_t::right
                        : format_align_t::center;
     ++i;
-                          }
+  }
 
   // Parse fill character
   if (i < spec.size() && is_digit(spec[i])) {
@@ -37,7 +37,9 @@ static format_spec_t parse_format_spec(const std::string& spec) {
   // Parse width
   if (i < spec.size() && is_digit(spec[i])) {
     result.width = std::stoi(spec.substr(i));
-    while (i < spec.size() && is_digit(spec[i])) ++i;
+    while (i < spec.size() && is_digit(spec[i])) {
+      ++i;
+    }
   }
 
   // Parse precision
@@ -58,7 +60,7 @@ static format_spec_t parse_format_spec(const std::string& spec) {
                   : spec[i] == get_char(ascii_t::latin_small_letter_d)
                       ? format_type_t::integral
                       : format_type_t::floating_point;
-                          }
+  }
 
   return result;
 }
