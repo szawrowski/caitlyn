@@ -1,7 +1,7 @@
 # Caitlyn
 A general-purpose library designed to enhance productivity for everyday tasks.\
 Supported platforms: **Linux, Windows, macOS**.\
-Supported standard: **C++17**.
+Supported standard: **C++11**.
 
 ## Features
 
@@ -9,7 +9,7 @@ Supported standard: **C++17**.
 Easily handle Unicode strings, characters and files.
 
 Types
-- unichar_t - Unocode code point character wrapper.
+- unichar_t - Unicode code point character wrapper.
 - unistring_t - Unicode code point based string wrapper with iterator support.
 - text_t - Universal formatting string builder.
 
