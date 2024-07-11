@@ -86,7 +86,7 @@ int main() {
 
   auto content = cait::make_text();
   content.append("Lorem ipsum dolor sit amet, ");
-  content.append_line("consectetur adipiscing elit.");
+  content.append_line("consectetur adipiscing elit...");
   content.append_line(formatted);
 
   auto file = "somefile.txt"_ofile;
@@ -108,7 +108,7 @@ Hello, 世界! 🙂
 - File (_somefile.txt_)
 
 ```text
-Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 Hello, 世界! 🙂
 ```
 
