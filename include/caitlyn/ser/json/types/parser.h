@@ -63,28 +63,32 @@ private:
     if (position_ >= json_.size()) {
       return data_t{};
     }
-    switch (json_[position_]) {
-      case get_char(ascii_t::quot_mark):
-        return parse_string();
-      case get_char(ascii_t::left_curly_br):
-        return parse_object();
-      case get_char(ascii_t::left_square_br):
-        return parse_array();
-      case get_char(ascii_t::latin_small_letter_t):
-      case get_char(ascii_t::latin_small_letter_f):
-        return parse_boolean();
-      case get_char(ascii_t::latin_small_letter_n):
-        return parse_null();
-      default:
-        if (std::isdigit(json_[position_]) ||
-            json_[position_] == get_char(ascii_t::hyphen_minus) ||
-            json_[position_] == get_char(ascii_t::plus_sign)) {
-          return parse_number();
-        }
-        set_error(error_t::unexpected_character);
-        set_error_position(position_);
-        return data_t{};
+    const char current_char = json_[position_];
+
+    if (current_char == get_char(ascii_t::quot_mark)) {
+      return parse_string();
     }
+    if (current_char == get_char(ascii_t::left_curly_br)) {
+      return parse_object();
+    }
+    if (current_char == get_char(ascii_t::left_square_br)) {
+      return parse_array();
+    }
+    if (current_char == get_char(ascii_t::latin_small_letter_t) ||
+        current_char == get_char(ascii_t::latin_small_letter_f)) {
+      return parse_boolean();
+    }
+    if (current_char == get_char(ascii_t::latin_small_letter_n)) {
+      return parse_null();
+    }
+    if (std::isdigit(current_char) ||
+        current_char == get_char(ascii_t::hyphen_minus) ||
+        current_char == get_char(ascii_t::plus_sign)) {
+      return parse_number();
+    }
+    set_error(error_t::unexpected_character);
+    set_error_position(position_);
+    return data_t{};
   }
 
   data_t parse_object() {

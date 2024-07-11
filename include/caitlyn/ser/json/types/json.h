@@ -69,7 +69,8 @@ public:
 
 public:
   void parse(const std::string& value) {
-    if (const auto parser = parser_type::parse(value); parser.has_error()) {
+    const auto parser = parser_type::parse(value);
+    if (parser.has_error()) {
       error_ = parser.get_error();
       root_ = json::make_null();
     } else {
@@ -91,10 +92,14 @@ public:
   void remove_member(const std::string& key) {
     if (root_.has_member(key)) {
       auto& obj = root_.get_data();
-      obj.erase(std::remove_if(
-                    obj.begin(), obj.end(),
-                    [&key](const auto& pair) { return pair.first == key; }),
-                obj.end());
+      obj.erase(
+          std::remove_if(
+              obj.begin(), obj.end(),
+              [&key](const std::pair<const std::string&,
+                                     const json::__detail::data_t*>& pair) {
+                return pair.first == key;
+              }),
+          obj.end());
     }
   }
 
@@ -119,7 +124,7 @@ public:
   }
 
   __caitlyn_nodiscard std::string to_string(const bool mangling = false,
-                                      const size_t indent = 2) const {
+                                            const size_t indent = 2) const {
     return root_.to_string(mangling, indent);
   }
 

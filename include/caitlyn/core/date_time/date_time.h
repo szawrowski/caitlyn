@@ -7,7 +7,12 @@
 #define CAITLYN_CORE_DATE_TYME_DATE_TIME_H_
 
 #include <chrono>
+
+#include "caitlyn/__detail.h"
+
+#if __caitlyn_has_cxx14
 using namespace std::chrono_literals;
+#endif
 
 #include <clocale>
 #include <ctime>

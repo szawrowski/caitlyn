@@ -6,31 +6,35 @@
 #ifndef CAITLYN_CORE_CONTAINERS_UTILITY_MAP_UTILITY_H_
 #define CAITLYN_CORE_CONTAINERS_UTILITY_MAP_UTILITY_H_
 
+#include <type_traits>
+#include <utility>
+#include <vector>
+
 #include "caitlyn/core/containers/types/types.h"
 
 namespace cait {
 
-static auto get_map_keys = [](auto&& map) -> decltype(auto) {
-  using key_type =
-      typename std::remove_reference<decltype(map)>::type::key_type;
-  vector_t<key_type> keys;
+template <typename MapT>
+std::vector<typename std::remove_reference<MapT>::type::key_type> get_map_keys(
+    MapT&& map) {
+  std::vector<typename std::remove_reference<MapT>::type::key_type> keys;
 
   for (auto& element : map) {
     keys.emplace_back(element.first);
   }
-  return std::move(keys);
-};
+  return keys;
+}
 
-static auto get_map_values = [](auto&& map) -> decltype(auto) {
-  using mapped_type =
-      typename std::remove_reference<decltype(map)>::type::mapped_type;
-  vector_t<mapped_type> values;
+template <typename MapT>
+std::vector<typename std::remove_reference<MapT>::type::mapped_type>
+get_map_values(MapT&& map) {
+  std::vector<typename std::remove_reference<MapT>::type::mapped_type> values;
 
   for (auto& element : map) {
     values.emplace_back(element.second);
   }
-  return std::move(values);
-};
+  return values;
+}
 
 }  // namespace cait
 

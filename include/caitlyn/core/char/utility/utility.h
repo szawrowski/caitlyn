@@ -12,42 +12,43 @@
 
 namespace cait {
 
-static constexpr auto is_space(const char_t value) {
-  return value == '\x0A' || value == '\x0B' || value == '\x0C' ||
-         value == '\x0D' || value == '\x20';
-}
-
-static constexpr auto is_uppercase(const char_t value) {
-  return value >= 0x41 && value < 0x5B;
-}
-
-static constexpr auto is_lowercase(const char_t value) {
-  return value >= 0x61 && value < 0x7B;
-}
-
-static constexpr auto is_alpha(const char_t value) {
-  return is_uppercase(value) || is_lowercase(value);
-}
-
-static constexpr auto is_digit(const char_t value) {
-  return value >= 0x30 && value < 0x3A;
-}
-
-static auto to_uppercase(const char_t value) {
-  const auto tmp = static_cast<uchar_t>(value);
-  return static_cast<char_t>(std::toupper(tmp));
-}
-
-static auto to_lowercase(const char_t value) {
-  const auto tmp = static_cast<uchar_t>(value);
-  return static_cast<char_t>(std::tolower(tmp));
-}
-
-static constexpr char_t get_char(const ascii_t value) {
+static __caitlyn_constexpr14 char_t get_char(const ascii_t value) {
   return static_cast<char_t>(value);
 }
 
-static constexpr int_t char_to_digit(const char_t value) {
+static __caitlyn_constexpr14 bool_t is_space(const char_t value) {
+  return value == get_char(ascii_t::line_feed) ||
+         value == get_char(ascii_t::line_tab) ||
+         value == get_char(ascii_t::form_feed) ||
+         value == get_char(ascii_t::carriage_ret) ||
+         value == get_char(ascii_t::space);
+}
+
+static __caitlyn_constexpr14 bool_t is_uppercase(const char_t value) {
+  return value >= 0x41 && value < 0x5B;
+}
+
+static __caitlyn_constexpr14 bool_t is_lowercase(const char_t value) {
+  return value >= 0x61 && value < 0x7B;
+}
+
+static __caitlyn_constexpr14 bool_t is_alpha(const char_t value) {
+  return is_uppercase(value) || is_lowercase(value);
+}
+
+static __caitlyn_constexpr14 bool_t is_digit(const char_t value) {
+  return value >= 0x30 && value < 0x3A;
+}
+
+static __caitlyn_constexpr14 char_t to_uppercase(const char_t value) {
+  return static_cast<char_t>(std::toupper(static_cast<uchar_t>(value)));
+}
+
+static __caitlyn_constexpr14 char_t to_lowercase(const char_t value) {
+  return static_cast<char_t>(std::tolower(static_cast<uchar_t>(value)));
+}
+
+static __caitlyn_constexpr14 int_t char_to_digit(const char_t value) {
   if (value >= 0x30 && value <= 0x39) {
     return value - 0x30;
   }
@@ -56,14 +57,6 @@ static constexpr int_t char_to_digit(const char_t value) {
 
 static constexpr int_t char_to_int(const char_t value) {
   return std::isdigit(value) ? value - 0x30 : std::tolower(value - 0x61) + 0xA;
-}
-
-static constexpr char_t end_line() {
-  return get_char(ascii_t::line_feed);
-}
-
-static constexpr char_t end_str() {
-  return get_char(ascii_t::null);
 }
 
 }  // namespace cait

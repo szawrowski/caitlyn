@@ -55,59 +55,54 @@ static string_t escape_string(const string_t& str) {
 
   for (size_t i = 0; i < str.size(); ++i) {
     if (str[i] == get_char(ascii_t::rev_solidus) && i + 1 < str.size()) {
-      switch (str[i + 1]) {
-        case get_char(ascii_t::quot_mark):
-          oss << get_char(ascii_t::quot_mark);
-        break;
-        case get_char(ascii_t::quest_mark):
-          oss << get_char(ascii_t::quest_mark);
-        break;
-        case get_char(ascii_t::rev_solidus):
-          oss << get_char(ascii_t::rev_solidus);
-        break;
-        case get_char(ascii_t::solidus):
-          oss << get_char(ascii_t::solidus);
-        break;
-        case get_char(ascii_t::latin_small_letter_a):
-          oss << get_char(ascii_t::bell);
-        break;
-        case get_char(ascii_t::latin_small_letter_b):
-          oss << get_char(ascii_t::backspace);
-        break;
-        case get_char(ascii_t::latin_small_letter_f):
-          oss << get_char(ascii_t::form_feed);
-        break;
-        case get_char(ascii_t::latin_small_letter_n):
-          oss << get_char(ascii_t::line_feed);
-        break;
-        case get_char(ascii_t::latin_small_letter_r):
-          oss << get_char(ascii_t::carriage_ret);
-        break;
-        case get_char(ascii_t::latin_small_letter_t):
-          oss << get_char(ascii_t::char_tab);
-        break;
-        case get_char(ascii_t::latin_small_letter_v):
-          oss << get_char(ascii_t::line_tab);
-        break;
-        case get_char(ascii_t::latin_small_letter_u): {
-          if (i + 5 < str.size()) {
-            auto hex = str.substr(i + 2, 4);
-            // Convert the hexadecimal representation to a character
-            const char c = static_cast<char>(std::stoi(hex, nullptr, 16));
-            oss << c;
-            i += 5;  // Skip the escaped sequence
-          } else {
-            // Incomplete escape sequence, handle it as an error
-            oss << get_char(ascii_t::rev_solidus) + str[i + 1];
-          }
-          break;
+      if (str[i + 1] == get_char(ascii_t::quot_mark)) {
+        oss << get_char(ascii_t::quot_mark);
+        ++i; // Skip the escaped character
+      } else if (str[i + 1] == get_char(ascii_t::quest_mark)) {
+        oss << get_char(ascii_t::quest_mark);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::rev_solidus)) {
+        oss << get_char(ascii_t::rev_solidus);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::solidus)) {
+        oss << get_char(ascii_t::solidus);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::latin_small_letter_a)) {
+        oss << get_char(ascii_t::bell);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::latin_small_letter_b)) {
+        oss << get_char(ascii_t::backspace);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::latin_small_letter_f)) {
+        oss << get_char(ascii_t::form_feed);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::latin_small_letter_n)) {
+        oss << get_char(ascii_t::line_feed);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::latin_small_letter_r)) {
+        oss << get_char(ascii_t::carriage_ret);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::latin_small_letter_t)) {
+        oss << get_char(ascii_t::char_tab);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::latin_small_letter_v)) {
+        oss << get_char(ascii_t::line_tab);
+        ++i;
+      } else if (str[i + 1] == get_char(ascii_t::latin_small_letter_u)) {
+        if (i + 5 < str.size()) {
+          auto hex = str.substr(i + 2, 4);
+          // Convert the hexadecimal representation to a character
+          const char c = static_cast<char>(std::stoi(hex, nullptr, 16));
+          oss << c;
+          i += 5;  // Skip the escaped sequence
+        } else {
+          // Incomplete escape sequence, handle it as an error
+          oss << get_char(ascii_t::rev_solidus) + str[i + 1];
         }
-        default:
-          // Invalid escape sequence, handle it as an error
-            oss << get_char(ascii_t::rev_solidus) + str[i + 1];
-        break;
+      } else {
+        // Invalid escape sequence, handle it as an error
+        oss << get_char(ascii_t::rev_solidus) + str[i + 1];
       }
-      ++i;  // Skip the escaped character
     } else {
       oss << str[i];
     }
@@ -138,15 +133,15 @@ static size_t find_last_nonws(const string_t& str) {
 }
 
 template <typename T>
-static auto get_as_string(T value);
+static const char_t* get_as_string(T value);
 
 template <>
-inline auto get_as_string(const bool_t value) {
+inline const char_t* get_as_string(const bool_t value) {
   return value ? "true" : "false";
 }
 
 template <>
-inline auto get_as_string(null_t) {
+inline const char_t* get_as_string(null_t) {
   return "null";
 }
 

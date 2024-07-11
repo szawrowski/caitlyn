@@ -131,9 +131,12 @@ public:
   data_t& operator[](const string_type& key) {
     set_type(class_t::object);
     auto& object = data_.object_value;
-    const auto it =
-        std::find_if(object.begin(), object.end(),
-                     [&key](const auto& pair) { return pair.first == key; });
+    const auto it = std::find_if(
+        object.begin(), object.end(),
+        [&key](const std::pair<const string_type&, data_t*>& pair) {
+          return pair.first == key;
+        });
+
     if (it == object.end()) {
       object.emplace_back(key, new data_t());
       return *object.back().second;
@@ -148,7 +151,7 @@ public:
       array.resize(index + 1, nullptr);
     }
     if (!array[index]) {
-      new(array[index]) data_t{};
+      new (array[index]) data_t{};
     }
     return *array[index];
   }
@@ -158,9 +161,12 @@ public:
 
   __caitlyn_nodiscard const data_t& at(const string_type& key) const {
     const auto& object = data_.object_value;
-    const auto it =
-        std::find_if(object.begin(), object.end(),
-                     [&key](const auto& pair) { return pair.first == key; });
+    const auto it = std::find_if(
+        object.begin(), object.end(),
+        [&key](const std::pair<const string_type&, const data_t*>& pair) {
+          return pair.first == key;
+        });
+
     if (it == object.end()) {
       throw std::out_of_range("Key not found");
     }
@@ -205,10 +211,12 @@ public:
   __caitlyn_nodiscard boolean_type has_member(const string_type& key) const {
     if (type_ == class_t::object) {
       const auto& object = data_.object_value;
-      return std::find_if(object.begin(), object.end(),
-                          [&key](const auto& pair) {
-                            return pair.first == key;
-                          }) != object.end();
+      return std::find_if(
+                 object.begin(), object.end(),
+                 [&key](
+                     const std::pair<const string_type&, const data_t*>& pair) {
+                   return pair.first == key;
+                 }) != object.end();
     }
     return false;
   }
@@ -278,7 +286,7 @@ public:
   static data_t __internal_make(const class_t type) {
     data_t obj;
     obj.set_type(type);
-    return std::move(obj);
+    return obj;
   }
 
 private:
@@ -362,72 +370,11 @@ private:
         oss << data_.integral_value;
         break;
       case class_t::boolean:
-        oss << (data_.boolean_value ? "true" : "false");
+        oss << (data_.boolean_value ? get_as_string(true)
+                                    : get_as_string(false));
         break;
       case class_t::null:
-        oss << "null";
-        break;
-      default:
-        break;
-    }
-  }
-
-private:
-  void set_type(class_t new_type) {
-    if (type_ == new_type) {
-      return;
-    }
-    destroy_union();
-    type_ = new_type;
-    switch (type_) {
-      case class_t::null:
-        new (&data_.null_value) null_type(nullptr);
-        break;
-      case class_t::object:
-        new (&data_.object_value) object_type();
-        break;
-      case class_t::array:
-        new (&data_.array_value) array_type();
-        break;
-      case class_t::string:
-        new (&data_.string_value) string_type();
-        break;
-      case class_t::floating:
-        new (&data_.floating_value) floating_type();
-        break;
-      case class_t::integral:
-        new (&data_.integral_value) integral_type();
-        break;
-      case class_t::boolean:
-        new (&data_.boolean_value) boolean_type();
-        break;
-      default:
-        break;
-    }
-  }
-
-  void destroy_union() {
-    switch (type_) {
-      case class_t::object:
-        std::destroy_at(&data_.object_value);
-        break;
-      case class_t::array:
-        for (const auto* ptr : data_.array_value) {
-          delete ptr;
-        }
-        std::destroy_at(&data_.array_value);
-        break;
-      case class_t::string:
-        std::destroy_at(&data_.string_value);
-        break;
-      case class_t::floating:
-        std::destroy_at(&data_.floating_value);
-        break;
-      case class_t::integral:
-        std::destroy_at(&data_.integral_value);
-        break;
-      case class_t::boolean:
-        std::destroy_at(&data_.boolean_value);
+        oss << get_as_string(nullptr);
         break;
       default:
         break;
@@ -437,18 +384,7 @@ private:
   void copy_union(const data_t& other) {
     switch (other.type_) {
       case class_t::null:
-        new (&data_.null_value) null_type(other.data_.null_value);
-        break;
-      case class_t::object:
-        new (&data_.object_value) object_type(other.data_.object_value);
-        break;
-      case class_t::array:
-        new (&data_.array_value) array_type(other.data_.array_value);
-        for (auto* ptr : data_.array_value) {
-          if (ptr) {
-            *ptr = *other.data_.array_value[&ptr - &data_.array_value[0]];
-          }
-        }
+        new (&data_.null_value) null_type(nullptr);
         break;
       case class_t::string:
         new (&data_.string_value) string_type(other.data_.string_value);
@@ -462,26 +398,31 @@ private:
       case class_t::boolean:
         new (&data_.boolean_value) boolean_type(other.data_.boolean_value);
         break;
+      case class_t::array:
+        new (&data_.array_value) array_type();
+        for (const auto* item : other.data_.array_value) {
+          data_.array_value.emplace_back(new data_t{*item});
+        }
+        break;
+      case class_t::object:
+        new (&data_.object_value) object_type();
+        for (const auto& item : other.data_.object_value) {
+          data_.object_value.emplace_back(item.first, new data_t{*item.second});
+        }
+        break;
       default:
         break;
     }
   }
 
-  void move_union(data_t&& other) noexcept {
+  void move_union(data_t&& other) {
     switch (other.type_) {
       case class_t::null:
-        new (&data_.null_value) null_type(other.data_.null_value);
-        break;
-      case class_t::object:
-        new (&data_.object_value)
-            object_type(std::move(other.data_.object_value));
-        break;
-      case class_t::array:
-        new (&data_.array_value) array_type(std::move(other.data_.array_value));
+        new (&data_.null_value) null_type{};
         break;
       case class_t::string:
         new (&data_.string_value)
-            string_type(std::move(other.data_.string_value));
+            string_type{std::move(other.data_.string_value)};
         break;
       case class_t::floating:
         new (&data_.floating_value) floating_type(other.data_.floating_value);
@@ -492,23 +433,83 @@ private:
       case class_t::boolean:
         new (&data_.boolean_value) boolean_type(other.data_.boolean_value);
         break;
+      case class_t::array:
+        new (&data_.array_value) array_type{std::move(other.data_.array_value)};
+        break;
+      case class_t::object:
+        new (&data_.object_value)
+            object_type{std::move(other.data_.object_value)};
+        break;
+      default:
+        break;
+    }
+    other.type_ = class_t::null;
+    new (&other.data_.null_value) null_type{};
+  }
+
+  void destroy_union() {
+    switch (type_) {
+      case class_t::array:
+        for (const auto* item : data_.array_value) {
+          delete item;
+        }
+        data_.array_value.~array_type();
+        break;
+      case class_t::object:
+        for (const auto& item : data_.object_value) {
+          delete item.second;
+        }
+        data_.object_value.~object_type();
+        break;
       default:
         break;
     }
   }
 
+  void set_type(const class_t type) {
+    if (type_ != type) {
+      destroy_union();
+      type_ = type;
+      switch (type) {
+        case class_t::null:
+          new (&data_.null_value) null_type(nullptr);
+          break;
+        case class_t::string:
+          new (&data_.string_value) string_type();
+          break;
+        case class_t::floating:
+          new (&data_.floating_value) floating_type();
+          break;
+        case class_t::integral:
+          new (&data_.integral_value) integral_type();
+          break;
+        case class_t::boolean:
+          new (&data_.boolean_value) boolean_type();
+          break;
+        case class_t::array:
+          new (&data_.array_value) array_type();
+          break;
+        case class_t::object:
+          new (&data_.object_value) object_type();
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
 private:
-  union data_union {
-    null_type null_value{};
-    object_type object_value;
+  union data_value_t {
     array_type array_value;
+    object_type object_value;
     string_type string_value;
+    null_type null_value{};
     floating_type floating_value;
     integral_type integral_value;
     boolean_type boolean_value;
 
-    data_union() {}
-    ~data_union() {}
+    data_value_t() {}
+    ~data_value_t() {}
   } data_;
   class_t type_;
 };
