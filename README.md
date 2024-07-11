@@ -7,7 +7,7 @@ designed to enhance productivity for everyday tasks across multiple platforms.
 
 ## Features
 
-**Caitlyn** includes:
+### **Caitlyn** includes
 - Unicode String Handling
 - Text Formatting
 - JSON Serialization
@@ -16,8 +16,8 @@ designed to enhance productivity for everyday tasks across multiple platforms.
 - Arbitrary precision arithmetic
 - Utility Functions
 
-Supported platforms: **Linux, Windows, macOS**.\
-Supported standard: **C++11** and higher.
+Supported platforms: **Linux, Windows, macOS**\
+Supported standard: **C++11** and higher
 
 ## Installation Guide
 
