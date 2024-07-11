@@ -5,6 +5,8 @@
 **Caitlyn** is a header-only versatile general-purpose C++ library
 designed to enhance productivity for everyday tasks across multiple platforms.
 
+## Features
+
 It includes:
 - Unicode String Handling
 - Text Formatting
@@ -58,7 +60,7 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CAITLYN_INCLUDE_DIR})
 Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
 is the source file for your main executable.
 
-## Features
+## Examples
 
 ### Unicode Strings Support
 
