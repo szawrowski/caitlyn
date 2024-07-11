@@ -18,16 +18,16 @@ Usage
 #include <caitlyn/caitlyn.h>
 
 int main() {
-  const auto string = "Hello, 世界!"_str;
+  const auto str = "Hello, 世界!"_str;
   const auto emoji = "🙂"_char;
 
-  const auto formatted = cait::fmt("{} {}", string, emoji);
-  cait::println(formatted);
+  const auto text = cait::format("{} {}", str, emoji);
+  cait::println(text);
 
   auto content = cait::make_text();
   content.append("Lorem ipsum dolor sit amet, ");
   content.append_line("consectetur adipiscing elit.");
-  content.append_line(formatted);
+  content.append_line(text);
 
   auto file = "somefile.txt"_ofile;
   file.write("Text: {}", content.to_string());
