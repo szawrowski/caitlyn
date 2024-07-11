@@ -1,14 +1,13 @@
-// Copyright (c) 2024, Alexander Szawrowski
-//
-// This file is distributed under the MIT License.
-// See LICENSE file for details.
-
 #ifndef CAITLYN_CORE_ERROR_TYPES_RESULT_H_
 #define CAITLYN_CORE_ERROR_TYPES_RESULT_H_
 
 #include <stdexcept>
+#include <string>
+#include <type_traits>
+#include <utility>
 
 #include "caitlyn/core/error/types/error.h"
+#include "caitlyn/core/traits.h"
 #include "caitlyn/core/utility.h"
 
 namespace cait {
@@ -18,138 +17,148 @@ class result_t {
 public:
   using value_type = T;
   using error_type = E;
-  using result_type = variant_t<value_type, error_t<error_type>>;
 
-public:
-  constexpr result_t(const value_type& value) : inner_(value) {}
-  constexpr result_t(value_type&& value) : inner_(std::move(value)) {}
-  constexpr result_t(const error_t<error_type>& error) : inner_(error) {}
-  constexpr result_t(error_t<error_type>&& error) : inner_(std::move(error)) {}
-
-  template <typename U>
-  constexpr result_t(
-      U&& value,
-      std::enable_if_t<std::is_constructible_v<error_t<error_type>, U>>* =
-          nullptr) {
-    using DecayedType = std::decay_t<U>;
-    if constexpr (std::is_same_v<DecayedType, value_type>) {
-      inner_ = std::forward<U>(value);
-    } else {
-      inner_ = error_t<error_type>{std::forward<U>(value)};
-    }
+  result_t(const value_type& value) : has_value_(true) {
+    new (&data_.value) value_type(value);
   }
 
-  result_t(const result_t& other) : inner_{other.inner_} {}
+  result_t(value_type&& value) : has_value_(true) {
+    new (&data_.value) value_type(std::move(value));
+  }
+
+  result_t(const error_t<error_type>& error) : has_value_(false) {
+    new (&data_.error) error_t<error_type>(error);
+  }
+
+  result_t(error_t<error_type>&& error) : has_value_(false) {
+    new (&data_.error) error_t<error_type>(std::move(error));
+  }
+
+  result_t(const result_t& other) : has_value_(other.has_value_) {
+    if (has_value_) {
+      new (&data_.value) value_type(other.data_.value);
+    } else {
+      new (&data_.error) error_t<error_type>(other.data_.error);
+    }
+  }
 
   result_t& operator=(const result_t& other) {
     if (this != &other) {
-      this->inner_ = other.inner_;
+      destroy_union();
+      has_value_ = other.has_value_;
+      if (has_value_) {
+        new (&data_.value) value_type(other.data_.value);
+      } else {
+        new (&data_.error) error_t<error_type>(other.data_.error);
+      }
     }
     return *this;
   }
 
-  constexpr result_t(result_t&& other) noexcept(
-      std::is_nothrow_move_constructible_v<value_type> &&
-      std::is_nothrow_move_constructible_v<error_type>)
-      : inner_(std::move(other.inner_)) {}
+  result_t(result_t&& other) noexcept(
+      std::is_nothrow_move_constructible<value_type>::value &&
+      std::is_nothrow_move_constructible<error_type>::value)
+      : has_value_(other.has_value_) {
+    if (has_value_) {
+      new (&data_.value) value_type(std::move(other.data_.value));
+    } else {
+      new (&data_.error) error_t<error_type>(std::move(other.data_.error));
+    }
+  }
 
   result_t& operator=(result_t&& other) noexcept(
-      std::is_nothrow_move_assignable_v<value_type> &&
-      std::is_nothrow_move_assignable_v<error_type>) {
+      std::is_nothrow_move_assignable<value_type>::value &&
+      std::is_nothrow_move_assignable<error_type>::value) {
     if (this != &other) {
-      inner_ = std::move(other.inner_);
+      destroy_union();
+      has_value_ = other.has_value_;
+      if (has_value_) {
+        new (&data_.value) value_type(std::move(other.data_.value));
+      } else {
+        new (&data_.error) error_t<error_type>(std::move(other.data_.error));
+      }
     }
     return *this;
   }
 
-public:
-  const result_type& get_inner() const { return inner_; }
+  ~result_t() { destroy_union(); }
 
-public:
-  constexpr bool operator==(const result_t& other) const {
-    return inner_ == other.inner_;
-  }
+  explicit operator bool() const noexcept { return has_value_; }
 
-  constexpr bool operator!=(const result_t& other) const {
-    return !(*this == other);
-  }
+  __caitlyn_nodiscard bool has_value() const noexcept { return has_value_; }
 
-  explicit operator bool() const noexcept { return has_value(); }
+  __caitlyn_nodiscard bool has_error() const noexcept { return !has_value_; }
 
-public:
-  [[nodiscard]] constexpr bool has_value() const noexcept {
-    return std::holds_alternative<value_type>(inner_);
-  }
-
-  [[nodiscard]] constexpr bool has_error() const noexcept {
-    return std::holds_alternative<error_t<error_type>>(inner_);
-  }
-
-public:
   const value_type& get() const {
-    if (has_value()) {
-      return std::get<value_type>(inner_);
+    if (has_value_) {
+      return data_.value;
     }
     throw std::logic_error{"Called get() on an error result"};
   }
 
   const error_type& get_error() const {
-    if (has_error()) {
-      return std::get<error_t<error_type>>(inner_).get();
+    if (!has_value_) {
+      return data_.error.get();
     }
-    throw std::logic_error{"Called error_t() on a non-error result"};
-  }
-
-public:
-  template <typename Func>
-  auto map(Func func) const {
-    if (has_value()) {
-      return result_t<std::invoke_result_t<Func, const value_type&>,
-                      error_type>(func(std::get<value_type>(inner_)));
-    }
-    return *this;
+    throw std::logic_error{"Called get_error() on a non-error result"};
   }
 
   template <typename Func>
-  auto map_error(Func func) const {
-    if (has_error()) {
-      return result_t<value_type,
-                      std::invoke_result_t<Func, const error_type&>>(
-          func(std::get<error_t<error_type>>(inner_).get()));
+  auto map(Func func) const
+      -> result_t<typename std::result_of<Func(const value_type&)>::type,
+                  error_type> {
+    using result_value_type =
+        typename std::result_of<Func(const value_type&)>::type;
+    if (has_value_) {
+      return result_t<result_value_type, error_type>(func(data_.value));
     }
-    return *this;
+    return result_t<result_value_type, error_type>(data_.error);
   }
 
   template <typename Func>
-  auto and_then(Func func) const {
-    if (has_value()) {
-      return func(std::get<value_type>(inner_));
+  auto map_error(Func func) const
+      -> result_t<value_type,
+                  typename std::result_of<Func(const error_type&)>::type> {
+    using result_error_type =
+        typename std::result_of<Func(const error_type&)>::type;
+    if (!has_value_) {
+      return result_t<value_type, result_error_type>(
+          error_t<result_error_type>(func(data_.error.get())));
     }
     return *this;
   }
 
   template <typename Func>
-  auto or_else(Func func) const {
-    if (has_error()) {
-      return func(std::get<error_t<error_type>>(inner_).get());
+  auto and_then(Func func) const -> result_t {
+    if (has_value_) {
+      return func(data_.value);
+    }
+    return *this;
+  }
+
+  template <typename Func>
+  auto or_else(Func func) const -> result_t {
+    if (!has_value_) {
+      return func(data_.error.get());
     }
     return *this;
   }
 
   template <typename U>
   value_type unwrap_or(const U& value) const {
-    if (has_value()) {
-      return std::get<value_type>(inner_);
+    if (has_value_) {
+      return data_.value;
     }
     return value;
   }
 
   template <typename ErrFunc>
-  auto unwrap_or_else(ErrFunc func) const {
-    if (has_value()) {
-      return std::get<value_type>(inner_);
+  auto unwrap_or_else(ErrFunc func) const
+      -> decltype(func(std::declval<error_t<error_type>>().get())) {
+    if (has_value_) {
+      return data_.value;
     }
-    return func(std::get<error_t<error_type>>(inner_).get());
+    return func(data_.error.get());
   }
 
   const value_type& unwrap_or_default() const {
@@ -162,87 +171,128 @@ public:
   }
 
   const value_type& expect(const std::string& message) const {
-    if (has_value()) {
-      return std::get<value_type>(inner_);
+    if (has_value_) {
+      return data_.value;
     }
     throw std::runtime_error(message);
   }
 
   template <typename U>
-  auto expect_error(const U& message) const {
-    if (has_error()) {
-      return std::get<error_t<error_type>>(inner_).get();
+  auto expect_error(const U& message) const -> const error_type& {
+    if (!has_value_) {
+      return data_.error.get();
     }
     throw std::runtime_error(message);
   }
 
   template <typename Func>
-  auto filter(Func func) const {
-    if (has_value() && func(std::get<value_type>(inner_))) {
+  auto filter(Func func) const -> result_t {
+    if (has_value_ && func(data_.value)) {
       return *this;
     }
-    return result_t{error_t<error_type>{}};
+    return result_t(error_t<error_type>{});
   }
 
   template <typename U, typename Func>
-  auto fold(U&& init, Func&& f) const {
-    if (has_value()) {
-      return std::forward<Func>(f)(std::forward<U>(init),
-                                   std::get<value_type>(inner_));
+  auto fold(U&& init, Func&& f) const
+      -> decltype(f(std::declval<U>(), std::declval<value_type>())) {
+    if (has_value_) {
+      return f(std::forward<U>(init), data_.value);
     }
     return std::forward<U>(init);
   }
 
   template <typename Func>
-  auto then(Func func) const {
-    if (has_value()) {
-      return func(std::get<value_type>(inner_));
+  auto then(Func func) const -> result_t {
+    if (has_value_) {
+      return func(data_.value);
     }
     return *this;
   }
 
   template <typename Func>
-  auto catch_error(Func func) const {
-    if (has_error()) {
-      return func(std::get<error_t<error_type>>(inner_).get());
+  auto catch_error(Func func) const -> result_t {
+    if (!has_value_) {
+      return func(data_.error.get());
     }
     return *this;
   }
 
   template <typename Func>
-  auto on_error(Func func) const {
-    if (has_error()) {
-      func(std::get<error_t<error_type>>(inner_).get());
+  auto on_error(Func func) const -> result_t {
+    if (!has_value_) {
+      func(data_.error.get());
     }
     return *this;
   }
 
   template <typename Func>
-  auto customize(Func&& func) const {
+  auto customize(Func&& func) const -> decltype(func(*this)) {
     return func(*this);
   }
 
   template <typename TFunc, typename EFunc, typename... Args>
-  auto inspect(TFunc value_func, EFunc error_func, Args&&... args) const {
-    if (has_value()) {
-      return std::invoke(std::forward<TFunc>(value_func),
-                         std::get<value_type>(inner_),
-                         std::forward<Args>(args)...);
+  auto inspect(TFunc value_func, EFunc error_func, Args&&... args) const
+      -> decltype(value_func(std::declval<value_type>(),
+                             std::forward<Args>(args)...)) {
+    if (has_value_) {
+      return value_func(data_.value, std::forward<Args>(args)...);
     }
-    return std::invoke(std::forward<EFunc>(error_func),
-                       std::get<error_t<error_type>>(inner_).get(),
-                       std::forward<Args>(args)...);
+    return error_func(data_.error.get(), std::forward<Args>(args)...);
   }
 
 private:
-  result_type inner_;
+  template <typename ResultT = value_type, typename ErrorT = error_type>
+  typename std::enable_if<has_destructor<ResultT>::value &&
+                          !has_destructor<ErrorT>::value>::type
+  destroy_union() {
+    if (has_value_) {
+      data_.value.~value_type();
+    }
+  }
+
+  template <typename ResultT = value_type, typename ErrorT = error_type>
+  typename std::enable_if<!has_destructor<ResultT>::value &&
+                          has_destructor<ErrorT>::value>::type
+  destroy_union() {
+    if (!has_value_) {
+      data_.error.~error_t<error_type>();
+    }
+  }
+
+  template <typename ResultT = value_type, typename ErrorT = error_type>
+  typename std::enable_if<has_destructor<ResultT>::value &&
+                          has_destructor<ErrorT>::value>::type
+  destroy_union() {
+    if (has_value_) {
+      data_.value.~value_type();
+    } else {
+      data_.error.~error_t<error_type>();
+    }
+  }
+
+  template <typename ResultT = value_type, typename ErrorT = error_type>
+  typename std::enable_if<!has_destructor<ResultT>::value &&
+                          !has_destructor<ErrorT>::value>::type
+  destroy_union() {}
+
+private:
+  union data_union {
+    value_type value;
+    error_t<error_type> error;
+
+    data_union() {}
+    ~data_union() {}
+  } data_;
+
+  bool has_value_;
 };
 
 template <typename T, typename E>
 static result_t<T, E> make_result(T value) {
-  return value;
+  return result_t<T, E>(std::move(value));
 }
 
-}  // namespace cait {
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_ERROR_TYPES_RESULT_H_

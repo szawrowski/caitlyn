@@ -6,11 +6,7 @@
 #ifndef CAITLYN_CORE_ERROR_TYPES_TYPES_H_
 #define CAITLYN_CORE_ERROR_TYPES_TYPES_H_
 
-#include "caitlyn/__detail.h"
-
-#if __caitlyn_has_cxx17
-  #include "caitlyn/core/error/types/error.h"
-  #include "caitlyn/core/error/types/result.h"
-#endif
+#include "caitlyn/core/error/types/error.h"
+#include "caitlyn/core/error/types/result.h"
 
 #endif // CAITLYN_CORE_ERROR_TYPES_TYPES_H_
