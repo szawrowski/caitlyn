@@ -8,8 +8,8 @@
 
 #include "caitlyn/ser/json/defs/defs.h"
 
-__caitlyn_begin_global_namespace
-__caitlyn_begin_json_namespace
+namespace cait {
+namespace json {
 
 enum class class_t {
   null,
@@ -21,7 +21,7 @@ enum class class_t {
   boolean
 };
 
-__caitlyn_end_json_namespace
-__caitlyn_end_global_namespace
+}  // namespace json
+}  // namespace cait
 
 #endif  // CAITLYN_SER_JSON_TYPES_CLASS_H_

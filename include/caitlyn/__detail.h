@@ -145,20 +145,13 @@
   #define __caitlyn_nodiscard
 #endif
 
-#define __caitlyn_begin_global_namespace namespace cait {
-#define __caitlyn_end_global_namespace }
-
-#define __caitlyn_begin_detail_namespace namespace __detail {
-#define __caitlyn_end_detail_namespace }
-
-__caitlyn_begin_global_namespace
+namespace cait {
 
 // Common haracters
 using char_t = char;
 using uchar_t = unsigned char;
 using schar_t = signed char;
 using xchar_t = wchar_t;
-
 // Unicode characters
 using u8char_t = char_t;
 using u16char_t = char16_t;
@@ -169,7 +162,6 @@ using sbyte_t = schar_t;
 using byte_t = uchar_t;
 using int_t = decltype(0);
 using uint_t = decltype(0U);
-
 // Common integrals
 using int8_t = schar_t;
 using uint8_t = uchar_t;
@@ -184,11 +176,9 @@ using uint64_t = decltype(0UL);
 using int64_t = decltype(0LL);
 using uint64_t = decltype(0ULL);
 #endif
-
 // System integrals
 using ptrdiff_t =
     decltype(static_cast<int_t*>(nullptr) - static_cast<int_t*>(nullptr));
-
 using ssize_t = ptrdiff_t;
 using size_t = decltype(sizeof(0));
 using uintmax_t = size_t;
@@ -206,7 +196,7 @@ using bool_t = decltype(true);
 // System
 using null_t = decltype(nullptr);
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 inline cait::char_t operator""_c(const char val) {
   return val;

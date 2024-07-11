@@ -16,7 +16,7 @@
 
 #include "caitlyn/__detail.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 #if __caitlyn_has_cxx17
 template <typename... Args>
@@ -32,6 +32,6 @@ using pair_t = std::pair<T, U>;
 template <typename... Args>
 using tuple_t = std::tuple<Args...>;
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_UTILITY_TYPES_TYPES_H_

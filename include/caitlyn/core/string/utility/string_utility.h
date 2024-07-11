@@ -12,7 +12,7 @@
 #include "caitlyn/core/containers.h"
 #include "caitlyn/core/string/types/types.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 static vector_t<string_t> split(const string_t& text, const char_t delim) {
   strstream_t ss{text};
@@ -58,37 +58,37 @@ static string_t escape_string(const string_t& str) {
       switch (str[i + 1]) {
         case get_char(ascii_t::quot_mark):
           oss << get_char(ascii_t::quot_mark);
-          break;
+        break;
         case get_char(ascii_t::quest_mark):
           oss << get_char(ascii_t::quest_mark);
-          break;
+        break;
         case get_char(ascii_t::rev_solidus):
           oss << get_char(ascii_t::rev_solidus);
-          break;
+        break;
         case get_char(ascii_t::solidus):
           oss << get_char(ascii_t::solidus);
-          break;
+        break;
         case get_char(ascii_t::latin_small_letter_a):
           oss << get_char(ascii_t::bell);
-          break;
+        break;
         case get_char(ascii_t::latin_small_letter_b):
           oss << get_char(ascii_t::backspace);
-          break;
+        break;
         case get_char(ascii_t::latin_small_letter_f):
           oss << get_char(ascii_t::form_feed);
-          break;
+        break;
         case get_char(ascii_t::latin_small_letter_n):
           oss << get_char(ascii_t::line_feed);
-          break;
+        break;
         case get_char(ascii_t::latin_small_letter_r):
           oss << get_char(ascii_t::carriage_ret);
-          break;
+        break;
         case get_char(ascii_t::latin_small_letter_t):
           oss << get_char(ascii_t::char_tab);
-          break;
+        break;
         case get_char(ascii_t::latin_small_letter_v):
           oss << get_char(ascii_t::line_tab);
-          break;
+        break;
         case get_char(ascii_t::latin_small_letter_u): {
           if (i + 5 < str.size()) {
             auto hex = str.substr(i + 2, 4);
@@ -104,8 +104,8 @@ static string_t escape_string(const string_t& str) {
         }
         default:
           // Invalid escape sequence, handle it as an error
-          oss << get_char(ascii_t::rev_solidus) + str[i + 1];
-          break;
+            oss << get_char(ascii_t::rev_solidus) + str[i + 1];
+        break;
       }
       ++i;  // Skip the escaped character
     } else {
@@ -150,6 +150,6 @@ inline auto get_as_string(null_t) {
   return "null";
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_STRING_UTILITY_STRING_UTILITY_H_

@@ -13,7 +13,7 @@
 #include "caitlyn/__detail.h"
 #include "caitlyn/core/numeric/utility/limits.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename T>
 static T random(T min = min_value<T>, T max = max_value<T>);
@@ -90,6 +90,6 @@ static bool_t random_bool(const double percentage = 0.5) {
   return std::bernoulli_distribution{percentage}(engine);
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_UTILITY_RANDOM_RANDOM_H_

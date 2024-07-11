@@ -8,7 +8,7 @@
 
 #include "caitlyn/__detail.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template<typename T, typename U>
 static constexpr auto cmp_eq(T t, U u) noexcept {
@@ -58,6 +58,6 @@ static constexpr auto cmp_ge(T t, U u) noexcept {
   return !compare_less(t, u);
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_UTILITY_COMPARATORS_COMPARATORS_H_

@@ -12,7 +12,7 @@
 #include "caitlyn/core/unicode/types/unicode_char_sequence.h"
 #include "caitlyn/core/unicode/utility/sequence_calculator.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename CharT>
 static typename char_seq_t<CharT>::type get_char_seq(code_point_t codepoint);
@@ -66,6 +66,6 @@ inline std::string char_to_string(const code_point_t code_point) {
   return oss.str();
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_UNICODE_UTILITY_CONVERTERS_H

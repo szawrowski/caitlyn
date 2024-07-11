@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/string.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename E>
 class error_t {
@@ -33,7 +33,7 @@ static error_t<string_t> make_error(const string_t& error) {
   return error_t<string_t>(error);
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 template <typename E>
 bool operator==(const cait::error_t<E>& lhs, const cait::error_t<E>& rhs) {

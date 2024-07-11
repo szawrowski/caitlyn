@@ -17,14 +17,13 @@
   using namespace std::literals::string_view_literals;
 #endif
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 using string_t = std::basic_string<char_t>;
 using xstring_t = std::basic_string<xchar_t>;
 using u8string_t = std::basic_string<u8char_t>;
 using u16string_t = std::basic_string<u16char_t>;
 using u32string_t = std::basic_string<u32char_t>;
-
 #if __caitlyn_has_cxx17
 using strview_t = std::basic_string_view<char_t>;
 using xstrview_t = std::basic_string_view<xchar_t>;
@@ -37,6 +36,6 @@ using istrstream_t = std::basic_istringstream<char_t>;
 using ostrstream_t = std::basic_ostringstream<char_t>;
 using strstream_t = std::basic_stringstream<char_t>;
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_STRING_TYPES_TYPES_H_

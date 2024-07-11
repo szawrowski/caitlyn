@@ -8,7 +8,7 @@
 
 #include "caitlyn/__detail.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 enum class radix_t : byte_t {
   binary = 0x2,
@@ -17,6 +17,6 @@ enum class radix_t : byte_t {
   hexadecimal = 0x10,
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_

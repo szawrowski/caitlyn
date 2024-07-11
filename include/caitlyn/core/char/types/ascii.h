@@ -8,7 +8,7 @@
 
 #include "caitlyn/__detail.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 enum class ascii_t : byte_t {
   // C0 controls
@@ -153,6 +153,6 @@ enum class ascii_t : byte_t {
   del
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_CHAR_TYPES_ASCII_H_

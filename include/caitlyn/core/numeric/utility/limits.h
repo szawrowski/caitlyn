@@ -10,7 +10,7 @@
 
 #include "caitlyn/core/utility/types/types.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename T>
 static constexpr T min_value() {
@@ -27,6 +27,6 @@ static constexpr pair_t<T, T> value_range() {
   return std::make_pair(min_value<T>(), max_value<T>());
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_NUMERIC_UTILITY_LIMITS_H_

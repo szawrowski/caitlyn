@@ -3,7 +3,7 @@
 
 #include "caitlyn/__detail.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 class pwrint_t {
 public:
@@ -306,7 +306,7 @@ private:
   sign_flag is_negative_ = false;
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 static cait::bool_t operator<(const cait::pwrint_t& lhs,
                               const cait::pwrint_t& rhs) {

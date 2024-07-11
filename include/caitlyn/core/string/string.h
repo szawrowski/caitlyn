@@ -17,14 +17,14 @@
 #include "caitlyn/core/string/utility/utility.h"
 #include "caitlyn/core/unicode/unicode.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 using unichar_t = unicode_char<u8char_t>;
 using unistring_t = unicode_string<unicode_char<u8char_t>>;
 
 using text_t = text_builder_t<u8char_t>;
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #if __caitlyn_has_cxx20
   #include <format>

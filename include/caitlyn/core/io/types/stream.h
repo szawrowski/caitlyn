@@ -15,7 +15,7 @@
   #include <windows.h>
 #endif
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 using istream_t = std::basic_istream<char_t>;
 using ostream_t = std::basic_ostream<char_t>;
@@ -29,6 +29,6 @@ inline void set_windows_utf8_encode() {
 }
 #endif
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_IO_TYPES_STREAM_H_

@@ -7,8 +7,9 @@
 #define CAITLYN_CORE_UNICODE_CHAR_UNICODE_TYPES_CHAR_H_
 
 #include "caitlyn/core/unicode/utility/converters.h"
+#include "caitlyn/core/io/types/stream.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename CharT>
 class unicode_char;
@@ -83,7 +84,7 @@ private:
   code_point_t code_point_{};
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 static cait::bool_t operator<(const cait::unicode_char<cait::u8char_t> lhs,
                               const cait::unicode_char<cait::u8char_t> rhs) {

@@ -3,7 +3,7 @@
 
 #include "caitlyn/num/types/pwrint.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 class pwrnum_t {
 public:
@@ -281,7 +281,7 @@ public:
         fractional_part_.to_string() != "0") {
       result.push_back('.');
       result += fractional_part_.to_string();
-    }
+        }
     return result;
   }
 
@@ -297,7 +297,7 @@ private:
   sign_flag is_negative_ = false;
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 static cait::bool_t operator<(const cait::pwrnum_t& lhs,
                               const cait::pwrnum_t& rhs) {

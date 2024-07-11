@@ -10,7 +10,7 @@
 
 #include "caitlyn/core/unicode/types/unicode_char.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename CharT>
 class unicode_string;
@@ -131,7 +131,7 @@ private:
   data_type data_;
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 static cait::bool_t
 operator==(

@@ -8,8 +8,8 @@
 
 #include "caitlyn/ser/json/defs/defs.h"
 
-__caitlyn_begin_global_namespace
-__caitlyn_begin_json_namespace
+namespace cait {
+namespace json {
 
 enum class parse_error_t {
   no_error,
@@ -28,7 +28,7 @@ enum class parse_error_t {
   trailing_comma
 };
 
-__caitlyn_end_json_namespace
-__caitlyn_end_global_namespace
+}  // namespace json
+}  // namespace cait
 
 #endif  // CAITLYN_SER_JSON_TYPES_PARSE_ERROR_H_

@@ -10,7 +10,7 @@
 
 #include "caitlyn/core/unicode/types/unicode_string.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename CharT>
 class unicode_file_reader;
@@ -60,7 +60,7 @@ public:
     std::vector<char_t> buffer(size);
     if (file_.read(buffer.data(), size)) {
       return unicode_string<unicode_char<u8char_t>>{
-          std::string(buffer.data(), size)};
+        std::string(buffer.data(), size)};
     }
     return unicode_string<unicode_char<u8char_t>>{};
   }
@@ -81,7 +81,7 @@ private:
   std::ifstream file_;
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 static cait::unicode_file_reader<cait::u8char_t> operator""_ifile(
     const cait::char_t* filename, const cait::size_t) {

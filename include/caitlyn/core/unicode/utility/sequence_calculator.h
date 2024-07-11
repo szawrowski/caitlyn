@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/unicode/defs/unicode_types.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename CharT>
 static size_t calculate_char_count(code_point_t code_point);
@@ -27,6 +27,6 @@ inline size_t calculate_char_count<u8char_t>(const code_point_t code_point) {
   return 4;
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_CALCULATOR_H_

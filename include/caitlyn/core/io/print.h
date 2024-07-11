@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/format/format.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 static void print(const std::string& str) {
 #if defined(__caitlyn_windows)
@@ -98,6 +98,6 @@ static void log(const std::string& str, Args&&... args) {
             << get_char(ascii_t::line_feed);
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif // CAITLYN_CORE_IO_PRINT_H_

@@ -11,7 +11,7 @@
 #include "caitlyn/core/format/format.h"
 #include "caitlyn/core/unicode/unicode.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 template <typename CharT>
 class text_builder_t;
@@ -125,6 +125,6 @@ static text_builder_t<u8char_t> make_unitext(
   return text_builder_t<u8char_t>{str.to_string()};
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_STRING_TEXT_TEXT_H_

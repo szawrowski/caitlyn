@@ -12,9 +12,9 @@
 
 #include "caitlyn/ser/json/types/class.h"
 
-__caitlyn_begin_global_namespace
-__caitlyn_begin_json_namespace
-__caitlyn_begin_detail_namespace
+namespace cait {
+namespace json {
+namespace __detail {
 
 class data_t {
 public:
@@ -352,19 +352,19 @@ private:
       }
       case class_t::string:
         oss << '"' << data_.string_value << '"';
-        break;
+      break;
       case class_t::floating:
         oss << data_.floating_value;
-        break;
+      break;
       case class_t::integral:
         oss << data_.integral_value;
-        break;
+      break;
       case class_t::boolean:
         oss << (data_.boolean_value ? "true" : "false");
-        break;
+      break;
       case class_t::null:
         oss << "null";
-        break;
+      break;
       default:
         break;
     }
@@ -380,25 +380,25 @@ private:
     switch (type_) {
       case class_t::null:
         new (&data_.null_value) null_type(nullptr);
-        break;
+      break;
       case class_t::object:
         new (&data_.object_value) object_type();
-        break;
+      break;
       case class_t::array:
         new (&data_.array_value) array_type();
-        break;
+      break;
       case class_t::string:
         new (&data_.string_value) string_type();
-        break;
+      break;
       case class_t::floating:
         new (&data_.floating_value) floating_type();
-        break;
+      break;
       case class_t::integral:
         new (&data_.integral_value) integral_type();
-        break;
+      break;
       case class_t::boolean:
         new (&data_.boolean_value) boolean_type();
-        break;
+      break;
       default:
         break;
     }
@@ -408,25 +408,25 @@ private:
     switch (type_) {
       case class_t::object:
         std::destroy_at(&data_.object_value);
-        break;
+      break;
       case class_t::array:
         for (const auto* ptr : data_.array_value) {
           delete ptr;
         }
-        std::destroy_at(&data_.array_value);
-        break;
+      std::destroy_at(&data_.array_value);
+      break;
       case class_t::string:
         std::destroy_at(&data_.string_value);
-        break;
+      break;
       case class_t::floating:
         std::destroy_at(&data_.floating_value);
-        break;
+      break;
       case class_t::integral:
         std::destroy_at(&data_.integral_value);
-        break;
+      break;
       case class_t::boolean:
         std::destroy_at(&data_.boolean_value);
-        break;
+      break;
       default:
         break;
     }
@@ -436,30 +436,30 @@ private:
     switch (other.type_) {
       case class_t::null:
         new (&data_.null_value) null_type(other.data_.null_value);
-        break;
+      break;
       case class_t::object:
         new (&data_.object_value) object_type(other.data_.object_value);
-        break;
+      break;
       case class_t::array:
         new (&data_.array_value) array_type(other.data_.array_value);
-        for (auto* ptr : data_.array_value) {
-          if (ptr) {
-            *ptr = *other.data_.array_value[&ptr - &data_.array_value[0]];
-          }
+      for (auto* ptr : data_.array_value) {
+        if (ptr) {
+          *ptr = *other.data_.array_value[&ptr - &data_.array_value[0]];
         }
-        break;
+      }
+      break;
       case class_t::string:
         new (&data_.string_value) string_type(other.data_.string_value);
-        break;
+      break;
       case class_t::floating:
         new (&data_.floating_value) floating_type(other.data_.floating_value);
-        break;
+      break;
       case class_t::integral:
         new (&data_.integral_value) integral_type(other.data_.integral_value);
-        break;
+      break;
       case class_t::boolean:
         new (&data_.boolean_value) boolean_type(other.data_.boolean_value);
-        break;
+      break;
       default:
         break;
     }
@@ -469,30 +469,30 @@ private:
     switch (other.type_) {
       case class_t::null:
         new (&data_.null_value) null_type(other.data_.null_value);
-        break;
+      break;
       case class_t::object:
         new (&data_.object_value)
             object_type(std::move(other.data_.object_value));
-        break;
+      break;
       case class_t::array:
         new (&data_.array_value) array_type(std::move(other.data_.array_value));
-        break;
+      break;
       case class_t::string:
         new (&data_.string_value)
             string_type(std::move(other.data_.string_value));
-        break;
+      break;
       case class_t::floating:
         new (&data_.floating_value)
             floating_type(other.data_.floating_value);
-        break;
+      break;
       case class_t::integral:
         new (&data_.integral_value)
             integral_type(other.data_.integral_value);
-        break;
+      break;
       case class_t::boolean:
         new (&data_.boolean_value)
             boolean_type(other.data_.boolean_value);
-        break;
+      break;
       default:
         break;
     }
@@ -514,7 +514,7 @@ private:
   class_t type_;
 };
 
-__caitlyn_end_detail_namespace
+}  // namespace __detail
 
 static __detail::data_t make(const class_t value) {
   return __detail::data_t::__internal_make(value);
@@ -559,7 +559,7 @@ static __detail::data_t make_boolean(
   return __detail::data_t{value};
 }
 
-__caitlyn_end_json_namespace
-__caitlyn_end_global_namespace
+}  // namespace json
+}  // namespace cait
 
 #endif  // CAITLYN_SER_JSON_TYPES_DATA_H_

@@ -8,7 +8,7 @@
 
 #include "caitlyn/core/containers/types/types.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 static auto get_map_keys = [](auto&& map) -> decltype(auto) {
   using key_type =
@@ -32,6 +32,6 @@ static auto get_map_values = [](auto&& map) -> decltype(auto) {
   return std::move(values);
 };
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_CONTAINERS_UTILITY_MAP_UTILITY_H_

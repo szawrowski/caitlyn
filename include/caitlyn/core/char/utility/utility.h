@@ -10,7 +10,7 @@
 
 #include "caitlyn/core/char/types/types.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 static constexpr auto is_space(const char_t value) {
   return value == '\x0A' || value == '\x0B' || value == '\x0C' ||
@@ -66,6 +66,6 @@ static constexpr char_t end_str() {
   return get_char(ascii_t::null);
 }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_CHAR_UTILITY_UTILITY_H_

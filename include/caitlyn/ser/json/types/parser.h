@@ -10,9 +10,9 @@
 #include "caitlyn/ser/json/types/data.h"
 #include "caitlyn/ser/json/types/parse_error.h"
 
-__caitlyn_begin_global_namespace
-__caitlyn_begin_json_namespace
-__caitlyn_begin_detail_namespace
+namespace cait {
+namespace json {
+namespace __detail {
 
 class parser_t {
 public:
@@ -82,10 +82,10 @@ private:
             json_[position_] == get_char(ascii_t::hyphen_minus) ||
             json_[position_] == get_char(ascii_t::plus_sign)) {
           return parse_number();
-        }
-        set_error(parse_error_t::unexpected_character);
-        set_error_position(position_);
-        return data_t{};
+            }
+      set_error(parse_error_t::unexpected_character);
+      set_error_position(position_);
+      return data_t{};
     }
   }
 
@@ -255,7 +255,7 @@ private:
         escaped_stream << json_[position_];
       }
       next();
-    }
+           }
     if (json_[position_] == get_char(ascii_t::quot_mark)) {
       next();
       return escaped_stream.str();
@@ -290,7 +290,7 @@ private:
             json_[end_number] == get_char(ascii_t::hyphen_minus) ||
             json_[end_number] == get_char(ascii_t::plus_sign))) {
       ++end_number;
-    }
+            }
     const string_type number_str =
         json_.substr(position_, end_number - position_);
     try {
@@ -300,9 +300,9 @@ private:
           number_str.find(get_char(ascii_t::latin_cap_letter_e)) !=
               string_type::npos) {
         result = std::stod(number_str);
-      } else {
-        result = std::stoll(number_str);
-      }
+              } else {
+                result = std::stoll(number_str);
+              }
     } catch (const std::out_of_range&) {
       set_error(parse_error_t::out_of_range_error);
       set_error_position(position_);
@@ -323,7 +323,7 @@ private:
             json_[position_] == get_char(ascii_t::line_feed) ||
             json_[position_] == get_char(ascii_t::carriage_ret))) {
       next();
-    }
+            }
   }
 
   void next(const size_type count = 1) { position_ += count; }
@@ -342,8 +342,8 @@ private:
   size_type error_position_;
 };
 
-__caitlyn_end_detail_namespace
-__caitlyn_end_json_namespace
-__caitlyn_end_global_namespace
+}  // namespace __detail
+}  // namespace json
+}  // namespace cait
 
 #endif  // CAITLYN_SER_JSON_TYPES_PARSER_H_

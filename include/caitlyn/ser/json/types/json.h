@@ -9,7 +9,7 @@
 #include "caitlyn/core/io.h"
 #include "caitlyn/ser/json/types/parser.h"
 
-__caitlyn_begin_global_namespace
+namespace cait {
 
 class json_t {
 public:
@@ -169,7 +169,7 @@ static json_t make_json(json_t&& value) { return json_t{std::move(value)}; }
 
 static json_t make_json(const std::ifstream& stream) { return json_t{stream}; }
 
-__caitlyn_end_global_namespace
+}  // namespace cait
 
 static std::istream& operator>>(std::istream& is, cait::json_t& value) {
   std::ostringstream buffer;
