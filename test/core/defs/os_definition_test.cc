@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "caitlyn/__detail.h"
+#include "caitlyn/base.h"
 
 TEST(CoreDefsTest, OsDefinition) {
 #if defined(__linux) || defined(__linux__) || defined(__gnu_linux__)

@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "caitlyn/__detail.h"
+#include "caitlyn/base.h"
 
 TEST(CoreDefsTest, CaitlynStandardDefinition) {
 #if defined(__caitlyn_cxxstd)
