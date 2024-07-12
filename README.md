@@ -254,6 +254,7 @@ Handling errors without standard exceptions.
 
 ```c++
 #include <caitlyn/core/error.h>
+#include <caitlyn/core/io.h>
 
 enum class MathError {
   kDivideByZero
@@ -302,6 +303,7 @@ such as financial applications, scientific research, or cryptography.
 - Integral
 
 ```c++
+#include <caitlyn/core/io.h>
 #include <caitlyn/num.h>
 
 int main() {
@@ -317,6 +319,7 @@ int main() {
 - Floating point
 
 ```c++
+#include <caitlyn/core/io.h>
 #include <caitlyn/num.h>
 
 int main() {
