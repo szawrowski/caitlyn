@@ -89,7 +89,7 @@ You can continue using standard C++ strings, supplemented with Unicode wrappers.
 **Usage:**
 
 ```c++
-#include <caitlyn/caitlyn.h>
+#include <caitlyn/core/io.h>
 
 int main() {
   const auto string = "Hello, 世界!"_str;
@@ -147,7 +147,7 @@ applications that need efficient data exchange in a structured format.
 - Brackets operator
 
 ```c++
-#include <caitlyn/caitlyn.h>
+#include <caitlyn/ser/json.h>
 
 int main() {
   auto config = cait::make_json();
@@ -169,7 +169,7 @@ int main() {
 - Native JSON
 
 ```c++
-#include <caitlyn/caitlyn.h>
+#include <caitlyn/ser/json.h>
 
 int main() {
   const auto config = json_str(
@@ -253,7 +253,7 @@ Handling errors without standard exceptions.
 **Usage:**
 
 ```c++
-#include <caitlyn/caitlyn.h>
+#include <caitlyn/core/error.h>
 
 enum class MathError {
   kDivideByZero
@@ -302,7 +302,7 @@ such as financial applications, scientific research, or cryptography.
 - Integral
 
 ```c++
-#include <caitlyn/caitlyn.h>
+#include <caitlyn/num.h>
 
 int main() {
   const auto a = "47011878636176761032731633812398273982371829"_pwrint;
@@ -317,7 +317,7 @@ int main() {
 - Floating point
 
 ```c++
-#include <caitlyn/caitlyn.h>
+#include <caitlyn/num.h>
 
 int main() {
   const auto a = "182.81278920101871298728193797392737812737"_pwrnum;
