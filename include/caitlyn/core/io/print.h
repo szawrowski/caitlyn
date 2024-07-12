@@ -30,6 +30,16 @@ inline void print(const std::string& str) {
   std::cout << str;
 }
 
+template <typename T>
+typename std::enable_if<has_to_string<T>::value>::type
+print(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cout << value.to_string();
+}
+
 template <typename... Args>
 void print(const std::string& str, Args&&... args) {
 #if defined(__caitlyn_windows)
@@ -45,6 +55,16 @@ inline void println(const std::string& str) {
 #endif
   std::ios::sync_with_stdio(false);
   std::cout << str << get_char(ascii_t::line_feed);
+}
+
+template <typename T>
+typename std::enable_if<has_to_string<T>::value>::type
+println(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cout << value.to_string() << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
@@ -65,6 +85,16 @@ inline void eprint(const std::string& str) {
   std::cerr << str;
 }
 
+template <typename T>
+typename std::enable_if<has_to_string<T>::value>::type
+eprint(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cerr << value.to_string();
+}
+
 template <typename... Args>
 void eprint(const std::string& str, Args&&... args) {
 #if defined(__caitlyn_windows)
@@ -80,6 +110,16 @@ inline void eprintln(const std::string& str) {
 #endif
   std::ios::sync_with_stdio(false);
   std::cerr << str << get_char(ascii_t::line_feed);
+}
+
+template <typename T>
+typename std::enable_if<has_to_string<T>::value>::type
+eprintln(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cerr << value.to_string() << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
@@ -98,6 +138,16 @@ inline void log(const std::string& str) {
 #endif
   std::ios::sync_with_stdio(false);
   std::clog << str;
+}
+
+template <typename T>
+typename std::enable_if<has_to_string<T>::value>::type
+log(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::clog << value.to_string() << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
