@@ -2,8 +2,8 @@
 
 ## About
 
-**Caitlyn** is a header-only versatile general-purpose C++ library
-designed to enhance productivity for everyday tasks across multiple platforms.
+**Caitlyn** is a header-only versatile general-purpose C++ library designed to
+enhance productivity for everyday tasks.
 
 ## Features
 
@@ -23,9 +23,8 @@ Supported Standard: **C++11** and higher
 
 ### Step 1: Clone the Repository
 
-First, navigate to your project root and create an `external` directory to
-hold third party libraries.
-Then, clone the **Caitlyn** repository into this folder.
+First, navigate to your project root and create an `external` directory to hold
+third-party libraries. Next, clone the **Caitlyn** repository into this folder.
 
 Open your terminal and run the following commands:
 
@@ -37,8 +36,8 @@ git clone https://github.com/szawrowski/caitlyn.git
 
 ### Step 2: Integrate Caitlyn into your CMake Project
 
-Add the necessary configurations to `CMakeLists.txt` file
-to link **Caitlyn** with your project.
+Add the necessary configurations to the `CMakeLists.txt` file to link the
+**Caitlyn** library to your project.
 
 Use the following template as a reference:
 
@@ -65,7 +64,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE caitlyn::cait)
 Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
 is the source file for your main executable.
 
-Run simple program.
+Run the simple program.
 
 ```c++
 #include <caitlyn/core/io.h>
@@ -85,7 +84,8 @@ You can continue using standard C++ strings, supplemented with Unicode wrappers.
 **Types:**
 
 - `unichar_t`: Wrapper for Unicode code point characters.
-- `unistring_t`: String wrapper based on Unicode code points with iterator support.
+- `unistring_t`: String wrapper based on Unicode code points with iterator
+   support.
 - `text_t`: Universal formatting string builder.
 
 **Usage:**
@@ -141,8 +141,9 @@ applications that need efficient data exchange in a structured format.
   Facilitates parsing, generating, and manipulating JSON data structures.
   Enables easy serialization of complex data into JSON format for storage or
   transmission, and deserialization of JSON back into native data structures.
-  Offers efficient methods for encoding and decoding JSON, handling nested objects
-  and arrays, ensuring compatibility across various platforms and systems.
+  Offers efficient methods for encoding and decoding JSON, handling nested
+  objects and arrays, ensuring compatibility across various platforms and
+  systems.
 
 **Usage:**
 
