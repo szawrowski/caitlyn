@@ -18,6 +18,8 @@
 #ifndef CAITLYN_CORE_STRING_FORMAT_FORMAT_H_
 #define CAITLYN_CORE_STRING_FORMAT_FORMAT_H_
 
+#include <vector>
+
 #include "caitlyn/core/format/utility/utility.h"
 
 namespace cait {

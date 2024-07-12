@@ -19,6 +19,7 @@
 #define CAITLYN_CORE_STRING_FORMAT_CONVERTERS_H_
 
 #include <iomanip>
+#include <sstream>
 
 #include "caitlyn/core/char.h"
 #include "caitlyn/core/format/types/types.h"
