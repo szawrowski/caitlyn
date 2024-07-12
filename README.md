@@ -63,7 +63,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE caitlyn::cait)
 Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
 is the source file for your main executable.
 
-Run simple projram.
+Run simple program.
 
 ```c++
 #include <caitlyn/core/io.h>
