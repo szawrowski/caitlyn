@@ -50,10 +50,6 @@ cmake -S . -B $build_dir -G "Ninja" -DCMAKE_BUILD_TYPE=$build_type
 # Build the targets
 cmake --build $build_dir --parallel 4
 
-if [ $build_type == "Release" ]; then
-  cmake --install $build_dir
-fi
-
 # Run tests
 test_dir="$project_root/$build_dir/test/"
 ctest --test-dir $test_dir --build-config Debug --output-on-failure --parallel 4
