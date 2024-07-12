@@ -23,13 +23,14 @@ Supported Standard: **C++11** and higher
 
 ### Step 1: Clone the Repository
 
-First, navigate to your project root directory and create a `lib` folder to hold
-external libraries. Then, clone the **Caitlyn** repository into this folder.
+First, navigate to your project root directory and create a `external` folder to
+hold external libraries.
+Then, clone the **Caitlyn** repository into this folder.
 Open your terminal and run the following commands:
 
 ```shell
-mkdir lib
-cd lib
+mkdir external
+cd external
 git clone https://github.com/szawrowski/caitlyn.git
 ```
 
@@ -47,14 +48,16 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Define the path to Caitlyn library
-set(CAITLYN_ROOT "${CMAKE_SOURCE_DIR}/lib/caitlyn")
-set(CAITLYN_INCLUDE_DIR "${CAITLYN_ROOT}/include")
+list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/external/caitlyn")
 
-# Add your main executable
+# Find Caitlyn configuration
+find_package(caitlyn CONFIG REQUIRED)
+
+# Add Your main executable
 add_executable(${PROJECT_NAME} main.cpp)
 
-# Include Caitlyn directories
-target_include_directories(${PROJECT_NAME} PUBLIC ${CAITLYN_INCLUDE_DIR})
+# Link Caitlyn library
+target_link_libraries(${PROJECT_NAME} PRIVATE caitlyn::cait)
 ```
 
 Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
