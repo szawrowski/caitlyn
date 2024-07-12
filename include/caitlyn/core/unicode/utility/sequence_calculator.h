@@ -18,7 +18,7 @@
 #ifndef CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_CALCULATOR_H_
 #define CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_CALCULATOR_H_
 
-#include "caitlyn/core/unicode/defs/defs.h"
+#include "caitlyn/core/unicode/types/unicode_types.h"
 
 namespace cait {
 
