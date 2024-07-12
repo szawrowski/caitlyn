@@ -34,9 +34,9 @@ cd external
 git clone https://github.com/szawrowski/caitlyn.git
 ```
 
-### Step 2: Integrate Caitlyn into Your CMake Project
+### Step 2: Integrate Caitlyn into your CMake Project
 
-Add the necessary configurations to your `CMakeLists.txt` file
+Add the necessary configurations to `CMakeLists.txt` file
 to link **Caitlyn** with your project.
 Use the following template as a reference:
 
@@ -53,7 +53,7 @@ list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/external/caitlyn")
 # Find Caitlyn configuration
 find_package(caitlyn CONFIG REQUIRED)
 
-# Add Your main executable
+# Add your main executable
 add_executable(${PROJECT_NAME} main.cpp)
 
 # Link Caitlyn library
