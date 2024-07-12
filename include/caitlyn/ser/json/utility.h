@@ -15,12 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#ifndef CAITLYN_SER_JSON_UTILITY_H_
+#define CAITLYN_SER_JSON_UTILITY_H_
+
 #include <string>
 
 #include "caitlyn/ser/json/types/error.h"
-
-#ifndef CAITLYN_SER_JSON_UTILITY_H_
-#define CAITLYN_SER_JSON_UTILITY_H_
 
 namespace cait {
 namespace json {
