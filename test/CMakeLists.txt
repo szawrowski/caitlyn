@@ -1,13 +1,12 @@
-set(TEST_TARGET_NAME "${PROJECT_NAME}_test")
+project("${CMAKE_PROJECT_NAME}_test")
 
 file(GLOB_RECURSE TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.cc")
 
-add_executable(${TEST_TARGET_NAME} ${TEST_SOURCES})
+add_executable(${PROJECT_NAME} ${TEST_SOURCES})
 
-target_include_directories(${TEST_TARGET_NAME} PRIVATE ${PROJECT_INCLUDE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ${CAITLYN_INCLUDE_DIR})
 
-target_link_libraries(${TEST_TARGET_NAME}
-  PRIVATE GTest::gtest GTest::gtest_main)
+target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest GTest::gtest_main)
 
 enable_testing()
-add_test(NAME CaitlynTests COMMAND $<TARGET_FILE:${TEST_TARGET_NAME}>)
+add_test(NAME ${PROJECT_NAME} COMMAND $<TARGET_FILE:${PROJECT_NAME}>)
