@@ -23,7 +23,7 @@ Supported Standard: **C++11** and higher
 
 ### Step 1: Clone the Repository
 
-First, navigate to your project root directory and create an `external` folder to
+First, navigate to your project root directory and create an `external` directory to
 hold third party libraries.
 Then, clone the **Caitlyn** repository into this folder.
 Open your terminal and run the following commands:
