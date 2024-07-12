@@ -533,39 +533,39 @@ private:
 
 }  // namespace __detail
 
-static __detail::data_t make(const class_t value) {
+inline __detail::data_t make(const class_t value) {
   return __detail::data_t::__internal_make(value);
 }
 
-static __detail::data_t make_object() { return make(class_t::object); }
+inline __detail::data_t make_object() { return make(class_t::object); }
 
-static __detail::data_t make_array() { return make(class_t::array); }
+inline __detail::data_t make_array() { return make(class_t::array); }
 
 template <typename... Args>
-static __detail::data_t make_array(Args... args) {
+__detail::data_t make_array(Args... args) {
   auto array = make(class_t::array);
   array.append(std::forward<Args>(args)...);
   return array;
 }
 
-static __detail::data_t make_null() { return make(class_t::null); }
+inline __detail::data_t make_null() { return make(class_t::null); }
 
-static __detail::data_t make_string(
+inline __detail::data_t make_string(
     const __detail::data_t::string_type& value) {
   return __detail::data_t{value};
 }
 
-static __detail::data_t make_floating(
+inline __detail::data_t make_floating(
     const __detail::data_t::floating_type value) {
   return __detail::data_t{value};
 }
 
-static __detail::data_t make_integral(
+inline __detail::data_t make_integral(
     const __detail::data_t::integral_type value) {
   return __detail::data_t{value};
 }
 
-static __detail::data_t make_boolean(
+inline __detail::data_t make_boolean(
     const __detail::data_t::boolean_type value) {
   return __detail::data_t{value};
 }

@@ -18,6 +18,9 @@
 #ifndef CAITLYN_CORE_TREITS_H_
 #define CAITLYN_CORE_TREITS_H_
 
-#include "caitlyn/core/traits/traits.h"
+#include "caitlyn/core/traits/containers.h"
+#include "caitlyn/core/traits/object.h"
+#include "caitlyn/core/traits/operators.h"
+#include "caitlyn/core/traits/string.h"
 
 #endif  // CAITLYN_CORE_TREITS_H_

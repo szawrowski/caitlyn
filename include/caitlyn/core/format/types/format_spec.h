@@ -15,7 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_
+#ifndef CAITLYN_CORE_FORMAT_TYPES_FORMAT_TYPE_H_
 #define CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_
 
 #include "caitlyn/core/format/types/format_align.h"

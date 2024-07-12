@@ -19,10 +19,7 @@
 #define CAITLYN_CORE_CONTAINERS_UTILITY_MAP_UTILITY_H_
 
 #include <type_traits>
-#include <utility>
 #include <vector>
-
-#include "caitlyn/core/containers/types/types.h"
 
 namespace cait {
 

@@ -15,22 +15,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_STRING_FORMAT_CONVERTERS_H_
-#define CAITLYN_CORE_STRING_FORMAT_CONVERTERS_H_
+#ifndef CAITLYN_CORE_FORMAT_UTILITY_CONVERTERS_H_
+#define CAITLYN_CORE_FORMAT_UTILITY_CONVERTERS_H_
 
 #include <iomanip>
 #include <sstream>
 
-#include "caitlyn/core/char.h"
-#include "caitlyn/core/format/types/types.h"
-#include "caitlyn/core/traits/traits.h"
+#include "caitlyn/base.h"
+#include "caitlyn/core/format/types.h"
+#include "caitlyn/core/traits.h"
 
 namespace cait {
 namespace strfmt {
 namespace __detail {
 
 template <typename T>
-static typename std::enable_if<std::is_integral<T>::value, std::string>::type
+typename std::enable_if<std::is_integral<T>::value, std::string>::type
 to_string(const T& value, const format_spec_t& spec) {
   std::ostringstream oss;
   oss << std::fixed << std::setprecision(0);
@@ -62,9 +62,8 @@ to_string(const T& value, const format_spec_t& spec) {
 }
 
 template <typename T>
-static
-    typename std::enable_if<std::is_floating_point<T>::value, std::string>::type
-    to_string(const T& value, const format_spec_t& spec) {
+typename std::enable_if<std::is_floating_point<T>::value, std::string>::type
+to_string(const T& value, const format_spec_t& spec) {
   std::ostringstream oss;
   oss << std::fixed
       << std::setprecision(spec.precision >= 0 ? spec.precision : 6);
@@ -74,6 +73,7 @@ static
               : value);
 
   std::string str = oss.str();
+
   if (static_cast<ssize_t>(str.size()) < spec.width) {
     switch (spec.align) {
       case format_align_t::left:
@@ -93,9 +93,10 @@ static
   return str;
 }
 
-static std::string to_string(const std::string& value,
+inline std::string to_string(const std::string& value,
                              const format_spec_t& spec) {
   std::string str = value;
+
   if (static_cast<int_t>(str.size()) < spec.width) {
     switch (spec.align) {
       case format_align_t::left:
@@ -115,7 +116,7 @@ static std::string to_string(const std::string& value,
   return str;
 }
 
-static std::string to_string(const char_t* value, const format_spec_t& spec) {
+inline std::string to_string(const char_t* value, const format_spec_t& spec) {
   return to_string(std::string{value}, spec);
 }
 
@@ -129,4 +130,4 @@ typename std::enable_if<has_to_string<T>::value, std::string>::type to_string(
 }  // namespace strfmt
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_STRING_FORMAT_CONVERTERS_H_
+#endif  // CAITLYN_CORE_FORMAT_UTILITY_CONVERTERS_H_

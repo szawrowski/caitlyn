@@ -18,6 +18,16 @@
 #ifndef CAITLYN_CORE_CHAR_H_
 #define CAITLYN_CORE_CHAR_H_
 
-#include "caitlyn/core/char/char.h"
+#include <cctype>
+#include <cwchar>
+#include <cwctype>
+#include <cuchar>
+
+#include "caitlyn/core/char/types/ascii.h"
+#include "caitlyn/core/char/utility.h"
+
+#if __caitlyn_has_cxx17
+  #include <charconv>
+#endif
 
 #endif  // CAITLYN_CORE_CHAR_H_

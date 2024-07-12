@@ -28,7 +28,7 @@
 namespace cait {
 
 template <typename CharT>
-static typename char_seq_t<CharT>::type get_char_seq(code_point_t codepoint);
+typename char_seq_t<CharT>::type get_char_seq(code_point_t codepoint);
 
 template <>
 inline char_seq_t<u8char_t>::type get_char_seq<u8char_t>(
@@ -62,7 +62,7 @@ inline char_seq_t<u8char_t>::type get_char_seq<u8char_t>(
 }
 
 template <typename CharT>
-static std::basic_string<CharT> char_to_string(code_point_t code_point);
+std::basic_string<CharT> char_to_string(code_point_t code_point);
 
 template <>
 inline std::string char_to_string(const code_point_t code_point) {

@@ -18,7 +18,7 @@
 #ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_TYPES_H_
 #define CAITLYN_CORE_UNICODE_TYPES_UNICODE_TYPES_H_
 
-#include "caitlyn/__detail.h"
+#include "caitlyn/base.h"
 
 namespace cait {
 

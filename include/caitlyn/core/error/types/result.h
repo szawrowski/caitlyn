@@ -306,7 +306,7 @@ private:
 };
 
 template <typename T, typename E>
-static result_t<T, E> make_result(T value) {
+result_t<T, E> make_result(T value) {
   return result_t<T, E>(std::move(value));
 }
 

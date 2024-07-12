@@ -15,16 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_STRING_FORMAT_PARSER_H_
-#define CAITLYN_CORE_STRING_FORMAT_PARSER_H_
+#ifndef CAITLYN_CORE_FORMAT_UTILITY_PARSER_H_
+#define CAITLYN_CORE_FORMAT_UTILITY_PARSER_H_
 
+#include "caitlyn/core/char.h"
 #include "caitlyn/core/format/utility/converters.h"
 
 namespace cait {
 namespace strfmt {
 namespace __detail {
 
-static format_spec_t parse_format_spec(const std::string& spec) {
+inline format_spec_t parse_format_spec(const std::string& spec) {
   format_spec_t result;
   size_t i{};
 
@@ -81,4 +82,4 @@ static format_spec_t parse_format_spec(const std::string& spec) {
 }  // namespace strfmt
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_STRING_FORMAT_PARSER_H_
+#endif  // CAITLYN_CORE_FORMAT_UTILITY_PARSER_H_

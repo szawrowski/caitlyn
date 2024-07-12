@@ -15,12 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAILYN_CORE_TRAITS_STRING_H
-#define CAILYN_CORE_TRAITS_STRING_H
+#ifndef CAITLYN_CORE_TRAITS_STRING_H
+#define CAITLYN_CORE_TRAITS_STRING_H
 
 #include <type_traits>
-
-#include "caitlyn/__detail.h"
 
 namespace cait {
 
@@ -40,4 +38,4 @@ public:
 
 }  // namespace cait
 
-#endif  // CAILYN_CORE_TRAITS_STRING_H
+#endif  // CAITLYN_CORE_TRAITS_STRING_H

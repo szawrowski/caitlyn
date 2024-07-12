@@ -18,6 +18,20 @@
 #ifndef CAITLYN_CORE_ALGO_H_
 #define CAITLYN_CORE_ALGO_H_
 
-#include "caitlyn/core/algo/algo.h"
+#include <algorithm>
+
+#include "caitlyn/base.h"
+
+#if __caitlyn_has_cxx17
+  #include <execution>
+#endif
+
+#if __caitlyn_has_cxx20
+  #include <ranges>
+#endif
+
+#if __caitlyn_has_cxx23
+  #include <generator>
+#endif
 
 #endif  // CAITLYN_CORE_ALGO_H_

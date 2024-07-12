@@ -20,22 +20,22 @@
 
 #include <limits>
 
-#include "caitlyn/core/utility/types/types.h"
+#include "caitlyn/core/utility/types.h"
 
 namespace cait {
 
 template <typename T>
-static constexpr T min_value() {
+constexpr T min_value() {
   return std::numeric_limits<T>::min();
 }
 
 template <typename T>
-static constexpr T max_value() {
+constexpr T max_value() {
   return std::numeric_limits<T>::max();
 }
 
 template <typename T>
-static constexpr pair_t<T, T> value_range() {
+constexpr pair_t<T, T> value_range() {
   return std::make_pair(min_value<T>(), max_value<T>());
 }
 

@@ -8,8 +8,8 @@
 
 #include <fstream>
 
-#include "caitlyn/core/format/format.h"
-#include "caitlyn/core/unicode/types/unicode_string.h"
+#include "caitlyn/core/format.h"
+#include "caitlyn/core/unicode.h"
 
 namespace cait {
 
@@ -80,7 +80,7 @@ private:
 
 }  // namespace cait
 
-static cait::file_reader<cait::u8char_t> operator""_ifile(
+inline cait::file_reader<cait::u8char_t> operator""_ifile(
     const cait::char_t* filename, const cait::size_t) {
   return cait::file_reader<cait::u8char_t>{filename};
 }

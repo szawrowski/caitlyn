@@ -18,6 +18,30 @@
 #ifndef CAITLYN_CORE_NUMERIC_H_
 #define CAITLYN_CORE_NUMERIC_H_
 
-#include "caitlyn/core/numeric/numeric.h"
+#include <cfenv>
+#include <cfloat>
+#include <cinttypes>
+#include <climits>
+#include <cmath>
+#include <complex>
+#include <cstdint>
+#include <limits>
+#include <numeric>
+#include <random>
+#include <ratio>
+#include <valarray>
+
+#include "caitlyn/core/math.h"
+#include "caitlyn/core/numeric/types.h"
+#include "caitlyn/core/numeric/utility.h"
+
+#if __caitlyn_has_cxx20
+  #include <bit>
+  #include <numbers>
+#endif
+
+#if __caitlyn_has_cxx23
+  #include <stdfloat>
+#endif
 
 #endif  // CAITLYN_CORE_NUMERIC_H_

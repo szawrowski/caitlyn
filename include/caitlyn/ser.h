@@ -1,5 +1,5 @@
 /**
- * This file is part of the Caitlyn library
+* This file is part of the Caitlyn library
  * Copyright (C) 2024 Alexander Szawrowski
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,9 +15,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_SERIALIZING_H_
-#define CAITLYN_SERIALIZING_H_
+#ifndef CAITLYN_SER_H_
+#define CAITLYN_SER_H_
 
-#include "caitlyn/ser/ser.h"
+#include "caitlyn/ser/json.h"
 
-#endif  // CAITLYN_SERIALIZING_H_
+#endif  // CAITLYN_SER_H_

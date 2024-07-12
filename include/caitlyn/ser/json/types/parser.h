@@ -28,7 +28,7 @@ namespace __detail {
 
 class parser_t {
 public:
-  using string_type = string_t;
+  using string_type = std::string;
   using size_type = size_t;
 
 public:

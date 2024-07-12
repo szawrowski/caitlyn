@@ -18,6 +18,22 @@
 #ifndef CAITLYN_CORE_IO_H_
 #define CAITLYN_CORE_IO_H_
 
-#include "caitlyn/core/io/io.h"
+#include <cstdio>
+#include <iomanip>
+#include <ios>
+#include <iosfwd>
+#include <iostream>
+
+#include "caitlyn/core/io/types.h"
+#include "caitlyn/core/io/print.h"
+
+#if __caitlyn_has_cxx20
+  #include <syncstream>
+#endif
+
+#if __caitlyn_has_cxx23
+  #include <print>
+  #include <spanstream>
+#endif
 
 #endif  // CAITLYN_CORE_IO_H_

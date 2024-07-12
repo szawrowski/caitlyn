@@ -18,7 +18,7 @@
 #ifndef CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_
 #define CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_
 
-#include "caitlyn/__detail.h"
+#include "caitlyn/base.h"
 
 namespace cait {
 

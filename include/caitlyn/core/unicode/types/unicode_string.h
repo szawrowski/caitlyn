@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
-#define CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
+#ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_STRING_H_
+#define CAITLYN_CORE_UNICODE_TYPES_UNICODE_STRING_H_
 
 #include <vector>
 
@@ -150,7 +150,7 @@ private:
 
 }  // namespace cait
 
-static cait::bool_t
+inline cait::bool_t
 operator==(
     const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& lhs,
     const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& rhs) {
@@ -164,13 +164,13 @@ operator==(
   return true;
 }
 
-static cait::bool_t operator!=(
+inline cait::bool_t operator!=(
     const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& lhs,
     const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& rhs) {
   return !(lhs == rhs);
 }
 
-static std::istream& operator>>(
+inline std::istream& operator>>(
     std::istream& is,
     cait::unicode_string<cait::unicode_char<cait::u8char_t>>& str) {
 #if defined(__caitlyn_windows)
@@ -184,7 +184,7 @@ static std::istream& operator>>(
   return is;
 }
 
-static std::ostream& operator<<(
+inline std::ostream& operator<<(
     std::ostream& os,
     const cait::unicode_string<cait::unicode_char<cait::u8char_t>>& str) {
 #if defined(__caitlyn_windows)
@@ -198,9 +198,9 @@ static std::ostream& operator<<(
   return os;
 }
 
-static cait::unicode_string<cait::unicode_char<cait::u8char_t>> operator""_str(
+inline cait::unicode_string<cait::unicode_char<cait::u8char_t>> operator""_str(
     const cait::char_t* str, const std::size_t) {
   return cait::unicode_string<cait::unicode_char<cait::u8char_t>>{str};
 }
 
-#endif  // CAITLYN_CORE_UNICODE_STRING_UNICODE_TYPES_STRING_H_
+#endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_STRING_H_

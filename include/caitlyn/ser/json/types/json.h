@@ -20,7 +20,7 @@
 
 #include "caitlyn/core/io.h"
 #include "caitlyn/ser/json/types/parser.h"
-#include "caitlyn/ser/json/utility/utility.h"
+#include "caitlyn/ser/json/utility.h"
 
 namespace cait {
 
@@ -145,26 +145,26 @@ private:
   error_type error_{error_type::no_error};
 };
 
-static json_t make_json() { return json_t{}; }
+inline json_t make_json() { return json_t{}; }
 
-static json_t make_json(const std::string& value) { return json_t{value}; }
+inline json_t make_json(const std::string& value) { return json_t{value}; }
 
-static json_t make_json(const json_t& value) { return json_t{value}; }
+inline json_t make_json(const json_t& value) { return json_t{value}; }
 
-static json_t make_json(json_t&& value) { return json_t{std::move(value)}; }
+inline json_t make_json(json_t&& value) { return json_t{std::move(value)}; }
 
-static json_t make_json(const std::ifstream& stream) { return json_t{stream}; }
+inline json_t make_json(const std::ifstream& stream) { return json_t{stream}; }
 
 }  // namespace cait
 
-static std::istream& operator>>(std::istream& is, cait::json_t& value) {
+inline std::istream& operator>>(std::istream& is, cait::json_t& value) {
   std::ostringstream buffer;
   buffer << is.rdbuf();
   value.parse(buffer.str());
   return is;
 }
 
-static std::ostream& operator<<(std::ostream& os, const cait::json_t& value) {
+inline std::ostream& operator<<(std::ostream& os, const cait::json_t& value) {
   os << value.to_string();
   return os;
 }

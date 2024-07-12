@@ -18,22 +18,27 @@
 #ifndef CAITLYN_NUM_TYPES_PWRINT_H_
 #define CAITLYN_NUM_TYPES_PWRINT_H_
 
-#include "caitlyn/__detail.h"
+#include <ostream>
+#include <stdexcept>
+#include <string>
+#include <vector>
+
+#include "caitlyn/core/char.h"
 
 namespace cait {
 
 class pwrint_t {
 public:
-  using data_type = vector_t<int_t>;
+  using data_type = std::vector<int_t>;
   using sign_flag = bool_t;
   using size_type = size_t;
 
 public:
   pwrint_t() = default;
 
-  pwrint_t(const char_t* number) : pwrint_t{string_t{number}} {}
+  pwrint_t(const char_t* number) : pwrint_t{std::string{number}} {}
 
-  pwrint_t(const string_t& number) {
+  pwrint_t(const std::string& number) {
     if (number.empty()) {
       throw std::invalid_argument{"Invalid number format"};
     }
@@ -294,11 +299,11 @@ public:
     return !less_than(other) && !equal(other);
   }
 
-  [[nodiscard]] string_t to_string() const {
+  [[nodiscard]] std::string to_string() const {
     if (digits_.empty()) {
       return "0";
     }
-    string_t result;
+    std::string result;
     if (is_negative_) {
       result.push_back('-');
     }
@@ -325,68 +330,68 @@ private:
 
 }  // namespace cait
 
-static cait::bool_t operator<(const cait::pwrint_t& lhs,
+inline cait::bool_t operator<(const cait::pwrint_t& lhs,
                               const cait::pwrint_t& rhs) {
   return lhs.less_than(rhs);
 }
 
-static cait::bool_t operator>(const cait::pwrint_t& lhs,
+inline cait::bool_t operator>(const cait::pwrint_t& lhs,
                               const cait::pwrint_t& rhs) {
   return lhs.greater_than(rhs);
 }
 
-static cait::bool_t operator<=(const cait::pwrint_t& lhs,
+inline cait::bool_t operator<=(const cait::pwrint_t& lhs,
                                const cait::pwrint_t& rhs) {
   return lhs.less_than(rhs) || lhs.equal(rhs);
 }
 
-static cait::bool_t operator>=(const cait::pwrint_t& lhs,
+inline cait::bool_t operator>=(const cait::pwrint_t& lhs,
                                const cait::pwrint_t& rhs) {
   return lhs.greater_than(rhs) || lhs.equal(rhs);
 }
 
-static cait::bool_t operator==(const cait::pwrint_t& lhs,
+inline cait::bool_t operator==(const cait::pwrint_t& lhs,
                                const cait::pwrint_t& rhs) {
   return lhs.equal(rhs);
 }
 
-static cait::bool_t operator!=(const cait::pwrint_t& lhs,
+inline cait::bool_t operator!=(const cait::pwrint_t& lhs,
                                const cait::pwrint_t& rhs) {
   return !lhs.equal(rhs);
 }
 
-static cait::pwrint_t operator+(const cait::pwrint_t& lhs,
+inline cait::pwrint_t operator+(const cait::pwrint_t& lhs,
                                 const cait::pwrint_t& rhs) {
   return lhs.add(rhs);
 }
 
-static cait::pwrint_t operator-(const cait::pwrint_t& lhs,
+inline cait::pwrint_t operator-(const cait::pwrint_t& lhs,
                                 const cait::pwrint_t& rhs) {
   return lhs.subtract(rhs);
 }
 
-static cait::pwrint_t operator*(const cait::pwrint_t& lhs,
+inline cait::pwrint_t operator*(const cait::pwrint_t& lhs,
                                 const cait::pwrint_t& rhs) {
   return lhs.multiply(rhs);
 }
 
-static cait::pwrint_t operator/(const cait::pwrint_t& lhs,
+inline cait::pwrint_t operator/(const cait::pwrint_t& lhs,
                                 const cait::pwrint_t& rhs) {
   return lhs.divide(rhs);
 }
 
-static cait::pwrint_t operator%(const cait::pwrint_t& lhs,
+inline cait::pwrint_t operator%(const cait::pwrint_t& lhs,
                                 const cait::pwrint_t& rhs) {
   return lhs.modulo(rhs);
 }
 
-static cait::ostream_t& operator<<(cait::ostream_t& os,
-                                   const cait::pwrint_t& number) {
+inline std::ostream& operator<<(std::ostream& os,
+                                const cait::pwrint_t& number) {
   os << number.to_string();
   return os;
 }
 
-static cait::pwrint_t operator""_pwrint(const cait::char_t* number,
+inline cait::pwrint_t operator""_pwrint(const cait::char_t* number,
                                         const cait::size_t) {
   return cait::pwrint_t{number};
 }

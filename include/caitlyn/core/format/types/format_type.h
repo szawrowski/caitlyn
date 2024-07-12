@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_STRING_TYPES_FORMAT_TYPE_H_
-#define CAITLYN_CORE_STRING_TYPES_FORMAT_TYPE_H_
+#ifndef CAITLYN_CORE_FORMAT_TYPES_FORMAT_TYPE_H_
+#define CAITLYN_CORE_FORMAT_TYPES_FORMAT_TYPE_H_
 
 namespace cait {
 namespace strfmt {
@@ -26,4 +26,4 @@ enum class format_type_t { string, integral, floating_point };
 }  // namespace strfmt
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_STRING_TYPES_FORMAT_TYPE_H_
+#endif  // CAITLYN_CORE_FORMAT_TYPES_FORMAT_TYPE_H_

@@ -18,6 +18,20 @@
 #ifndef CAITLYN_CORE_ERROR_H_
 #define CAITLYN_CORE_ERROR_H_
 
-#include "caitlyn/core/error/error.h"
+#include <cassert>
+#include <cerrno>
+#include <exception>
+#include <stdexcept>
+#include <system_error>
+
+#include "caitlyn/core/error/types.h"
+
+#if __caitlyn_has_cxx20
+  #include <stacktrace>
+#endif
+
+#if __caitlyn_has_cxx23
+  #include <expected>
+#endif
 
 #endif  // CAITLYN_CORE_ERROR_H_

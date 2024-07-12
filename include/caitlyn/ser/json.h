@@ -15,9 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_SERIALIZING_JSON_H_
-#define CAITLYN_SERIALIZING_JSON_H_
+#ifndef CAITLYN_SERIALIZING_JSON_JSON_H_
+#define CAITLYN_SERIALIZING_JSON_JSON_H_
 
-#include "caitlyn/ser/json/json.h"
+#include "caitlyn/ser/json/defs.h"
+#include "caitlyn/ser/json/types.h"
 
-#endif  // CAITLYN_SERIALIZING_JSON_H_
+#endif  // CAITLYN_SERIALIZING_JSON_JSON_H_

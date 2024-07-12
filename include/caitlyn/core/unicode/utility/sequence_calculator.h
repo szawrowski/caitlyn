@@ -23,7 +23,7 @@
 namespace cait {
 
 template <typename CharT>
-static size_t calculate_char_count(code_point_t code_point);
+size_t calculate_char_count(code_point_t code_point);
 
 template <>
 inline size_t calculate_char_count<u8char_t>(const code_point_t code_point) {

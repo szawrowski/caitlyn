@@ -18,7 +18,7 @@
 #ifndef CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_
 #define CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_
 
-#include "caitlyn/__detail.h"
+#include "caitlyn/base.h"
 
 namespace cait {
 

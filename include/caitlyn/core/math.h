@@ -18,6 +18,6 @@
 #ifndef CAITLYN_CORE_MATH_H_
 #define CAITLYN_CORE_MATH_H_
 
-#include "caitlyn/core/math/math.h"
+#include <cmath>
 
 #endif  // CAITLYN_CORE_MATH_H_

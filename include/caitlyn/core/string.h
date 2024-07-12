@@ -1,5 +1,5 @@
 /**
- * This file is part of the Caitlyn library
+* This file is part of the Caitlyn library
  * Copyright (C) 2024 Alexander Szawrowski
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,22 @@
 #ifndef CAITLYN_CORE_STRING_H_
 #define CAITLYN_CORE_STRING_H_
 
-#include "caitlyn/core/string/string.h"
+#include <cstring>
+#include <sstream>
+#include <string>
+
+#include "caitlyn/core/format.h"
+#include "caitlyn/core/string/algo.h"
+#include "caitlyn/core/string/text.h"
+#include "caitlyn/core/string/types.h"
+#include "caitlyn/core/string/utility.h"
+
+#if __caitlyn_has_cxx11 && !(__caitlyn_has_cxx17)
+  #include <codecvt>
+#endif
+
+#if __caitlyn_has_cxx20
+  #include <format>
+#endif
 
 #endif  // CAITLYN_CORE_STRING_H_

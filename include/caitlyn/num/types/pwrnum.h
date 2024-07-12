@@ -30,18 +30,18 @@ public:
 public:
   pwrnum_t() = default;
 
-  pwrnum_t(const char_t* number) : pwrnum_t{string_t{number}} {}
+  pwrnum_t(const char_t* number) : pwrnum_t{std::string{number}} {}
 
-  pwrnum_t(const string_t& number) {
+  pwrnum_t(const std::string& number) {
     if (number.empty()) {
       throw std::invalid_argument{"Invalid number format"};
     }
     size_t point_pos = number.find('.');
-    if (point_pos == string_t::npos) {
+    if (point_pos == std::string::npos) {
       integer_part_ = pwrint_t{number};
     } else {
-      string_t integer_str = number.substr(0, point_pos);
-      string_t fractional_str = number.substr(point_pos + 1);
+      std::string integer_str = number.substr(0, point_pos);
+      std::string fractional_str = number.substr(point_pos + 1);
 
       if (integer_str.empty()) {
         integer_str = "0";
@@ -145,9 +145,9 @@ public:
   [[nodiscard]] pwrnum_t multiply(const pwrnum_t& other) const {
     // Convert both numbers to their full string representation without the
     // decimal point
-    const string_t this_full =
+    const std::string this_full =
         integer_part_.to_string() + fractional_part_.to_string();
-    const string_t other_full =
+    const std::string other_full =
         other.integer_part_.to_string() + other.fractional_part_.to_string();
 
     // Count the number of digits after the decimal point in both numbers
@@ -162,12 +162,12 @@ public:
     const size_t total_frac_size = this_frac_size + other_frac_size;
 
     // Convert the result back to a string
-    string_t result_str = result_full.to_string();
+    std::string result_str = result_full.to_string();
 
     // Insert the decimal point at the correct position
     if (total_frac_size >= result_str.size()) {
-      result_str.insert(0,
-                        string_t(total_frac_size - result_str.size() + 1, '0'));
+      result_str.insert(
+          0, std::string(total_frac_size - result_str.size() + 1, '0'));
     }
     result_str.insert(result_str.size() - total_frac_size, 1, '.');
 
@@ -181,10 +181,10 @@ public:
     }
     // Convert both numbers to their full string representation without the
     // decimal point
-    const string_t this_full =
+    const std::string this_full =
         integer_part_.to_string() + fractional_part_.to_string();
 
-    const string_t other_full =
+    const std::string other_full =
         other.integer_part_.to_string() + other.fractional_part_.to_string();
 
     // Count the number of digits after the decimal point in both numbers
@@ -199,12 +199,12 @@ public:
     const size_t total_frac_size = this_frac_size - other_frac_size;
 
     // Convert the result back to a string
-    string_t result_str = result_full.to_string();
+    std::string result_str = result_full.to_string();
 
     // Insert the decimal point at the correct position
     if (total_frac_size >= result_str.size()) {
-      result_str.insert(0,
-                        string_t(total_frac_size - result_str.size() + 1, '0'));
+      result_str.insert(
+          0, std::string(total_frac_size - result_str.size() + 1, '0'));
     }
     result_str.insert(result_str.size() - total_frac_size, 1, '.');
 
@@ -292,13 +292,13 @@ public:
     return !less_than(other) && !equal(other);
   }
 
-  [[nodiscard]] string_t to_string() const {
-    string_t result = integer_part_.to_string();
+  [[nodiscard]] std::string to_string() const {
+    std::string result = integer_part_.to_string();
     if (!fractional_part_.to_string().empty() &&
         fractional_part_.to_string() != "0") {
       result.push_back('.');
       result += fractional_part_.to_string();
-        }
+    }
     return result;
   }
 
@@ -316,63 +316,63 @@ private:
 
 }  // namespace cait
 
-static cait::bool_t operator<(const cait::pwrnum_t& lhs,
+inline cait::bool_t operator<(const cait::pwrnum_t& lhs,
                               const cait::pwrnum_t& rhs) {
   return lhs.less_than(rhs);
 }
 
-static cait::bool_t operator>(const cait::pwrnum_t& lhs,
+inline cait::bool_t operator>(const cait::pwrnum_t& lhs,
                               const cait::pwrnum_t& rhs) {
   return lhs.greater_than(rhs);
 }
 
-static cait::bool_t operator<=(const cait::pwrnum_t& lhs,
+inline cait::bool_t operator<=(const cait::pwrnum_t& lhs,
                                const cait::pwrnum_t& rhs) {
   return lhs.less_than(rhs) || lhs.equal(rhs);
 }
 
-static cait::bool_t operator>=(const cait::pwrnum_t& lhs,
+inline cait::bool_t operator>=(const cait::pwrnum_t& lhs,
                                const cait::pwrnum_t& rhs) {
   return lhs.greater_than(rhs) || lhs.equal(rhs);
 }
 
-static cait::bool_t operator==(const cait::pwrnum_t& lhs,
+inline cait::bool_t operator==(const cait::pwrnum_t& lhs,
                                const cait::pwrnum_t& rhs) {
   return lhs.equal(rhs);
 }
 
-static cait::bool_t operator!=(const cait::pwrnum_t& lhs,
+inline cait::bool_t operator!=(const cait::pwrnum_t& lhs,
                                const cait::pwrnum_t& rhs) {
   return !lhs.equal(rhs);
 }
 
-static cait::pwrnum_t operator+(const cait::pwrnum_t& lhs,
+inline cait::pwrnum_t operator+(const cait::pwrnum_t& lhs,
                                 const cait::pwrnum_t& rhs) {
   return lhs.add(rhs);
 }
 
-static cait::pwrnum_t operator-(const cait::pwrnum_t& lhs,
+inline cait::pwrnum_t operator-(const cait::pwrnum_t& lhs,
                                 const cait::pwrnum_t& rhs) {
   return lhs.subtract(rhs);
 }
 
-static cait::pwrnum_t operator*(const cait::pwrnum_t& lhs,
+inline cait::pwrnum_t operator*(const cait::pwrnum_t& lhs,
                                 const cait::pwrnum_t& rhs) {
   return lhs.multiply(rhs);
 }
 
-static cait::pwrnum_t operator/(const cait::pwrnum_t& lhs,
+inline cait::pwrnum_t operator/(const cait::pwrnum_t& lhs,
                                 const cait::pwrnum_t& rhs) {
   return lhs.divide(rhs);
 }
 
-static cait::ostream_t& operator<<(cait::ostream_t& os,
-                                   const cait::pwrnum_t& number) {
+inline std::ostream& operator<<(std::ostream& os,
+                                const cait::pwrnum_t& number) {
   os << number.to_string();
   return os;
 }
 
-static cait::pwrnum_t operator""_pwrnum(const cait::char_t* number,
+inline cait::pwrnum_t operator""_pwrnum(const cait::char_t* number,
                                         const cait::size_t) {
   return cait::pwrnum_t{number};
 }

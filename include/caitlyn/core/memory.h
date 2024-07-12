@@ -1,5 +1,5 @@
 /**
- * This file is part of the Caitlyn library
+* This file is part of the Caitlyn library
  * Copyright (C) 2024 Alexander Szawrowski
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,15 @@
 #ifndef CAITLYN_CORE_MEMORY_H_
 #define CAITLYN_CORE_MEMORY_H_
 
-#include "caitlyn/core/memory/memory.h"
+#include <memory>
+#include <new>
+#include <scoped_allocator>
+
+#include "caitlyn/core/memory/types.h"
+#include "caitlyn/core/memory/utility.h"
+
+#if __caitlyn_has_cxx17
+  #include <memory_resource>
+#endif
 
 #endif  // CAITLYN_CORE_MEMORY_H_

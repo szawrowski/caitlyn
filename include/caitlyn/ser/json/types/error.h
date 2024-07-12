@@ -18,7 +18,7 @@
 #ifndef CAITLYN_SER_JSON_TYPES_ERROR_H_
 #define CAITLYN_SER_JSON_TYPES_ERROR_H_
 
-#include "caitlyn/ser/json/defs/defs.h"
+#include "caitlyn/ser/json/defs.h"
 
 namespace cait {
 namespace json {

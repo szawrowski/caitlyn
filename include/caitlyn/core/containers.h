@@ -18,6 +18,7 @@
 #ifndef CAITLYN_CORE_CONTAINERS_H_
 #define CAITLYN_CORE_CONTAINERS_H_
 
-#include "caitlyn/core/containers/containers.h"
+#include "caitlyn/core/containers/types.h"
+#include "caitlyn/core/containers/utility.h"
 
 #endif // CAITLYN_CORE_CONTAINERS_H_

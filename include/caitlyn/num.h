@@ -1,5 +1,5 @@
 /**
- * This file is part of the Caitlyn library
+* This file is part of the Caitlyn library
  * Copyright (C) 2024 Alexander Szawrowski
  *
  * This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,6 @@
 #ifndef CAITLYN_NUM_H_
 #define CAITLYN_NUM_H_
 
-#include "caitlyn/num/num.h"
+#include "caitlyn/num/types.h"
 
 #endif  // CAITLYN_NUM_H_

@@ -20,7 +20,7 @@
 
 #include <tuple>
 
-#include "caitlyn/__detail.h"
+#include "caitlyn/base.h"
 
 namespace cait {
 

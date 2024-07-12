@@ -18,11 +18,11 @@
 #ifndef CAITLYN_CORE_IO_PRINT_H_
 #define CAITLYN_CORE_IO_PRINT_H_
 
-#include "caitlyn/core/format/format.h"
+#include "caitlyn/core/format.h"
 
 namespace cait {
 
-static void print(const std::string& str) {
+inline void print(const std::string& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -31,7 +31,7 @@ static void print(const std::string& str) {
 }
 
 template <typename... Args>
-static void print(const std::string& str, Args&&... args) {
+void print(const std::string& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -39,7 +39,7 @@ static void print(const std::string& str, Args&&... args) {
   std::cout << fmt(str, std::forward<Args>(args)...);
 }
 
-static void println(const std::string& str) {
+inline void println(const std::string& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -48,7 +48,7 @@ static void println(const std::string& str) {
 }
 
 template <typename... Args>
-static void println(const std::string& str, Args&&... args) {
+void println(const std::string& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -57,7 +57,7 @@ static void println(const std::string& str, Args&&... args) {
             << get_char(ascii_t::line_feed);
 }
 
-static void eprint(const std::string& str) {
+inline void eprint(const std::string& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -66,7 +66,7 @@ static void eprint(const std::string& str) {
 }
 
 template <typename... Args>
-static void eprint(const std::string& str, Args&&... args) {
+void eprint(const std::string& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -74,7 +74,7 @@ static void eprint(const std::string& str, Args&&... args) {
   std::cerr << fmt(str, std::forward<Args>(args)...);
 }
 
-static void eprintln(const std::string& str) {
+inline void eprintln(const std::string& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -83,7 +83,7 @@ static void eprintln(const std::string& str) {
 }
 
 template <typename... Args>
-static void eprintln(const std::string& str, Args&&... args) {
+void eprintln(const std::string& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -92,7 +92,7 @@ static void eprintln(const std::string& str, Args&&... args) {
             << get_char(ascii_t::line_feed);
 }
 
-static void log(const std::string& str) {
+inline void log(const std::string& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -101,7 +101,7 @@ static void log(const std::string& str) {
 }
 
 template <typename... Args>
-static void log(const std::string& str, Args&&... args) {
+void log(const std::string& str, Args&&... args) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
