@@ -26,6 +26,7 @@ Supported Standard: **C++11** and higher
 First, navigate to your project root directory and create an `external` directory to
 hold third party libraries.
 Then, clone the **Caitlyn** repository into this folder.
+
 Open your terminal and run the following commands:
 
 ```shell
@@ -38,6 +39,7 @@ git clone https://github.com/szawrowski/caitlyn.git
 
 Add the necessary configurations to `CMakeLists.txt` file
 to link **Caitlyn** with your project.
+
 Use the following template as a reference:
 
 ```cmake
