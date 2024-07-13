@@ -19,6 +19,7 @@
 #define CAITLYN_TEST_TYPES_H_
 
 #include "caitlyn/test/types/case.h"
+#include "caitlyn/test/types/fail_message.h"
 #include "caitlyn/test/types/function.h"
 #include "caitlyn/test/types/registry.h"
 

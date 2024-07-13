@@ -21,6 +21,7 @@
 #include <sstream>
 #include <tuple>
 
+#include "caitlyn/core/char.h"
 #include "caitlyn/core/unicode/types/code_point.h"
 #include "caitlyn/core/unicode/types/sequence.h"
 #include "caitlyn/core/unicode/utility/sequence.h"
