@@ -68,7 +68,7 @@ public:
     std::cout << "\nTotal tests: " << (passed + failed)
               << "\nPassed: " << passed
               << "\nFailed: " << failed << '\n';
-    return has_error ? -1 : 0;
+    return has_error ? 1 : 0;
   }
 
 private:
