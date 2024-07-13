@@ -92,6 +92,7 @@ You can continue using standard C++ strings, supplemented with Unicode wrappers.
 
 ```c++
 #include <caitlyn/core/io.h>
+#include <caitlyn/core/text.h>
 
 int main() {
   const auto string = "Hello, 世界!"_str;
@@ -150,6 +151,7 @@ applications that need efficient data exchange in a structured format.
 - Brackets operator
 
 ```c++
+#include <caitlyn/core/io.h>
 #include <caitlyn/ser/json.h>
 
 int main() {
@@ -172,6 +174,7 @@ int main() {
 - Native JSON
 
 ```c++
+#include <caitlyn/core/io.h>
 #include <caitlyn/ser/json.h>
 
 int main() {
