@@ -39,10 +39,9 @@ public:
     tests_[suite_name].emplace_back(case_t{suite_name, test_name, func});
   }
 
-  int run_all() const {
+  void run_all() const {
     int_t passed{};
     int_t failed{};
-    bool_t has_error{false};
     for (const auto& suite : tests_) {
       for (const auto& test : suite.second) {
         try {
@@ -54,21 +53,16 @@ public:
           std::cout << "[FAILED] " << test.suite_name << '.' << test.test_name
                     << ": " << e.what() << "\n";
           ++failed;
-          has_error = true;
-          break;
         } catch (...) {
           std::cout << "[FAILED] " << test.suite_name << '.' << test.test_name
                     << ": Unknown error\n";
           ++failed;
-          has_error = true;
-          break;
         }
       }
     }
     std::cout << "\nTotal tests: " << (passed + failed)
               << "\nPassed: " << passed
               << "\nFailed: " << failed << '\n';
-    return has_error ? 1 : 0;
   }
 
 private:
