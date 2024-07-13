@@ -15,6 +15,7 @@ enhance productivity for everyday tasks.
 - Error Handling
 - Arbitrary Precision Arithmetic
 - Utilities
+- Testing
 
 Supported Platforms: **Linux, Windows, macOS**\
 Supported Standard: **C++11** and higher
@@ -360,4 +361,68 @@ int main() {
 ```text
 480406269860917721318957511814148894618259818296995209585410018969574705029068317
 1441.64203387923303265813084431780163079588042340079866748019604087803446244208066
+```
+
+### Testing
+
+**Caitlyn** includes a lightweight testing component for unit testing within
+your projects.
+
+- **Test Definition**: Define tests using macros like `TEST` for standalone
+  tests and `TEST_F` for fixture-based tests.
+- **Dynamic Test Registration**: Tests are dynamically registered using a
+  central registry for easy discovery and execution.
+- **Assertions**: Includes assertion macros (`ASSERT_TRUE`, `ASSERT_EQ`, etc.)
+  for validating expected behaviors.
+- **Detailed Reporting**: Reports detailed information on passed and failed
+  tests, aiding in debugging.
+
+**Usage:**
+
+```c++
+#include <caitlyn/test.h>
+
+TEST(MathTests, TestAddition) {
+  ASSERT_EQ(2 + 3, 5);
+}
+
+TEST(MathTests, TestFailure) {
+  ASSERT_EQ_PRINTABLE(2 + 2, 5);
+}
+
+template <typename T>
+struct MathFixture {
+  T a{};
+  T b{};
+
+  MathFixture() {}
+  ~MathFixture() {}
+
+  void SetValues(const T& x, const T& y) {
+    a = x;
+    b = y;
+  }
+};
+
+TEST_F(MathFixture<int>, TestFixtureAddition) {
+  SetValues(1, 2);
+  ASSERT_EQ(a + b, 3);
+}
+
+int main() {
+  cait::test::registry_t::instance().run_all();
+  return 0;
+}
+```
+
+**Output**
+
+```
+[PASSED] MathFixture<int>.TestFixtureAddition
+[PASSED] MathTests.TestAddition
+[FAILED] MathTests.TestFailure: Assertion failed: 2 + 2 == 5 (4 != 5)
+
+Total tests: 3
+Passed: 2
+Failed: 1
 ```
