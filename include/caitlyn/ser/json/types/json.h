@@ -18,7 +18,8 @@
 #ifndef CAITLYN_SER_JSON_TYPES_JSON_H_
 #define CAITLYN_SER_JSON_TYPES_JSON_H_
 
-#include "caitlyn/core/io.h"
+#include <fstream>
+
 #include "caitlyn/ser/json/types/parser.h"
 #include "caitlyn/ser/json/utility.h"
 
