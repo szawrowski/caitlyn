@@ -30,6 +30,7 @@
 #include "caitlyn/core/numeric.h"
 #include "caitlyn/core/string.h"
 #include "caitlyn/core/system.h"
+#include "caitlyn/core/text.h"
 #include "caitlyn/core/threads.h"
 #include "caitlyn/core/time.h"
 #include "caitlyn/core/traits.h"

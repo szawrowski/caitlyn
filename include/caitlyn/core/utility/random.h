@@ -22,7 +22,6 @@
 #include <random>
 #include <stdexcept>
 
-#include "caitlyn/base.h"
 #include "caitlyn/core/numeric/utility/limits.h"
 
 namespace cait {

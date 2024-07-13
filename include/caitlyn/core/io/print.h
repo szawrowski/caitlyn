@@ -18,6 +18,8 @@
 #ifndef CAITLYN_CORE_IO_PRINT_H_
 #define CAITLYN_CORE_IO_PRINT_H_
 
+#include <iostream>
+
 #include "caitlyn/core/format.h"
 
 namespace cait {

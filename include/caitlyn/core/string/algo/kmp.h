@@ -18,8 +18,8 @@
 #ifndef CAITLYN_CORE_STRING_ALGO_KMP_H_
 #define CAITLYN_CORE_STRING_ALGO_KMP_H_
 
-#include "caitlyn/core/containers.h"
-#include "caitlyn/core/string/types.h"
+#include <string>
+#include <vector>
 
 namespace cait {
 namespace __detail {
