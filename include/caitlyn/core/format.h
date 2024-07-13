@@ -25,7 +25,7 @@
 namespace cait {
 
 template <typename... Args>
-std::string fmt(const std::string& str, Args&&... args) {
+std::string format(const std::string& str, Args&&... args) {
   std::ostringstream result;
   const std::vector<std::string> arguments = {
       strfmt::__detail::to_string(std::forward<Args>(args), {})...};

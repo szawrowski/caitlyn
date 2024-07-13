@@ -48,7 +48,7 @@ public:
 
   template <typename... Args>
   text_builder_t(const std::string& str, Args&&... args) {
-    data_ << fmt(str, std::forward<Args>(args)...);
+    data_ << format(str, std::forward<Args>(args)...);
   }
 
   text_builder_t(const text_builder_t& other) : data_{other.data_.str()} {}
@@ -63,13 +63,11 @@ public:
 
   void append(const unicode_char<char_t>& symbol) { data_ << symbol; }
 
-  void append(const unicode_string<unicode_char<char_t>>& str) {
-    data_ << str;
-  }
+  void append(const unicode_string<unicode_char<char_t>>& str) { data_ << str; }
 
   template <typename... Args>
   void append(const std::string& str, Args&&... args) {
-    data_ << fmt(str, std::forward<Args>(args)...);
+    data_ << format(str, std::forward<Args>(args)...);
   }
 
   void append_line(const char_t* str) {
@@ -89,7 +87,7 @@ public:
 
   template <typename... Args>
   void append_line(const std::string& str, Args&&... args) {
-    data_ << fmt(str, std::forward<Args>(args)...)
+    data_ << format(str, std::forward<Args>(args)...)
           << get_char(ascii_t::line_feed);
   }
 
@@ -105,9 +103,7 @@ private:
   data_type data_;
 };
 
-inline text_builder_t<char_t> make_text() {
-  return text_builder_t<char_t>{};
-}
+inline text_builder_t<char_t> make_text() { return text_builder_t<char_t>{}; }
 
 inline text_builder_t<char_t> make_text(const char_t symbol) {
   return text_builder_t<char_t>{symbol};
@@ -119,11 +115,10 @@ inline text_builder_t<char_t> make_text(const std::string& str) {
 
 template <typename... Args>
 text_builder_t<char_t> make_text(const std::string& str, Args&&... args) {
-  return text_builder_t<char_t>{fmt(str, std::forward<Args>(args)...)};
+  return text_builder_t<char_t>{format(str, std::forward<Args>(args)...)};
 }
 
-inline text_builder_t<char_t> make_unitext(
-    const unicode_char<char_t>& str) {
+inline text_builder_t<char_t> make_unitext(const unicode_char<char_t>& str) {
   return text_builder_t<char_t>{str.to_string()};
 }
 

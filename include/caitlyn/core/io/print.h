@@ -33,8 +33,7 @@ inline void print(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type
-print(const T& value) {
+typename std::enable_if<has_to_string<T>::value>::type print(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -48,7 +47,7 @@ void print(const std::string& str, Args&&... args) {
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
-  std::cout << fmt(str, std::forward<Args>(args)...);
+  std::cout << format(str, std::forward<Args>(args)...);
 }
 
 inline void println(const std::string& str) {
@@ -60,8 +59,7 @@ inline void println(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type
-println(const T& value) {
+typename std::enable_if<has_to_string<T>::value>::type println(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -75,7 +73,7 @@ void println(const std::string& str, Args&&... args) {
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
-  std::cout << fmt(str, std::forward<Args>(args)...)
+  std::cout << format(str, std::forward<Args>(args)...)
             << get_char(ascii_t::line_feed);
 }
 
@@ -88,8 +86,7 @@ inline void eprint(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type
-eprint(const T& value) {
+typename std::enable_if<has_to_string<T>::value>::type eprint(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -103,7 +100,7 @@ void eprint(const std::string& str, Args&&... args) {
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
-  std::cerr << fmt(str, std::forward<Args>(args)...);
+  std::cerr << format(str, std::forward<Args>(args)...);
 }
 
 inline void eprintln(const std::string& str) {
@@ -115,8 +112,8 @@ inline void eprintln(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type
-eprintln(const T& value) {
+typename std::enable_if<has_to_string<T>::value>::type eprintln(
+    const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -130,7 +127,7 @@ void eprintln(const std::string& str, Args&&... args) {
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
-  std::cerr << fmt(str, std::forward<Args>(args)...)
+  std::cerr << format(str, std::forward<Args>(args)...)
             << get_char(ascii_t::line_feed);
 }
 
@@ -143,8 +140,7 @@ inline void log(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type
-log(const T& value) {
+typename std::enable_if<has_to_string<T>::value>::type log(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -158,10 +154,10 @@ void log(const std::string& str, Args&&... args) {
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
-  std::clog << fmt(str, std::forward<Args>(args)...)
+  std::clog << format(str, std::forward<Args>(args)...)
             << get_char(ascii_t::line_feed);
 }
 
 }  // namespace cait
 
-#endif // CAITLYN_CORE_IO_PRINT_H_
+#endif  // CAITLYN_CORE_IO_PRINT_H_

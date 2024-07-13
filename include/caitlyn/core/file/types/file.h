@@ -19,7 +19,6 @@
 #define CAITLYN_CORE_FILE_TYPES_FILE_H_
 
 #include <fstream>
-#include <iostream>
 #include <utility>
 #include <vector>
 
@@ -38,7 +37,7 @@ public:
   file_t(std::string filename) : filename_(std::move(filename)) { open(); }
   template <typename... Args>
   file_t(const std::string& str, Args&&... args)
-      : filename_{fmt(str, std::forward<Args>(args)...)} {
+      : filename_{format(str, std::forward<Args>(args)...)} {
     open();
   }
   file_t(const file_t& other) : filename_{other.filename_} { open(); }
@@ -169,7 +168,7 @@ public:
     if (!file_.is_open()) {
       open();
     }
-    file_ << fmt(str, std::forward<Args>(args)...);
+    file_ << format(str, std::forward<Args>(args)...);
     file_.flush();
   }
 
@@ -203,7 +202,7 @@ public:
     if (!file_.is_open()) {
       open();
     }
-    file_ << fmt(str, std::forward<Args>(args)...)
+    file_ << format(str, std::forward<Args>(args)...)
           << get_char(ascii_t::line_feed);
     file_.flush();
   }
@@ -242,7 +241,7 @@ public:
       open();
     }
     file_.seekp(0, std::ios::end);
-    file_ << fmt(str, std::forward<Args>(args)...);
+    file_ << format(str, std::forward<Args>(args)...);
     file_.flush();
   }
 
@@ -281,7 +280,7 @@ public:
       open();
     }
     file_.seekp(0, std::ios::end);
-    file_ << fmt(str, std::forward<Args>(args)...)
+    file_ << format(str, std::forward<Args>(args)...)
           << get_char(ascii_t::line_feed);
     file_.flush();
   }
