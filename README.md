@@ -59,7 +59,7 @@ find_package(caitlyn CONFIG REQUIRED)
 add_executable(${PROJECT_NAME} main.cpp)
 
 # Link the executable with Caitlyn library
-target_link_libraries(${PROJECT_NAME} PRIVATE caitlyn::cait)
+target_link_libraries(${PROJECT_NAME} PRIVATE caitlyn::caitlyn)
 ```
 
 Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
