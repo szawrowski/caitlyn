@@ -91,6 +91,7 @@ You can continue using standard C++ strings, supplemented with Unicode wrappers.
 **Usage:**
 
 ```c++
+#include <caitlyn/core/file.h>
 #include <caitlyn/core/io.h>
 #include <caitlyn/core/text.h>
 
@@ -106,14 +107,30 @@ int main() {
   content.append_line("consectetur adipiscing elit...");
   content.append_line(formatted);
 
-  auto file = "somefile.txt"_ofile;
+  auto file = "somefile.txt"_file;
   file.write("Text: {}", content);
   file.close();
 
   return 0;
 }
-
 ```
+
+- Read lines from file.
+
+```c++
+#include <caitlyn/core/file.h>
+#include <caitlyn/core/io.h>
+
+int main() {
+  auto file = "somefile.txt"_file;
+
+  while (file) {
+    cait::println("{}", file.read_line());
+  }
+  return 0;
+}
+```
+
 **Output:**
 
 - Terminal
