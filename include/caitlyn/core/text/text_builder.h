@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_STRING_TEXT_H_
-#define CAITLYN_CORE_STRING_TEXT_H_
+#ifndef CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
+#define CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
 
 #include "caitlyn/core/format.h"
 #include "caitlyn/core/unicode.h"
@@ -27,7 +27,7 @@ template <typename CharT>
 class text_builder_t;
 
 template <>
-class text_builder_t<u8char_t> {
+class text_builder_t<char_t> {
 public:
   using data_type = std::ostringstream;
 
@@ -40,9 +40,9 @@ public:
 
   text_builder_t(const std::string& str) { data_ << str; }
 
-  text_builder_t(const unicode_char<u8char_t>& symbol) { data_ << symbol; }
+  text_builder_t(const unicode_char<char_t>& symbol) { data_ << symbol; }
 
-  text_builder_t(const unicode_string<unicode_char<u8char_t>>& str) {
+  text_builder_t(const unicode_string<unicode_char<char_t>>& str) {
     data_ << str;
   }
 
@@ -61,9 +61,9 @@ public:
 
   void append(const std::string& str) { data_ << str; }
 
-  void append(const unicode_char<u8char_t>& symbol) { data_ << symbol; }
+  void append(const unicode_char<char_t>& symbol) { data_ << symbol; }
 
-  void append(const unicode_string<unicode_char<u8char_t>>& str) {
+  void append(const unicode_string<unicode_char<char_t>>& str) {
     data_ << str;
   }
 
@@ -80,10 +80,10 @@ public:
     data_ << str << get_char(ascii_t::line_feed);
   }
 
-  void append_line(const unicode_char<u8char_t>& str) {
+  void append_line(const unicode_char<char_t>& str) {
     data_ << str << get_char(ascii_t::line_feed);
   }
-  void append_line(const unicode_string<unicode_char<u8char_t>>& str) {
+  void append_line(const unicode_string<unicode_char<char_t>>& str) {
     data_ << str << get_char(ascii_t::line_feed);
   }
 
@@ -94,11 +94,9 @@ public:
   }
 
 public:
-  __caitlyn_nodiscard std::string to_string() const {
-    return data_.str();
-  }
+  __caitlyn_nodiscard std::string to_string() const { return data_.str(); }
 
-  __caitlyn_nodiscard unicode_string<unicode_char<u8char_t>> to_unistring()
+  __caitlyn_nodiscard unicode_string<unicode_char<char_t>> to_unistring()
       const {
     return data_.str();
   }
@@ -107,34 +105,33 @@ private:
   data_type data_;
 };
 
-inline text_builder_t<u8char_t> make_text() {
-  return text_builder_t<u8char_t>{};
+inline text_builder_t<char_t> make_text() {
+  return text_builder_t<char_t>{};
 }
 
-inline text_builder_t<u8char_t> make_text(const char_t symbol) {
-  return text_builder_t<u8char_t>{symbol};
+inline text_builder_t<char_t> make_text(const char_t symbol) {
+  return text_builder_t<char_t>{symbol};
 }
 
-inline text_builder_t<u8char_t> make_text(const std::string& str) {
-  return text_builder_t<u8char_t>{str};
+inline text_builder_t<char_t> make_text(const std::string& str) {
+  return text_builder_t<char_t>{str};
 }
 
 template <typename... Args>
-text_builder_t<u8char_t> make_text(const std::string& str,
-                                          Args&&... args) {
-  return text_builder_t<u8char_t>{fmt(str, std::forward<Args>(args)...)};
+text_builder_t<char_t> make_text(const std::string& str, Args&&... args) {
+  return text_builder_t<char_t>{fmt(str, std::forward<Args>(args)...)};
 }
 
-inline text_builder_t<u8char_t> make_unitext(
-    const unicode_char<u8char_t>& str) {
-  return text_builder_t<u8char_t>{str.to_string()};
+inline text_builder_t<char_t> make_unitext(
+    const unicode_char<char_t>& str) {
+  return text_builder_t<char_t>{str.to_string()};
 }
 
-inline text_builder_t<u8char_t> make_unitext(
-    const unicode_string<unicode_char<u8char_t>>& str) {
-  return text_builder_t<u8char_t>{str.to_string()};
+inline text_builder_t<char_t> make_unitext(
+    const unicode_string<unicode_char<char_t>>& str) {
+  return text_builder_t<char_t>{str.to_string()};
 }
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_STRING_TEXT_H_
+#endif  // CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
