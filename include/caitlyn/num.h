@@ -1,5 +1,5 @@
 /**
-* This file is part of the Caitlyn library
+ * This file is part of the Caitlyn library
  * Copyright (C) 2024 Alexander Szawrowski
  *
  * This program is free software: you can redistribute it and/or modify

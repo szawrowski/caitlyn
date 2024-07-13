@@ -18,6 +18,7 @@
 #ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_OPERATORS_H
 #define CAITLYN_CORE_TRAITS_CONSTRAINTS_OPERATORS_H
 
+#include <iostream>
 #include <type_traits>
 
 namespace cait {
@@ -242,6 +243,19 @@ private:
 
 public:
   static constexpr bool value = decltype(check<T, U>(nullptr))::value;
+};
+
+template <typename T>
+class has_output_operator {
+  template <typename U>
+  static auto test(U*) -> decltype(std::declval<std::ostream&>()
+                                       << std::declval<U>(),
+                                   std::true_type());
+  template <typename>
+  static auto test(...) -> std::false_type;
+
+public:
+  static const bool value = decltype(test<T>(nullptr))::value;
 };
 
 }  // namespace cait

@@ -18,6 +18,8 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
 #define CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
 
+#include "caitlyn/base.h"
+
 namespace cait {
 namespace traits {
 
