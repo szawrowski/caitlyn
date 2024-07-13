@@ -23,7 +23,7 @@
 namespace cait {
 
 template<typename T, typename U>
-constexpr bool_t cmp_eq(T t, U u) noexcept {
+__caitlyn_constexpr14 bool_t cmp_eq(T t, U u) noexcept {
   using UT = typename std::make_unsigned<T>::type;
   using UU = typename std::make_unsigned<U>::type;
 
@@ -42,7 +42,7 @@ constexpr bool_t cmp_ne(T t, U u) noexcept {
 }
 
 template<typename T, typename U>
-constexpr bool_t cmp_less(T t, U u) noexcept {
+__caitlyn_constexpr14 bool_t cmp_less(T t, U u) noexcept {
   using UT = typename std::make_unsigned<T>::type;
   using UU = typename std::make_unsigned<U>::type;
 

@@ -24,16 +24,19 @@
 
 #include "caitlyn/core/format.h"
 #include "caitlyn/core/string/algo.h"
-#include "caitlyn/core/string/text.h"
-#include "caitlyn/core/string/types.h"
 #include "caitlyn/core/string/utility.h"
+#include "caitlyn/core/unicode.h"
 
 #if __caitlyn_has_cxx11 && !(__caitlyn_has_cxx17)
   #include <codecvt>
 #endif
 
-#if __caitlyn_has_cxx20
-  #include <format>
+#if __caitlyn_has_cxx14
+using namespace std::literals::string_literals;
+#endif
+
+#if __caitlyn_has_cxx17
+using namespace std::literals::string_view_literals;
 #endif
 
 #endif  // CAITLYN_CORE_STRING_H_

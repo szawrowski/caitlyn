@@ -88,7 +88,7 @@ public:
   }
 
 public:
-  [[nodiscard]] pwrint_t add(const pwrint_t& other) const {
+  __caitlyn_nodiscard pwrint_t add(const pwrint_t& other) const {
     if (is_negative_ == other.is_negative_) {
       pwrint_t result;
       result.is_negative_ = is_negative_;
@@ -122,7 +122,7 @@ public:
     return result;
   }
 
-  [[nodiscard]] pwrint_t subtract(const pwrint_t& other) const {
+  __caitlyn_nodiscard pwrint_t subtract(const pwrint_t& other) const {
     if (this->is_negative_ != other.is_negative_) {
       pwrint_t result = add(other);
       result.is_negative_ = this->is_negative_;
@@ -157,7 +157,7 @@ public:
     return result;
   }
 
-  [[nodiscard]] pwrint_t multiply(const pwrint_t& other) const {
+  __caitlyn_nodiscard pwrint_t multiply(const pwrint_t& other) const {
     pwrint_t result;
     result.digits_.resize(digits_.size() + other.digits_.size(), 0);
 
@@ -177,7 +177,7 @@ public:
     return result;
   }
 
-  [[nodiscard]] pwrint_t divide(const pwrint_t& other) const {
+  __caitlyn_nodiscard pwrint_t divide(const pwrint_t& other) const {
     if (other.equal(pwrint_t{"0"})) {
       throw std::invalid_argument{"Division by zero"};
     }
@@ -213,7 +213,7 @@ public:
     return quotient;
   }
 
-  [[nodiscard]] pwrint_t modulo(const pwrint_t& other) const {
+  __caitlyn_nodiscard pwrint_t modulo(const pwrint_t& other) const {
     pwrint_t result = subtract(divide(other).multiply(other));
     if (result.is_negative_ != is_negative_) {
       result.is_negative_ = is_negative_;
@@ -222,13 +222,13 @@ public:
   }
 
 public:
-  [[nodiscard]] pwrint_t abs() const {
+  __caitlyn_nodiscard pwrint_t abs() const {
     pwrint_t result = *this;
     result.is_negative_ = false;
     return result;
   }
 
-  [[nodiscard]] pwrint_t pow(int_t exponent) const {
+  __caitlyn_nodiscard pwrint_t pow(int_t exponent) const {
     if (exponent < 0) {
       throw std::invalid_argument{"Negative exponent not supported"};
     }
@@ -245,9 +245,9 @@ public:
     return result;
   }
 
-  [[nodiscard]] pwrint_t sqr() const { return this->multiply(*this); }
+  __caitlyn_nodiscard pwrint_t sqr() const { return this->multiply(*this); }
 
-  [[nodiscard]] pwrint_t sqrt() const {
+  __caitlyn_nodiscard pwrint_t sqrt() const {
     if (is_negative_) {
       throw std::invalid_argument{"Square root of negative number"};
     }
@@ -274,13 +274,13 @@ public:
   }
 
 public:
-  [[nodiscard]] size_type size() const { return digits_.size(); }
+  __caitlyn_nodiscard size_type size() const { return digits_.size(); }
 
-  [[nodiscard]] bool_t equal(const pwrint_t& other) const {
+  __caitlyn_nodiscard bool_t equal(const pwrint_t& other) const {
     return digits_ == other.digits_ && is_negative_ == other.is_negative_;
   }
 
-  [[nodiscard]] bool_t less_than(const pwrint_t& other) const {
+  __caitlyn_nodiscard bool_t less_than(const pwrint_t& other) const {
     if (is_negative_ != other.is_negative_) {
       return is_negative_;
     }
@@ -295,11 +295,11 @@ public:
     return false;
   }
 
-  [[nodiscard]] bool_t greater_than(const pwrint_t& other) const {
+  __caitlyn_nodiscard bool_t greater_than(const pwrint_t& other) const {
     return !less_than(other) && !equal(other);
   }
 
-  [[nodiscard]] std::string to_string() const {
+  __caitlyn_nodiscard std::string to_string() const {
     if (digits_.empty()) {
       return "0";
     }

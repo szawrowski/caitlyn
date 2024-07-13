@@ -84,7 +84,7 @@ public:
   }
 
 public:
-  [[nodiscard]] pwrnum_t add(const pwrnum_t& other) const {
+  __caitlyn_nodiscard pwrnum_t add(const pwrnum_t& other) const {
     pwrint_t this_fractional = fractional_part_;
     pwrint_t other_fractional = other.fractional_part_;
 
@@ -113,7 +113,7 @@ public:
                     fractional_result.to_string()};
   }
 
-  [[nodiscard]] pwrnum_t subtract(const pwrnum_t& other) const {
+  __caitlyn_nodiscard pwrnum_t subtract(const pwrnum_t& other) const {
     pwrint_t this_fractional = fractional_part_;
     pwrint_t other_fractional = other.fractional_part_;
 
@@ -142,7 +142,7 @@ public:
                     fractional_result.to_string()};
   }
 
-  [[nodiscard]] pwrnum_t multiply(const pwrnum_t& other) const {
+  __caitlyn_nodiscard pwrnum_t multiply(const pwrnum_t& other) const {
     // Convert both numbers to their full string representation without the
     // decimal point
     const std::string this_full =
@@ -175,7 +175,7 @@ public:
     return pwrnum_t{result_str};
   }
 
-  [[nodiscard]] pwrnum_t divide(const pwrnum_t& other) const {
+  __caitlyn_nodiscard pwrnum_t divide(const pwrnum_t& other) const {
     if (other.equal(pwrnum_t{"0"})) {
       throw std::invalid_argument{"Division by zero"};
     }
@@ -213,13 +213,13 @@ public:
   }
 
 public:
-  [[nodiscard]] pwrnum_t abs() const {
+  __caitlyn_nodiscard pwrnum_t abs() const {
     pwrnum_t result = *this;
     result.is_negative_ = false;
     return result;
   }
 
-  [[nodiscard]] pwrnum_t pow(int_t exponent) const {
+  __caitlyn_nodiscard pwrnum_t pow(int_t exponent) const {
     if (exponent < 0) {
       throw std::invalid_argument{"Negative exponent not supported"};
     }
@@ -236,9 +236,9 @@ public:
     return result;
   }
 
-  [[nodiscard]] pwrnum_t sqr() const { return this->multiply(*this); }
+  __caitlyn_nodiscard pwrnum_t sqr() const { return this->multiply(*this); }
 
-  [[nodiscard]] pwrnum_t sqrt() const {
+  __caitlyn_nodiscard pwrnum_t sqrt() const {
     if (is_negative_) {
       throw std::invalid_argument{"Square root of negative number"};
     }
@@ -265,17 +265,17 @@ public:
   }
 
 public:
-  [[nodiscard]] size_type size() const {
+  __caitlyn_nodiscard size_type size() const {
     return integer_part_.size() + fractional_part_.size();
   }
 
-  [[nodiscard]] bool_t equal(const pwrnum_t& other) const {
+  __caitlyn_nodiscard bool_t equal(const pwrnum_t& other) const {
     return integer_part_.equal(other.integer_part_) &&
            fractional_part_.equal(other.fractional_part_) &&
            is_negative_ == other.is_negative_;
   }
 
-  [[nodiscard]] bool_t less_than(const pwrnum_t& other) const {
+  __caitlyn_nodiscard bool_t less_than(const pwrnum_t& other) const {
     if (is_negative_ != other.is_negative_) {
       return is_negative_;
     }
@@ -288,11 +288,11 @@ public:
     return fractional_part_.less_than(other.fractional_part_);
   }
 
-  [[nodiscard]] bool_t greater_than(const pwrnum_t& other) const {
+  __caitlyn_nodiscard bool_t greater_than(const pwrnum_t& other) const {
     return !less_than(other) && !equal(other);
   }
 
-  [[nodiscard]] std::string to_string() const {
+  __caitlyn_nodiscard std::string to_string() const {
     std::string result = integer_part_.to_string();
     if (!fractional_part_.to_string().empty() &&
         fractional_part_.to_string() != "0") {

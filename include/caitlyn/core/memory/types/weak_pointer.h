@@ -83,7 +83,7 @@ public:
   }
 
 public:
-  [[nodiscard]] bool expired() const {
+  __caitlyn_nodiscard bool expired() const {
     return data_ == nullptr || !data_.get();
   }
 
