@@ -60,14 +60,14 @@ public:
     file_ << data;
   }
 
-  void write(const unicode_char<u8char_t>& data) {
+  void write(const unicode_char<char_t>& data) {
     if (!file_.is_open()) {
       open();
     }
     file_ << data;
   }
 
-  void write(const unicode_string<unicode_char<u8char_t>>& data) {
+  void write(const unicode_string<unicode_char<char_t>>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -96,14 +96,14 @@ public:
     file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void write_line(const unicode_char<u8char_t>& data) {
+  void write_line(const unicode_char<char_t>& data) {
     if (!file_.is_open()) {
       open();
     }
     file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void write_line(const unicode_string<unicode_char<u8char_t>>& data) {
+  void write_line(const unicode_string<unicode_char<char_t>>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -137,7 +137,7 @@ public:
     file_.flush();
   }
 
-  void append(const unicode_char<u8char_t>& data) {
+  void append(const unicode_char<char_t>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -146,7 +146,7 @@ public:
     file_.flush();
   }
 
-  void append(const unicode_string<unicode_char<u8char_t>>& data) {
+  void append(const unicode_string<unicode_char<char_t>>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -181,7 +181,7 @@ public:
     file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void append_line(const unicode_char<u8char_t>& data) {
+  void append_line(const unicode_char<char_t>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -189,7 +189,7 @@ public:
     file_ << data << get_char(ascii_t::line_feed);
   }
 
-  void append_line(const unicode_string<unicode_char<u8char_t>>& data) {
+  void append_line(const unicode_string<unicode_char<char_t>>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -226,9 +226,9 @@ private:
 
 }  // namespace cait
 
-inline cait::file_writer<cait::u8char_t> operator""_ofile(
+inline cait::file_writer<cait::char_t> operator""_ofile(
     const cait::char_t* filename, const cait::size_t) {
-  return cait::file_writer<cait::u8char_t>{filename};
+  return cait::file_writer<cait::char_t>{filename};
 }
 
 #endif  // CAITLYN_CORE_IO_TYPES_FILE_WRITER_H_

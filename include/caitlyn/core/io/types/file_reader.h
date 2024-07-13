@@ -46,7 +46,7 @@ public:
   }
 
 public:
-  __caitlyn_nodiscard unicode_string<unicode_char<u8char_t>> read() {
+  __caitlyn_nodiscard unicode_string<unicode_char<char_t>> read() {
     if (!file_.is_open()) {
       open();
     }
@@ -56,21 +56,21 @@ public:
 
     std::vector<char_t> buffer(size);
     if (file_.read(buffer.data(), size)) {
-      return unicode_string<unicode_char<u8char_t>>{
+      return unicode_string<unicode_char<char_t>>{
           std::string(buffer.data(), size)};
     }
-    return unicode_string<unicode_char<u8char_t>>{};
+    return unicode_string<unicode_char<char_t>>{};
   }
 
-  __caitlyn_nodiscard unicode_string<unicode_char<u8char_t>> read_line() {
+  __caitlyn_nodiscard unicode_string<unicode_char<char_t>> read_line() {
     if (!file_.is_open()) {
       open();
     }
     std::string line;
     if (std::getline(file_, line)) {
-      return unicode_string<unicode_char<u8char_t>>{line};
+      return unicode_string<unicode_char<char_t>>{line};
     }
-    return unicode_string<unicode_char<u8char_t>>{};
+    return unicode_string<unicode_char<char_t>>{};
   }
 
 private:
@@ -80,9 +80,9 @@ private:
 
 }  // namespace cait
 
-inline cait::file_reader<cait::u8char_t> operator""_ifile(
+inline cait::file_reader<cait::char_t> operator""_ifile(
     const cait::char_t* filename, const cait::size_t) {
-  return cait::file_reader<cait::u8char_t>{filename};
+  return cait::file_reader<cait::char_t>{filename};
 }
 
 #endif  // CAITLYN_CORE_IO_TYPES_FILE_READER_H_

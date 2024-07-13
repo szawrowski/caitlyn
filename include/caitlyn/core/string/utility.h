@@ -62,7 +62,7 @@ inline std::string to_lowercase(std::string value) {
 }
 
 inline std::string escape_string(const std::string& str) {
-  ostrstream_t oss;
+  std::ostringstream oss;
 
   for (size_t i = 0; i < str.size(); ++i) {
     if (str[i] == get_char(ascii_t::rev_solidus) && i + 1 < str.size()) {

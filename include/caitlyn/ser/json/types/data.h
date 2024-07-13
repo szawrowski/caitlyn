@@ -185,7 +185,7 @@ public:
         });
 
     if (it == object.end()) {
-      throw std::out_of_range("Key not found");
+      throw std::out_of_range{"Key not found"};
     }
     return *it->second;
   }
@@ -309,55 +309,59 @@ public:
 private:
   void make_output(std::ostringstream& oss, const boolean_type mangling,
                    const size_type base_indent, const size_type indent) const {
-    const string_type indent_str(indent, ' ');
+    const string_type indent_str(indent, get_char(ascii_t::space));
 
     switch (type_) {
       case class_t::object: {
-        oss << '{';
+        oss << get_char(ascii_t::left_curly_br);
         const auto& object = data_.object_value;
         if (!object.empty()) {
           if (mangling) {
-            oss << '\n';
+            oss << get_char(ascii_t::line_feed);
           }
           boolean_type first = true;
           for (const auto& member : object) {
             if (!first) {
-              oss << ',';
+              oss << get_char(ascii_t::comma);
               if (mangling) {
-                oss << '\n';
+                oss << get_char(ascii_t::line_feed);
               }
             }
             if (mangling) {
               oss << indent_str;
             }
-            oss << '"' << member.first << "\": ";
+            oss << get_char(ascii_t::quot_mark) << member.first
+                << get_char(ascii_t::quot_mark) << get_char(ascii_t::colon);
+            if (mangling) {
+              oss << get_char(ascii_t::space);
+            }
             member.second->make_output(oss, mangling, base_indent,
                                        indent + base_indent);
             first = false;
           }
           if (mangling) {
-            oss << '\n';
+            oss << get_char(ascii_t::line_feed);
           }
         }
         if (mangling) {
-          oss << string_type(indent - base_indent, ' ');
+          oss << string_type(indent - base_indent, get_char(ascii_t::space));
         }
-        oss << '}';
+        oss << get_char(ascii_t::right_curly_br);
         break;
       }
       case class_t::array: {
-        oss << '[';
+        oss << get_char(ascii_t::left_square_br);
         const auto& array = data_.array_value;
         if (!array.empty()) {
           if (mangling) {
-            oss << '\n';
+            oss << get_char(ascii_t::line_feed);
           }
           boolean_type first = true;
           for (const auto& value : array) {
             if (!first) {
-              oss << ',';
+              oss << get_char(ascii_t::comma);
               if (mangling) {
-                oss << '\n';
+                oss << get_char(ascii_t::line_feed);
               }
             }
             if (mangling) {
@@ -368,17 +372,18 @@ private:
             first = false;
           }
           if (mangling) {
-            oss << '\n';
+            oss << get_char(ascii_t::line_feed);
           }
         }
         if (mangling) {
-          oss << string_type(indent - base_indent, ' ');
+          oss << string_type(indent - base_indent, get_char(ascii_t::space));
         }
-        oss << ']';
+        oss << get_char(ascii_t::right_square_br);
         break;
       }
       case class_t::string:
-        oss << '"' << data_.string_value << '"';
+        oss << get_char(ascii_t::quot_mark) << data_.string_value
+            << get_char(ascii_t::quot_mark);
         break;
       case class_t::floating:
         oss << data_.floating_value;

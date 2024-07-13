@@ -37,12 +37,12 @@ error_t<E> make_error(E error) {
   return error_t<E>(error);
 }
 
-inline error_t<string_t> make_error(const char_t* error) {
-  return error_t<string_t>(string_t{error});
+inline error_t<std::string> make_error(const char_t* error) {
+  return error_t<std::string>(std::string{error});
 }
 
-inline error_t<string_t> make_error(const string_t& error) {
-  return error_t<string_t>(error);
+inline error_t<std::string> make_error(const std::string& error) {
+  return error_t<std::string>(error);
 }
 
 }  // namespace cait
