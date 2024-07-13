@@ -1,27 +1,38 @@
 cmake_minimum_required(VERSION 3.10)
 
 option(CAITLYN_DEV "Development mode" ON)
+option(CAITLYN_TEST "Build tests" OFF)
 option(CAITLYN_INSTALL "Install library" OFF)
 
 if (CAITLYN_INSTALL)
   set(CAITLYN_DEV OFF)
 endif()
 
+if (CAITLYN_DEV)
+  set(CAITLYN_TEST ON)
+endif()
+
 if(CAITLYN_DEV)
+  set(VCPKG_TOOLCHAIN_REL_PATH "vcpkg/scripts/buildsystems/vcpkg.cmake")
+
   if(UNIX)
-    set(TOOLCHAIN_PATH "$ENV{HOME}/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    set(TOOLCHAIN_PATH "$ENV{HOME}/${VCPKG_TOOLCHAIN_REL_PATH}")
   elseif(WIN32)
-    set(TOOLCHAIN_PATH "$ENV{HOMEPATH}/vcpkg/scripts/buildsystems/vcpkg.cmake")
+    set(TOOLCHAIN_PATH "$ENV{HOMEPATH}/${VCPKG_TOOLCHAIN_REL_PATH}")
   endif()
-  set(CMAKE_TOOLCHAIN_FILE ${TOOLCHAIN_PATH} CACHE STRING "Vcpkg toolchain file")
+
+  set(CMAKE_TOOLCHAIN_FILE ${TOOLCHAIN_PATH}
+      CACHE STRING "Vcpkg toolchain file")
 endif()
 
 set(CAITLYN_MAJOR_VERSION 1)
 set(CAITLYN_MINOR_VERSION 0)
 set(CAITLYN_PATCH_VERSION 0)
 
-set(CAITLYN_VERSION_STRING
-    "${CAITLYN_MAJOR_VERSION}.${CAITLYN_MINOR_VERSION}.${CAITLYN_PATCH_VERSION}")
+set(
+  CAITLYN_VERSION_STRING
+  "${CAITLYN_MAJOR_VERSION}.${CAITLYN_MINOR_VERSION}.${CAITLYN_PATCH_VERSION}"
+)
 
 project(caitlyn VERSION ${CAITLYN_VERSION_STRING} LANGUAGES CXX)
 
@@ -36,9 +47,12 @@ if(CAITLYN_DEV)
   else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
   endif()
+endif()
 
+if(CAITLYN_TEST)
   find_package(GTest CONFIG REQUIRED)
 
+  enable_testing()
   add_subdirectory(test)
 endif()
 
@@ -48,6 +62,13 @@ if(CAITLYN_INSTALL)
   set(CAITLYN_TARGET_NAME cait)
   set(CAITLYN_TARGET_NAMESPACE "${PROJECT_NAME}::")
   set(CAITLYN_INSTALL_PATH "lib/cmake/caitlyn")
+
+  set(CAITLYN_EXPORT_NAME "${PROJECT_NAME}Targets")
+
+  set(CAITLYN_CMAKE_ROOT_CONFIG_NAME "${PROJECT_NAME}Config.cmake.in")
+  set(CAITLYN_CMAKE_CONFIG_NAME "${PROJECT_NAME}Config.cmake")
+  set(CAITLYN_CMAKE_CONFIG_VERSION_NAME "${PROJECT_NAME}ConfigVersion.cmake")
+  set(CAITLYN_CMAKE_TARGETS_NAME "${PROJECT_NAME}Targets.cmake")
 
   add_library(${CAITLYN_TARGET_NAME} INTERFACE)
 
@@ -59,39 +80,39 @@ if(CAITLYN_INSTALL)
 
   include(CMakePackageConfigHelpers)
   write_basic_package_version_file(
-    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+    "${CMAKE_CURRENT_BINARY_DIR}/${CAITLYN_CMAKE_CONFIG_VERSION_NAME}"
     VERSION ${CAITLYN_VERSION_STRING}
     COMPATIBILITY AnyNewerVersion
   )
 
   configure_package_config_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/${PROJECT_NAME}Config.cmake.in"
-    "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/${CAITLYN_CMAKE_ROOT_CONFIG_NAME}"
+    "${CMAKE_CURRENT_BINARY_DIR}/${CAITLYN_CMAKE_CONFIG_NAME}"
     INSTALL_DESTINATION ${CAITLYN_INSTALL_PATH}
   )
 
   install(
     TARGETS ${CAITLYN_TARGET_NAME}
-    EXPORT "${PROJECT_NAME}Targets"
+    EXPORT ${CAITLYN_EXPORT_NAME}
     INCLUDES DESTINATION include
   )
 
   install(
-    EXPORT "${PROJECT_NAME}Targets"
-    FILE "${PROJECT_NAME}Targets.cmake"
+    EXPORT ${CAITLYN_EXPORT_NAME}
+    FILE ${CAITLYN_CMAKE_TARGETS_NAME}
     NAMESPACE ${CAITLYN_TARGET_NAMESPACE}
     DESTINATION ${CAITLYN_INSTALL_PATH}
   )
 
   install(
-    FILES "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Config.cmake"
-          "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}ConfigVersion.cmake"
+    FILES "${CMAKE_CURRENT_BINARY_DIR}/${CAITLYN_CMAKE_CONFIG_NAME}"
+          "${CMAKE_CURRENT_BINARY_DIR}/${CAITLYN_CMAKE_CONFIG_VERSION_NAME}"
     DESTINATION ${CAITLYN_INSTALL_PATH}
   )
 
   export(
-    EXPORT "${PROJECT_NAME}Targets"
-    FILE "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}Targets.cmake"
+    EXPORT ${CAITLYN_EXPORT_NAME}
+    FILE "${CMAKE_CURRENT_BINARY_DIR}/${CAITLYN_CMAKE_TARGETS_NAME}"
     NAMESPACE ${CAITLYN_TARGET_NAMESPACE}
   )
 endif()
