@@ -39,14 +39,16 @@
 // Operating system
 #if defined(__linux) || defined(__linux__) || defined(__gnu_linux__)
   #define __caitlyn_linux
-  #define __caitlyn_unix
 #elif defined(__APPLE__)
   #define __caitlyn_apple
-  #define __caitlyn_unix
 #elif defined(_WIN32)
   #define __caitlyn_windows
 #else
   #define __caitlyn_os_unknown
+#endif
+
+#if defined(__caitlyn_linux) || defined(__caitlyn_apple)
+  #define __caitlyn_unix
 #endif
 
 // Compiler detection
@@ -71,8 +73,6 @@
   #else
     #define __caitlyn_cxxstd __cplusplus
   #endif
-#else
-  #error "C++ standard macro undefined"
 #endif
 
 // C++ standard versions
@@ -215,74 +215,20 @@ using null_t = decltype(nullptr);
 
 }  // namespace cait
 
-// Integral
-inline cait::sbyte_t operator""_sbyte(const unsigned long long val) {
-  return static_cast<cait::sbyte_t>(val);
-}
+#if defined(__caitlyn_windows)
+  #define NOMINMAX
+  #include <windows.h>
+#endif
 
-inline cait::byte_t operator""_byte(const unsigned long long val) {
-  return static_cast<cait::byte_t>(val);
-}
+namespace cait {
 
-inline cait::int_t operator""_int(const unsigned long long val) {
-  return static_cast<cait::int_t>(val);
+#if defined(__caitlyn_windows)
+inline void set_windows_utf8_encode() {
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
 }
+#endif
 
-inline cait::uint_t operator""_uint(const unsigned long long val) {
-  return static_cast<cait::uint_t>(val);
-}
-
-inline cait::int8_t operator""_i8(const unsigned long long val) {
-  return static_cast<cait::int8_t>(val);
-}
-
-inline cait::uint8_t operator""_u8(const unsigned long long val) {
-  return static_cast<cait::uint8_t>(val);
-}
-
-inline cait::int16_t operator""_i16(const unsigned long long val) {
-  return static_cast<cait::int16_t>(val);
-}
-
-inline cait::uint16_t operator""_u16(const unsigned long long val) {
-  return static_cast<cait::uint16_t>(val);
-}
-
-inline cait::int32_t operator""_i32(const unsigned long long val) {
-  return static_cast<cait::int32_t>(val);
-}
-
-inline cait::uint32_t operator""_u32(const unsigned long long val) {
-  return static_cast<cait::uint32_t>(val);
-}
-
-inline cait::int64_t operator""_i64(const unsigned long long val) {
-  return static_cast<cait::int64_t>(val);
-}
-
-inline cait::uint64_t operator""_u64(const unsigned long long val) {
-  return static_cast<cait::uint64_t>(val);
-}
-
-inline cait::ssize_t operator""_sz(const unsigned long long val) {
-  return static_cast<cait::ssize_t>(val);
-}
-
-inline cait::size_t operator""_ssz(const unsigned long long val) {
-  return static_cast<cait::size_t>(val);
-}
-
-// Floating point
-inline cait::float32_t operator""_f32(const long double val) {
-  return static_cast<cait::float32_t>(val);
-}
-
-inline cait::float64_t operator""_f64(const long double val) {
-  return static_cast<cait::float64_t>(val);
-}
-
-inline cait::floatx_t operator""_fx(const long double val) {
-  return val;
-}
+}  // namespace cait
 
 #endif  // CAITLYN_BASE_H_

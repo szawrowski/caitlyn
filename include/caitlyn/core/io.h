@@ -36,20 +36,4 @@
   #include <spanstream>
 #endif
 
-#if defined(__caitlyn_windows)
-  #define NOMINMAX
-  #include <windows.h>
-#endif
-
-namespace cait {
-
-#if defined(__caitlyn_windows)
-inline void set_windows_utf8_encode() {
-  SetConsoleOutputCP(CP_UTF8);
-  SetConsoleCP(CP_UTF8);
-}
-#endif
-
-}  // namespace cait
-
 #endif  // CAITLYN_CORE_IO_H_
