@@ -22,10 +22,10 @@
 #include "caitlyn/test/types.h"
 
 #define ASSERT_TRUE(condition) \
-  if (!(condition)) throw std::runtime_error{"Assertion failed: " #condition};
+  if (!(condition)) throw std::runtime_error{"Assertion failed: " #condition}
 
 #define ASSERT_FALSE(condition) \
-  if (condition) throw std::runtime_error{"Assertion failed: " #condition};
+  if (condition) throw std::runtime_error{"Assertion failed: " #condition}
 
 #define ASSERT_EQ(val1, val2)                                      \
   if (!((val1) == (val2))) {                                       \
@@ -105,7 +105,7 @@
     }                                                                 \
   } while (false)
 
-#define PASS() ASSERT_TRUE(true);
-#define FAIL() cait::test::fail_message_t{__FILE__, __LINE__};
+#define PASS() ASSERT_TRUE(true)
+#define FAIL() cait::test::fail_message_t{__FILE__, __LINE__}
 
 #endif  // CAITLYN_TEST_MACRO_ASSERT_H_
