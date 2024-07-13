@@ -164,8 +164,13 @@ using char_t = char;
 using uchar_t = unsigned char;
 using schar_t = signed char;
 using xchar_t = wchar_t;
+
 // Unicode characters
+#if __caitlyn_has_cxx20
+using u8char_t = char8_t;
+#else
 using u8char_t = char_t;
+#endif
 using u16char_t = char16_t;
 using u32char_t = char32_t;
 
@@ -209,10 +214,6 @@ using bool_t = decltype(true);
 using null_t = decltype(nullptr);
 
 }  // namespace cait
-
-inline cait::char_t operator""_c(const char val) {
-  return val;
-}
 
 // Integral
 inline cait::sbyte_t operator""_sbyte(const unsigned long long val) {
