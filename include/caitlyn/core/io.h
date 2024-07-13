@@ -23,8 +23,8 @@
 #include <ios>
 #include <iosfwd>
 #include <iostream>
+#include <streambuf>
 
-#include "caitlyn/core/io/types.h"
 #include "caitlyn/core/io/print.h"
 
 #if __caitlyn_has_cxx20
@@ -35,5 +35,21 @@
   #include <print>
   #include <spanstream>
 #endif
+
+#if defined(__caitlyn_windows)
+  #define NOMINMAX
+  #include <windows.h>
+#endif
+
+namespace cait {
+
+#if defined(__caitlyn_windows)
+inline void set_windows_utf8_encode() {
+  SetConsoleOutputCP(CP_UTF8);
+  SetConsoleCP(CP_UTF8);
+}
+#endif
+
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_IO_H_

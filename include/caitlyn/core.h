@@ -23,6 +23,7 @@
 #include "caitlyn/core/containers.h"
 #include "caitlyn/core/date.h"
 #include "caitlyn/core/error.h"
+#include "caitlyn/core/file.h"
 #include "caitlyn/core/format.h"
 #include "caitlyn/core/io.h"
 #include "caitlyn/core/math.h"

@@ -18,7 +18,8 @@
 #ifndef CAITLYN_CORE_UNICODE_TYPES_CHAR_H_
 #define CAITLYN_CORE_UNICODE_TYPES_CHAR_H_
 
-#include "caitlyn/core/io/types/stream.h"
+#include <iostream>
+
 #include "caitlyn/core/unicode/utility.h"
 
 namespace cait {
