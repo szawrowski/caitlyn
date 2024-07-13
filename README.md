@@ -115,7 +115,7 @@ int main() {
 }
 ```
 
-- Read lines from file.
+- Read lines from file
 
 ```c++
 #include <caitlyn/core/file.h>
