@@ -6,6 +6,7 @@
 #ifndef CAITLYN_CORE_IO_TYPES_STREAM_H_
 #define CAITLYN_CORE_IO_TYPES_STREAM_H_
 
+#include <iostream>
 #include <streambuf>
 
 #include "caitlyn/base.h"
@@ -16,11 +17,6 @@
 #endif
 
 namespace cait {
-
-using istream_t = std::basic_istream<char_t>;
-using ostream_t = std::basic_ostream<char_t>;
-using iostream_t = std::basic_iostream<char_t>;
-using streambuf_t = std::basic_streambuf<char_t>;
 
 #if defined(__caitlyn_windows)
 inline void set_windows_utf8_encode() {

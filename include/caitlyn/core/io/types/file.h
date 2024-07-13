@@ -11,13 +11,8 @@
 
 namespace cait {
 
-using ifstream_t = std::basic_ifstream<char_t>;
-using ofstream_t = std::basic_ofstream<char_t>;
-using fstream_t = std::basic_fstream<char_t>;
-using filebuf_t = std::basic_filebuf<char_t>;
-
-using ifile = file_reader<u8char_t>;
-using ofile = file_writer<u8char_t>;
+using ifile = file_reader<char_t>;
+using ofile = file_writer<char_t>;
 
 }  // namespace cait
 
