@@ -15,18 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_CALCULATOR_H_
-#define CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_CALCULATOR_H_
+#ifndef CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_H_
+#define CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_H_
 
-#include "caitlyn/core/unicode/types/unicode_types.h"
+#include "caitlyn/core/unicode/types/code_point.h"
 
 namespace cait {
 
-template <typename CharT>
-size_t calculate_char_count(code_point_t code_point);
-
-template <>
-inline size_t calculate_char_count<u8char_t>(const code_point_t code_point) {
+inline size_t calculate_char_count(const code_point_t code_point) {
   if (code_point < 0x80) {
     return 1;
   }
@@ -41,4 +37,4 @@ inline size_t calculate_char_count<u8char_t>(const code_point_t code_point) {
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_CALCULATOR_H_
+#endif  // CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_H_

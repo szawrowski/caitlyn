@@ -18,8 +18,14 @@
 #ifndef CAITLYN_CORE_UNICODE_TYPES_H_
 #define CAITLYN_CORE_UNICODE_TYPES_H_
 
-#include "caitlyn/core/unicode/types/unicode_char.h"
-#include "caitlyn/core/unicode/types/unicode_string.h"
-#include "caitlyn/core/unicode/types/unicode_types.h"
+#include "caitlyn/core/unicode/types/char.h"
+#include "caitlyn/core/unicode/types/string.h"
+
+namespace cait {
+
+using unichar_t = unicode_char<char_t>;
+using unistring_t = unicode_string<unicode_char<char_t>>;
+
+}  // namespace cait
 
 #endif  // CAITLYN_CORE_UNICODE_TYPES_H_

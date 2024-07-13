@@ -19,5 +19,6 @@
 #define CAITLYN_CORE_UNICODE_UTILITY_
 
 #include "caitlyn/core/unicode/utility/converters.h"
+#include "caitlyn/core/unicode/utility/sequence.h"
 
 #endif // CAITLYN_CORE_UNICODE_UTILITY_

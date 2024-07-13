@@ -15,25 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_UNICODE_TYPES_UNICODE_CHAR_SEQUENCE_H_
-#define CAITLYN_CORE_UNICODE_TYPES_UNICODE_CHAR_SEQUENCE_H_
-
-#include <tuple>
+#ifndef CAITLYN_CORE_UNICODE_TYPES_CODE_POINT_H_
+#define CAITLYN_CORE_UNICODE_TYPES_CODE_POINT_H_
 
 #include "caitlyn/base.h"
 
 namespace cait {
 
-template <typename CharT>
-class char_seq_t;
-
-template <>
-class char_seq_t<u8char_t> {
-public:
-  using value_type = u8char_t;
-  using type = std::tuple<u8char_t, u8char_t, u8char_t, u8char_t>;
-};
+using code_point_t = uint32_t;
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_UNICODE_TYPES_UNICODE_CHAR_SEQUENCE_H_
+#endif  // CAITLYN_CORE_UNICODE_TYPES_CODE_POINT_H_
