@@ -68,4 +68,8 @@ std::string fmt(const std::string& str, Args&&... args) {
 
 }  // namespace cait
 
+#if __caitlyn_has_cxx20
+  #include <format>
+#endif
+
 #endif  // CAITLYN_CORE_FORMAT_H_
