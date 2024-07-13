@@ -1,6 +1,5 @@
-#include <gtest/gtest.h>
-
 #include "caitlyn/ser/json.h"
+#include "caitlyn/test.h"
 
 TEST(JsonTest, UnexpectedCharsFront) {
   const auto config = json_str(unexpected {"name": "John Doe","age": 30});

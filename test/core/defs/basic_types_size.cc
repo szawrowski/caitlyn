@@ -1,6 +1,4 @@
-#include <gtest/gtest.h>
-
-#include "caitlyn/base.h"
+#include "caitlyn/test.h"
 
 TEST(CoreDefsTest, BasicTypesSizeUnix) {
 #if defined(__caitlyn_unix) && (__caitlyn_arch == 64)

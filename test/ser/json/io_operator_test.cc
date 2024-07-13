@@ -1,7 +1,5 @@
-#include <gtest/gtest.h>
-
 #include "caitlyn/ser/json.h"
-#include "caitlyn/core/io.h"
+#include "caitlyn/test.h"
 
 TEST(JsonTest, IoOperator) {
   const auto oconfig = json_str(

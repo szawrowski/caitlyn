@@ -1,6 +1,5 @@
-#include <gtest/gtest.h>
-
 #include "caitlyn/core/error.h"
+#include "caitlyn/test.h"
 
 TEST(ResultTest, OnError) {
   const cait::result_t<int, std::string> result{

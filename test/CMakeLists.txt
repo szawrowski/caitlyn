@@ -6,6 +6,4 @@ add_executable(${PROJECT_NAME} ${TEST_SOURCES})
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${CAITLYN_INCLUDE_DIR})
 
-target_link_libraries(${PROJECT_NAME} PRIVATE GTest::gtest GTest::gtest_main)
-
 add_test(NAME ${PROJECT_NAME} COMMAND $<TARGET_FILE:${PROJECT_NAME}>)

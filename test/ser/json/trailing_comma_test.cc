@@ -1,6 +1,5 @@
-#include <gtest/gtest.h>
-
 #include "caitlyn/ser/json.h"
+#include "caitlyn/test.h"
 
 TEST(JsonTest, TrailingCommaInObject) {
   const auto config = json_str({"key" : "value",});

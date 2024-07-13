@@ -1,6 +1,5 @@
-#include <gtest/gtest.h>
-
 #include "caitlyn/ser/json.h"
+#include "caitlyn/test.h"
 
 TEST(JsonTest, CorrectJsonMacroDocument) {
   auto config = cait::make_json();

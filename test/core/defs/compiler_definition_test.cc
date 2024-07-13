@@ -1,6 +1,4 @@
-#include <gtest/gtest.h>
-
-#include "caitlyn/base.h"
+#include "caitlyn/test.h"
 
 TEST(CoreDefsTest, CompilerDefinition) {
 #if defined(__clang__)

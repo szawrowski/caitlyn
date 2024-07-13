@@ -1,6 +1,5 @@
-#include <gtest/gtest.h>
-
 #include "caitlyn/core/error.h"
+#include "caitlyn/test.h"
 
 TEST(ResultTest, Customize) {
   const auto result = cait::result_t<int, std::string>(42);
