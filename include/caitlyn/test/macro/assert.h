@@ -22,17 +22,17 @@
 #include "caitlyn/test/types.h"
 
 #define ASSERT_TRUE(condition) \
-  if (!(condition)) throw std::runtime_error("Assertion failed: " #condition)
+  if (!(condition)) throw std::runtime_error{"Assertion failed: " #condition};
 
 #define ASSERT_FALSE(condition) \
-  if (condition) throw std::runtime_error("Assertion failed: " #condition)
+  if (condition) throw std::runtime_error{"Assertion failed: " #condition};
 
 #define ASSERT_EQ(val1, val2)                                      \
   if (!((val1) == (val2))) {                                       \
     std::ostringstream oss;                                        \
     oss << "Assertion failed: " #val1 " == " #val2 << " (" << val1 \
         << " != " << val2 << ")";                                  \
-    throw std::runtime_error(oss.str());                           \
+    throw std::runtime_error{oss.str()};                           \
   }
 
 #define ASSERT_NE(val1, val2)                                      \
@@ -40,7 +40,7 @@
     std::ostringstream oss;                                        \
     oss << "Assertion failed: " #val1 " != " #val2 << " (" << val1 \
         << " == " << val2 << ")";                                  \
-    throw std::runtime_error(oss.str());                           \
+    throw std::runtime_error{oss.str()};                           \
   }
 
 #define ASSERT_LT(val1, val2)                                     \
@@ -48,7 +48,7 @@
     std::ostringstream oss;                                       \
     oss << "Assertion failed: " #val1 " < " #val2 << " (" << val1 \
         << " >= " << val2 << ")";                                 \
-    throw std::runtime_error(oss.str());                          \
+    throw std::runtime_error{oss.str()};                          \
   }
 
 #define ASSERT_LE(val1, val2)                                               \
@@ -56,7 +56,7 @@
     std::ostringstream oss;                                                 \
     oss << "Assertion failed: " #val1 " <= " #val2 << " (" << val1 << " > " \
         << val2 << ")";                                                     \
-    throw std::runtime_error(oss.str());                                    \
+    throw std::runtime_error{oss.str()};                                    \
   }
 
 #define ASSERT_GT(val1, val2)                                     \
@@ -64,7 +64,7 @@
     std::ostringstream oss;                                       \
     oss << "Assertion failed: " #val1 " > " #val2 << " (" << val1 \
         << " <= " << val2 << ")";                                 \
-    throw std::runtime_error(oss.str());                          \
+    throw std::runtime_error{oss.str()};                          \
   }
 
 #define ASSERT_GE(val1, val2)                                               \
@@ -72,7 +72,7 @@
     std::ostringstream oss;                                                 \
     oss << "Assertion failed: " #val1 " >= " #val2 << " (" << val1 << " < " \
         << val2 << ")";                                                     \
-    throw std::runtime_error(oss.str());                                    \
+    throw std::runtime_error{oss.str()};                                    \
   }
 
 #define ASSERT_EQ_PRINTABLE(val1, val2)                                  \
@@ -83,7 +83,29 @@
     std::ostringstream oss;                                              \
     oss << "Assertion failed: " #val1 " == " #val2 << " (" << val1       \
         << " != " << val2 << ")";                                        \
-    throw std::runtime_error(oss.str());                                 \
+    throw std::runtime_error{oss.str()};                                 \
   }
+
+#define ASSERT_STREQ(expected, actual)                                \
+  do {                                                                \
+    if ((expected) == nullptr && (actual) == nullptr) {               \
+      break;                                                          \
+    } else if ((expected) == nullptr) {                               \
+      std::cerr << "Assertion failed: Expected nullptr, but got \""   \
+                << (actual) << "\"" << std::endl;                     \
+      std::abort();                                                   \
+    } else if ((actual) == nullptr) {                                 \
+      std::cerr << "Assertion failed: Expected \"" << (expected)      \
+                << "\", but got nullptr" << std::endl;                \
+      std::abort();                                                   \
+    } else if (std::strcmp((expected), (actual)) != 0) {              \
+      std::cerr << "Assertion failed: Expected \"" << (expected)      \
+                << "\", but got \"" << (actual) << "\"" << std::endl; \
+      std::abort();                                                   \
+    }                                                                 \
+  } while (false)
+
+#define PASS() ASSERT_TRUE(true);
+#define FAIL() cait::test::fail_message_t{__FILE__, __LINE__};
 
 #endif  // CAITLYN_TEST_MACRO_ASSERT_H_
