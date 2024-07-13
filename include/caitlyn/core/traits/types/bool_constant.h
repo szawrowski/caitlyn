@@ -15,10 +15,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TREITS_H_
-#define CAITLYN_CORE_TREITS_H_
+#ifndef CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
+#define CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
 
-#include "caitlyn/core/traits/constraints.h"
-#include "caitlyn/core/traits/types.h"
+namespace cait {
+namespace traits {
 
-#endif  // CAITLYN_CORE_TREITS_H_
+template <bool B>
+struct bool_constant_t {
+  static constexpr bool_t value = B;
+  using value_type = bool_t;
+  using type = bool_constant_t;
+  constexpr explicit operator value_type() const noexcept { return value; }
+  constexpr value_type operator()() const noexcept { return value; }
+};
+
+}  // namespace traits
+
+using true_t = traits::bool_constant_t<true>;
+using false_t = traits::bool_constant_t<false>;
+
+}  // namespace cait
+
+#endif  // CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_

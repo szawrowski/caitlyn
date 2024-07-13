@@ -15,10 +15,26 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TREITS_H_
-#define CAITLYN_CORE_TREITS_H_
+#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_OBJECT_H
+#define CAITLYN_CORE_TRAITS_CONSTRAINTS_OBJECT_H
 
-#include "caitlyn/core/traits/constraints.h"
-#include "caitlyn/core/traits/types.h"
+#include <type_traits>
 
-#endif  // CAITLYN_CORE_TREITS_H_
+namespace cait {
+
+template <typename T>
+struct has_destructor {
+private:
+  template <typename U>
+  static auto check(U*) -> decltype(std::declval<U>().~U(), std::true_type{});
+
+  template <typename>
+  static std::false_type check(...);
+
+public:
+  static constexpr bool value = decltype(check<T>(nullptr))::value;
+};
+
+}  // namespace cait
+
+#endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_OBJECT_H

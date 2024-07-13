@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TRAITS_OPERATORS_H
-#define CAITLYN_CORE_TRAITS_OPERATORS_H
+#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_OPERATORS_H
+#define CAITLYN_CORE_TRAITS_CONSTRAINTS_OPERATORS_H
 
 #include <type_traits>
 
@@ -260,4 +260,4 @@ public:
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_TRAITS_OPERATORS_H
+#endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_OPERATORS_H

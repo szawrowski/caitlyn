@@ -15,10 +15,31 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TREITS_H_
-#define CAITLYN_CORE_TREITS_H_
+#ifndef CAITLUN_CORE_TRAITS_TYPES_SAME_H_
+#define CAITLUN_CORE_TRAITS_TYPES_SAME_H_
 
-#include "caitlyn/core/traits/constraints.h"
-#include "caitlyn/core/traits/types.h"
+#include "caitlyn/core/traits/types/bool_constant.h"
 
-#endif  // CAITLYN_CORE_TREITS_H_
+namespace cait {
+
+template <typename T, typename U>
+struct same {
+private:
+  template <typename V>
+  static auto check(T*, V*) -> true_t;
+
+  template <typename, typename>
+  static false_t check(...);
+
+public:
+  static constexpr bool value = decltype(check<T, U>(nullptr, nullptr))::value;
+};
+
+template <typename T, typename U>
+struct not_same {
+  static constexpr bool value = !same<T, U>::value;
+};
+
+}  // namespace cait
+
+#endif  // CAITLUN_CORE_TRAITS_TYPES_SAME_H_

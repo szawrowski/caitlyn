@@ -15,10 +15,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TREITS_H_
-#define CAITLYN_CORE_TREITS_H_
+#ifndef CAITLUN_CORE_TRAITS_TYPES_REQUIRES_H_
+#define CAITLUN_CORE_TRAITS_TYPES_REQUIRES_H_
 
-#include "caitlyn/core/traits/constraints.h"
-#include "caitlyn/core/traits/types.h"
+namespace cait {
+namespace traits {
+namespace __detail {
 
-#endif  // CAITLYN_CORE_TREITS_H_
+template <bool B, typename T = void>
+struct requires_impl_t {};
+
+template <typename T>
+struct requires_impl_t<true, T> {
+  using type = T;
+};
+
+}  // namespace __detail
+}  // namespace traits
+
+template <bool B, typename T = void>
+using requires_t = typename traits::__detail::requires_impl_t<B, T>::type;
+
+}  // namespace cait
+
+#endif  // CAITLUN_CORE_TRAITS_TYPES_REQUIRES_H_

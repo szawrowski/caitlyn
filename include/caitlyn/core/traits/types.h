@@ -15,10 +15,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TREITS_H_
-#define CAITLYN_CORE_TREITS_H_
+#ifndef CAITLIN_CORE_TRAITS_TYPES_H_
+#define CAITLIN_CORE_TRAITS_TYPES_H_
 
-#include "caitlyn/core/traits/constraints.h"
-#include "caitlyn/core/traits/types.h"
+#include "caitlyn/core/traits/types/bool_constant.h"
+#include "caitlyn/core/traits/types/floating.h"
+#include "caitlyn/core/traits/types/integral.h"
+#include "caitlyn/core/traits/types/requires.h"
+#include "caitlyn/core/traits/types/same.h"
 
-#endif  // CAITLYN_CORE_TREITS_H_
+#endif  // CAITLIN_CORE_TRAITS_TYPES_H_
