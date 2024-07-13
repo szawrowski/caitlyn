@@ -25,7 +25,7 @@ TEST(CoreUnicodeTest, StringAssignmentOperator) {
 
 TEST(CoreUnicodeTest, OutputStreamOperator) {
   const cait::unistring_t str = "Some string. 🙂";
-  std::basic_ostringstream<cait::u8char_t> oss;
+  std::ostringstream oss;
   oss << str;
 
   ASSERT_TRUE(oss.str() == "Some string. 🙂");
