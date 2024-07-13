@@ -14,8 +14,8 @@ enhance productivity for everyday tasks.
 - JSON Serializing
 - Error Handling
 - Arbitrary Precision Arithmetic
+- Unit Testing
 - Utilities
-- Testing
 
 Supported Platforms: **Linux, Windows, macOS**\
 Supported Standard: **C++11** and higher
