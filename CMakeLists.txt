@@ -12,19 +12,6 @@ if (CAITLYN_DEV)
   set(CAITLYN_TEST ON)
 endif()
 
-if(CAITLYN_DEV)
-  set(VCPKG_TOOLCHAIN_REL_PATH "vcpkg/scripts/buildsystems/vcpkg.cmake")
-
-  if(UNIX)
-    set(TOOLCHAIN_PATH "$ENV{HOME}/${VCPKG_TOOLCHAIN_REL_PATH}")
-  elseif(WIN32)
-    set(TOOLCHAIN_PATH "$ENV{HOMEPATH}/${VCPKG_TOOLCHAIN_REL_PATH}")
-  endif()
-
-  set(CMAKE_TOOLCHAIN_FILE ${TOOLCHAIN_PATH}
-      CACHE STRING "Vcpkg toolchain file")
-endif()
-
 set(CAITLYN_MAJOR_VERSION 1)
 set(CAITLYN_MINOR_VERSION 0)
 set(CAITLYN_PATCH_VERSION 0)
@@ -50,8 +37,6 @@ if(CAITLYN_DEV)
 endif()
 
 if(CAITLYN_TEST)
-  find_package(GTest CONFIG REQUIRED)
-
   enable_testing()
   add_subdirectory(test)
 endif()
