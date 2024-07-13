@@ -1,12 +1,10 @@
 #include <gtest/gtest.h>
 
 #include "caitlyn/core/error.h"
-#include "caitlyn/core/string.h"
 
 TEST(ResultTest, UnwrapOrElse) {
-  const cait::result_t<int, cait::string_t> result{
+  const cait::result_t<int, std::string> result{
       cait::make_error("Error message")};
 
-  ASSERT_EQ(result.unwrap_or_else([](const cait::string_t&) { return 42; }),
-            42);
+  ASSERT_EQ(result.unwrap_or_else([](const std::string&) { return 42; }), 42);
 }

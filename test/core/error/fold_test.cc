@@ -1,10 +1,9 @@
 #include <gtest/gtest.h>
 
 #include "caitlyn/core/error.h"
-#include "caitlyn/core/string.h"
 
 TEST(ResultTest, FoldValue) {
-  const auto result = cait::make_result<int, cait::string_t>(42) ;
+  const auto result = cait::make_result<int, std::string>(42);
 
   const auto folded = result.fold(
       10, [](const int acc, const int value) { return acc + value; });
@@ -13,7 +12,7 @@ TEST(ResultTest, FoldValue) {
 }
 
 TEST(ResultTest, FoldError) {
-  const cait::result_t<int, cait::string_t> result{
+  const cait::result_t<int, std::string> result{
       cait::make_error("Error message")};
 
   const auto folded = result.fold(
