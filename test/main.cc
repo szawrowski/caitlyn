@@ -1,5 +1,6 @@
-#include "caitlyn/test.h"
+#include <caitlyn/test.h>
 
 int main() {
-    return cait::test::registry_t::instance().run_all();
+  cait::test::registry_t::instance().run_all();
+  return 0;
 }
