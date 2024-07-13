@@ -48,16 +48,16 @@ project(ProjectName)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Define the path to Caitlyn library
+# Specify the path to external dependencies
 list(APPEND CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/external/caitlyn")
 
-# Find Caitlyn configuration
+# Find and include the Caitlyn package configuration
 find_package(caitlyn CONFIG REQUIRED)
 
-# Add your main executable
+# Create an executable target from main.cpp
 add_executable(${PROJECT_NAME} main.cpp)
 
-# Link Caitlyn library
+# Link the executable with Caitlyn library
 target_link_libraries(${PROJECT_NAME} PRIVATE caitlyn::cait)
 ```
 
