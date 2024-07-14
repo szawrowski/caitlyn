@@ -50,6 +50,14 @@ void print(const std::string& str, Args&&... args) {
   std::cout << format(str, std::forward<Args>(args)...);
 }
 
+inline void println() {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cout << get_char(ascii_t::line_feed);
+}
+
 inline void println(const std::string& str) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
