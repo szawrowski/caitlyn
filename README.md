@@ -123,7 +123,7 @@ int main() {
 
   const auto formatted = cait::format("{} {}", string, emoji);
 
-  auto content = cait::make_text("Text:");
+  auto content = cait::make_text("Text: ");
   content.append("Lorem ipsum dolor sit amet, ");
   content.append_line("consectetur adipiscing elit...");
   content.append_line(formatted);
