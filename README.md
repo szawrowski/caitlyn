@@ -429,8 +429,8 @@ int main() {
 [ RUN      ] MathTests.TestAddition
 [       OK ] MathTests.TestAddition (0 ms)
 [ RUN      ] MathTests.TestFailure
-[  FAILED  ] MathTests.TestFailure (0 ms)
-             Assertion failed: 2 + 2 == 5 (4 != 5)
+[     FAIL ] MathTests.TestFailure (0 ms)
+[   INFO   ] Assertion failed: 2 + 2 == 5 (4 != 5)
 [----------] 2 tests from MathTests (0 ms total)
 
 [----------] Global test environment tear-down
