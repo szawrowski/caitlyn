@@ -403,19 +403,19 @@ int main() {
 
 ### Type Traits
 
-- `required` - Provides a more elegant alternative to std::enable_if
+- `required_t` - Provides a more elegant alternative to std::enable_if
 
 **Usage**
 
 The `add` function template accepts two parameters of type `T` and returns
 their sum. This function only works with integral types, enforced using
-`std::is_integral` type trait and SFINAE (Substitution Failure Is Not An Error)
-with the `required` macro.
+`cait::is_integral` function and SFINAE (Substitution Failure Is Not An Error)
+with the `required_t`.
 
 ```c++
 #include <caitlyn/core/traits.h>
 
-template <typename T, typename = required(std::is_integral<T>::value)>
+template <typename T, typename = cait::required_t<cait::is_integral<T>()>>
 T add(const T lhs, const T rhs) {
   return lhs + rhs;
 }
