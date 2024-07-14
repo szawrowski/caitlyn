@@ -16,7 +16,7 @@ enhance productivity for everyday tasks.
 - [Numeric](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#numeric)
 - [Type Traits](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#type-traits)
 - [Unit Testing](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unit-testing)
-- Utilities
+- [Utilities](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#utilities)
 
 Supported Platforms: **Linux, Windows, macOS**\
 Supported Standard: **C++11** or later
@@ -498,4 +498,34 @@ int main() {
 [  FAILED  ] MathTests.TestFailure
 
 1 FAILED TEST
+```
+
+### Utilities
+
+- Get keys and values from a map using `get_map_keys` and `get_map_values`
+
+```c++
+#include <caitlyn/core/containers.h>
+#include <caitlyn/core/io/print.h>
+#include <caitlyn/core/string.h>
+
+int main() {
+  const auto map = std::map<int, std::string>{
+      {1, "One"}, {2, "Two"}, {3, "Three"}, {4, "Four"}, {5, "Five"}};
+
+  for (auto& key : cait::get_map_keys(map)) {
+    cait::print("{} ", key);
+  }
+  cait::println();
+
+  for (auto& value : cait::get_map_values(map)) {
+    cait::print("{} ", value);
+  }
+  return 0;
+}
+```
+
+```text
+1 2 3 4 5
+One Two Three Four Five
 ```
