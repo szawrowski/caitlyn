@@ -19,8 +19,7 @@
 #define CAITLIN_CORE_TRAITS_TYPES_H_
 
 #include "caitlyn/core/traits/types/bool_constant.h"
-#include "caitlyn/core/traits/types/floating.h"
-#include "caitlyn/core/traits/types/integral.h"
+#include "caitlyn/core/traits/types/primary.h"
 #include "caitlyn/core/traits/types/required.h"
 #include "caitlyn/core/traits/types/same.h"
 

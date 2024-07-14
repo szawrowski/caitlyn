@@ -21,21 +21,19 @@
 namespace cait {
 namespace traits {
 
-template <bool B, typename T = void>
-struct required_t {};
+template<bool Condition, typename Ret = void>
+struct constraint_t {};
 
-template <typename T>
-struct required_t<true, T> {
-  using type = T;
+template<typename Ret>
+struct constraint_t<true, Ret> {
+  using type = Ret;
 };
 
 }  // namespace traits
 
-template <bool B, typename T = void>
-using required_t = typename traits::required_t<B, T>::type;
+template <bool Condition, typename Ret = void>
+using required_t = typename traits::constraint_t<Condition, Ret>::type;
 
 }  // namespace cait
-
-#define required(...) typename cait::required_t<__VA_ARGS__>
 
 #endif  // CAITLUN_CORE_TRAITS_TYPES_REQUIRED_H_
