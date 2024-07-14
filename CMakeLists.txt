@@ -23,14 +23,14 @@ set(
 
 project(caitlyn VERSION ${CAITLYN_VERSION_STRING} LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CAITLYN_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 if(CAITLYN_DEV)
   if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    set(CMAKE_CXX_FLAGS "/std:c++14 /EHsc /Wall /W3 /permissive")
+    set(CMAKE_CXX_FLAGS "/std:c++11 /EHsc /Wall /W3 /permissive")
   else()
     list(APPEND CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
   endif()
