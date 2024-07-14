@@ -116,7 +116,7 @@ private:
   void log_test_failure(const case_t& test, const std::string& message) const {
     std::cout << "[     FAIL ] " << test.suite_name << '.' << test.test_name
               << " (" << local_difference_.count() << " ms)\n"
-              << "[   INFO   ] " << message << "\n";
+              << "[     INFO ] " << message << "\n";
   }
 
   static void log_suite_end(const std::string& suite_name,
