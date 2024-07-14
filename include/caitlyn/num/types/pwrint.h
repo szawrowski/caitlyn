@@ -18,6 +18,7 @@
 #ifndef CAITLYN_NUM_TYPES_PWRINT_H_
 #define CAITLYN_NUM_TYPES_PWRINT_H_
 
+#include <algorithm>
 #include <ostream>
 #include <stdexcept>
 #include <string>

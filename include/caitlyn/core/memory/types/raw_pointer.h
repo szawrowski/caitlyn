@@ -18,7 +18,7 @@
 #ifndef CAITLYN_CORE_MEMORY_TYPES_RAW_POINTER_H_
 #define CAITLYN_CORE_MEMORY_TYPES_RAW_POINTER_H_
 
-#include "caitlyn/base.h"
+#include <stdexcept>
 
 namespace cait {
 
