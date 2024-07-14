@@ -27,7 +27,7 @@ public:
 
   void add_test(const std::string& suite_name, const std::string& test_name,
                 const function_t func) {
-    tests_[suite_name].emplace_back(case_t{suite_name, test_name, func});
+    tests_[suite_name].emplace_back(suite_name, test_name, func);
     ++total_;
   }
 

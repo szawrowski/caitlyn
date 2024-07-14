@@ -19,6 +19,7 @@
 #define CAITLYN_TEST_TYPES_CASE_H_
 
 #include <string>
+#include <utility>
 
 #include "caitlyn/test/types/function.h"
 
@@ -29,7 +30,14 @@ struct case_t {
   std::string suite_name;
   std::string test_name;
   function_t function;
-  bool passed = false;
+  bool passed;
+
+  case_t(std::string suite, std::string name, const function_t func)
+      : suite_name{std::move(suite)},
+        test_name{std::move(name)},
+        function{func},
+        passed{false} {}
+  ~case_t() = default;
 };
 
 }  // namespace test
