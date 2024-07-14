@@ -123,7 +123,7 @@ int main() {
 
   const auto formatted = cait::format("{} {}", string, emoji);
 
-  auto content = cait::make_text();
+  auto content = cait::make_text("Text:");
   content.append("Lorem ipsum dolor sit amet, ");
   content.append_line("consectetur adipiscing elit...");
   content.append_line(formatted);
@@ -152,10 +152,10 @@ Hello, 世界! 🙂
 int main() {
   const auto some = "Lorem ipsum dolor sit amet,";
   const auto other = "consectetur adipiscing elit...";
-  const auto unicode = "Hello, 世界! 🙂";
+  const auto unicode = "Hello, 世界!";
 
   auto file = "somefile.txt"_file;
-  file.write("Text: {} {}\n{}", some, other, unicode);
+  file.write("{} {}\n{}", some, other, unicode);
   file.close();
   
   return 0;
@@ -165,8 +165,8 @@ int main() {
 - File (_somefile.txt_)
 
 ```text
-Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-Hello, 世界! 🙂
+Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+Hello, 世界!
 ```
 
 - Read lines from file
@@ -186,8 +186,8 @@ int main() {
 ```
 
 ```text
-Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-Hello, 世界! 🙂
+Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+Hello, 世界!
 ```
 
 ### Serializing
