@@ -1,9 +1,9 @@
-project("${CMAKE_PROJECT_NAME}_test")
+project("${CMAKE_PROJECT_NAME}Test")
 
 file(GLOB_RECURSE TEST_SOURCES "${CMAKE_CURRENT_SOURCE_DIR}/*.cc")
 
 add_executable(${PROJECT_NAME} ${TEST_SOURCES})
 
-target_include_directories(${PROJECT_NAME} PRIVATE ${CAITLYN_INCLUDE_DIR})
+target_include_directories(${PROJECT_NAME} PRIVATE ${LIB_INCLUDE_DIR})
 
 add_test(NAME ${PROJECT_NAME} COMMAND $<TARGET_FILE:${PROJECT_NAME}>)

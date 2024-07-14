@@ -1,7 +1,7 @@
 
 ####### Expanded from @PACKAGE_INIT@ by configure_package_config_file() #######
 ####### Any changes to this file will be overwritten by the next CMake run ####
-####### The input file was caitlynConfig.cmake.in                            ########
+####### The input file was CaitlynConfig.cmake.in                            ########
 
 get_filename_component(PACKAGE_PREFIX_DIR "${CMAKE_CURRENT_LIST_DIR}/../../../" ABSOLUTE)
 
@@ -29,4 +29,4 @@ set(PACKAGE_PREFIX_DIR "${CMAKE_CURRENT_LIST_DIR}/../../..")
 set_and_check(PACKAGE_INCLUDE_INSTALL_DIR "${PACKAGE_PREFIX_DIR}/include")
 set_and_check(PACKAGE_CMAKE_INSTALL_DIR "${PACKAGE_PREFIX_DIR}/lib/cmake/caitlyn")
 
-include("${PACKAGE_CMAKE_INSTALL_DIR}/caitlynTargets.cmake")
+include("${PACKAGE_CMAKE_INSTALL_DIR}/CaitlynTargets.cmake")
