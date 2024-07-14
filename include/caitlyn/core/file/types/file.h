@@ -155,11 +155,20 @@ public:
   }
 
   template <typename T>
-  required_t<is_convertible_to_string<T>()> write(const T& data) {
+  required_t<convertible_to_string<T>()> write(const T& data) {
     if (!file_.is_open()) {
       open();
     }
     file_ << data.to_string();
+    file_.flush();
+  }
+
+  template <typename T>
+  required_t<has_str<T>()> write(const T& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << data.str();
     file_.flush();
   }
 
@@ -189,11 +198,20 @@ public:
   }
 
   template <typename T>
-  required_t<is_convertible_to_string<T>()> write_line(const T& data) {
+  required_t<convertible_to_string<T>()> write_line(const T& data) {
     if (!file_.is_open()) {
       open();
     }
     file_ << data.to_string() << get_char(ascii_t::line_feed);
+    file_.flush();
+  }
+
+  template <typename T>
+  required_t<has_str<T>()> write_line(const T& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << data.str() << get_char(ascii_t::line_feed);
     file_.flush();
   }
 
@@ -226,12 +244,22 @@ public:
   }
 
   template <typename T>
-  required_t<is_convertible_to_string<T>()> append(const T& data) {
+  required_t<convertible_to_string<T>()> append(const T& data) {
     if (!file_.is_open()) {
       open();
     }
     file_.seekp(0, std::ios::end);
     file_ << data.to_string();
+    file_.flush();
+  }
+
+  template <typename T>
+  required_t<has_str<T>()> append(const T& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << data.str();
     file_.flush();
   }
 
@@ -264,12 +292,22 @@ public:
   }
 
   template <typename T>
-  required_t<is_convertible_to_string<T>()> append_line(const T& data) {
+  required_t<convertible_to_string<T>()> append_line(const T& data) {
     if (!file_.is_open()) {
       open();
     }
     file_.seekp(0, std::ios::end);
     file_ << data.to_string() << get_char(ascii_t::line_feed);
+    file_.flush();
+  }
+
+  template <typename T>
+  required_t<has_str<T>()> append_line(const T& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << data.str() << get_char(ascii_t::line_feed);
     file_.flush();
   }
 

@@ -41,8 +41,13 @@ struct has_str_t<
 }  // namespace traits
 
 template <typename T>
-constexpr bool is_convertible_to_string() {
-  return traits::has_to_string_t<T>::value || traits::has_str_t<T>::value;
+constexpr bool has_str() {
+  return traits::has_str_t<T>::value;
+}
+
+template <typename T>
+constexpr bool convertible_to_string() {
+  return traits::has_to_string_t<T>::value;
 }
 
 }  // namespace cait

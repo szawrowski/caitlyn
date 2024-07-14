@@ -121,9 +121,15 @@ inline std::string to_string(const char* value, const format_spec_t& spec) {
 }
 
 template <typename T>
-required_t<is_convertible_to_string<T>(), std::string> to_string(
+required_t<convertible_to_string<T>(), std::string> to_string(
     const T& value, const format_spec_t& spec) {
   return to_string(value.to_string(), spec);
+}
+
+template <typename T>
+required_t<has_str<T>(), std::string> to_string(const T& value,
+                                                const format_spec_t& spec) {
+  return to_string(value.str(), spec);
 }
 
 }  // namespace __detail

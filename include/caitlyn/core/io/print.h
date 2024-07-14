@@ -33,12 +33,21 @@ inline void print(const std::string& str) {
 }
 
 template <typename T>
-required_t<is_convertible_to_string<T>()> print(const T& value) {
+required_t<convertible_to_string<T>()> print(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
   std::cout << value.to_string();
+}
+
+template <typename T>
+required_t<has_str<T>()> print(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cout << value.str();
 }
 
 template <typename... Args>
@@ -67,12 +76,21 @@ inline void println(const std::string& str) {
 }
 
 template <typename T>
-required_t<is_convertible_to_string<T>()> println(const T& value) {
+required_t<convertible_to_string<T>()> println(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
   std::cout << value.to_string() << get_char(ascii_t::line_feed);
+}
+
+template <typename T>
+required_t<has_str<T>()> println(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cout << value.str() << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
@@ -94,12 +112,21 @@ inline void eprint(const std::string& str) {
 }
 
 template <typename T>
-required_t<is_convertible_to_string<T>()> eprint(const T& value) {
+required_t<convertible_to_string<T>()> eprint(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
   std::cerr << value.to_string();
+}
+
+template <typename T>
+required_t<has_str<T>()> eprint(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cerr << value.str();
 }
 
 template <typename... Args>
@@ -120,13 +147,21 @@ inline void eprintln(const std::string& str) {
 }
 
 template <typename T>
-required_t<is_convertible_to_string<T>()> eprintln(
-    const T& value) {
+required_t<convertible_to_string<T>()> eprintln(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
   std::cerr << value.to_string() << get_char(ascii_t::line_feed);
+}
+
+template <typename T>
+required_t<has_str<T>()> eprintln(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::cerr << value.str() << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
@@ -148,12 +183,21 @@ inline void log(const std::string& str) {
 }
 
 template <typename T>
-required_t<is_convertible_to_string<T>()> log(const T& value) {
+required_t<convertible_to_string<T>()> log(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
   std::clog << value.to_string() << get_char(ascii_t::line_feed);
+}
+
+template <typename T>
+required_t<has_str<T>()> log(const T& value) {
+#if defined(__caitlyn_windows)
+  set_windows_utf8_encode();
+#endif
+  std::ios::sync_with_stdio(false);
+  std::clog << value.str() << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
