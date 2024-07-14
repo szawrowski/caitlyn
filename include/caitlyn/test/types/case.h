@@ -25,10 +25,11 @@
 namespace cait {
 namespace test {
 
-using case_t = struct {
+struct case_t {
   std::string suite_name;
   std::string test_name;
   function_t function;
+  bool passed = false;
 };
 
 }  // namespace test
