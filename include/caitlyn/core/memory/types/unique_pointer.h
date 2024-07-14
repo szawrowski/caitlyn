@@ -71,8 +71,8 @@ public:
   bool operator==(const uptr_t& other) const { return data_ == other.data_; }
   bool operator!=(const uptr_t& other) const { return data_ != other.data_; }
 
-  bool operator==(null_t) const { return data_ == nullptr; }
-  bool operator!=(null_t) const { return data_ != nullptr; }
+  bool operator==(std::nullptr_t) const { return data_ == nullptr; }
+  bool operator!=(std::nullptr_t) const { return data_ != nullptr; }
 
 public:
   void reset(pointer new_data = nullptr) {

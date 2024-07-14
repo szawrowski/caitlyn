@@ -30,10 +30,10 @@ template <typename CharT>
 class file_t;
 
 template <>
-class file_t<char_t> {
+class file_t<char> {
 public:
   file_t() = default;
-  file_t(const char_t* filename) : filename_(filename) { open(); }
+  file_t(const char* filename) : filename_(filename) { open(); }
   file_t(std::string filename) : filename_(std::move(filename)) { open(); }
   template <typename... Args>
   file_t(const std::string& str, Args&&... args)
@@ -72,11 +72,11 @@ public:
     open();
   }
 
-  __caitlyn_nodiscard bool_t eof() const { return file_.eof(); }
+  __caitlyn_nodiscard bool eof() const { return file_.eof(); }
 
   explicit operator bool() const noexcept { return !file_.eof(); }
 
-  void set_position(const std::streampos position) {
+  void set_position(const std::streampos& position) {
     current_position_ = position;
     file_.clear();
     file_.seekg(current_position_, std::ios::beg);
@@ -96,10 +96,10 @@ public:
       open();
     }
     file_.seekg(0, std::ios::end);
-    const streamsize_t size = file_.tellg();
+    const std::streamsize size = file_.tellg();
     file_.seekg(0, std::ios::beg);
 
-    std::vector<char_t> buffer(size);
+    std::vector<char> buffer(size);
     if (file_.read(buffer.data(), size)) {
       return buffer.data();
     }
@@ -138,7 +138,7 @@ public:
     return result.str();
   }
 
-  void write(const char_t* data) {
+  void write(const char* data) {
     if (!file_.is_open()) {
       open();
     }
@@ -189,7 +189,8 @@ public:
   }
 
   template <typename T>
-  typename std::enable_if<has_to_string<T>::value>::type write_line(const T& data) {
+  typename std::enable_if<has_to_string<T>::value>::type write_line(
+      const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -207,7 +208,7 @@ public:
     file_.flush();
   }
 
-  void append(const char_t* data) {
+  void append(const char* data) {
     if (!file_.is_open()) {
       open();
     }
@@ -293,9 +294,8 @@ private:
 
 }  // namespace cait
 
-inline cait::file_t<cait::char_t> operator""_file(const cait::char_t* filename,
-                                                  const cait::size_t) {
-  return cait::file_t<cait::char_t>{filename};
+inline cait::file_t<char> operator""_file(const char* filename, const size_t) {
+  return cait::file_t<char>{filename};
 }
 
 #endif  // CAITLYN_CORE_FILE_TYPES_FILE_H_

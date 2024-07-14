@@ -29,14 +29,14 @@ namespace cait {
 
 class pwrint_t {
 public:
-  using data_type = std::vector<int_t>;
-  using sign_flag = bool_t;
+  using data_type = std::vector<int>;
+  using sign_flag = bool;
   using size_type = size_t;
 
 public:
   pwrint_t() = default;
 
-  pwrint_t(const char_t* number) : pwrint_t{std::string{number}} {}
+  pwrint_t(const char* number) : pwrint_t{std::string{number}} {}
 
   pwrint_t(const std::string& number) {
     if (number.empty()) {
@@ -94,9 +94,9 @@ public:
       result.is_negative_ = is_negative_;
       result.digits_.resize(std::max(digits_.size(), other.digits_.size()) + 1,
                             0);
-      int_t carry = 0;
+      int carry = 0;
       for (size_type i = 0; i < result.digits_.size(); ++i) {
-        int_t sum = carry;
+        int sum = carry;
         if (i < digits_.size()) {
           sum += digits_[i];
         }
@@ -131,7 +131,7 @@ public:
     if (equal(other)) {
       return pwrint_t{"0"};
     }
-    const bool_t result_is_negative = less_than(other);
+    const bool result_is_negative = less_than(other);
     const pwrint_t& larger = result_is_negative ? other : *this;
     const pwrint_t& smaller = result_is_negative ? *this : other;
 
@@ -139,9 +139,9 @@ public:
     result.is_negative_ = result_is_negative;
     result.digits_.resize(larger.digits_.size(), 0);
 
-    int_t borrow = 0;
+    int borrow = 0;
     for (size_type i = 0; i < larger.digits_.size(); ++i) {
-      int_t diff = larger.digits_[i] - borrow;
+      int diff = larger.digits_[i] - borrow;
       if (i < smaller.digits_.size()) {
         diff -= smaller.digits_[i];
       }
@@ -162,9 +162,9 @@ public:
     result.digits_.resize(digits_.size() + other.digits_.size(), 0);
 
     for (size_type i = 0; i < digits_.size(); ++i) {
-      int_t carry = 0;
+      int carry = 0;
       for (size_type j = 0; j < other.digits_.size() || carry != 0; ++j) {
-        const int_t sum =
+        const int sum =
             result.digits_[i + j] +
             digits_[i] * (j < other.digits_.size() ? other.digits_[j] : 0) +
             carry;
@@ -228,7 +228,7 @@ public:
     return result;
   }
 
-  __caitlyn_nodiscard pwrint_t pow(int_t exponent) const {
+  __caitlyn_nodiscard pwrint_t pow(int exponent) const {
     if (exponent < 0) {
       throw std::invalid_argument{"Negative exponent not supported"};
     }
@@ -276,11 +276,11 @@ public:
 public:
   __caitlyn_nodiscard size_type size() const { return digits_.size(); }
 
-  __caitlyn_nodiscard bool_t equal(const pwrint_t& other) const {
+  __caitlyn_nodiscard bool equal(const pwrint_t& other) const {
     return digits_ == other.digits_ && is_negative_ == other.is_negative_;
   }
 
-  __caitlyn_nodiscard bool_t less_than(const pwrint_t& other) const {
+  __caitlyn_nodiscard bool less_than(const pwrint_t& other) const {
     if (is_negative_ != other.is_negative_) {
       return is_negative_;
     }
@@ -295,7 +295,7 @@ public:
     return false;
   }
 
-  __caitlyn_nodiscard bool_t greater_than(const pwrint_t& other) const {
+  __caitlyn_nodiscard bool greater_than(const pwrint_t& other) const {
     return !less_than(other) && !equal(other);
   }
 
@@ -308,7 +308,7 @@ public:
       result.push_back('-');
     }
     for (auto it = digits_.rbegin(); it != digits_.rend(); ++it) {
-      result.push_back(static_cast<char_t>(*it + '0'));
+      result.push_back(static_cast<char>(*it + '0'));
     }
     return result;
   }
@@ -330,33 +330,27 @@ private:
 
 }  // namespace cait
 
-inline cait::bool_t operator<(const cait::pwrint_t& lhs,
-                              const cait::pwrint_t& rhs) {
+inline bool operator<(const cait::pwrint_t& lhs, const cait::pwrint_t& rhs) {
   return lhs.less_than(rhs);
 }
 
-inline cait::bool_t operator>(const cait::pwrint_t& lhs,
-                              const cait::pwrint_t& rhs) {
+inline bool operator>(const cait::pwrint_t& lhs, const cait::pwrint_t& rhs) {
   return lhs.greater_than(rhs);
 }
 
-inline cait::bool_t operator<=(const cait::pwrint_t& lhs,
-                               const cait::pwrint_t& rhs) {
+inline bool operator<=(const cait::pwrint_t& lhs, const cait::pwrint_t& rhs) {
   return lhs.less_than(rhs) || lhs.equal(rhs);
 }
 
-inline cait::bool_t operator>=(const cait::pwrint_t& lhs,
-                               const cait::pwrint_t& rhs) {
+inline bool operator>=(const cait::pwrint_t& lhs, const cait::pwrint_t& rhs) {
   return lhs.greater_than(rhs) || lhs.equal(rhs);
 }
 
-inline cait::bool_t operator==(const cait::pwrint_t& lhs,
-                               const cait::pwrint_t& rhs) {
+inline bool operator==(const cait::pwrint_t& lhs, const cait::pwrint_t& rhs) {
   return lhs.equal(rhs);
 }
 
-inline cait::bool_t operator!=(const cait::pwrint_t& lhs,
-                               const cait::pwrint_t& rhs) {
+inline bool operator!=(const cait::pwrint_t& lhs, const cait::pwrint_t& rhs) {
   return !lhs.equal(rhs);
 }
 
@@ -391,8 +385,7 @@ inline std::ostream& operator<<(std::ostream& os,
   return os;
 }
 
-inline cait::pwrint_t operator""_pwrint(const cait::char_t* number,
-                                        const cait::size_t) {
+inline cait::pwrint_t operator""_pwrint(const char* number, const size_t) {
   return cait::pwrint_t{number};
 }
 

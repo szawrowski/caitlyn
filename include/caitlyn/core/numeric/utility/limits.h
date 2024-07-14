@@ -19,8 +19,7 @@
 #define CAITLYN_CORE_NUMERIC_UTILITY_LIMITS_H_
 
 #include <limits>
-
-#include "caitlyn/core/utility/types.h"
+#include <utility>
 
 namespace cait {
 
@@ -35,7 +34,7 @@ constexpr T max_value() {
 }
 
 template <typename T>
-constexpr pair_t<T, T> value_range() {
+constexpr std::pair<T, T> value_range() {
   return std::make_pair(min_value<T>(), max_value<T>());
 }
 

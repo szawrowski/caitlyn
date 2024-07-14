@@ -18,15 +18,13 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
 #define CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
 
-#include "caitlyn/base.h"
-
 namespace cait {
 namespace traits {
 
 template <bool B>
 struct bool_constant_t {
-  static constexpr bool_t value = B;
-  using value_type = bool_t;
+  static constexpr bool value = B;
+  using value_type = bool;
   using type = bool_constant_t;
   constexpr explicit operator value_type() const noexcept { return value; }
   constexpr value_type operator()() const noexcept { return value; }

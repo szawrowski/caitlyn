@@ -38,10 +38,10 @@ public:
   using array_type = std::deque<data_t*>;
   using object_type = std::vector<std::pair<std::string, data_t*>>;
   using string_type = std::string;
-  using null_type = null_t;
+  using null_type = std::nullptr_t;
   using floating_type = float64_t;
   using integral_type = int64_t;
-  using boolean_type = bool_t;
+  using boolean_type = bool;
   using size_type = size_t;
 
 public:

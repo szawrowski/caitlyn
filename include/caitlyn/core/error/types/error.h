@@ -37,7 +37,7 @@ error_t<E> make_error(E error) {
   return error_t<E>(error);
 }
 
-inline error_t<std::string> make_error(const char_t* error) {
+inline error_t<std::string> make_error(const char* error) {
   return error_t<std::string>(std::string{error});
 }
 

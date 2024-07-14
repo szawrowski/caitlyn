@@ -28,10 +28,10 @@ template <typename CharT>
 class char_seq_t;
 
 template <>
-class char_seq_t<char_t> {
+class char_seq_t<char> {
 public:
-  using value_type = char_t;
-  using type = std::tuple<char_t, char_t, char_t, char_t>;
+  using value_type = char;
+  using type = std::tuple<value_type, value_type, value_type, value_type>;
 };
 
 }  // namespace cait

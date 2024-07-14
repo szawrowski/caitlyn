@@ -23,8 +23,8 @@
 
 namespace cait {
 
-using unichar_t = unicode_char<char_t>;
-using unistring_t = unicode_string<unicode_char<char_t>>;
+using unichar_t = unicode_char<char>;
+using unistring_t = unicode_string<unicode_char<char>>;
 
 }  // namespace cait
 

@@ -57,7 +57,7 @@ public:
     return parser;
   }
 
-  __caitlyn_nodiscard bool_t has_error() const {
+  __caitlyn_nodiscard bool has_error() const {
     return error_ != error_t::no_error;
   }
 
@@ -258,7 +258,7 @@ private:
           string_type hex_code = json_.substr(position_ + 1, 4);
           try {
             const code_point_t code_point = std::stoul(hex_code, nullptr, 16);
-            escaped_stream << static_cast<char_t>(code_point);
+            escaped_stream << static_cast<char>(code_point);
           } catch (const std::exception&) {
             set_error(error_t::invalid_escape_sequence);
             set_error_position(position_);

@@ -34,7 +34,7 @@ private:
  static false_t check(...);
 
 public:
- static constexpr bool_t value = decltype(check<T>(nullptr))::value;
+ static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 
 }  // namespace cait

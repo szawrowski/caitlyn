@@ -97,7 +97,7 @@ inline std::string to_string(const std::string& value,
                              const format_spec_t& spec) {
   std::string str = value;
 
-  if (static_cast<int_t>(str.size()) < spec.width) {
+  if (static_cast<int>(str.size()) < spec.width) {
     switch (spec.align) {
       case format_align_t::left:
         str.append(spec.width - str.size(), spec.fill);
@@ -116,7 +116,7 @@ inline std::string to_string(const std::string& value,
   return str;
 }
 
-inline std::string to_string(const char_t* value, const format_spec_t& spec) {
+inline std::string to_string(const char* value, const format_spec_t& spec) {
   return to_string(std::string{value}, spec);
 }
 

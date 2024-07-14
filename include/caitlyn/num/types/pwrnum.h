@@ -24,13 +24,13 @@ namespace cait {
 
 class pwrnum_t {
 public:
-  using sign_flag = bool_t;
+  using sign_flag = bool;
   using size_type = size_t;
 
 public:
   pwrnum_t() = default;
 
-  pwrnum_t(const char_t* number) : pwrnum_t{std::string{number}} {}
+  pwrnum_t(const char* number) : pwrnum_t{std::string{number}} {}
 
   pwrnum_t(const std::string& number) {
     if (number.empty()) {
@@ -96,7 +96,7 @@ public:
       other_fractional = other_fractional.multiply(pwrint_t{"10"});
     }
     pwrint_t fractional_result = this_fractional.add(other_fractional);
-    bool_t carry = false;
+    bool carry = false;
 
     // If the result of fractional addition exceeds the fractional limit, carry
     // over to integer part
@@ -125,7 +125,7 @@ public:
       other_fractional = other_fractional.multiply(pwrint_t{"10"});
     }
 
-    bool_t borrow = false;
+    bool borrow = false;
     if (this_fractional.less_than(other_fractional)) {
       borrow = true;
       this_fractional = this_fractional.add(
@@ -219,7 +219,7 @@ public:
     return result;
   }
 
-  __caitlyn_nodiscard pwrnum_t pow(int_t exponent) const {
+  __caitlyn_nodiscard pwrnum_t pow(int exponent) const {
     if (exponent < 0) {
       throw std::invalid_argument{"Negative exponent not supported"};
     }
@@ -269,13 +269,13 @@ public:
     return integer_part_.size() + fractional_part_.size();
   }
 
-  __caitlyn_nodiscard bool_t equal(const pwrnum_t& other) const {
+  __caitlyn_nodiscard bool equal(const pwrnum_t& other) const {
     return integer_part_.equal(other.integer_part_) &&
            fractional_part_.equal(other.fractional_part_) &&
            is_negative_ == other.is_negative_;
   }
 
-  __caitlyn_nodiscard bool_t less_than(const pwrnum_t& other) const {
+  __caitlyn_nodiscard bool less_than(const pwrnum_t& other) const {
     if (is_negative_ != other.is_negative_) {
       return is_negative_;
     }
@@ -288,7 +288,7 @@ public:
     return fractional_part_.less_than(other.fractional_part_);
   }
 
-  __caitlyn_nodiscard bool_t greater_than(const pwrnum_t& other) const {
+  __caitlyn_nodiscard bool greater_than(const pwrnum_t& other) const {
     return !less_than(other) && !equal(other);
   }
 
@@ -316,33 +316,27 @@ private:
 
 }  // namespace cait
 
-inline cait::bool_t operator<(const cait::pwrnum_t& lhs,
-                              const cait::pwrnum_t& rhs) {
+inline bool operator<(const cait::pwrnum_t& lhs, const cait::pwrnum_t& rhs) {
   return lhs.less_than(rhs);
 }
 
-inline cait::bool_t operator>(const cait::pwrnum_t& lhs,
-                              const cait::pwrnum_t& rhs) {
+inline bool operator>(const cait::pwrnum_t& lhs, const cait::pwrnum_t& rhs) {
   return lhs.greater_than(rhs);
 }
 
-inline cait::bool_t operator<=(const cait::pwrnum_t& lhs,
-                               const cait::pwrnum_t& rhs) {
+inline bool operator<=(const cait::pwrnum_t& lhs, const cait::pwrnum_t& rhs) {
   return lhs.less_than(rhs) || lhs.equal(rhs);
 }
 
-inline cait::bool_t operator>=(const cait::pwrnum_t& lhs,
-                               const cait::pwrnum_t& rhs) {
+inline bool operator>=(const cait::pwrnum_t& lhs, const cait::pwrnum_t& rhs) {
   return lhs.greater_than(rhs) || lhs.equal(rhs);
 }
 
-inline cait::bool_t operator==(const cait::pwrnum_t& lhs,
-                               const cait::pwrnum_t& rhs) {
+inline bool operator==(const cait::pwrnum_t& lhs, const cait::pwrnum_t& rhs) {
   return lhs.equal(rhs);
 }
 
-inline cait::bool_t operator!=(const cait::pwrnum_t& lhs,
-                               const cait::pwrnum_t& rhs) {
+inline bool operator!=(const cait::pwrnum_t& lhs, const cait::pwrnum_t& rhs) {
   return !lhs.equal(rhs);
 }
 
@@ -372,8 +366,7 @@ inline std::ostream& operator<<(std::ostream& os,
   return os;
 }
 
-inline cait::pwrnum_t operator""_pwrnum(const cait::char_t* number,
-                                        const cait::size_t) {
+inline cait::pwrnum_t operator""_pwrnum(const char* number, const size_t) {
   return cait::pwrnum_t{number};
 }
 

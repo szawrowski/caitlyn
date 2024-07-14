@@ -18,8 +18,6 @@
 #ifndef CAITLYN_CORE_UNICODE_TYPES_CHAR_H_
 #define CAITLYN_CORE_UNICODE_TYPES_CHAR_H_
 
-#include <iostream>
-
 #include "caitlyn/core/unicode/utility.h"
 
 namespace cait {
@@ -28,9 +26,9 @@ template <typename CharT>
 class unicode_char;
 
 template <>
-class unicode_char<char_t> {
+class unicode_char<char> {
 public:
-  using value_type = char_t;
+  using value_type = char;
   using size_type = size_t;
 
 public:
@@ -71,7 +69,7 @@ public:
   }
 
   __caitlyn_nodiscard std::string to_string() const {
-    return char_to_string<char_t>(code_point_);
+    return char_to_string<char>(code_point_);
   }
 
 private:
@@ -104,38 +102,38 @@ private:
 
 }  // namespace cait
 
-inline cait::bool_t operator<(const cait::unicode_char<cait::char_t> lhs,
-                              const cait::unicode_char<cait::char_t> rhs) {
+inline bool operator<(const cait::unicode_char<char> lhs,
+                      const cait::unicode_char<char> rhs) {
   return lhs.get_code_point() < rhs.get_code_point();
 }
 
-inline cait::bool_t operator>(const cait::unicode_char<cait::char_t> lhs,
-                              const cait::unicode_char<cait::char_t> rhs) {
+inline bool operator>(const cait::unicode_char<char> lhs,
+                      const cait::unicode_char<char> rhs) {
   return lhs.get_code_point() > rhs.get_code_point();
 }
 
-inline cait::bool_t operator<=(const cait::unicode_char<cait::char_t> lhs,
-                               const cait::unicode_char<cait::char_t> rhs) {
+inline bool operator<=(const cait::unicode_char<char> lhs,
+                       const cait::unicode_char<char> rhs) {
   return lhs.get_code_point() <= rhs.get_code_point();
 }
 
-inline cait::bool_t operator>=(const cait::unicode_char<cait::char_t> lhs,
-                               const cait::unicode_char<cait::char_t> rhs) {
+inline bool operator>=(const cait::unicode_char<char> lhs,
+                       const cait::unicode_char<char> rhs) {
   return lhs.get_code_point() >= rhs.get_code_point();
 }
 
-inline cait::bool_t operator==(const cait::unicode_char<cait::char_t> lhs,
-                               const cait::unicode_char<cait::char_t> rhs) {
+inline bool operator==(const cait::unicode_char<char> lhs,
+                       const cait::unicode_char<char> rhs) {
   return lhs.get_code_point() == rhs.get_code_point();
 }
 
-inline cait::bool_t operator!=(const cait::unicode_char<cait::char_t> lhs,
-                               const cait::unicode_char<cait::char_t> rhs) {
+inline bool operator!=(const cait::unicode_char<char> lhs,
+                       const cait::unicode_char<char> rhs) {
   return lhs.get_code_point() != rhs.get_code_point();
 }
 
 inline std::istream& operator>>(std::istream& input_stream,
-                                cait::unicode_char<cait::char_t>& value) {
+                                cait::unicode_char<char>& value) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
@@ -143,13 +141,13 @@ inline std::istream& operator>>(std::istream& input_stream,
   if (!input_stream.good()) {
     return input_stream;
   }
-  cait::char_t input[4] = {};
+  char input[4] = {};
   input_stream.get(input[0]);
 
   if (!input_stream) {
     return input_stream;
   }
-  for (cait::size_t i = 1; input[i]; ++i) {
+  for (size_t i = 1; input[i]; ++i) {
     input_stream.get(input[i]);
     if (!input_stream) {
       return input_stream;
@@ -160,21 +158,20 @@ inline std::istream& operator>>(std::istream& input_stream,
 }
 
 inline std::ostream& operator<<(std::ostream& os,
-                                const cait::unicode_char<cait::char_t>& value) {
+                                const cait::unicode_char<char>& value) {
 #if defined(__caitlyn_windows)
   cait::set_windows_utf8_encode();
 #endif
   std::ios::sync_with_stdio(false);
   if (os.good()) {
-    os.write(cait::char_to_string<cait::char_t>(value.get_code_point()).c_str(),
-             static_cast<cait::streamsize_t>(value.byte_count()));
+    os << value.to_string();
   }
   return os;
 }
 
-inline cait::unicode_char<cait::char_t> operator""_char(
-    const cait::char_t* symbol, const std::size_t) {
-  return cait::unicode_char<cait::char_t>{symbol};
+inline cait::unicode_char<char> operator""_char(const char* symbol,
+                                                const std::size_t) {
+  return cait::unicode_char<char>{symbol};
 }
 
 #endif  // CAITLYN_CORE_UNICODE_TYPES_CHAR_H_

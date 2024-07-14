@@ -22,7 +22,7 @@
 
 namespace cait {
 
-using text_t = text_builder_t<char_t>;
+using text_t = text_builder_t<char>;
 
 }  // namespace cait
 

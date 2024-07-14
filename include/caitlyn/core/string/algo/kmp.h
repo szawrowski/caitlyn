@@ -40,7 +40,7 @@ inline std::vector<size_t> get_kmp_failure_vec(const std::string& pattern) {
 
 }  // namespace __detail
 
-inline bool_t kmp(const std::string& pattern, const std::string& text) {
+inline bool kmp(const std::string& pattern, const std::string& text) {
   const size_t text_size = text.size();
   const size_t pattern_size = pattern.size();
   const auto failure = __detail::get_kmp_failure_vec(pattern);

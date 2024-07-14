@@ -30,10 +30,17 @@
 #include <type_traits>
 #include <typeindex>
 #include <typeinfo>
+#include <tuple>
+#include <utility>
 
 #include "caitlyn/core/utility/comparators.h"
 #include "caitlyn/core/utility/random.h"
-#include "caitlyn/core/utility/types.h"
+
+#if __caitlyn_has_cxx17
+  #include <any>
+  #include <optional>
+  #include <variant>
+#endif
 
 #if __caitlyn_has_cxx20
   #include <source_location>

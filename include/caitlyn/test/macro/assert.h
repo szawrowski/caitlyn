@@ -106,6 +106,7 @@
   } while (false)
 
 #define PASS() ASSERT_TRUE(true)
-#define FAIL() cait::test::fail_message_t{__FILE__, __LINE__}
+#define FAIL() ASSERT_TRUE(false)
+#define FAIL_MESSAGE() cait::test::fail_message_t{__FILE__, __LINE__}
 
 #endif  // CAITLYN_TEST_MACRO_ASSERT_H_

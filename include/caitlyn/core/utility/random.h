@@ -19,15 +19,15 @@
 #define CAITLYN_CORE_UTILITY_RANDOM_H_
 
 #include <chrono>
+#include <limits>
 #include <random>
 #include <stdexcept>
-
-#include "caitlyn/core/numeric/utility/limits.h"
 
 namespace cait {
 
 template <typename T>
-T random(T min = min_value<T>, T max = max_value<T>);
+T random(T min = std::numeric_limits<T>::min(),
+         T max = std::numeric_limits<T>::max());
 
 template <>
 inline int16_t random(const int16_t min, const int16_t max) {
@@ -92,7 +92,7 @@ inline floatx_t random(const floatx_t min, const floatx_t max) {
   return std::uniform_real_distribution<floatx_t>{min, max}(engine);
 }
 
-inline bool_t random_bool(const double percentage = 0.5) {
+inline bool random_bool(const double percentage = 0.5) {
   if (percentage < 0.0 || percentage > 1.0) {
     throw std::invalid_argument{"True percentage is only 0.0..1.0"};
   }

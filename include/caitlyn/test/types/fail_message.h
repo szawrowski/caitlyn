@@ -20,14 +20,12 @@
 
 #include <sstream>
 
-#include "caitlyn/base.h"
-
 namespace cait {
 namespace test {
 
 class fail_message_t {
 public:
-  fail_message_t(const char_t* file, const int_t line) : file{file}, line{line} {}
+  fail_message_t(const char* file, const int line) : file{file}, line{line} {}
 
   template <typename T>
   fail_message_t& operator<<(const T& value) {
@@ -44,8 +42,8 @@ public:
   }
 
 private:
-  const char_t* file;
-  int_t line;
+  const char* file;
+  int line;
   std::ostringstream message;
 };
 

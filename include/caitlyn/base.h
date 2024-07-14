@@ -75,16 +75,6 @@
   #endif
 #endif
 
-// C++ standard versions
-#if defined(__caitlyn_cxxstd)
-  #define __caitlyn_cxxstd98_ver 199711L
-  #define __caitlyn_cxxstd11_ver 201103L
-  #define __caitlyn_cxxstd14_ver 201402L
-  #define __caitlyn_cxxstd17_ver 201703L
-  #define __caitlyn_cxxstd20_ver 202002L
-  #define __caitlyn_cxxstd23_ver 202302L
-#endif
-
 // Additional platform-specific settings
 #if defined(__caitlyn_linux)
   #if defined(__WORDSIZE) && (__WORDSIZE == 64)
@@ -94,32 +84,32 @@
   #endif
 #endif
 
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd98_ver)
+#if (__caitlyn_cxxstd >= 199711L)
   #define __caitlyn_has_cxx98 1
 #else
   #define __caitlyn_has_cxx98 0
 #endif
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd11_ver)
+#if (__caitlyn_cxxstd >= 199711L)
   #define __caitlyn_has_cxx11 1
 #else
   #define __caitlyn_has_cxx11 0
 #endif
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd14_ver)
+#if (__caitlyn_cxxstd >= 201402L)
   #define __caitlyn_has_cxx14 1
 #else
   #define __caitlyn_has_cxx14 0
 #endif
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd17_ver)
+#if (__caitlyn_cxxstd >= 201703L)
   #define __caitlyn_has_cxx17 1
 #else
   #define __caitlyn_has_cxx17 0
 #endif
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd20_ver)
+#if (__caitlyn_cxxstd >= 202002L)
   #define __caitlyn_has_cxx20 1
 #else
   #define __caitlyn_has_cxx20 0
 #endif
-#if (__caitlyn_cxxstd >= __caitlyn_cxxstd23_ver)
+#if (__caitlyn_cxxstd >= 202302L)
   #define __caitlyn_has_cxx23 1
 #else
   #define __caitlyn_has_cxx23 0
@@ -157,19 +147,20 @@
   #define __caitlyn_nodiscard
 #endif
 
+#include <cstddef>
+#include <cstdint>
+
 namespace cait {
 
 // Common haracters
-using char_t = char;
 using uchar_t = unsigned char;
 using schar_t = signed char;
-using xchar_t = wchar_t;
 
 // Unicode characters
 #if __caitlyn_has_cxx20
 using u8char_t = char8_t;
 #else
-using u8char_t = char_t;
+using u8char_t = char;
 #endif
 using u16char_t = char16_t;
 using u32char_t = char32_t;
@@ -177,41 +168,12 @@ using u32char_t = char32_t;
 // Special integrals
 using sbyte_t = schar_t;
 using byte_t = uchar_t;
-using int_t = decltype(0);
-using uint_t = decltype(0U);
-// Common integrals
-using int8_t = schar_t;
-using uint8_t = uchar_t;
-using int16_t = signed short int;
-using uint16_t = unsigned short int;
-using int32_t = int_t;
-using uint32_t = uint_t;
-#if defined(__caitlyn_unix) && (__caitlyn_arch == 64)
-using int64_t = decltype(0L);
-using uint64_t = decltype(0UL);
-#else
-using int64_t = decltype(0LL);
-using uint64_t = decltype(0ULL);
-#endif
-// System integrals
-using ptrdiff_t =
-    decltype(static_cast<int_t*>(nullptr) - static_cast<int_t*>(nullptr));
 using ssize_t = ptrdiff_t;
-using size_t = decltype(sizeof(0));
-using uintmax_t = size_t;
-using uintptr_t = size_t;
-using streamsize_t = ptrdiff_t;
 
 // Floating point
-using float32_t = decltype(0.0f);
-using float64_t = decltype(0.0);
-using floatx_t = decltype(0.0L);
-
-// Logical
-using bool_t = decltype(true);
-
-// System
-using null_t = decltype(nullptr);
+using float32_t = float;
+using float64_t = double;
+using floatx_t = long double;
 
 }  // namespace cait
 

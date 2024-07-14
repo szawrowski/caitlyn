@@ -71,8 +71,8 @@ public:
   bool operator==(const wptr_t& other) const { return data_ == other.data_; }
   bool operator!=(const wptr_t& other) const { return data_ != other.data_; }
 
-  bool operator==(null_t) const { return data_ == nullptr; }
-  bool operator!=(null_t) const { return data_ != nullptr; }
+  bool operator==(std::nullptr_t) const { return data_ == nullptr; }
+  bool operator!=(std::nullptr_t) const { return data_ != nullptr; }
 
 public:
   resource_type lock() const {

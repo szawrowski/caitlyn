@@ -25,7 +25,7 @@
 namespace cait {
 
 inline std::vector<std::string> split(const std::string& text,
-                                      const char_t delim) {
+                                      const char delim) {
   std::stringstream ss{text};
   std::string item;
   std::vector<std::string> data;
@@ -121,7 +121,7 @@ inline std::string escape_string(const std::string& str) {
   return oss.str();
 }
 
-inline bool_t is_number(const std::string& str) {
+inline bool is_number(const std::string& str) {
   return !str.empty() && std::all_of(str.begin(), str.end(), is_digit);
 }
 
@@ -144,15 +144,15 @@ inline size_t find_last_nonws(const std::string& str) {
 }
 
 template <typename T>
-const char_t* get_as_string(T value);
+const char* get_as_string(T value);
 
 template <>
-inline const char_t* get_as_string(const bool_t value) {
+inline const char* get_as_string(const bool value) {
   return value ? "true" : "false";
 }
 
 template <>
-inline const char_t* get_as_string(null_t) {
+inline const char* get_as_string(std::nullptr_t) {
   return "null";
 }
 

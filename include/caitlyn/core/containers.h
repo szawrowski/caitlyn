@@ -18,7 +18,18 @@
 #ifndef CAITLYN_CORE_CONTAINERS_H_
 #define CAITLYN_CORE_CONTAINERS_H_
 
-#include "caitlyn/core/containers/types.h"
+#include <array>
+#include <deque>
+#include <forward_list>
+#include <list>
+#include <map>
+#include <queue>
+#include <set>
+#include <stack>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 #include "caitlyn/core/containers/utility.h"
 
 #endif // CAITLYN_CORE_CONTAINERS_H_

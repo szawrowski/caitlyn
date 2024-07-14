@@ -32,7 +32,7 @@ template <typename CharT>
 typename char_seq_t<CharT>::type get_char_seq(code_point_t codepoint);
 
 template <>
-inline char_seq_t<char_t>::type get_char_seq<char_t>(
+inline char_seq_t<char>::type get_char_seq<char>(
     const code_point_t codepoint) {
   const auto length = calculate_char_count(codepoint);
   if (codepoint == 0) {
@@ -67,7 +67,7 @@ std::basic_string<CharT> char_to_string(code_point_t code_point);
 template <>
 inline std::string char_to_string(const code_point_t code_point) {
   std::ostringstream oss;
-  const auto seq = get_char_seq<char_t>(code_point);
+  const auto seq = get_char_seq<char>(code_point);
 
   oss << std::get<0>(seq);
   if (std::get<1>(seq)) {
