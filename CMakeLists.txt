@@ -30,7 +30,7 @@ set(CAITLYN_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 if(CAITLYN_DEV)
   if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-    list(APPEND CMAKE_CXX_FLAGS "/Wall /W3 /permissive /Qspectre")
+    set(CMAKE_CXX_FLAGS "/std:c++14 /EHsc /Wall /W3 /permissive")
   else()
     list(APPEND CMAKE_CXX_FLAGS "-Wall -Wextra -pedantic")
   endif()
