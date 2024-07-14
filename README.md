@@ -386,7 +386,7 @@ T add(const T lhs, const T rhs) {
 }
 ```
 
-### Testing
+### Unit Testing
 
 **Caitlyn** includes a lightweight testing component for unit testing within
 your projects.
