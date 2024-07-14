@@ -14,11 +14,12 @@ enhance productivity for everyday tasks.
 - JSON Serializing
 - Error Handling
 - Arbitrary Precision Arithmetic
+- Type Traits
 - Unit Testing
 - Utilities
 
 Supported Platforms: **Linux, Windows, macOS**\
-Supported Standard: **C++11** and higher
+Supported Standard: **C++11** or later
 
 ## Installation Guide
 
@@ -59,7 +60,7 @@ find_package(caitlyn CONFIG REQUIRED)
 add_executable(${PROJECT_NAME} main.cpp)
 
 # Link the executable with Caitlyn library
-target_link_libraries(${PROJECT_NAME} PRIVATE caitlyn::caitlyn)
+target_link_libraries(${PROJECT_NAME} PRIVATE Caitlyn::Caitlyn)
 ```
 
 Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
@@ -361,6 +362,29 @@ int main() {
 ```text
 480406269860917721318957511814148894618259818296995209585410018969574705029068317
 1441.64203387923303265813084431780163079588042340079866748019604087803446244208066
+```
+
+### Type Traits
+
+**Macro:**
+
+- `required` - Provides a more elegant alternative to std::enable_if_t
+
+**Usage:**
+
+The `add` function template accepts two parameters of type `T` and returns
+their sum. This function only works with integral types, enforced using
+`std::is_integral` type trait and SFINAE (Substitution Failure Is Not An Error)
+with the `required` macro.
+
+```c++
+#include <caitlyn/core/io.h>
+#include <caitlyn/core/traits.h>
+
+template <typename T, typename = required(std::is_integral<T>::value)>
+T add(const T lhs, const T rhs) {
+  return lhs + rhs;
+}
 ```
 
 ### Testing
