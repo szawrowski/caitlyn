@@ -15,36 +15,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H
-#define CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H
-
-#include "caitlyn/core/traits/types/bool_constant.h"
-#include "caitlyn/core/traits/types/void.h"
+#ifndef CAITLUN_CORE_TRAITS_TYPES_REMOVE_CV_H_
+#define CAITLUN_CORE_TRAITS_TYPES_REMOVE_CV_H_
 
 namespace cait {
 namespace traits {
 
-template <typename, typename = void>
-struct has_to_string_t : false_t {};
+template<typename T>
+struct rmcv_t { using type = T; };
 
-template <typename T>
-struct has_to_string_t<
-    T, void_t<decltype(std::declval<T>().to_string())>> : true_t {};
+template<typename T>
+struct rmcv_t<const T> { using type = T; };
 
-template <typename, typename = void>
-struct has_str_t : false_t {};
+template<typename T>
+struct rmcv_t<volatile T> { using type = T; };
 
-template <typename T>
-struct has_str_t<
-    T, void_t<decltype(std::declval<T>().str())>> : true_t {};
+template<typename T>
+struct rmcv_t<const volatile T> { using type = T; };
 
 }  // namespace traits
 
-template <typename T>
-constexpr bool is_convertible_to_string() {
-  return traits::has_to_string_t<T>::value || traits::has_str_t<T>::value;
-}
+template<typename T>
+using remove_cv_t = typename traits::rmcv_t<T>::type;
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H
+#endif  // CAITLUN_CORE_TRAITS_TYPES_REMOVE_CV_H_

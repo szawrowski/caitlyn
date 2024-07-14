@@ -21,7 +21,7 @@
 namespace cait {
 namespace traits {
 
-template<bool Condition, typename Ret = void>
+template<bool, typename = void>
 struct constraint_t {};
 
 template<typename Ret>

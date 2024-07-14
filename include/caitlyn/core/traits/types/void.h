@@ -15,14 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLIN_CORE_TRAITS_TYPES_H_
-#define CAITLIN_CORE_TRAITS_TYPES_H_
+#ifndef CAITLUN_CORE_TRAITS_TYPES_VOID_H_
+#define CAITLUN_CORE_TRAITS_TYPES_VOID_H_
 
-#include "caitlyn/core/traits/types/bool_constant.h"
-#include "caitlyn/core/traits/types/primary.h"
-#include "caitlyn/core/traits/types/remove_cv.h"
-#include "caitlyn/core/traits/types/required.h"
-#include "caitlyn/core/traits/types/same.h"
-#include "caitlyn/core/traits/types/void.h"
+namespace cait {
 
-#endif  // CAITLIN_CORE_TRAITS_TYPES_H_
+template<typename...>
+using void_t = void;
+
+}  // namespace cait
+
+#endif  // CAITLUN_CORE_TRAITS_TYPES_VOID_H_

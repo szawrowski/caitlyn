@@ -33,7 +33,7 @@ inline void print(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type print(const T& value) {
+required_t<is_convertible_to_string<T>()> print(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -67,7 +67,7 @@ inline void println(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type println(const T& value) {
+required_t<is_convertible_to_string<T>()> println(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -94,7 +94,7 @@ inline void eprint(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type eprint(const T& value) {
+required_t<is_convertible_to_string<T>()> eprint(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif
@@ -120,7 +120,7 @@ inline void eprintln(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type eprintln(
+required_t<is_convertible_to_string<T>()> eprintln(
     const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
@@ -148,7 +148,7 @@ inline void log(const std::string& str) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value>::type log(const T& value) {
+required_t<is_convertible_to_string<T>()> log(const T& value) {
 #if defined(__caitlyn_windows)
   set_windows_utf8_encode();
 #endif

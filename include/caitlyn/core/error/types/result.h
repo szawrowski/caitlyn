@@ -260,8 +260,7 @@ public:
 
 private:
   template <typename ResultT = value_type, typename ErrorT = error_type>
-  typename std::enable_if<has_destructor<ResultT>::value &&
-                          !has_destructor<ErrorT>::value>::type
+  required_t<is_destructible<ResultT>() && !is_destructible<ErrorT>()>
   destroy_union() {
     if (has_value_) {
       data_.value.~value_type();
@@ -269,8 +268,7 @@ private:
   }
 
   template <typename ResultT = value_type, typename ErrorT = error_type>
-  typename std::enable_if<!has_destructor<ResultT>::value &&
-                          has_destructor<ErrorT>::value>::type
+  required_t<!is_destructible<ResultT>() && is_destructible<ErrorT>()>
   destroy_union() {
     if (!has_value_) {
       data_.error.~error_t<error_type>();
@@ -278,8 +276,7 @@ private:
   }
 
   template <typename ResultT = value_type, typename ErrorT = error_type>
-  typename std::enable_if<has_destructor<ResultT>::value &&
-                          has_destructor<ErrorT>::value>::type
+  required_t<is_destructible<ResultT>() && is_destructible<ErrorT>()>
   destroy_union() {
     if (has_value_) {
       data_.value.~value_type();
@@ -289,8 +286,7 @@ private:
   }
 
   template <typename ResultT = value_type, typename ErrorT = error_type>
-  typename std::enable_if<!has_destructor<ResultT>::value &&
-                          !has_destructor<ErrorT>::value>::type
+  required_t<!is_destructible<ResultT>() && !is_destructible<ErrorT>()>
   destroy_union() {}
 
 private:

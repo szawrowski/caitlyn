@@ -18,22 +18,25 @@
 #ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_OBJECT_H
 #define CAITLYN_CORE_TRAITS_CONSTRAINTS_OBJECT_H
 
-#include <type_traits>
+#include "caitlyn/core/traits/types/bool_constant.h"
+#include "caitlyn/core/traits/types/void.h"
 
 namespace cait {
+namespace traits {
+
+template <typename, typename = void>
+struct has_destructor_t : false_t {};
 
 template <typename T>
-struct has_destructor {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().~U(), std::true_type{});
-
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
+struct has_destructor_t<T, void_t<decltype(std::declval<T>().~T())>> : true_t {
 };
+
+}  // namespace traits
+
+template <typename T>
+constexpr bool is_destructible() {
+  return traits::has_destructor_t<T>::value;
+}
 
 }  // namespace cait
 

@@ -155,7 +155,7 @@ public:
   }
 
   template <typename T>
-  typename std::enable_if<has_to_string<T>::value>::type write(const T& data) {
+  required_t<is_convertible_to_string<T>()> write(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -189,8 +189,7 @@ public:
   }
 
   template <typename T>
-  typename std::enable_if<has_to_string<T>::value>::type write_line(
-      const T& data) {
+  required_t<is_convertible_to_string<T>()> write_line(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -227,7 +226,7 @@ public:
   }
 
   template <typename T>
-  typename std::enable_if<has_to_string<T>::value>::type append(const T& data) {
+  required_t<is_convertible_to_string<T>()> append(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -265,8 +264,7 @@ public:
   }
 
   template <typename T>
-  typename std::enable_if<has_to_string<T>::value>::type append_line(
-      const T& data) {
+  required_t<is_convertible_to_string<T>()> append_line(const T& data) {
     if (!file_.is_open()) {
       open();
     }

@@ -121,7 +121,7 @@ inline std::string to_string(const char* value, const format_spec_t& spec) {
 }
 
 template <typename T>
-typename std::enable_if<has_to_string<T>::value, std::string>::type to_string(
+required_t<is_convertible_to_string<T>(), std::string> to_string(
     const T& value, const format_spec_t& spec) {
   return to_string(value.to_string(), spec);
 }

@@ -21,243 +21,147 @@
 #include <iostream>
 #include <type_traits>
 
+#include "caitlyn/core/traits/types/void.h"
+
 namespace cait {
+namespace traits {
+
+template <typename, typename = void>
+struct has_less_operator_t : false_t {};
 
 template <typename T>
-class has_less_operator {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>() < std::declval<U>(),
-                                    std::true_type());
+struct has_less_operator_t<
+    T, void_t<decltype(std::declval<T>() < std::declval<T>())>> : true_t {};
 
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_greater_operator_t : false_t {};
 
 template <typename T>
-class has_greater_operator {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>() > std::declval<U>(),
-                                    std::true_type());
-  template <typename>
-  static std::false_type check(...);
+struct has_greater_operator_t<
+    T, void_t<decltype(std::declval<T>() > std::declval<T>())>> : true_t {};
 
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_add_operator {
-private:
-  template <typename A, typename B>
-  static auto check(U*) -> decltype(std::declval<A>() + std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_subtract_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() - std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_multiply_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() * std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_divide_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() / std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_equal_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() == std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_not_equal_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() != std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_subscript_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>()[std::declval<B>()],
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_add_operator_t : false_t {};
 
 template <typename T>
-class has_increment_operator {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(++std::declval<U&>(), std::true_type());
+struct has_add_operator_t<
+    T, void_t<decltype(std::declval<T>() + std::declval<T>())>> : true_t {};
 
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_subtract_operator_t : false_t {};
 
 template <typename T>
-class has_decrement_operator {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(--std::declval<U&>(), std::true_type());
+struct has_subtract_operator_t<
+    T, void_t<decltype(std::declval<T>() - std::declval<T>())>> : true_t {};
 
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_bitwise_and_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() & std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_bitwise_or_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() | std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_bitwise_xor_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() ^ std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_left_shift_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() << std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_right_shift_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() >> std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
-
-template <typename T, typename U>
-class has_modulus_operator {
-private:
-  template <typename A, typename B>
-  static auto check(A*) -> decltype(std::declval<A>() % std::declval<B>(),
-                                    std::true_type());
-  template <typename, typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_multyply_operator_t : false_t {};
 
 template <typename T>
-class has_output_operator {
-  template <typename U>
-  static auto test(U*) -> decltype(std::declval<std::ostream&>()
-                                       << std::declval<U>(),
-                                   std::true_type());
-  template <typename>
-  static auto test(...) -> std::false_type;
+struct has_multyply_operator_t<
+    T, void_t<decltype(std::declval<T>() * std::declval<T>())>> : true_t {};
 
-public:
-  static const bool value = decltype(test<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_divide_operator_t : false_t {};
 
+template <typename T>
+struct has_divide_operator_t<
+    T, void_t<decltype(std::declval<T>() / std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_modulus_operator_t : false_t {};
+
+template <typename T>
+struct has_modulus_operator_t<
+    T, void_t<decltype(std::declval<T>() % std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_equal_operator_t : false_t {};
+
+template <typename T>
+struct has_equal_operator_t<
+    T, void_t<decltype(std::declval<T>() == std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_not_equal_operator_t : false_t {};
+
+template <typename T>
+struct has_not_equal_operator_t<
+    T, void_t<decltype(std::declval<T>() != std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_subscript_operator_t : false_t {};
+
+template <typename T>
+struct has_subscript_operator_t<
+    T, void_t<decltype(std::declval<T>()[std::declval<T>()])>> : true_t {};
+
+template <typename, typename = void>
+struct has_increment_operator_t : false_t {};
+
+template <typename T>
+struct has_increment_operator_t<T, void_t<decltype(++std::declval<T&>())>>
+    : true_t {};
+
+template <typename, typename = void>
+struct has_decrement_operator_t : false_t {};
+
+template <typename T>
+struct has_decrement_operator_t<T, void_t<decltype(--std::declval<T&>())>>
+    : true_t {};
+
+template <typename, typename = void>
+struct has_bitwise_and_operator_t : false_t {};
+
+template <typename T>
+struct has_bitwise_and_operator_t<
+    T, void_t<decltype(std::declval<T>() & std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_bitwise_or_operator_t : false_t {};
+
+template <typename T>
+struct has_bitwise_or_operator_t<
+    T, void_t<decltype(std::declval<T>() & std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_bitwise_xor_operator_t : false_t {};
+
+template <typename T>
+struct has_bitwise_xor_operator_t<
+    T, void_t<decltype(std::declval<T>() ^ std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_left_shift_operator_t : false_t {};
+
+template <typename T>
+struct has_left_shift_operator_t<
+    T, void_t<decltype(std::declval<T>() << std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_right_shift_operator_t : false_t {};
+
+template <typename T>
+struct has_right_shift_operator_t<
+    T, void_t<decltype(std::declval<T>() >> std::declval<T>())>> : true_t {};
+
+template <typename, typename = void>
+struct has_istream_operator_t : false_t {};
+
+template <typename T>
+struct has_istream_operator_t<
+    T, void_t<decltype(std::declval<std::istream&>() >> std::declval<T>())>>
+    : true_t {};
+
+template <typename, typename = void>
+struct has_ostream_operator_t : false_t {};
+
+template <typename T>
+struct has_ostream_operator_t<
+    T, void_t<decltype(std::declval<std::ostream&>() << std::declval<T>())>>
+    : true_t {};
+
+}  // namespace traits
 }  // namespace cait
 
 #endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_OPERATORS_H

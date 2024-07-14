@@ -20,153 +20,84 @@
 
 #include <type_traits>
 
+#include "caitlyn/core/traits/types/bool_constant.h"
+#include "caitlyn/core/traits/types/void.h"
+
 namespace cait {
+namespace traits {
+
+template <typename, typename = void>
+struct has_begin_t : false_t {};
 
 template <typename T>
-class has_begin {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().begin(),
-                                    std::true_type());
-  template <typename>
-  static std::false_type check(...);
+struct has_begin_t<T, void_t<decltype(std::declval<T>().begin())>> : true_t {};
 
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_end_t : false_t {};
 
 template <typename T>
-class has_end {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().end(), std::true_type());
+struct has_end_t<T, void_t<decltype(std::declval<T>().end())>> : true_t {};
 
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_push_back_t : false_t {};
 
 template <typename T>
-class has_push_back {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().push_back(
-                                        std::declval<typename U::value_type>()),
-                                    std::true_type());
-  template <typename>
-  static std::false_type check(...);
+struct has_push_back_t<T, void_t<decltype(std::declval<T>().push_back(
+                              std::declval<typename T::value_type>()))>>
+    : true_t {};
 
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_pop_back_t : false_t {};
 
 template <typename T>
-class has_pop_back {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().pop_back(),
-                                    std::true_type());
-  template <typename>
-  static std::false_type check(...);
+struct has_pop_back_t<T, void_t<decltype(std::declval<T>().pop_back())>>
+    : true_t {};
 
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_size_t : false_t {};
 
 template <typename T>
-class has_size {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().size(), std::true_type());
+struct has_size_t<T, void_t<decltype(std::declval<T>().size())>> : true_t {};
 
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_front_t : false_t {};
 
 template <typename T>
-class has_front {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().front(),
-                                    std::true_type());
-  template <typename>
-  static std::false_type check(...);
+struct has_front_t<T, void_t<decltype(std::declval<T>().front())>> : true_t {};
 
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_back_t : false_t {};
 
 template <typename T>
-class has_back {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().back(), std::true_type());
+struct has_back_t<T, void_t<decltype(std::declval<T>().back())>> : true_t {};
 
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_data_t : false_t {};
 
 template <typename T>
-class has_data {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().data(), std::true_type());
+struct has_data_t<T, void_t<decltype(std::declval<T>().data())>> : true_t {};
 
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_clear_t : false_t {};
 
 template <typename T>
-class has_clear {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().clear(),
-                                    std::true_type());
-  template <typename>
-  static std::false_type check(...);
+struct has_clear_t<T, void_t<decltype(std::declval<T>().clear())>> : true_t {};
 
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
+template <typename, typename = void>
+struct has_resize_t : false_t {};
 
 template <typename T>
-class has_resize {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().resize(
-                                        std::declval<typename U::size_type>()),
-                                    std::true_type());
-  template <typename>
-  static std::false_type check(...);
-
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
+struct has_resize_t<T, void_t<decltype(std::declval<T>().resize(
+                           std::declval<typename T::size_type>()))>> : true_t {
 };
+
+template <typename, typename = void>
+struct has_empty_t : false_t {};
 
 template <typename T>
-class has_empty {
-private:
-  template <typename U>
-  static auto check(U*) -> decltype(std::declval<U>().empty(),
-                                    std::true_type());
-  template <typename>
-  static std::false_type check(...);
+struct has_empty_t<T, void_t<decltype(std::declval<T>().empty())>> : true_t {};
 
-public:
-  static constexpr bool value = decltype(check<T>(nullptr))::value;
-};
-
+}  // namespace traits
 }  // namespace cait
 
 #endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_CONTAINERS_H

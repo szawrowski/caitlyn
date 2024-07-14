@@ -21,24 +21,25 @@
 #include "caitlyn/core/traits/types/bool_constant.h"
 
 namespace cait {
+namespace traits {
+
+template <typename, typename>
+struct is_same_t : false_t {};
+
+template <typename T>
+struct is_same_t<T, T> : true_t {};
+
+}  // namespace traits
+
+template <typename T>
+constexpr bool is_same() {
+  return traits::is_same_t<T, T>::value;
+}
 
 template <typename T, typename U>
-struct same {
-private:
-  template <typename V>
-  static auto check(T*, V*) -> true_t;
-
-  template <typename, typename>
-  static false_t check(...);
-
-public:
-  static constexpr bool value = decltype(check<T, U>(nullptr, nullptr))::value;
-};
-
-template <typename T, typename U>
-struct not_same {
-  static constexpr bool value = !same<T, U>::value;
-};
+constexpr bool is_not_same() {
+  return !traits::is_same_t<T, U>::value;
+}
 
 }  // namespace cait
 

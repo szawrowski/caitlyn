@@ -18,9 +18,61 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_BASIC_H_
 #define CAITLUN_CORE_TRAITS_TYPES_BASIC_H_
 
-#include <type_traits>
+#include "caitlyn/core/traits/types/same.h"
+#include "caitlyn/core/traits/types/remove_cv.h"
 
 namespace cait {
+namespace traits {
+
+template<class T>
+struct is_null_pointer_t : is_same_t<std::nullptr_t, remove_cv_t<T>>::type {};
+
+template<class T>
+struct is_boolean_t : is_same_t<bool, remove_cv_t<T>>::type {};
+
+template <typename, typename = void>
+struct is_character_t : false_t {};
+
+template <> struct is_character_t<char> : true_t {};
+template <> struct is_character_t<signed char> : true_t {};
+template <> struct is_character_t<unsigned char> : true_t {};
+template <> struct is_character_t<wchar_t> : true_t {};
+#if __caitlyn_has_cxx20
+template <> struct is_char_t<char8_t> : true_t {};
+#endif
+template <> struct is_character_t<char16_t> : true_t {};
+template <> struct is_character_t<char32_t> : true_t {};
+
+template <typename, typename = void>
+struct is_integral_t : false_t {};
+
+template <> struct is_integral_t<bool> : true_t {};
+template <> struct is_integral_t<char> : true_t {};
+template <> struct is_integral_t<signed char> : true_t {};
+template <> struct is_integral_t<unsigned char> : true_t {};
+template <> struct is_integral_t<wchar_t> : true_t {};
+#if __caitlyn_has_cxx20
+template <> struct is_integral_t<char8_t> : true_t {};
+#endif
+template <> struct is_integral_t<char16_t> : true_t {};
+template <> struct is_integral_t<char32_t> : true_t {};
+template <> struct is_integral_t<short> : true_t {};
+template <> struct is_integral_t<unsigned short> : true_t {};
+template <> struct is_integral_t<int> : true_t {};
+template <> struct is_integral_t<unsigned> : true_t {};
+template <> struct is_integral_t<long> : true_t {};
+template <> struct is_integral_t<unsigned long> : true_t {};
+template <> struct is_integral_t<long long> : true_t {};
+template <> struct is_integral_t<unsigned long long> : true_t {};
+
+template <typename, typename = void>
+struct is_floating_t : false_t {};
+
+template <> struct is_floating_t<float> : true_t {};
+template <> struct is_floating_t<double> : true_t {};
+template <> struct is_floating_t<long double> : true_t {};
+
+}  // namespace traits
 
 template <typename T>
 constexpr bool is_void() { return std::is_void<T>::value; }
@@ -29,10 +81,16 @@ template <typename T>
 constexpr bool is_null_ptr() { return std::is_null_pointer<T>::value; }
 
 template <typename T>
-constexpr bool is_integral() { return std::is_integral<T>::value; }
+constexpr bool is_boolean() { return traits::is_boolean_t<T>::value; }
 
 template <typename T>
-constexpr bool is_floating() { return std::is_floating_point<T>::value; }
+constexpr bool is_character() { return traits::is_character_t<T>::value; }
+
+template <typename T>
+constexpr bool is_integral() { return traits::is_integral_t<T>::value; }
+
+template <typename T>
+constexpr bool is_floating() { return traits::is_floating_t<T>::value; }
 
 template <typename T>
 constexpr bool is_array() { return std::is_array<T>::value; }

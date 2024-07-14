@@ -23,11 +23,13 @@ namespace traits {
 
 template <bool B>
 struct bool_constant_t {
-  static constexpr bool value = B;
   using value_type = bool;
   using type = bool_constant_t;
+
   constexpr explicit operator value_type() const noexcept { return value; }
   constexpr value_type operator()() const noexcept { return value; }
+
+  static constexpr bool value = B;
 };
 
 }  // namespace traits
