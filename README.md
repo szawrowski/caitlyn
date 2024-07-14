@@ -10,7 +10,7 @@ enhance productivity for everyday tasks.
 ### Caitlyn includes
 - [Unicode String Handling](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-strings-support)
 - [Text Formatting](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-strings-support)
-- [I/O and File Management](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-strings-support)
+- [File Management](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-strings-support)
 - [JSON Serializing](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#serializing)
 - [Error Handling](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#error-handling)
 - [Arbitrary Precision Arithmetic](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#numeric)
@@ -83,38 +83,90 @@ int main() {
 
 You can continue using standard C++ strings, supplemented with Unicode wrappers.
 
-**Types:**
-
 - `unichar_t`: Wrapper for Unicode code point characters.
 - `unistring_t`: String wrapper based on Unicode code points with iterator
    support.
-- `text_t`: Universal formatting string builder.
 
-**Usage:**
+**Usage**
 
 ```c++
-#include <caitlyn/core/file.h>
 #include <caitlyn/core/io.h>
-#include <caitlyn/core/text.h>
+#include <caitlyn/core/string.h>
 
 int main() {
   const auto string = "Hello, 世界!"_str;
   const auto emoji = "🙂"_char;
 
+  cait::println("{} {}", string, emoji);
+  return 0;
+}
+```
+
+```text
+Hello, 世界! 🙂
+```
+
+### Text Formatting
+
+- `text_t`: - String builder type.
+- `format`: - Universal string formatter.
+
+**Usage**
+
+```c++
+#include <caitlyn/core/io.h>
+#include <caitlyn/core/text.h>
+
+int main() {
+  const auto string = "Hello, 世界!";
+  const auto emoji = "🙂";
+
   const auto formatted = cait::format("{} {}", string, emoji);
-  cait::println(formatted);
 
   auto content = cait::make_text();
   content.append("Lorem ipsum dolor sit amet, ");
   content.append_line("consectetur adipiscing elit...");
   content.append_line(formatted);
 
-  auto file = "somefile.txt"_file;
-  file.write("Text: {}", content);
-  file.close();
-
+  cait::println(content);
   return 0;
 }
+```
+
+```text
+Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+Hello, 世界! 🙂
+```
+
+### File Management
+
+- `file_t`: Universal file handler.
+
+**Usage**
+
+- Write text to file
+
+```c++
+#include <caitlyn/core/file.h>
+
+int main() {
+  const auto some = "Lorem ipsum dolor sit amet,";
+  const auto other = "consectetur adipiscing elit...";
+  const auto unicode = "Hello, 世界! 🙂";
+
+  auto file = "somefile.txt"_file;
+  file.write("Text: {} {}\n{}", some, other, unicode);
+  file.close();
+  
+  return 0;
+}
+```
+
+- File (_somefile.txt_)
+
+```text
+Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
+Hello, 世界! 🙂
 ```
 
 - Read lines from file
@@ -133,16 +185,6 @@ int main() {
 }
 ```
 
-**Output:**
-
-- Terminal
-
-```text
-Hello, 世界! 🙂
-```
-
-- File (_somefile.txt_)
-
 ```text
 Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 Hello, 世界! 🙂
@@ -155,8 +197,6 @@ Hello, 世界! 🙂
 The JSON format is crucial for web development, API integration, and any
 applications that need efficient data exchange in a structured format.
 
-**Types:**
-
 - `json_t`: Provides comprehensive support for JSON handling.
   Facilitates parsing, generating, and manipulating JSON data structures.
   Enables easy serialization of complex data into JSON format for storage or
@@ -165,7 +205,7 @@ applications that need efficient data exchange in a structured format.
   objects and arrays, ensuring compatibility across various platforms and
   systems.
 
-**Usage:**
+**Usage**
 
 - Brackets operator
 
@@ -234,7 +274,7 @@ config.to_string(true);
 config.to_string(true, 2);
 ```
 
-**Output:**
+**Output**
 
 ```json
 {"name":{"first":"John","last":"Doe"},"age":30,"address":{"street":"123 Main St","city":"Anytown","zip":"12345"},"phone_numbers":["555-1234","555-5678"]}
@@ -263,8 +303,6 @@ config.to_string(true, 2);
 
 Handling errors without standard exceptions.
 
-**Types:**
-
 - `result_t`: Represents a type to encapsulate the result of an operation that
   may succeed or fail, along with an associated error type.
   It provides a type-safe way to handle both successful outcomes and errors
@@ -275,7 +313,7 @@ Handling errors without standard exceptions.
   It provides a structured way to categorize and manage errors that occur during
   computations or operations.
 
-**Usage:**
+**Usage**
 
 ```c++
 #include <caitlyn/core/error.h>
@@ -318,12 +356,10 @@ computations with high precision, avoiding data loss due to type limitations.
 Such types are often used in applications requiring high-precision calculations,
 such as financial applications, scientific research, or cryptography.
 
-**Types:**
-
 - `pwrint_t`: Integral type of arbitrary length
 - `pwrnum_t`: Floating point type with arbitrary precision
 
-**Usage:**
+**Usage**
 
 - Integral
 
@@ -339,6 +375,10 @@ int main() {
   cait::println(result);
   return 0;
 }
+```
+
+```text
+480406269860917721318957511814148894618259818296995209585410018969574705029068317
 ```
 
 - Floating point
@@ -357,20 +397,15 @@ int main() {
 }
 ```
 
-**Output:**
-
 ```text
-480406269860917721318957511814148894618259818296995209585410018969574705029068317
 1441.64203387923303265813084431780163079588042340079866748019604087803446244208066
 ```
 
 ### Type Traits
 
-**Macro:**
-
 - `required` - Provides a more elegant alternative to std::enable_if
 
-**Usage:**
+**Usage**
 
 The `add` function template accepts two parameters of type `T` and returns
 their sum. This function only works with integral types, enforced using
@@ -400,7 +435,7 @@ your projects.
 - **Detailed Reporting**: Reports detailed information on passed and failed
   tests, aiding in debugging.
 
-**Usage:**
+**Usage**
 
 ```c++
 #include <caitlyn/test.h>
@@ -439,7 +474,7 @@ int main() {
 
 **Output**
 
-```
+```text
 [==========] Running 3 tests from 2 test cases.
 [----------] Global test environment set-up.
 
