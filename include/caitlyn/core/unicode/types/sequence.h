@@ -28,9 +28,9 @@ template <typename CharT>
 class char_seq_t;
 
 template <>
-class char_seq_t<char> {
+class char_seq_t<byte_t> {
 public:
-  using value_type = char;
+  using value_type = byte_t;
   using type = std::tuple<value_type, value_type, value_type, value_type>;
 };
 

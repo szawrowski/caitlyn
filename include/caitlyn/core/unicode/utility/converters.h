@@ -29,10 +29,10 @@
 namespace cait {
 
 template <typename CharT>
-typename char_seq_t<CharT>::type get_char_seq(code_point_t codepoint);
+typename char_seq_t<byte_t>::type get_char_seq(code_point_t codepoint);
 
 template <>
-inline char_seq_t<char>::type get_char_seq<char>(
+inline char_seq_t<byte_t>::type get_char_seq<char>(
     const code_point_t codepoint) {
   const auto length = calculate_char_count(codepoint);
   if (codepoint == 0) {
@@ -40,20 +40,20 @@ inline char_seq_t<char>::type get_char_seq<char>(
   }
   if (length == 1) {
     return std::make_tuple(static_cast<byte_t>(codepoint),
-                           get_char(ascii_t::null), get_char(ascii_t::null),
-                           get_char(ascii_t::null));
+                           get_uchar(ascii_t::null), get_uchar(ascii_t::null),
+                           get_uchar(ascii_t::null));
   }
   if (length == 2) {
     return std::make_tuple(static_cast<byte_t>(0xC0 | (codepoint >> 6)),
                            static_cast<byte_t>(0x80 | (codepoint & 0x3F)),
-                           get_char(ascii_t::null), get_char(ascii_t::null));
+                           get_uchar(ascii_t::null), get_uchar(ascii_t::null));
   }
   if (length == 3) {
     return std::make_tuple(
         static_cast<byte_t>(0xE0 | (codepoint >> 12)),
         static_cast<byte_t>(0x80 | ((codepoint >> 6) & 0x3F)),
         static_cast<byte_t>(0x80 | (codepoint & 0x3F)),
-        get_char(ascii_t::null));
+        get_uchar(ascii_t::null));
   }
   return std::make_tuple(static_cast<byte_t>(0xF0 | (codepoint >> 18)),
                          static_cast<byte_t>(0x80 | ((codepoint >> 12) & 0x3F)),
