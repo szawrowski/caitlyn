@@ -28,6 +28,10 @@ inline __caitlyn_constexpr14 char get_char(const ascii_t value) {
   return static_cast<char>(value);
 }
 
+inline __caitlyn_constexpr14 byte_t get_uchar(const ascii_t value) {
+  return static_cast<byte_t>(value);
+}
+
 inline __caitlyn_constexpr14 bool is_space(const char value) {
   return value == get_char(ascii_t::line_feed) ||
          value == get_char(ascii_t::line_tab) ||
