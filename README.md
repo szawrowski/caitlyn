@@ -9,11 +9,11 @@ enhance productivity for everyday tasks.
 
 ### Caitlyn includes
 - [Unicode String Handling](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-strings-support)
-- [Text Formatting](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-strings-support)
-- [File Management](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-strings-support)
-- [JSON Serializing](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#serializing)
+- [Text Formatting](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#text-formatting)
+- [File Management](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#file-management)
+- [Serializing](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#serializing)
 - [Error Handling](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#error-handling)
-- [Arbitrary Precision Arithmetic](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#numeric)
+- [Numeric](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#numeric)
 - [Type Traits](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#type-traits)
 - [Unit Testing](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unit-testing)
 - Utilities
