@@ -417,11 +417,27 @@ int main() {
 **Output**
 
 ```
-[PASSED] MathFixture<int>.TestFixtureAddition
-[PASSED] MathTests.TestAddition
-[FAILED] MathTests.TestFailure: Assertion failed: 2 + 2 == 5 (4 != 5)
+[==========] Running 3 tests from 2 test cases.
+[----------] Global test environment set-up.
 
-Total tests: 3
-Passed: 2
-Failed: 1
+[----------] 1 tests from MathFixture<int>
+[ RUN      ] MathFixture<int>.TestFixtureAddition
+[       OK ] MathFixture<int>.TestFixtureAddition (0 ms)
+[----------] 1 tests from MathFixture<int> (0 ms total)
+
+[----------] 2 tests from MathTests
+[ RUN      ] MathTests.TestAddition
+[       OK ] MathTests.TestAddition (0 ms)
+[ RUN      ] MathTests.TestFailure
+[  FAILED  ] MathTests.TestFailure (0 ms)
+             Assertion failed: 2 + 2 == 5 (4 != 5)
+[----------] 2 tests from MathTests (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 2 test cases ran. (4 ms total)
+[  PASSED  ] 2 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] MathTests.TestFailure
+
+1 FAILED TEST
 ```
