@@ -368,7 +368,7 @@ int main() {
 
 **Macro:**
 
-- `required` - Provides a more elegant alternative to std::enable_if_t
+- `required` - Provides a more elegant alternative to std::enable_if
 
 **Usage:**
 
