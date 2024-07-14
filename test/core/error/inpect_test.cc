@@ -6,7 +6,7 @@ TEST(ResultTest, InspectValue) {
 
   success_result.inspect(
       [](const int value) { ASSERT_EQ(value, 42); },
-      [](const std::string&) { FAIL() << "Expected success"; });
+      [](const std::string&) { FAIL_MESSAGE() << "Expected success"; });
 }
 
 TEST(ResultTest, InspectError) {
@@ -14,6 +14,6 @@ TEST(ResultTest, InspectError) {
       cait::make_error("Error message")};
 
   error_result.inspect(
-      [](int) { FAIL() << "Expected error"; },
+      [](int) { FAIL_MESSAGE() << "Expected error"; },
       [](const std::string& error) { ASSERT_EQ(error, "Error message"); });
 }
