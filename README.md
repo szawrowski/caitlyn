@@ -378,7 +378,6 @@ their sum. This function only works with integral types, enforced using
 with the `required` macro.
 
 ```c++
-#include <caitlyn/core/io.h>
 #include <caitlyn/core/traits.h>
 
 template <typename T, typename = required(std::is_integral<T>::value)>
