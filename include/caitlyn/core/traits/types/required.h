@@ -15,27 +15,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLUN_CORE_TRAITS_TYPES_REQUIRES_H_
-#define CAITLUN_CORE_TRAITS_TYPES_REQUIRES_H_
+#ifndef CAITLUN_CORE_TRAITS_TYPES_REQUIRED_H_
+#define CAITLUN_CORE_TRAITS_TYPES_REQUIRED_H_
 
 namespace cait {
 namespace traits {
-namespace __detail {
 
 template <bool B, typename T = void>
-struct requires_impl_t {};
+struct required_t {};
 
 template <typename T>
-struct requires_impl_t<true, T> {
+struct required_t<true, T> {
   using type = T;
 };
 
-}  // namespace __detail
 }  // namespace traits
 
 template <bool B, typename T = void>
-using requires_t = typename traits::__detail::requires_impl_t<B, T>::type;
+using required_t = typename traits::required_t<B, T>::type;
 
 }  // namespace cait
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_REQUIRES_H_
+#define required(...) typename cait::required_t<__VA_ARGS__>
+
+#endif  // CAITLUN_CORE_TRAITS_TYPES_REQUIRED_H_

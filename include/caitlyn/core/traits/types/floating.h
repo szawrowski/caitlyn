@@ -18,9 +18,7 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_FLOATING_H_
 #define CAITLUN_CORE_TRAITS_TYPES_FLOATING_H_
 
-#include "caitlyn/base.h"
 #include "caitlyn/core/traits/types/bool_constant.h"
-#include "caitlyn/core/traits/types/requires.h"
 
 namespace cait {
 
@@ -28,8 +26,8 @@ template <typename T>
 struct floating_t {
 private:
   template <typename U>
-  static auto check(U*)
-      -> requires_t<std::is_floating_point<U>::value, true_t>;
+  static auto check(U*) ->
+      typename std::enable_if<std::is_floating_point<U>::value, true_t>::type;
 
   template <typename>
   static false_t check(...);

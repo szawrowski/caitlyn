@@ -18,7 +18,6 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_H_
 #define CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_H_
 
-#include "caitlyn/base.h"
 #include "caitlyn/core/traits/types/bool_constant.h"
 
 namespace cait {
@@ -26,15 +25,15 @@ namespace cait {
 template <typename T>
 struct integral_t {
 private:
- template <typename U>
- static auto check(U*)
-     -> requires_t<std::is_integral<U>::value, true_t>;
+  template <typename U>
+  static auto check(U*) ->
+      typename std::enable_if<std::is_integral<U>::value, true_t>::type;
 
- template <typename>
- static false_t check(...);
+  template <typename>
+  static false_t check(...);
 
 public:
- static constexpr bool value = decltype(check<T>(nullptr))::value;
+  static constexpr bool value = decltype(check<T>(nullptr))::value;
 };
 
 }  // namespace cait

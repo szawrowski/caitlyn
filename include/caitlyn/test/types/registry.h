@@ -6,6 +6,7 @@
 #include <map>
 #include <vector>
 
+#include "caitlyn/base.h"
 #include "caitlyn/test/types/case.h"
 
 namespace cait {
