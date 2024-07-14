@@ -91,7 +91,7 @@ private:
   void log_start() const {
     std::cout << "[==========] Running " << total_ << " tests from "
               << tests_.size() << " test cases.\n";
-    std::cout << "[----------] Global test environment set-up.\n";
+    std::cout << "[----------] Global test environment set-up.\n\n";
   }
 
   static void log_suite_start(const std::string& suite_name,
@@ -116,7 +116,7 @@ private:
   void log_test_failure(const case_t& test, const std::string& message) const {
     std::cout << "[  FAILED  ] " << test.suite_name << '.' << test.test_name
               << " (" << local_difference_.count() << " ms)\n"
-              << "           " << message << "\n";
+              << "             " << message << "\n";
   }
 
   static void log_suite_end(const std::string& suite_name,
