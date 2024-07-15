@@ -15,10 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLUN_CORE_TRAITS_TYPES_SAME_H_
-#define CAITLUN_CORE_TRAITS_TYPES_SAME_H_
+#ifndef CAITLUN_CORE_TRAITS_TYPES_RELATIONSHIPS_H_
+#define CAITLUN_CORE_TRAITS_TYPES_RELATIONSHIPS_H_
 
-#include "caitlyn/core/traits/types/bool_constant.h"
+#include "caitlyn/core/traits/types/base.h"
 
 namespace cait {
 namespace traits {
@@ -31,16 +31,26 @@ struct is_same_t<T, T> : true_t {};
 
 }  // namespace traits
 
-template <typename T>
-constexpr bool is_same() {
-  return traits::is_same_t<T, T>::value;
+template <typename T, typename U>
+constexpr bool same_as() {
+  return traits::is_same_t<T, U>::value;
 }
 
 template <typename T, typename U>
-constexpr bool is_not_same() {
-  return !traits::is_same_t<T, U>::value;
+constexpr bool not_same() {
+  return !same_as<T, U>();
+}
+
+template <typename Base, typename Derived>
+constexpr bool base_of() {
+  return std::is_base_of<Base, Derived>::value;
+}
+
+template <typename T, typename U>
+constexpr bool convertible() {
+  return std::is_convertible<T, U>::value;
 }
 
 }  // namespace cait
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_SAME_H_
+#endif  // CAITLUN_CORE_TRAITS_TYPES_RELATIONSHIPS_H_
