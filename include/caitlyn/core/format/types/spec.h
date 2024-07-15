@@ -15,15 +15,24 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_FORMAT_TYPES_FORMAT_TYPE_H_
-#define CAITLYN_CORE_FORMAT_TYPES_FORMAT_TYPE_H_
+#ifndef CAITLYN_CORE_FORMAT_TYPES_SPEC_H_
+#define CAITLYN_CORE_FORMAT_TYPES_SPEC_H_
+
+#include "caitlyn/core/format/types/align.h"
+#include "caitlyn/core/format/types/type.h"
 
 namespace cait {
 namespace strfmt {
 
-enum class format_type_t { string, integral, floating_point };
+struct spec_t {
+  align_t align = align_t::left;
+  size_t width = 0;
+  char fill = ' ';
+  type_t type = type_t::string;
+  int precision = -1;
+};
 
 }  // namespace strfmt
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_FORMAT_TYPES_FORMAT_TYPE_H_
+#endif  // CAITLYN_CORE_FORMAT_TYPES_SPEC_H_

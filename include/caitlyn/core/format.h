@@ -41,11 +41,11 @@ std::string format(const std::string& str, Args&&... args) {
       } else {
         const size_t end = str.find(get_char(ascii_t::right_curly_br), pos);
         if (end == std::string::npos) {
-          throw strfmt::format_error_t{"Mismatched braces in format string"};
+          throw strfmt::error_t{"Mismatched braces in format string"};
         }
         std::string spec = str.substr(pos + 1, end - pos - 1);
         if (arg_index >= arguments.size()) {
-          throw strfmt::format_error_t{"Argument index out of range"};
+          throw strfmt::error_t{"Argument index out of range"};
         }
         result << strfmt::__detail::to_string(
             arguments[arg_index++], strfmt::__detail::parse_format_spec(spec));
@@ -57,7 +57,7 @@ std::string format(const std::string& str, Args&&... args) {
         result << get_char(ascii_t::right_curly_br);
         pos += 2;
       } else {
-        throw strfmt::format_error_t{"Single '}' in format string"};
+        throw strfmt::error_t{"Single '}' in format string"};
       }
     } else {
       result << str[pos++];

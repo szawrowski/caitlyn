@@ -15,24 +15,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_
-#define CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_
+#ifndef CAITLYN_CORE_FORMAT_TYPES_ERROR_H_
+#define CAITLYN_CORE_FORMAT_TYPES_ERROR_H_
 
-#include "caitlyn/core/format/types/format_align.h"
-#include "caitlyn/core/format/types/format_type.h"
+#include <stdexcept>
 
 namespace cait {
 namespace strfmt {
 
-struct format_spec_t {
-  format_align_t align = format_align_t::left;
-  int width = 0;
-  char fill = ' ';
-  format_type_t type = format_type_t::string;
-  int precision = -1;
+class error_t final : public std::runtime_error {
+public:
+  explicit error_t(const std::string& message)
+      : std::runtime_error(message) {}
 };
 
 }  // namespace strfmt
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_FORMAT_TYPES_FORMAT_SPEC_H_
+#endif  // CAITLYN_CORE_FORMAT_TYPES_ERROR_H_

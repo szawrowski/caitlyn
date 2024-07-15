@@ -29,106 +29,84 @@ namespace cait {
 namespace strfmt {
 namespace __detail {
 
+inline void process_spec(const spec_t& spec, std::string& str) {
+  switch (spec.align) {
+    case align_t::left:
+      str.append(spec.width - str.size(), spec.fill);
+      break;
+    case align_t::right:
+      str.insert(0, spec.width - str.size(), spec.fill);
+      break;
+    case align_t::center: {
+      const size_t padding = spec.width - str.size();
+      str.insert(0, padding / 2, spec.fill);
+      str.append(padding - padding / 2, spec.fill);
+      break;
+    }
+  }
+}
+
 template <typename T>
 typename std::enable_if<std::is_integral<T>::value, std::string>::type
-to_string(const T& value, const format_spec_t& spec) {
+to_string(const T& value, const spec_t& spec) {
   std::ostringstream oss;
   oss << std::fixed << std::setprecision(0);
 
-  if (spec.type == format_type_t::integral) {
+  if (spec.type == type_t::integral) {
     oss << static_cast<int64_t>(value);
   } else {
     oss << value;
   }
   std::string str = oss.str();
 
-  if (static_cast<int>(str.size()) < spec.width) {
-    switch (spec.align) {
-      case format_align_t::left:
-        str.append(spec.width - str.size(), spec.fill);
-        break;
-      case format_align_t::right:
-        str.insert(0, spec.width - str.size(), spec.fill);
-        break;
-      case format_align_t::center: {
-        const size_t padding = spec.width - str.size();
-        str.insert(0, padding / 2, spec.fill);
-        str.append(padding - padding / 2, spec.fill);
-        break;
-      }
-    }
+  if (str.size() < spec.width) {
+    process_spec(spec, str);
   }
   return str;
 }
 
 template <typename T>
 typename std::enable_if<std::is_floating_point<T>::value, std::string>::type
-to_string(const T& value, const format_spec_t& spec) {
+to_string(const T& value, const spec_t& spec) {
   std::ostringstream oss;
   oss << std::fixed
       << std::setprecision(spec.precision >= 0 ? spec.precision : 6);
 
-  oss << (spec.type == format_type_t::floating_point
+  oss << (spec.type == type_t::floating_point
               ? static_cast<float64_t>(value)
               : value);
 
   std::string str = oss.str();
 
-  if (static_cast<ssize_t>(str.size()) < spec.width) {
-    switch (spec.align) {
-      case format_align_t::left:
-        str.append(spec.width - str.size(), spec.fill);
-        break;
-      case format_align_t::right:
-        str.insert(0, spec.width - str.size(), spec.fill);
-        break;
-      case format_align_t::center: {
-        const size_t padding = spec.width - str.size();
-        str.insert(0, padding / 2, spec.fill);
-        str.append(padding - padding / 2, spec.fill);
-        break;
-      }
-    }
+  if (str.size() < spec.width) {
+    process_spec(spec, str);
   }
   return str;
 }
 
 inline std::string to_string(const std::string& value,
-                             const format_spec_t& spec) {
+                             const spec_t& spec) {
   std::string str = value;
 
-  if (static_cast<int>(str.size()) < spec.width) {
-    switch (spec.align) {
-      case format_align_t::left:
-        str.append(spec.width - str.size(), spec.fill);
-        break;
-      case format_align_t::right:
-        str.insert(0, spec.width - str.size(), spec.fill);
-        break;
-      case format_align_t::center: {
-        const size_t padding = spec.width - str.size();
-        str.insert(0, padding / 2, spec.fill);
-        str.append(padding - padding / 2, spec.fill);
-        break;
-      }
-    }
+  if (str.size() < spec.width) {
+    process_spec(spec, str);
   }
   return str;
 }
 
-inline std::string to_string(const char* value, const format_spec_t& spec) {
+inline std::string to_string(const char* value, const spec_t& spec) {
   return to_string(std::string{value}, spec);
 }
 
 template <typename T>
 required_t<convertible_to_string<T>(), std::string> to_string(
-    const T& value, const format_spec_t& spec) {
+    const T& value, const spec_t& spec) {
   return to_string(value.to_string(), spec);
 }
 
 template <typename T>
 required_t<has_str<T>(), std::string> to_string(const T& value,
-                                                const format_spec_t& spec) {
+                                                const spec_t& spec) {
   return to_string(value.str(), spec);
 }
 

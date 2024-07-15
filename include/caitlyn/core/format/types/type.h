@@ -15,21 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_FORMAT_TYPES_FORMAT_ERROR_H_
-#define CAITLYN_CORE_FORMAT_TYPES_FORMAT_ERROR_H_
-
-#include <stdexcept>
+#ifndef CAITLYN_CORE_FORMAT_TYPES_TYPE_H_
+#define CAITLYN_CORE_FORMAT_TYPES_TYPE_H_
 
 namespace cait {
 namespace strfmt {
 
-class format_error_t final : public std::runtime_error {
-public:
-  explicit format_error_t(const std::string& message)
-      : std::runtime_error(message) {}
-};
+enum class type_t { string, integral, floating_point };
 
 }  // namespace strfmt
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_FORMAT_TYPES_FORMAT_ERROR_H_
+#endif  // CAITLYN_CORE_FORMAT_TYPES_TYPE_H_

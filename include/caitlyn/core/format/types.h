@@ -18,9 +18,9 @@
 #ifndef CAITLYN_CORE_FORMAT_TYPES_H_
 #define CAITLYN_CORE_FORMAT_TYPES_H_
 
-#include "caitlyn/core/format/types/format_align.h"
-#include "caitlyn/core/format/types/format_error.h"
-#include "caitlyn/core/format/types/format_spec.h"
-#include "caitlyn/core/format/types/format_type.h"
+#include "caitlyn/core/format/types/align.h"
+#include "caitlyn/core/format/types/error.h"
+#include "caitlyn/core/format/types/spec.h"
+#include "caitlyn/core/format/types/type.h"
 
 #endif  // CAITLYN_CORE_FORMAT_TYPES_H_
