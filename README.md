@@ -182,7 +182,6 @@ int main() {
     cait::println("{}", file.read_line());
   }
   file.close();
-  
   return 0;
 }
 ```
