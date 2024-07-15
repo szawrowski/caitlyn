@@ -6,6 +6,7 @@ setlocal enabledelayedexpansion
 if "%~1"=="" (
   @REM If no arguments are provided, set build type to Debug
   set "build_type=Debug"
+  set "install=false"
 ) else (
   @REM Convert the argument to lowercase
   set "build_type=%~1"
@@ -16,6 +17,8 @@ if "%~1"=="" (
     set "build_type=Release"
   ) else if /I "!build_type!"=="debug" (
     set "build_type=Debug"
+  ) else if /I "!build_type!"=="install" (
+    set "install=true"
   ) else (
     echo Error: Invalid build type '%~1'.
     echo Please specify either 'Release' or 'Debug'.
@@ -23,20 +26,27 @@ if "%~1"=="" (
   )
 )
 
-@REM Build type message
-echo Build type: %build_type%
-
 @REM Set build directory
 set "build_dir=build\%build_type%"
 
-@REM Run cmake with the appropriate build type
-cmake -S . -B %build_dir% -G "Ninja" -DCMAKE_BUILD_TYPE=%build_type%
+if /I "!install!"=="true" (
+  @REM Build type message
+  echo Installation...
 
-@REM Build the targets
-cmake --build %build_dir% --parallel 4
+  cmake -S . -B %build_dir% -DINSTALL=ON
+  cmake --install %build_dir%
+) else (
+  @REM Build type message
+  echo Build type: %build_type%
 
-@REM Run tests
-set "test_dir=%build_dir%\test"
-ctest --test-dir %test_dir% --build-config Debug --output-on-failure --parallel 4
+  @REM Run cmake with the appropriate build type
+  cmake -S . -B %build_dir% -G "Ninja" -DCMAKE_BUILD_TYPE=%build_type% -DDEVELOPMENT=ON
+
+  @REM Build the targets
+  cmake --build %build_dir% --parallel 16
+
+  @REM Run tests
+  ctest --test-dir "%build_dir%\test" --build-config Debug --output-on-failure --parallel 16
+)
 
 endlocal
