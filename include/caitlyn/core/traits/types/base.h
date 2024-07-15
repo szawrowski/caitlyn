@@ -15,18 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
-#define CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
+#ifndef CAITLUN_CORE_TRAITS_TYPES_BASE_H_
+#define CAITLUN_CORE_TRAITS_TYPES_BASE_H_
 
 #include <type_traits>
 
 namespace cait {
-namespace traits {
 
 template <bool B>
-struct bool_constant_t {
+struct condition_t {
   using value_type = bool;
-  using type = bool_constant_t;
+  using type = condition_t;
 
   constexpr explicit operator value_type() const noexcept { return value; }
   constexpr value_type operator()() const noexcept { return value; }
@@ -34,11 +33,28 @@ struct bool_constant_t {
   static constexpr bool value = B;
 };
 
-}  // namespace traits
+using true_t = condition_t<true>;
+using false_t = condition_t<false>;
 
-using true_t = traits::bool_constant_t<true>;
-using false_t = traits::bool_constant_t<false>;
+template<typename...>
+using indicator_t = void;
+
+template<bool, typename = void>
+struct constraint_t {};
+
+template<typename Ret>
+struct constraint_t<true, Ret> {
+  using type = Ret;
+};
+
+template <bool Condition, typename Ret = void>
+using required_t = typename constraint_t<Condition, Ret>::type;
+
+template <typename T>
+struct type_identity_t {
+  using type = T;
+};
 
 }  // namespace cait
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_INTEGRAL_CONSTANT_H_
+#endif  // CAITLUN_CORE_TRAITS_TYPES_BASE_H_
