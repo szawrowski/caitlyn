@@ -23,18 +23,18 @@ set(
 
 project(Caitlyn VERSION ${LIB_VERSION_STRING} LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
-set(LIB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
-
 if(DEVELOPMENT)
+  set(CMAKE_CXX_STANDARD 11)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
   if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc /Wall /W3 /permissive")
   else()
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic")
   endif()
 endif()
+
+set(LIB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 if(BUILD_TESTS)
   enable_testing()
