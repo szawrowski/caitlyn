@@ -177,10 +177,12 @@ Hello, 世界!
 
 int main() {
   auto file = "somefile.txt"_file;
-
+  
   while (file) {
     cait::println("{}", file.read_line());
   }
+  file.close();
+  
   return 0;
 }
 ```
