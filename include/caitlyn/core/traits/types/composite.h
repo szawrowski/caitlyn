@@ -24,18 +24,16 @@ namespace cait {
 namespace traits {
 
 template <typename T>
-struct is_arithmetic_t : bool_constant_t<is_integral<T>() || is_floating<T>()> {
-};
+struct is_arithmetic_t : condition_t<is_integral<T>() || is_floating<T>()> {};
 
 template <typename T>
-struct is_fundamental_t : bool_constant_t<is_arithmetic_t<T>::value ||
-                                          is_void<T>() || is_null_ptr<T>()> {};
+struct is_fundamental_t : condition_t<is_arithmetic_t<T>::value ||
+                                      is_void<T>() || is_null_ptr<T>()> {};
 
 template <class T>
 struct is_scalar_t
-    : bool_constant_t<is_arithmetic_t<T>::value || is_enum<T>() ||
-                      is_ptr<T>() || std::is_member_pointer<T>::value ||
-                      is_null_ptr<T>()> {};
+    : condition_t<is_arithmetic_t<T>::value || is_enum<T>() || is_ptr<T>() ||
+                  std::is_member_pointer<T>::value || is_null_ptr<T>()> {};
 
 }  // namespace traits
 

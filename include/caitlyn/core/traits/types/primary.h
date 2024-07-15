@@ -18,20 +18,20 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_PRIMARY_H_
 #define CAITLUN_CORE_TRAITS_TYPES_PRIMARY_H_
 
-#include "caitlyn/core/traits/types/remove_cv.h"
-#include "caitlyn/core/traits/types/same.h"
+#include "caitlyn/core/traits/types/specifiers.h"
+#include "caitlyn/core/traits/types/relationships.h"
 
 namespace cait {
 namespace traits {
 
 template <class T>
-struct is_void_t : is_same_t<void, remove_cv_t<T>>::type {};
+struct is_void_t : is_same_t<void, clean_t<T>>::type {};
 
 template <class T>
-struct is_null_pointer_t : is_same_t<std::nullptr_t, remove_cv_t<T>>::type {};
+struct is_null_pointer_t : is_same_t<std::nullptr_t, clean_t<T>>::type {};
 
 template <class T>
-struct is_boolean_t : is_same_t<bool, remove_cv_t<T>>::type {};
+struct is_boolean_t : is_same_t<bool, clean_t<T>>::type {};
 
 // Characters
 template <typename, typename = void>

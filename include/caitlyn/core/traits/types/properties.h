@@ -18,17 +18,16 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_PROPERTIES_H_
 #define CAITLUN_CORE_TRAITS_TYPES_PROPERTIES_H_
 
-#include "caitlyn/core/traits/types/bool_constant.h"
 #include "caitlyn/core/traits/types/composite.h"
 
 namespace cait {
 namespace traits {
 
 template <typename T, bool = is_arithmetic<T>()>
-struct is_signed_t : bool_constant_t<T(-1) < T(0)> {};
+struct is_signed_t : condition_t<T(-1) < T(0)> {};
 
 template <typename T, bool = is_arithmetic<T>()>
-struct is_unsigned_t : bool_constant_t<T(0) < T(-1)> {};
+struct is_unsigned_t : condition_t<T(0) < T(-1)> {};
 
 }  // namespace traits
 
@@ -48,7 +47,7 @@ constexpr bool is_trivial() {
 }
 
 template <typename T>
-constexpr bool is_trivially_copyable() {
+constexpr bool trivially_copyable() {
   return std::is_trivially_copyable<T>::value;
 }
 
