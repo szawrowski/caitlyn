@@ -19,7 +19,6 @@
 #define CAITLUN_CORE_TRAITS_TYPES_REQUIRED_H_
 
 namespace cait {
-namespace traits {
 
 template<bool, typename = void>
 struct constraint_t {};
@@ -29,10 +28,8 @@ struct constraint_t<true, Ret> {
   using type = Ret;
 };
 
-}  // namespace traits
-
 template <bool Condition, typename Ret = void>
-using required_t = typename traits::constraint_t<Condition, Ret>::type;
+using required_t = typename constraint_t<Condition, Ret>::type;
 
 }  // namespace cait
 
