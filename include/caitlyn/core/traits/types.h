@@ -20,6 +20,8 @@
 
 #include "caitlyn/core/traits/types/bool_constant.h"
 #include "caitlyn/core/traits/types/primary.h"
+#include "caitlyn/core/traits/types/properties.h"
+#include "caitlyn/core/traits/types/composite.h"
 #include "caitlyn/core/traits/types/remove_cv.h"
 #include "caitlyn/core/traits/types/required.h"
 #include "caitlyn/core/traits/types/same.h"
