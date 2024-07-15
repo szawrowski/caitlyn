@@ -73,8 +73,8 @@ public:
   }
 
   result_t(result_t&& other) noexcept(
-      std::is_nothrow_move_constructible<value_type>::value &&
-      std::is_nothrow_move_constructible<error_type>::value)
+      nothrow_move_constructible<value_type>() &&
+      nothrow_move_constructible<error_type>())
       : has_value_(other.has_value_) {
     if (has_value_) {
       new (&data_.value) value_type(std::move(other.data_.value));
@@ -84,8 +84,8 @@ public:
   }
 
   result_t& operator=(result_t&& other) noexcept(
-      std::is_nothrow_move_assignable<value_type>::value &&
-      std::is_nothrow_move_assignable<error_type>::value) {
+      nothrow_move_assignable<value_type>() &&
+      nothrow_move_assignable<error_type>()) {
     if (this != &other) {
       destroy_union();
       has_value_ = other.has_value_;
@@ -259,25 +259,22 @@ public:
   }
 
 private:
-  template <typename ResultT = value_type, typename ErrorT = error_type>
-  required_t<is_destructible<ResultT>() && !is_destructible<ErrorT>()>
-  destroy_union() {
+  template <typename Result = T, typename Error = E>
+  required_t<destructible<Result>() && !destructible<Error>()> destroy_union() {
     if (has_value_) {
       data_.value.~value_type();
     }
   }
 
-  template <typename ResultT = value_type, typename ErrorT = error_type>
-  required_t<!is_destructible<ResultT>() && is_destructible<ErrorT>()>
-  destroy_union() {
+  template <typename Result = T, typename Error = E>
+  required_t<!destructible<Result>() && destructible<Error>()> destroy_union() {
     if (!has_value_) {
       data_.error.~error_t<error_type>();
     }
   }
 
-  template <typename ResultT = value_type, typename ErrorT = error_type>
-  required_t<is_destructible<ResultT>() && is_destructible<ErrorT>()>
-  destroy_union() {
+  template <typename Result = T, typename Error = E>
+  required_t<destructible<Result>() && destructible<Error>()> destroy_union() {
     if (has_value_) {
       data_.value.~value_type();
     } else {
@@ -285,8 +282,8 @@ private:
     }
   }
 
-  template <typename ResultT = value_type, typename ErrorT = error_type>
-  required_t<!is_destructible<ResultT>() && !is_destructible<ErrorT>()>
+  template <typename Result = T, typename Error = E>
+  required_t<!destructible<Result>() && !destructible<Error>()>
   destroy_union() {}
 
 private:
