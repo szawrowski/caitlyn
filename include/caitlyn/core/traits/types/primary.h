@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLUN_CORE_TRAITS_TYPES_BASIC_H_
-#define CAITLUN_CORE_TRAITS_TYPES_BASIC_H_
+#ifndef CAITLUN_CORE_TRAITS_TYPES_PRIMARY_H_
+#define CAITLUN_CORE_TRAITS_TYPES_PRIMARY_H_
 
 #include "caitlyn/core/traits/types/remove_cv.h"
 #include "caitlyn/core/traits/types/same.h"
@@ -206,4 +206,4 @@ constexpr bool is_member_func_ptr() {
 
 }  // namespace cait
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_BASIC_H_
+#endif  // CAITLUN_CORE_TRAITS_TYPES_PRIMARY_H_
