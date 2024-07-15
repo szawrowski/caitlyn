@@ -403,20 +403,59 @@ int main() {
 
 ### Type Traits
 
-- `required_t` - Provides a more elegant alternative to std::enable_if
+**required_t** _**< CONDITION**, **OPTIONAL_RETURN_TYPE >**_
+
+The `required_t` type trait provides a more elegant alternative to
+`std::enable_if` for enforcing template constraints in C++.
+
+- **CONDITION**: A boolean value that determines whether the template is
+  enabled.
+- **OPTIONAL_RETURN_TYPE**: The type to return if the condition is met.
+  Defaults to `void`
 
 **Usage**
 
-The `add` function template accepts two parameters of type `T` and returns
-their sum. This function only works with integral types, enforced using
-`cait::is_integral` function and SFINAE (Substitution Failure Is Not An Error)
-with the `required_t`.
+Use SFINAE with a template default type parameter.
+
+Function template `Add` accepts two parameters of type `T` and returns
+their sum. It uses `required_t` to enforce that `T` is an integral type,
+as a template default type parameter.
 
 ```c++
 #include <caitlyn/core/traits.h>
 
 template <typename T, typename = cait::required_t<cait::is_integral<T>()>>
-T add(const T lhs, const T rhs) {
+T Add(const T lhs, const T rhs) {
+  return lhs + rhs;
+}
+```
+
+Use SFINAE as a return type constraint.
+
+Function template `Add` uses `required_t` directly in the return type.
+This enforces that `T` must be an integral type.
+
+```c++
+#include <caitlyn/core/traits.h>
+
+template <typename T>
+cait::required_t<cait::is_integral<T>(), T>
+Add(const T lhs, const T rhs) {
+  return lhs + rhs;
+}
+```
+
+Use SFINAE as a trailing return type constraint.
+
+Function template `Add` uses a trailing return type to apply the `required_t`
+constraint. This ensures that `T` is an integral type.
+
+```c++
+#include <caitlyn/core/traits.h>
+
+template <typename T>
+auto Add(const T lhs, const T rhs)
+    -> cait::required_t<cait::is_integral<T>(), T> {
   return lhs + rhs;
 }
 ```
