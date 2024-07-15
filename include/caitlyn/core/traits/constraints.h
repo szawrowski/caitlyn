@@ -19,7 +19,6 @@
 #define CAITLYN_CORE_TRAITS_CONSTRAINTS_H_
 
 #include "caitlyn/core/traits/constraints/containers.h"
-#include "caitlyn/core/traits/constraints/object.h"
 #include "caitlyn/core/traits/constraints/operators.h"
 #include "caitlyn/core/traits/constraints/string.h"
 

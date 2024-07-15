@@ -18,13 +18,16 @@
 #ifndef CAITLIN_CORE_TRAITS_TYPES_H_
 #define CAITLIN_CORE_TRAITS_TYPES_H_
 
-#include "caitlyn/core/traits/types/bool_constant.h"
+#include "caitlyn/core/traits/types/base.h"
+#include "caitlyn/core/traits/types/composite.h"
+#include "caitlyn/core/traits/types/operations.h"
+#include "caitlyn/core/traits/types/pointers.h"
 #include "caitlyn/core/traits/types/primary.h"
 #include "caitlyn/core/traits/types/properties.h"
-#include "caitlyn/core/traits/types/composite.h"
-#include "caitlyn/core/traits/types/remove_cv.h"
-#include "caitlyn/core/traits/types/required.h"
-#include "caitlyn/core/traits/types/same.h"
-#include "caitlyn/core/traits/types/void.h"
+#include "caitlyn/core/traits/types/property_queries.h"
+#include "caitlyn/core/traits/types/references.h"
+#include "caitlyn/core/traits/types/relationships.h"
+#include "caitlyn/core/traits/types/sign_modifiers.h"
+#include "caitlyn/core/traits/types/specifiers.h"
 
 #endif  // CAITLIN_CORE_TRAITS_TYPES_H_
