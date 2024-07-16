@@ -33,7 +33,7 @@ if /I "!install!"=="true" (
   @REM Build type message
   echo Installation...
 
-  cmake -S . -B %build_dir% -DINSTALL=ON
+  cmake -S . -B %build_dir% -DLIB_INSTALL=ON
   cmake --install %build_dir%
 ) else (
   @REM Build type message
