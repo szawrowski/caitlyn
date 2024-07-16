@@ -137,8 +137,8 @@ public:
   }
 
   __caitlyn_nodiscard std::string str(const bool mangling = false,
-                                            const size_t indent = 2) const {
-    return root_.to_string(mangling, indent);
+                                      const size_t indent = 2) const {
+    return root_.str(mangling, indent);
   }
 
 private:

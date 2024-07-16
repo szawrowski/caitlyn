@@ -293,8 +293,8 @@ public:
   }
 
 public:
-  __caitlyn_nodiscard string_type to_string(const boolean_type mangling = false,
-                                            const size_type indent = 2) const {
+  __caitlyn_nodiscard string_type str(const boolean_type mangling = false,
+                                      const size_type indent = 2) const {
     std::ostringstream oss;
     make_output(oss, mangling, indent, indent);
     return oss.str();
