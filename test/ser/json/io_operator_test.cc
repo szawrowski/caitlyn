@@ -37,7 +37,5 @@ TEST(JsonTest, IoOperator) {
   }
 
   ASSERT_FALSE(iconfig.has_error());
-
-  ASSERT_STREQ(oconfig.to_string().c_str(),
-               iconfig.to_string().c_str());
+  ASSERT_STREQ(oconfig.str().c_str(), iconfig.str().c_str());
 }
