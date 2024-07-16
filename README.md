@@ -69,7 +69,7 @@ is the source file for your main executable.
 Run the simple program.
 
 ```c++
-#include <caitlyn/core/io.h>
+#include <caitlyn/io>
 
 int main() {
   cait::println("Hello, world!");
@@ -86,8 +86,8 @@ Basic string enhanced with correct UTF-8 operations.
 **Usage**
 
 ```c++
-#include <caitlyn/core/io.h>
-#include <caitlyn/core/string.h>
+#include <caitlyn/io>
+#include <caitlyn/string>
 
 int main() {
   cait::string_t string = "Hello, 世界! 🙂";
@@ -153,8 +153,8 @@ Updated [11]: Hello, 世界! ❤️
 **Usage**
 
 ```c++
-#include <caitlyn/core/io.h>
-#include <caitlyn/core/text.h>
+#include <caitlyn/io>
+#include <caitlyn/text>
 
 int main() {
   const auto string = "Hello, 世界!"_str;
@@ -186,7 +186,7 @@ Hello, 世界! 🙂
 - Write text to file
 
 ```c++
-#include <caitlyn/core/file.h>
+#include <caitlyn/file>
 
 int main() {
   const auto some = "Lorem ipsum dolor sit amet,"_str;
@@ -211,8 +211,7 @@ Hello, 世界!
 - Read lines from file
 
 ```c++
-#include <caitlyn/core/file.h>
-#include <caitlyn/core/io.h>
+#include <caitlyn/io>
 
 int main() {
   auto file = "somefile.txt"_file;
@@ -250,8 +249,8 @@ applications that need efficient data exchange in a structured format.
 - Brackets operator
 
 ```c++
-#include <caitlyn/core/io.h>
-#include <caitlyn/ser/json.h>
+#include <caitlyn/io>
+#include <caitlyn/serializing>
 
 int main() {
   auto config = cait::make_json();
@@ -273,8 +272,8 @@ int main() {
 - Native JSON
 
 ```c++
-#include <caitlyn/core/io.h>
-#include <caitlyn/ser/json.h>
+#include <caitlyn/io>
+#include <caitlyn/serializing>
 
 int main() {
   const auto config = json_str(
@@ -356,8 +355,8 @@ Handling errors without standard exceptions.
 **Usage**
 
 ```c++
-#include <caitlyn/core/error.h>
-#include <caitlyn/core/io.h>
+#include <caitlyn/error>
+#include <caitlyn/io>
 
 enum class MathError {
   kDivideByZero
@@ -404,8 +403,8 @@ such as financial applications, scientific research, or cryptography.
 - Integral
 
 ```c++
-#include <caitlyn/core/io.h>
-#include <caitlyn/num.h>
+#include <caitlyn/io>
+#include <caitlyn/numeric>
 
 int main() {
   const auto a = "47011878636176761032731633812398273982371829"_pwrint;
@@ -424,8 +423,8 @@ int main() {
 - Floating point
 
 ```c++
-#include <caitlyn/core/io.h>
-#include <caitlyn/num.h>
+#include <caitlyn/io>
+#include <caitlyn/numeric>
 
 int main() {
   const auto a = "182.81278920101871298728193797392737812737"_pwrnum;
@@ -462,7 +461,7 @@ their sum. It uses `required_t` to enforce that `T` is an integral type,
 as a template default type parameter.
 
 ```c++
-#include <caitlyn/core/traits.h>
+#include <caitlyn/traits>
 
 template <typename T, typename = cait::required_t<cait::is_integral<T>()>>
 T Add(const T lhs, const T rhs) {
@@ -476,7 +475,7 @@ Function template `Add` uses `required_t` directly in the return type.
 This enforces that `T` must be an integral type.
 
 ```c++
-#include <caitlyn/core/traits.h>
+#include <caitlyn/traits>
 
 template <typename T>
 cait::required_t<cait::is_integral<T>(), T>
@@ -491,7 +490,7 @@ Function template `Add` uses a trailing return type to apply the `required_t`
 constraint. This ensures that `T` is an integral type.
 
 ```c++
-#include <caitlyn/core/traits.h>
+#include <caitlyn/traits>
 
 template <typename T>
 auto Add(const T lhs, const T rhs)
@@ -517,7 +516,7 @@ your projects.
 **Usage**
 
 ```c++
-#include <caitlyn/test.h>
+#include <caitlyn/testing>
 
 TEST(MathTests, TestAddition) {
   ASSERT_EQ(2 + 3, 5);
@@ -585,9 +584,9 @@ int main() {
   `get_map_values`
 
 ```c++
-#include <caitlyn/core/containers.h>
-#include <caitlyn/core/io/print.h>
-#include <caitlyn/core/string.h>
+#include <caitlyn/containers>
+#include <caitlyn/io>
+#include <caitlyn/string>
 
 int main() {
   const std::map<int, std::string> numbers{
