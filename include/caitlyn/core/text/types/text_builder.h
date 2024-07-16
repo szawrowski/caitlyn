@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
-#define CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
+#ifndef CAITLYN_CORE_TEXT_TYPES_TEXT_BUILDER_H_
+#define CAITLYN_CORE_TEXT_TYPES_TEXT_BUILDER_H_
 
 #include "caitlyn/core/format.h"
 #include "caitlyn/core/string.h"
@@ -34,10 +34,10 @@ public:
 
   basic_text_builder_t(const char str) { data_ << str; }
   basic_text_builder_t(const char* str) { data_ << str; }
-  basic_text_builder_t(const std::string& str) { data_ << str; }
+  basic_text_builder_t(const string_t& str) { data_ << str; }
 
   template <typename... Args>
-  basic_text_builder_t(const std::string& str, Args&&... args) {
+  basic_text_builder_t(const string_t& str, Args&&... args) {
     data_ << format(str, std::forward<Args>(args)...);
   }
 
@@ -49,10 +49,10 @@ public:
 
 public:
   void append(const char* str) { data_ << str; }
-  void append(const std::string& str) { data_ << str; }
+  void append(const string_t& str) { data_ << str; }
 
   template <typename... Args>
-  void append(const std::string& str, Args&&... args) {
+  void append(const string_t& str, Args&&... args) {
     data_ << format(str, std::forward<Args>(args)...);
   }
 
@@ -60,18 +60,18 @@ public:
     data_ << str << get_char(ascii_t::line_feed);
   }
 
-  void append_line(const std::string& str) {
+  void append_line(const string_t& str) {
     data_ << str << get_char(ascii_t::line_feed);
   }
 
   template <typename... Args>
-  void append_line(const std::string& str, Args&&... args) {
+  void append_line(const string_t& str, Args&&... args) {
     data_ << format(str, std::forward<Args>(args)...)
           << get_char(ascii_t::line_feed);
   }
 
 public:
-  __caitlyn_nodiscard std::string to_string() const { return data_.str(); }
+  __caitlyn_nodiscard string_t str() const { return data_.str(); }
 
 private:
   data_type data_;
@@ -81,19 +81,19 @@ inline basic_text_builder_t<char> make_text() {
   return basic_text_builder_t<char>{};
 }
 
-inline basic_text_builder_t<char> make_text(const char symbol) {
-  return basic_text_builder_t<char>{symbol};
+inline basic_text_builder_t<char> make_text(const char c) {
+  return basic_text_builder_t<char>{c};
 }
 
-inline basic_text_builder_t<char> make_text(const std::string& str) {
+inline basic_text_builder_t<char> make_text(const string_t& str) {
   return basic_text_builder_t<char>{str};
 }
 
 template <typename... Args>
-basic_text_builder_t<char> make_text(const std::string& str, Args&&... args) {
+basic_text_builder_t<char> make_text(const string_t& str, Args&&... args) {
   return basic_text_builder_t<char>{format(str, std::forward<Args>(args)...)};
 }
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
+#endif  // CAITLYN_CORE_TEXT_TYPES_TEXT_BUILDER_H_
