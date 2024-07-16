@@ -77,9 +77,10 @@
 
 #define ASSERT_EQ_PRINTABLE(val1, val2)                                  \
   if (!((val1) == (val2))) {                                             \
-    static_assert(cait::has_output_operator<decltype(val1)>::value &&    \
-                      cait::has_output_operator<decltype(val2)>::value,  \
-                  "Types must be printable to use ASSERT_EQ_PRINTABLE"); \
+    static_assert(                                                       \
+        cait::traits::has_ostream_operator_t<decltype(val1)>::value &&   \
+            cait::traits::has_ostream_operator_t<decltype(val2)>::value, \
+        "Types must be printable to use ASSERT_EQ_PRINTABLE");           \
     std::ostringstream oss;                                              \
     oss << "Assertion failed: " #val1 " == " #val2 << " (" << val1       \
         << " != " << val2 << ")";                                        \
