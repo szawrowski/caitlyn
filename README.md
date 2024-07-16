@@ -81,12 +81,6 @@ int main() {
 
 ### Unicode Strings Support
 
-You can continue using standard C++ strings, supplemented with Unicode wrappers.
-
-- `unichar_t`: Wrapper for Unicode code point characters.
-- `unistring_t`: String wrapper based on Unicode code points with iterator
-   support.
-
 **Usage**
 
 ```c++
@@ -94,16 +88,56 @@ You can continue using standard C++ strings, supplemented with Unicode wrappers.
 #include <caitlyn/core/string.h>
 
 int main() {
-  const auto string = "Hello, 世界!"_str;
-  const auto emoji = "🙂"_char;
+  cait::string_t string = "Hello, 世界! 🙂";
 
-  cait::println("{} {}", string, emoji);
+  cait::println("String: {}", string);
+  cait::println("Substring: {}", string.substring(7));
+
+  cait::println("Char count: {}", string.size());
+  cait::println("Byte count: {}", string.byte_count());
+
+  cait::println("Starts with H? {}", string.starts_with("H"));
+  cait::println("Ends with 🙂? {}", string.ends_with("🙂"));
+  cait::println("Contains '世界'? {}", string.contains("世界"));
+  cait::println("Contains 'some text'? {}", string.contains("some text"));
+
+  cait::println("Char at position 7: {}", string[7]);
+  cait::println("Char at position 0: {}", string.at(0));
+
+  string[11] = "❤️";
+  cait::println("Updated [11]: {}", string);
+  
+  const auto std_string = string.std_string();
+  const auto c_string = string.c_str();
+
   return 0;
 }
 ```
 
+To correctly display UTF-8 characters in Windows, you must call the
+`set_windows_utf8_encode` function at the entry point.
+
+```c++
+int main() {
+  cait::set_windows_utf8_encode();
+  // ...
+}
+```
+
+**Output:**
+
 ```text
-Hello, 世界! 🙂
+String: Hello, 世界! 🙂
+Substring: 世界! 🙂
+Char count: 12
+Byte count: 19
+Starts with H? true
+Ends with 🙂? true
+Contains '世界'? true
+Contains 'some text'? false
+Char at position 7: 世
+Char at position 0: H
+Updated [11]: Hello, 世界! ❤️
 ```
 
 ### Text Formatting
@@ -118,8 +152,8 @@ Hello, 世界! 🙂
 #include <caitlyn/core/text.h>
 
 int main() {
-  const auto string = "Hello, 世界!";
-  const auto emoji = "🙂";
+  const auto string = "Hello, 世界!"_str;
+  const auto emoji = "🙂"_str;
 
   const auto formatted = cait::format("{} {}", string, emoji);
 
@@ -150,9 +184,9 @@ Hello, 世界! 🙂
 #include <caitlyn/core/file.h>
 
 int main() {
-  const auto some = "Lorem ipsum dolor sit amet,";
-  const auto other = "consectetur adipiscing elit...";
-  const auto unicode = "Hello, 世界!";
+  const auto some = "Lorem ipsum dolor sit amet,"_str;
+  const auto other = "consectetur adipiscing elit..."_str;
+  const auto unicode = "Hello, 世界!"_str;
 
   auto file = "somefile.txt"_file;
   file.write("{} {}\n{}", some, other, unicode);
@@ -551,15 +585,15 @@ int main() {
 #include <caitlyn/core/string.h>
 
 int main() {
-  const auto map = std::map<int, std::string>{
+  const std::map<int, std::string> numbers{
       {1, "One"}, {2, "Two"}, {3, "Three"}, {4, "Four"}, {5, "Five"}};
 
-  for (auto& key : cait::get_map_keys(map)) {
+  for (auto& key : cait::get_map_keys(numbers)) {
     cait::print("{} ", key);
   }
   cait::println();
 
-  for (auto& value : cait::get_map_values(map)) {
+  for (auto& value : cait::get_map_values(numbers)) {
     cait::print("{} ", value);
   }
   return 0;
