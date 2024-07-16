@@ -20,7 +20,7 @@
 
 #include <chrono>
 
-#include "caitlyn/base.h"
+#include "caitlyn/__base.h"
 
 #if __caitlyn_has_cxx14
 using namespace std::chrono_literals;

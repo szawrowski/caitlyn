@@ -19,7 +19,6 @@
 #define CAITLYN_CORE_CHAR_UTILITY_H_
 
 #include <cctype>
-#include <string>
 
 #include "caitlyn/core/char/types.h"
 

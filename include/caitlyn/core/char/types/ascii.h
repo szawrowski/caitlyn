@@ -18,7 +18,7 @@
 #ifndef CAITLYN_CORE_CHAR_TYPES_ASCII_H_
 #define CAITLYN_CORE_CHAR_TYPES_ASCII_H_
 
-#include "caitlyn/base.h"
+#include "caitlyn/__base.h"
 
 namespace cait {
 

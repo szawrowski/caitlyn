@@ -26,11 +26,6 @@
 
 namespace cait {
 
-template <typename Char>
-class basic_string_t;
-
-using string_t = basic_string_t<char>;
-
 template <>
 class basic_string_t<char> {
   using value_type = char;

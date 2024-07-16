@@ -15,11 +15,4 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CAITLYN_H_
-#define CAITLYN_CAITLYN_H_
-
-#include "caitlyn/core.h"
-#include "caitlyn/num.h"
-#include "caitlyn/ser.h"
-
-#endif  // CAITLYN_CAITLYN_H_
+#include "caitlyn/core/traits.h"

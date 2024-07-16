@@ -15,10 +15,4 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_TEST_H_
-#define CAITLYN_TEST_H_
-
-#include "caitlyn/test/macro.h"
-#include "caitlyn/test/types.h"
-
-#endif  // CAITLYN_TEST_H_
+#include "caitlyn/core/file.h"

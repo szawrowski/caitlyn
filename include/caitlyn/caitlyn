@@ -15,26 +15,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_THREADS_H_
-#define CAITLYN_CORE_THREADS_H_
+// Core
+#include "caitlyn/core/algo.h"
+#include "caitlyn/core/char.h"
+#include "caitlyn/core/containers.h"
+#include "caitlyn/core/date.h"
+#include "caitlyn/core/error.h"
+#include "caitlyn/core/file.h"
+#include "caitlyn/core/format.h"
+#include "caitlyn/core/io.h"
+#include "caitlyn/core/math.h"
+#include "caitlyn/core/memory.h"
+#include "caitlyn/core/numeric.h"
+#include "caitlyn/core/string.h"
+#include "caitlyn/core/system.h"
+#include "caitlyn/core/text.h"
+#include "caitlyn/core/threads.h"
+#include "caitlyn/core/time.h"
+#include "caitlyn/core/traits.h"
+#include "caitlyn/core/utility.h"
 
-#include <condition_variable>
-#include <future>
-#include <mutex>
-#include <thread>
+// Numeric
+#include "caitlyn/num/types.h"
 
-#include "caitlyn/__base.h"
+// Serializing
+#include "caitlyn/ser/json.h"
 
-#if __caitlyn_has_cxx14
-  #include <shared_mutex>
-#endif
-
-#if __caitlyn_has_cxx20
-  #include <barrier>
-  #include <coroutine>
-  #include <latch>
-  #include <semaphore>
-  #include <stop_token>
-#endif
-
-#endif  // CAITLYN_CORE_THREADS_H_

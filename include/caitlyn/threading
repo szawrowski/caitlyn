@@ -15,9 +15,4 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_NUM_H_
-#define CAITLYN_NUM_H_
-
-#include "caitlyn/num/types.h"
-
-#endif  // CAITLYN_NUM_H_
+#include "caitlyn/core/threads.h"

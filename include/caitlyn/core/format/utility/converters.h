@@ -23,7 +23,7 @@
 #include <iomanip>
 #include <sstream>
 
-#include "caitlyn/base.h"
+#include "caitlyn/__base.h"
 #include "caitlyn/core/format/types.h"
 #include "caitlyn/core/traits.h"
 #include "caitlyn/core/string.h"

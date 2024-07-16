@@ -18,9 +18,6 @@
 #ifndef CAITLYN_CORE_TEXT_TYPES_BASIC_TEXT_BUILDER_H_
 #define CAITLYN_CORE_TEXT_TYPES_BASIC_TEXT_BUILDER_H_
 
-#include "caitlyn/core/format.h"
-#include "caitlyn/core/string.h"
-
 namespace cait {
 
 template <typename Char>

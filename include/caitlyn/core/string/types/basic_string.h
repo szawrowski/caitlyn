@@ -20,11 +20,10 @@
 
 namespace cait {
 
-// template <typename Char, typename CharTraits = std::char_traits<Char>,
-//           typename Allocator = std::allocator<Char>>
-// class basic_string_t;
-//
-// using string_t = basic_string_t<char>;
+template <typename Char>
+class basic_string_t;
+
+using string_t = basic_string_t<char>;
 
 }  // namespace cait
 

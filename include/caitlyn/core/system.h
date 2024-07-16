@@ -18,7 +18,7 @@
 #ifndef CAITLYN_CORE_SYSTEM_H_
 #define CAITLYN_CORE_SYSTEM_H_
 
-#include "caitlyn/base.h"
+#include "caitlyn/__base.h"
 
 #if __caitlyn_has_cxx17
   #include <filesystem>

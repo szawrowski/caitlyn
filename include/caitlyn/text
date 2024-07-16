@@ -15,9 +15,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_SER_H_
-#define CAITLYN_SER_H_
-
-#include "caitlyn/ser/json.h"
-
-#endif  // CAITLYN_SER_H_
+#include "caitlyn/core/format.h"
+#include "caitlyn/core/text.h"
