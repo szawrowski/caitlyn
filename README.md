@@ -303,15 +303,15 @@ int main() {
 - Optimized output
 
 ```c++
-config.to_string();
+config.str();
 ```
 
 - Structured output
 
 ```c++
 // Pass true and optional indent width (2 by default)
-config.to_string(true);
-config.to_string(true, 2);
+config.str(true);
+config.str(true, 2);
 ```
 
 **Output**
