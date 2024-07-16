@@ -189,6 +189,8 @@ inline void set_windows_utf8_encode() {
   SetConsoleOutputCP(CP_UTF8);
   SetConsoleCP(CP_UTF8);
 }
+#else
+inline void set_windows_utf8_encode() {}
 #endif
 
 }  // namespace cait
