@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 
 option(DEVELOPMENT "Development mode" ON)
 option(BUILD_TESTS "Build tests" OFF)
-option(INSTALL "Install library" OFF)
+option(LIB_INSTALL "Install library" OFF)
 
-if (INSTALL)
+if (LIB_INSTALL)
   set(DEVELOPMENT OFF)
 endif()
 
@@ -41,29 +41,31 @@ if(BUILD_TESTS)
   add_subdirectory(test)
 endif()
 
-if(INSTALL)
+if(LIB_INSTALL)
   set(CMAKE_INSTALL_PREFIX ${CMAKE_SOURCE_DIR})
 
   set(LIB_TARGET_NAME ${PROJECT_NAME})
-  set(LIB_TARGET_NAMESPACE "${PROJECT_NAME}::")
+  set(LIB_TARGET_NAMESPACE "${LIB_TARGET_NAME}::")
+  set(LIB_EXPORT_NAME "${LIB_TARGET_NAME}Targets")
+
   set(LIB_INSTALL_PATH "lib/cmake/caitlyn")
+  set(LIB_CONFIG_INCLUDE_PATH "${CMAKE_SOURCE_DIR}/cmake")
 
-  set(LIB_EXPORT_NAME "${PROJECT_NAME}Targets")
-
-  set(LIB_ROOT_CONFIG "${PROJECT_NAME}Config.cmake.in")
-  set(LIB_CONFIG "${PROJECT_NAME}Config.cmake")
-  set(LIB_CONFIG_VERSION "${PROJECT_NAME}ConfigVersion.cmake")
-  set(LIB_TARGETS "${PROJECT_NAME}Targets.cmake")
+  set(LIB_CONFIG_INCLUDE "${LIB_TARGET_NAME}Config.cmake.in")
+  set(LIB_CONFIG "${LIB_TARGET_NAME}Config.cmake")
+  set(LIB_CONFIG_VERSION "${LIB_TARGET_NAME}ConfigVersion.cmake")
+  set(LIB_TARGETS "${LIB_TARGET_NAME}Targets.cmake")
 
   add_library(${LIB_TARGET_NAME} INTERFACE)
 
   target_include_directories(
     ${LIB_TARGET_NAME} INTERFACE
     $<BUILD_INTERFACE:${LIB_INCLUDE_DIR}>
-    $<INSTALL_INTERFACE:include>
+    $<INSTALL_INTERFACE:${LIB_INCLUDE_DIR}>
   )
 
   include(CMakePackageConfigHelpers)
+
   write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/${LIB_CONFIG_VERSION}"
     VERSION ${LIB_VERSION_STRING}
@@ -71,7 +73,7 @@ if(INSTALL)
   )
 
   configure_package_config_file(
-    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/${LIB_ROOT_CONFIG}"
+    "${LIB_CONFIG_INCLUDE_PATH}/${LIB_CONFIG_INCLUDE}"
     "${CMAKE_CURRENT_BINARY_DIR}/${LIB_CONFIG}"
     INSTALL_DESTINATION ${LIB_INSTALL_PATH}
   )
@@ -93,11 +95,5 @@ if(INSTALL)
     FILES "${CMAKE_CURRENT_BINARY_DIR}/${LIB_CONFIG}"
           "${CMAKE_CURRENT_BINARY_DIR}/${LIB_CONFIG_VERSION}"
     DESTINATION ${LIB_INSTALL_PATH}
-  )
-
-  export(
-    EXPORT ${LIB_EXPORT_NAME}
-    FILE "${CMAKE_CURRENT_BINARY_DIR}/${LIB_TARGETS}"
-    NAMESPACE ${LIB_TARGET_NAMESPACE}
   )
 endif()
