@@ -136,7 +136,7 @@ public:
     return root_.get_type();
   }
 
-  __caitlyn_nodiscard std::string to_string(const bool mangling = false,
+  __caitlyn_nodiscard std::string str(const bool mangling = false,
                                             const size_t indent = 2) const {
     return root_.to_string(mangling, indent);
   }
@@ -166,7 +166,7 @@ inline std::istream& operator>>(std::istream& is, cait::json_t& value) {
 }
 
 inline std::ostream& operator<<(std::ostream& os, const cait::json_t& value) {
-  os << value.to_string();
+  os << value.str();
   return os;
 }
 
