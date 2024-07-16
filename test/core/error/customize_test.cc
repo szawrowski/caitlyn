@@ -1,5 +1,5 @@
 #include "caitlyn/core/error.h"
-#include "caitlyn/test.h"
+#include "caitlyn/test/macro.h"
 
 TEST(ResultTest, Customize) {
   const auto result = cait::result_t<int, std::string>(42);

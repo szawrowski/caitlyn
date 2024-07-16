@@ -1,4 +1,4 @@
-#include "caitlyn/test.h"
+#include "caitlyn/test/macro.h"
 #include "caitlyn/core/utility.h"
 
 TEST(UtilityTest, Sample) {

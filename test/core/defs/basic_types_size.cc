@@ -1,4 +1,4 @@
-#include "caitlyn/test.h"
+#include "caitlyn/test/macro.h"
 
 TEST(CoreDefsTest, BasicTypesSizeUnix) {
 #if defined(__caitlyn_unix) && (__caitlyn_arch == 64)

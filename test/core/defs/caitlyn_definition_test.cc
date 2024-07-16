@@ -1,4 +1,4 @@
-#include "caitlyn/test.h"
+#include "caitlyn/test/macro.h"
 
 TEST(CoreDefsTest, CaitlynDefinition) {
 #if defined(__caitlyn__)

@@ -1,4 +1,4 @@
-#include "caitlyn/test.h"
+#include "caitlyn/test/macro.h"
 
 TEST(CoreDefsTest, ArchDefinition) {
 #if defined(__linux) || defined(__linux__) || defined(__gnu_linux__)
