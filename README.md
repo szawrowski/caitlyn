@@ -8,7 +8,7 @@ enhance productivity for everyday tasks.
 ## Features
 
 ### Caitlyn includes
-- [Unicode String Handling](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-strings-support)
+- [Unicode String Support](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-string-support)
 - [Text Formatting](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#text-formatting)
 - [File Management](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#file-management)
 - [Serializing](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#serializing)
@@ -79,9 +79,9 @@ int main() {
 
 ## Examples
 
-### Unicode Strings Support
+### Unicode String Support
 
-Basic strings enhanced with correct UTF-8 operations.
+Basic string enhanced with correct UTF-8 operations.
 
 **Usage**
 
