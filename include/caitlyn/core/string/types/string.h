@@ -164,6 +164,7 @@ class basic_string_t<char> {
 
 public:
   basic_string_t() = default;
+  basic_string_t(const char c) : data_{c} {}
   basic_string_t(const char* str) : data_{str} {}
   basic_string_t(data_type str) : data_{std::move(str)} {}
 
@@ -247,7 +248,7 @@ public:
   }
 
 public:
-  data_type std_string() const { return data_; }
+  data_type str() const { return data_; }
   const char* c_str() const { return data_.c_str(); }
   const data_type& data() const { return data_; }
 
@@ -281,7 +282,7 @@ public:
   basic_string_t& append(const size_type count, const string_t& pattern) {
     std::ostringstream oss;
     for (size_type i = 0; i < count; ++i) {
-      oss << pattern.std_string();
+      oss << pattern.str();
     }
     data_.append(oss.str());
     return *this;
@@ -359,7 +360,7 @@ public:
                          const basic_string_t& pattern) {
     std::ostringstream oss;
     for (size_t i = 0; i < count; ++i) {
-      oss << pattern.std_string();
+      oss << pattern.str();
     }
     data_.insert(pos, oss.str());
     return *this;
@@ -600,7 +601,7 @@ inline std::istream& operator>>(std::istream& is,
 inline std::ostream& operator<<(std::ostream& os,
                                 const cait::basic_string_t<char>& str) {
   if (os.good()) {
-    os << str.std_string();
+    os << str.str();
   }
   return os;
 }

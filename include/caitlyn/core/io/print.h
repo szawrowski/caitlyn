@@ -43,12 +43,6 @@ required_t<has_str<T>()> print(const T& value) {
   std::cout << value.str();
 }
 
-template <typename T>
-required_t<has_std_string<T>()> print(const T& value) {
-  std::ios::sync_with_stdio(false);
-  std::cout << value.std_string();
-}
-
 template <typename... Args>
 void print(const string_t& str, Args&&... args) {
   std::ios::sync_with_stdio(false);
@@ -77,12 +71,6 @@ required_t<has_str<T>()> println(const T& value) {
   std::cout << value.str() << get_char(ascii_t::line_feed);
 }
 
-template <typename T>
-required_t<has_std_string<T>()> println(const T& value) {
-  std::ios::sync_with_stdio(false);
-  std::cout << value.std_string() << get_char(ascii_t::line_feed);
-}
-
 template <typename... Args>
 void println(const string_t& str, Args&&... args) {
   std::ios::sync_with_stdio(false);
@@ -105,12 +93,6 @@ template <typename T>
 required_t<has_str<T>()> eprint(const T& value) {
   std::ios::sync_with_stdio(false);
   std::cerr << value.str();
-}
-
-template <typename T>
-required_t<has_std_string<T>()> eprint(const T& value) {
-  std::ios::sync_with_stdio(false);
-  std::cerr << value.std_string();
 }
 
 template <typename... Args>
@@ -136,12 +118,6 @@ required_t<has_str<T>()> eprintln(const T& value) {
   std::cerr << value.str() << get_char(ascii_t::line_feed);
 }
 
-template <typename T>
-required_t<has_std_string<T>()> eprintln(const T& value) {
-  std::ios::sync_with_stdio(false);
-  std::cerr << value.std_string() << get_char(ascii_t::line_feed);
-}
-
 template <typename... Args>
 void eprintln(const string_t& str, Args&&... args) {
   std::ios::sync_with_stdio(false);
@@ -164,12 +140,6 @@ template <typename T>
 required_t<has_str<T>()> log(const T& value) {
   std::ios::sync_with_stdio(false);
   std::clog << value.str() << get_char(ascii_t::line_feed);
-}
-
-template <typename T>
-required_t<has_std_string<T>()> log(const T& value) {
-  std::ios::sync_with_stdio(false);
-  std::clog << value.std_string() << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>

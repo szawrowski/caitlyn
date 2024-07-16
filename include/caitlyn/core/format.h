@@ -26,7 +26,7 @@ namespace cait {
 
 template <typename... Args>
 string_t format(const string_t& str, Args&&... args) {
-  const auto origin = str.std_string();
+  const auto origin = str.str();
   std::ostringstream result;
 
   const std::vector<std::string> arguments = {

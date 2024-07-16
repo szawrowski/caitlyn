@@ -175,15 +175,6 @@ public:
     file_.flush();
   }
 
-  template <typename T>
-  required_t<has_std_string<T>()> write(const T& data) {
-    if (!file_.is_open()) {
-      open();
-    }
-    file_ << data.std_string();
-    file_.flush();
-  }
-
   template <typename... Args>
   void write(const string_t& str, Args&&... args) {
     if (!file_.is_open()) {
@@ -224,15 +215,6 @@ public:
       open();
     }
     file_ << data.str() << get_char(ascii_t::line_feed);
-    file_.flush();
-  }
-
-  template <typename T>
-  required_t<has_std_string<T>()> write_line(const T& data) {
-    if (!file_.is_open()) {
-      open();
-    }
-    file_ << data.std_string() << get_char(ascii_t::line_feed);
     file_.flush();
   }
 
@@ -284,16 +266,6 @@ public:
     file_.flush();
   }
 
-  template <typename T>
-  required_t<has_std_string<T>()> append(const T& data) {
-    if (!file_.is_open()) {
-      open();
-    }
-    file_.seekp(0, std::ios::end);
-    file_ << data.std_string();
-    file_.flush();
-  }
-
   template <typename... Args>
   void append(const string_t& str, Args&&... args) {
     if (!file_.is_open()) {
@@ -339,16 +311,6 @@ public:
     }
     file_.seekp(0, std::ios::end);
     file_ << data.str() << get_char(ascii_t::line_feed);
-    file_.flush();
-  }
-
-  template <typename T>
-  required_t<has_std_string<T>()> append_line(const T& data) {
-    if (!file_.is_open()) {
-      open();
-    }
-    file_.seekp(0, std::ios::end);
-    file_ << data.std_string() << get_char(ascii_t::line_feed);
     file_.flush();
   }
 

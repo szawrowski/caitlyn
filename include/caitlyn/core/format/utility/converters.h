@@ -112,12 +112,6 @@ required_t<has_str<T>(), std::string> to_string(const T& value,
 }
 
 template <typename T>
-required_t<has_std_string<T>(), std::string> to_string(
-    const T& value, const spec_t& spec) {
-  return to_string(value.std_string(), spec);
-}
-
-template <typename T>
 required_t<is_character<T>(), std::string> to_string(const T& value,
                                                 const spec_t& spec) {
   return to_string(std::to_string(value), spec);
