@@ -90,30 +90,30 @@ Basic string enhanced with correct UTF-8 operations.
 #include <caitlyn/string>
 
 int main() {
-  cait::string_t string = "Hello, 世界! 🙂";
+  cait::string_t data = "Hello, 世界! 🙂";
 
-  cait::println("String: {}", string);
-  cait::println("Substring: {}", string.substring(7));
+  cait::println("String: {}", data);
+  cait::println("Substring: {}", data.substr(7));
 
-  cait::println("Char count: {}", string.size());
-  cait::println("Byte count: {}", string.byte_count());
+  cait::println("Char count: {}", data.size());
+  cait::println("Byte count: {}", data.byte_count());
 
-  cait::println("Starts with H? {}", string.starts_with("H"));
-  cait::println("Ends with 🙂? {}", string.ends_with("🙂"));
-  cait::println("Contains '世界'? {}", string.contains("世界"));
-  cait::println("Contains 'some text'? {}", string.contains("some text"));
+  cait::println("Starts with H? {}", data.starts_with("H"));
+  cait::println("Ends with 🙂? {}", data.ends_with("🙂"));
+  cait::println("Contains '世界'? {}", data.contains("世界"));
+  cait::println("Contains 'some text'? {}", data.contains("some text"));
 
-  cait::println("Char at position 0: {}", string[0]);
-  cait::println("Char at position 7: {}", string.at(7));
+  cait::println("Char at position 0: {}", data[0]);
+  cait::println("Char at position 7: {}", data.at(7));
 
-  string[11] = "❤️";
-  cait::println("Updated [11]: {}", string);
+  data[11] = "❤️";
+  cait::println("Updated [11]: {}", data);
   
   // Get std::string
-  const auto std_string = string.str();
+  const auto std_string = data.str();
   
   // Get const char*
-  const auto c_string = string.c_str();
+  const auto c_string = data.c_str();
 
   return 0;
 }
