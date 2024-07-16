@@ -81,6 +81,8 @@ int main() {
 
 ### Unicode Strings Support
 
+Basic strings enhanced with correct UTF-8 operations.
+
 **Usage**
 
 ```c++
@@ -101,8 +103,8 @@ int main() {
   cait::println("Contains '世界'? {}", string.contains("世界"));
   cait::println("Contains 'some text'? {}", string.contains("some text"));
 
-  cait::println("Char at position 7: {}", string[7]);
-  cait::println("Char at position 0: {}", string.at(0));
+  cait::println("Char at position 0: {}", string[0]);
+  cait::println("Char at position 7: {}", string.at(7));
 
   string[11] = "❤️";
   cait::println("Updated [11]: {}", string);
@@ -135,8 +137,8 @@ Starts with H? true
 Ends with 🙂? true
 Contains '世界'? true
 Contains 'some text'? false
-Char at position 7: 世
 Char at position 0: H
+Char at position 7: 世
 Updated [11]: Hello, 世界! ❤️
 ```
 
