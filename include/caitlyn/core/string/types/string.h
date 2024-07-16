@@ -218,7 +218,7 @@ public:
   bool contains(const basic_string_t& str) const { return find(str) != npos; }
 
 public:
-  data_type substring(const size_t pos, const size_t len) const {
+  data_type substr(const size_t pos, const size_t len) const {
     if (pos > utf8_char_count())
       throw std::out_of_range{"Position out of range"};
 
@@ -238,8 +238,8 @@ public:
     return data_.substr(start_byte_pos, end_byte_pos - start_byte_pos);
   }
 
-  data_type substring(const size_t pos) const {
-    return substring(pos, size() - 1);
+  data_type substr(const size_t pos) const {
+    return substr(pos, size() - 1);
   }
 
 public:
@@ -449,8 +449,8 @@ public:
   const_iterator begin() const { return {data_.begin(), data_.end()}; }
   const_iterator end() const { return {data_.end(), data_.end()}; }
 
-  reverse_iterator rbegin() { return reverse_iterator(end()); }
-  reverse_iterator rend() { return reverse_iterator(begin()); }
+  reverse_iterator rbegin() { return reverse_iterator{end()}; }
+  reverse_iterator rend() { return reverse_iterator{begin()}; }
 
   const_reverse_iterator rbegin() const {
     return const_reverse_iterator(end());
