@@ -58,10 +58,16 @@ class basic_string_t<char> {
     size_t pos_;
   };
 
-  class iterator : public std::iterator<std::bidirectional_iterator_tag, char> {
+  class iterator {
     using base_iterator = data_type::iterator;
 
   public:
+    using iterator_category = std::bidirectional_iterator_tag;
+    using value_type = char;
+    using difference_type = data_type::difference_type;
+    using pointer = char*;
+    using reference = char&;
+
     iterator(const base_iterator current, const base_iterator end)
         : current_{current}, end_{end} {}
 
@@ -105,11 +111,16 @@ class basic_string_t<char> {
     base_iterator end_;
   };
 
-  class const_iterator
-      : public std::iterator<std::bidirectional_iterator_tag, char> {
+  class const_iterator {
     using base_iterator = data_type::const_iterator;
 
   public:
+    using iterator_category = std::bidirectional_iterator_tag;
+    using value_type = char;
+    using difference_type = data_type::difference_type;
+    using pointer = const char*;
+    using reference = const char&;
+
     const_iterator(const base_iterator current, const base_iterator end)
         : current_{current}, end_{end} {}
 
@@ -162,11 +173,6 @@ public:
   basic_string_t(const char c) : data_{c} {}
   basic_string_t(const char* str) : data_{str} {}
   basic_string_t(data_type str) : data_{std::move(str)} {}
-
-  // template <typename... Args>
-  // basic_string_t(const data_type& str, Args&&... args)
-  //     : data_{format(str, std::forward<Args>(args)...)} {}
-
   basic_string_t(const basic_string_t& str) = default;
   basic_string_t(basic_string_t&& str) noexcept : data_{std::move(str.data_)} {}
 
@@ -446,17 +452,27 @@ public:
   iterator begin() { return {data_.begin(), data_.end()}; }
   iterator end() { return {data_.end(), data_.end()}; }
 
-  const_iterator begin() const { return {data_.begin(), data_.end()}; }
-  const_iterator end() const { return {data_.end(), data_.end()}; }
+  const_iterator begin() const { return {data_.cbegin(), data_.cend()}; }
+  const_iterator end() const { return {data_.cend(), data_.cend()}; }
+
+  const_iterator cbegin() const { return {data_.cbegin(), data_.cend()}; }
+  const_iterator cend() const { return {data_.cend(), data_.cend()}; }
 
   reverse_iterator rbegin() { return reverse_iterator{end()}; }
   reverse_iterator rend() { return reverse_iterator{begin()}; }
 
   const_reverse_iterator rbegin() const {
-    return const_reverse_iterator(end());
+    return const_reverse_iterator{end()};
   }
   const_reverse_iterator rend() const {
-    return const_reverse_iterator(begin());
+    return const_reverse_iterator{begin()};
+  }
+
+  const_reverse_iterator crbegin() const {
+    return const_reverse_iterator{end()};
+  }
+  const_reverse_iterator crend() const {
+    return const_reverse_iterator{begin()};
   }
 
 private:
