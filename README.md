@@ -109,7 +109,10 @@ int main() {
   string[11] = "❤️";
   cait::println("Updated [11]: {}", string);
   
-  const auto std_string = string.std_string();
+  // Get std::string
+  const auto std_string = string.str();
+  
+  // Get const char*
   const auto c_string = string.c_str();
 
   return 0;
