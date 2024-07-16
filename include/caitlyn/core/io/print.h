@@ -20,6 +20,7 @@
 
 #include <iostream>
 
+#include "caitlyn/core/format.h"
 #include "caitlyn/core/string.h"
 #include "caitlyn/core/traits.h"
 
