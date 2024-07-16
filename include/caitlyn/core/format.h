@@ -25,25 +25,27 @@
 namespace cait {
 
 template <typename... Args>
-std::string format(const std::string& str, Args&&... args) {
+string_t format(const string_t& str, Args&&... args) {
+  const auto origin = str.std_string();
   std::ostringstream result;
+
   const std::vector<std::string> arguments = {
       strfmt::__detail::to_string(std::forward<Args>(args), {})...};
   size_t arg_index{};
   size_t pos{};
 
-  while (pos < str.size()) {
-    if (str[pos] == get_char(ascii_t::left_curly_br)) {
-      if (pos + 1 < str.size() &&
-          str[pos + 1] == get_char(ascii_t::left_curly_br)) {
+  while (pos < origin.size()) {
+    if (origin[pos] == get_char(ascii_t::left_curly_br)) {
+      if (pos + 1 < origin.size() &&
+          origin[pos + 1] == get_char(ascii_t::left_curly_br)) {
         result << get_char(ascii_t::left_curly_br);
         pos += 2;
       } else {
-        const size_t end = str.find(get_char(ascii_t::right_curly_br), pos);
+        const size_t end = origin.find(get_char(ascii_t::right_curly_br), pos);
         if (end == std::string::npos) {
           throw strfmt::error_t{"Mismatched braces in format string"};
         }
-        std::string spec = str.substr(pos + 1, end - pos - 1);
+        std::string spec = origin.substr(pos + 1, end - pos - 1);
         if (arg_index >= arguments.size()) {
           throw strfmt::error_t{"Argument index out of range"};
         }
@@ -51,16 +53,16 @@ std::string format(const std::string& str, Args&&... args) {
             arguments[arg_index++], strfmt::__detail::parse_format_spec(spec));
         pos = end + 1;
       }
-    } else if (str[pos] == get_char(ascii_t::right_curly_br)) {
-      if (pos + 1 < str.size() &&
-          str[pos + 1] == get_char(ascii_t::right_curly_br)) {
+    } else if (origin[pos] == get_char(ascii_t::right_curly_br)) {
+      if (pos + 1 < origin.size() &&
+          origin[pos + 1] == get_char(ascii_t::right_curly_br)) {
         result << get_char(ascii_t::right_curly_br);
         pos += 2;
       } else {
         throw strfmt::error_t{"Single '}' in format string"};
       }
     } else {
-      result << str[pos++];
+      result << origin[pos++];
     }
   }
   return result.str();

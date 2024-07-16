@@ -257,7 +257,7 @@ private:
           }
           string_type hex_code = json_.substr(position_ + 1, 4);
           try {
-            const code_point_t code_point = std::stoul(hex_code, nullptr, 16);
+            const uint32_t code_point = std::stoul(hex_code, nullptr, 16);
             escaped_stream << static_cast<char>(code_point);
           } catch (const std::exception&) {
             set_error(error_t::invalid_escape_sequence);

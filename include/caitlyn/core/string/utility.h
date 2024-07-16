@@ -19,6 +19,7 @@
 #define CAITLYN_CORE_STRING_UTILITY_H_
 
 #include <algorithm>
+#include <sstream>
 
 #include "caitlyn/core/char.h"
 

@@ -22,10 +22,9 @@
 #include <sstream>
 #include <string>
 
-#include "caitlyn/core/format.h"
 #include "caitlyn/core/string/algo.h"
 #include "caitlyn/core/string/utility.h"
-#include "caitlyn/core/unicode.h"
+#include "caitlyn/core/string/types.h"
 
 #if __caitlyn_has_cxx11 && !(__caitlyn_has_cxx17)
   #include <codecvt>

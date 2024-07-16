@@ -15,10 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_UNICODE_UTILITY_
-#define CAITLYN_CORE_UNICODE_UTILITY_
+#ifndef CAITLYN_CORE_STRING_TYPES_BASIC_STRING_H_
+#define CAITLYN_CORE_STRING_TYPES_BASIC_STRING_H_
 
-#include "caitlyn/core/unicode/utility/converters.h"
-#include "caitlyn/core/unicode/utility/sequence.h"
+namespace cait {
 
-#endif // CAITLYN_CORE_UNICODE_UTILITY_
+// template <typename Char, typename CharTraits = std::char_traits<Char>,
+//           typename Allocator = std::allocator<Char>>
+// class basic_string_t;
+//
+// using string_t = basic_string_t<char>;
+
+}  // namespace cait
+
+#endif  // CAITLYN_CORE_STRING_TYPES_BASIC_STRING_H_

@@ -15,26 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_H_
-#define CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_H_
-
-#include "caitlyn/core/unicode/types/code_point.h"
+#ifndef CAITLYN_CORE_FILE_TYPES_BASIC_FILE_STREAM_H_
+#define CAITLYN_CORE_FILE_TYPES_BASIC_FILE_STREAM_H_
 
 namespace cait {
 
-inline size_t calculate_char_count(const code_point_t code_point) {
-  if (code_point < 0x80) {
-    return 1;
-  }
-  if (code_point < 0x800) {
-    return 2;
-  }
-  if (code_point < 0x10000) {
-    return 3;
-  }
-  return 4;
-}
+template <typename CharT>
+class basic_file_stream_t;
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_UNICODE_UTILITY_SEQUENCE_H_
+
+#endif  // CAITLYN_CORE_FILE_TYPES_BASIC_FILE_STREAM_H_

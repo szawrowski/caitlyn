@@ -18,11 +18,12 @@
 #ifndef CAITLYN_CORE_TEXT_TYPES_H_
 #define CAITLYN_CORE_TEXT_TYPES_H_
 
-#include "caitlyn/core/text/text_builder.h"
+#include "caitlyn/core/text/types/basic_text_builder.h"
+#include "caitlyn/core/text/types/text_builder.h"
 
 namespace cait {
 
-using text_t = text_builder_t<char>;
+using text_t = basic_text_builder_t<char>;
 
 }  // namespace cait
 

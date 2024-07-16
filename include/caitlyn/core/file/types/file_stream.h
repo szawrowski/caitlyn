@@ -15,40 +15,43 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_FILE_TYPES_FILE_H_
-#define CAITLYN_CORE_FILE_TYPES_FILE_H_
+#ifndef CAITLYN_CORE_FILE_TYPES_FILE_STREAM_H_
+#define CAITLYN_CORE_FILE_TYPES_FILE_STREAM_H_
 
 #include <fstream>
 #include <utility>
 #include <vector>
 
 #include "caitlyn/core/format.h"
+#include "caitlyn/core/file/types/basic_file_stream.h"
 
 namespace cait {
 
-template <typename CharT>
-class file_t;
-
 template <>
-class file_t<char> {
+class basic_file_stream_t<char> {
 public:
-  file_t() = default;
-  file_t(const char* filename) : filename_(filename) { open(); }
-  file_t(std::string filename) : filename_(std::move(filename)) { open(); }
+  basic_file_stream_t() = default;
+  basic_file_stream_t(const char* filename) : filename_(filename) { open(); }
+  basic_file_stream_t(string_t filename) : filename_(std::move(filename)) {
+    open();
+  }
   template <typename... Args>
-  file_t(const std::string& str, Args&&... args)
+  basic_file_stream_t(const string_t& str, Args&&... args)
       : filename_{format(str, std::forward<Args>(args)...)} {
     open();
   }
-  file_t(const file_t& other) : filename_{other.filename_} { open(); }
-  ~file_t() { close(); }
+  basic_file_stream_t(const basic_file_stream_t& other)
+      : filename_{other.filename_} {
+    open();
+  }
+  ~basic_file_stream_t() { close(); }
 
 public:
   void open() {
-    if (filename_.empty()) {
+    if (get_filename().empty()) {
       throw std::ios_base::failure{"Filename is empty"};
     }
-    file_.open(filename_,
+    file_.open(get_filename(),
                std::ios::in | std::ios::out | std::ios::app | std::ios::binary);
     if (!file_.is_open()) {
       throw std::ios_base::failure{"Failed to open file for writing."};
@@ -64,7 +67,7 @@ public:
   void erase() {
     close();
     std::ofstream clear_file{
-        filename_, std::ios::out | std::ios::trunc | std::ios::binary};
+        get_filename(), std::ios::out | std::ios::trunc | std::ios::binary};
     if (!clear_file.is_open()) {
       throw std::ios_base::failure{"Failed to open file for clearing."};
     }
@@ -91,7 +94,7 @@ public:
 
 public:
   // Reading methods
-  __caitlyn_nodiscard std::string read() {
+  __caitlyn_nodiscard string_t read() {
     if (!file_.is_open()) {
       open();
     }
@@ -106,7 +109,7 @@ public:
     return {};
   }
 
-  __caitlyn_nodiscard std::string read_line(const char delim = '\n') {
+  __caitlyn_nodiscard string_t read_line(const char delim = '\n') {
     if (!file_.is_open()) {
       open();
     }
@@ -146,7 +149,7 @@ public:
     file_.flush();
   }
 
-  void write(const std::string& data) {
+  void write(const string_t& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -155,7 +158,7 @@ public:
   }
 
   template <typename T>
-  required_t<convertible_to_string<T>()> write(const T& data) {
+  required_t<has_to_string<T>()> write(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -172,8 +175,17 @@ public:
     file_.flush();
   }
 
+  template <typename T>
+  required_t<has_std_string<T>()> write(const T& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << data.std_string();
+    file_.flush();
+  }
+
   template <typename... Args>
-  void write(const std::string& str, Args&&... args) {
+  void write(const string_t& str, Args&&... args) {
     if (!file_.is_open()) {
       open();
     }
@@ -189,7 +201,7 @@ public:
     file_.flush();
   }
 
-  void write_line(const std::string& data) {
+  void write_line(const string_t& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -198,7 +210,7 @@ public:
   }
 
   template <typename T>
-  required_t<convertible_to_string<T>()> write_line(const T& data) {
+  required_t<has_to_string<T>()> write_line(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -215,8 +227,17 @@ public:
     file_.flush();
   }
 
+  template <typename T>
+  required_t<has_std_string<T>()> write_line(const T& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_ << data.std_string() << get_char(ascii_t::line_feed);
+    file_.flush();
+  }
+
   template <typename... Args>
-  void write_line(const std::string& str, Args&&... args) {
+  void write_line(const string_t& str, Args&&... args) {
     if (!file_.is_open()) {
       open();
     }
@@ -234,7 +255,7 @@ public:
     file_.flush();
   }
 
-  void append(const std::string& data) {
+  void append(const string_t& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -244,7 +265,7 @@ public:
   }
 
   template <typename T>
-  required_t<convertible_to_string<T>()> append(const T& data) {
+  required_t<has_to_string<T>()> append(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -263,8 +284,18 @@ public:
     file_.flush();
   }
 
+  template <typename T>
+  required_t<has_std_string<T>()> append(const T& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << data.std_string();
+    file_.flush();
+  }
+
   template <typename... Args>
-  void append(const std::string& str, Args&&... args) {
+  void append(const string_t& str, Args&&... args) {
     if (!file_.is_open()) {
       open();
     }
@@ -282,7 +313,7 @@ public:
     file_.flush();
   }
 
-  void append_line(const std::string& data) {
+  void append_line(const string_t& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -292,7 +323,7 @@ public:
   }
 
   template <typename T>
-  required_t<convertible_to_string<T>()> append_line(const T& data) {
+  required_t<has_to_string<T>()> append_line(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -311,8 +342,18 @@ public:
     file_.flush();
   }
 
+  template <typename T>
+  required_t<has_std_string<T>()> append_line(const T& data) {
+    if (!file_.is_open()) {
+      open();
+    }
+    file_.seekp(0, std::ios::end);
+    file_ << data.std_string() << get_char(ascii_t::line_feed);
+    file_.flush();
+  }
+
   template <typename... Args>
-  void append_line(const std::string& str, Args&&... args) {
+  void append_line(const string_t& str, Args&&... args) {
     if (!file_.is_open()) {
       open();
     }
@@ -323,15 +364,19 @@ public:
   }
 
 private:
-  std::string filename_;
-  std::fstream file_;
+  std::basic_string<char> get_filename() const { return filename_.c_str(); }
+
+private:
+  string_t filename_;
+  std::basic_fstream<char> file_;
   std::streampos current_position_{};
 };
 
 }  // namespace cait
 
-inline cait::file_t<char> operator""_file(const char* filename, const size_t) {
-  return cait::file_t<char>{filename};
+inline cait::basic_file_stream_t<char> operator""_file(const char* filename,
+                                                       const size_t) {
+  return cait::basic_file_stream_t<char>{filename};
 }
 
-#endif  // CAITLYN_CORE_FILE_TYPES_FILE_H_
+#endif  // CAITLYN_CORE_FILE_TYPES_FILE_STREAM_H_

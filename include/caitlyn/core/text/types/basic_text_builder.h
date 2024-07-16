@@ -15,15 +15,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_UNICODE_TYPES_CODE_POINT_H_
-#define CAITLYN_CORE_UNICODE_TYPES_CODE_POINT_H_
+#ifndef CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
+#define CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
 
-#include "caitlyn/base.h"
+#include "caitlyn/core/format.h"
+#include "caitlyn/core/string.h"
 
 namespace cait {
 
-using code_point_t = uint32_t;
+template <typename Char>
+class basic_text_builder_t;
 
 }  // namespace cait
 
-#endif  // CAITLYN_CORE_UNICODE_TYPES_CODE_POINT_H_
+#endif  // CAITLYN_CORE_TEXT_TEXT_BUILDER_H_

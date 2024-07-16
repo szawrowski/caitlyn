@@ -18,6 +18,13 @@
 #ifndef CAITLYN_CORE_FILE_TYPES_H_
 #define CAITLYN_CORE_FILE_TYPES_H_
 
-#include "caitlyn/core/file/types/file.h"
+#include "caitlyn/core/file/types/basic_file_stream.h"
+#include "caitlyn/core/file/types/file_stream.h"
+
+namespace cait {
+
+using file_t = basic_file_stream_t<char>;
+
+}  // namespace cait
 
 #endif // CAITLYN_CORE_FILE_TYPES_H_

@@ -35,7 +35,6 @@
 #include "caitlyn/core/threads.h"
 #include "caitlyn/core/time.h"
 #include "caitlyn/core/traits.h"
-#include "caitlyn/core/unicode.h"
 #include "caitlyn/core/utility.h"
 
 #endif  // CAITLYN_CORE_H_

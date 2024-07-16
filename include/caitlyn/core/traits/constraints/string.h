@@ -36,16 +36,29 @@ struct has_str_t : false_t {};
 template <typename T>
 struct has_str_t<T, indicator_t<decltype(std::declval<T>().str())>> : true_t {};
 
+template <typename, typename = void>
+struct has_std_string_t : false_t {};
+
+template <typename T>
+struct has_std_string_t<T,
+                        indicator_t<decltype(std::declval<T>().std_string())>>
+    : true_t {};
+
 }  // namespace traits
 
 template <typename T>
-constexpr bool convertible_to_string() {
+constexpr bool has_to_string() {
   return traits::has_to_string_t<T>::value;
 }
 
 template <typename T>
 constexpr bool has_str() {
   return traits::has_str_t<T>::value;
+}
+
+template <typename T>
+constexpr bool has_std_string() {
+    return traits::has_std_string_t<T>::value;
 }
 
 }  // namespace cait

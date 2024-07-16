@@ -1,5 +1,5 @@
 /**
-* This file is part of the Caitlyn library
+ * This file is part of the Caitlyn library
  * Copyright (C) 2024 Alexander Szawrowski
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,9 +15,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_UNICODE_H_
-#define CAITLYN_CORE_UNICODE_H_
+#ifndef CAITLYN_CORE_STRING_TYPES_H_
+#define CAITLYN_CORE_STRING_TYPES_H_
 
-#include "caitlyn/core/unicode/types.h"
+#include "caitlyn/core/string/types/basic_string.h"
+#include "caitlyn/core/string/types/string.h"
 
-#endif  // CAITLYN_CORE_UNICODE_H_
+#endif  // CAITLYN_CORE_STRING_TYPES_H_

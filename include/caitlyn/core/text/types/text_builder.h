@@ -19,51 +19,37 @@
 #define CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
 
 #include "caitlyn/core/format.h"
-#include "caitlyn/core/unicode.h"
+#include "caitlyn/core/string.h"
+#include "caitlyn/core/text/types/basic_text_builder.h"
 
 namespace cait {
 
-template <typename CharT>
-class text_builder_t;
-
 template <>
-class text_builder_t<char> {
+class basic_text_builder_t<char> {
 public:
   using data_type = std::ostringstream;
 
 public:
-  text_builder_t() = default;
+  basic_text_builder_t() = default;
 
-  text_builder_t(const char str) { data_ << str; }
-
-  text_builder_t(const char* str) { data_ << str; }
-
-  text_builder_t(const std::string& str) { data_ << str; }
-
-  text_builder_t(const unicode_char<char>& symbol) { data_ << symbol; }
-
-  text_builder_t(const unicode_string<unicode_char<char>>& str) {
-    data_ << str;
-  }
+  basic_text_builder_t(const char str) { data_ << str; }
+  basic_text_builder_t(const char* str) { data_ << str; }
+  basic_text_builder_t(const std::string& str) { data_ << str; }
 
   template <typename... Args>
-  text_builder_t(const std::string& str, Args&&... args) {
+  basic_text_builder_t(const std::string& str, Args&&... args) {
     data_ << format(str, std::forward<Args>(args)...);
   }
 
-  text_builder_t(const text_builder_t& other) : data_{other.data_.str()} {}
+  basic_text_builder_t(const basic_text_builder_t& other)
+      : data_{other.data_.str()} {}
 
-  text_builder_t(text_builder_t&& other) noexcept
+  basic_text_builder_t(basic_text_builder_t&& other) noexcept
       : data_{std::move(other.data_)} {}
 
 public:
   void append(const char* str) { data_ << str; }
-
   void append(const std::string& str) { data_ << str; }
-
-  void append(const unicode_char<char>& symbol) { data_ << symbol; }
-
-  void append(const unicode_string<unicode_char<char>>& str) { data_ << str; }
 
   template <typename... Args>
   void append(const std::string& str, Args&&... args) {
@@ -78,13 +64,6 @@ public:
     data_ << str << get_char(ascii_t::line_feed);
   }
 
-  void append_line(const unicode_char<char>& str) {
-    data_ << str << get_char(ascii_t::line_feed);
-  }
-  void append_line(const unicode_string<unicode_char<char>>& str) {
-    data_ << str << get_char(ascii_t::line_feed);
-  }
-
   template <typename... Args>
   void append_line(const std::string& str, Args&&... args) {
     data_ << format(str, std::forward<Args>(args)...)
@@ -94,36 +73,25 @@ public:
 public:
   __caitlyn_nodiscard std::string to_string() const { return data_.str(); }
 
-  __caitlyn_nodiscard unicode_string<unicode_char<char>> to_unistring() const {
-    return data_.str();
-  }
-
 private:
   data_type data_;
 };
 
-inline text_builder_t<char> make_text() { return text_builder_t<char>{}; }
-
-inline text_builder_t<char> make_text(const char symbol) {
-  return text_builder_t<char>{symbol};
+inline basic_text_builder_t<char> make_text() {
+  return basic_text_builder_t<char>{};
 }
 
-inline text_builder_t<char> make_text(const std::string& str) {
-  return text_builder_t<char>{str};
+inline basic_text_builder_t<char> make_text(const char symbol) {
+  return basic_text_builder_t<char>{symbol};
+}
+
+inline basic_text_builder_t<char> make_text(const std::string& str) {
+  return basic_text_builder_t<char>{str};
 }
 
 template <typename... Args>
-text_builder_t<char> make_text(const std::string& str, Args&&... args) {
-  return text_builder_t<char>{format(str, std::forward<Args>(args)...)};
-}
-
-inline text_builder_t<char> make_unitext(const unicode_char<char>& str) {
-  return text_builder_t<char>{str.to_string()};
-}
-
-inline text_builder_t<char> make_unitext(
-    const unicode_string<unicode_char<char>>& str) {
-  return text_builder_t<char>{str.to_string()};
+basic_text_builder_t<char> make_text(const std::string& str, Args&&... args) {
+  return basic_text_builder_t<char>{format(str, std::forward<Args>(args)...)};
 }
 
 }  // namespace cait
