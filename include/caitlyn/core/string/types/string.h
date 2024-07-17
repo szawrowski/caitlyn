@@ -482,9 +482,9 @@ public:
       if (current_char == old_char) {
         it = data_.erase(it, it + static_cast<difference_type>(char_length));
         it = data_.insert(it, new_char.begin(), new_char.end());
-        std::advance(it, new_char.size());
+        std::advance(it, static_cast<difference_type>(new_char.size()));
       } else {
-        std::advance(it, char_length);
+        std::advance(it, static_cast<difference_type>(char_length));
       }
     }
   }
