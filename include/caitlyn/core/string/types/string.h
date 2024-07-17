@@ -53,29 +53,31 @@ class basic_string_t<char> {
   public:
     operator const data_type() const { return str_.get_utf8_at(pos_); }
 
+    bool operator==(const basic_string_t& other) const {
+      return str_.get_utf8_at(pos_) == other.str();
+    }
+
   private:
     basic_string_t& str_;
     size_t pos_;
   };
 
   class iterator {
-    using base_iterator = data_type::iterator;
-
   public:
     using iterator_category = std::bidirectional_iterator_tag;
-    using value_type = char;
+    using value_type = data_type;
     using difference_type = data_type::difference_type;
-    using pointer = char*;
-    using reference = char&;
+    using pointer = utf8_char_proxy_t;
+    using reference = utf8_char_proxy_t;
 
-    iterator(const base_iterator current, const base_iterator end)
-        : current_{current}, end_{end} {}
+  public:
+    iterator(basic_string_t& str, const size_t pos) : str_{str}, pos_{pos} {}
 
+  public:
     iterator& operator++() {
-      if (current_ == end_) return *this;
-      do {
-        ++current_;
-      } while (current_ != end_ && (*current_ & 0xC0) == 0x80);
+      if (pos_ < str_.size()) {
+        ++pos_;
+      }
       return *this;
     }
 
@@ -86,9 +88,9 @@ class basic_string_t<char> {
     }
 
     iterator& operator--() {
-      do {
-        --current_;
-      } while ((*current_ & 0xC0) == 0x80);
+      if (pos_ > 0) {
+        --pos_;
+      }
       return *this;
     }
 
@@ -98,37 +100,34 @@ class basic_string_t<char> {
       return temp;
     }
 
-    char& operator*() { return *current_; }
-    const char& operator*() const { return *current_; }
+    reference operator*() { return str_[pos_]; }
+    reference operator*() const { return str_[pos_]; }
 
-    bool operator==(const iterator& other) const {
-      return current_ == other.current_;
-    }
+    bool operator==(const iterator& other) const { return pos_ == other.pos_; }
     bool operator!=(const iterator& other) const { return !(*this == other); }
 
   private:
-    base_iterator current_;
-    base_iterator end_;
+    basic_string_t& str_;
+    size_t pos_;
   };
 
   class const_iterator {
-    using base_iterator = data_type::const_iterator;
-
   public:
     using iterator_category = std::bidirectional_iterator_tag;
-    using value_type = char;
+    using value_type = data_type;
     using difference_type = data_type::difference_type;
-    using pointer = const char*;
-    using reference = const char&;
+    using pointer = data_type;
+    using reference = data_type;
 
-    const_iterator(const base_iterator current, const base_iterator end)
-        : current_{current}, end_{end} {}
+  public:
+    const_iterator(const basic_string_t& str, const size_t pos)
+        : str_{str}, pos_{pos} {}
 
+  public:
     const_iterator& operator++() {
-      if (current_ == end_) return *this;
-      do {
-        ++current_;
-      } while (current_ != end_ && (*current_ & 0xC0) == 0x80);
+      if (pos_ < str_.size()) {
+        ++pos_;
+      }
       return *this;
     }
 
@@ -139,9 +138,9 @@ class basic_string_t<char> {
     }
 
     const_iterator& operator--() {
-      do {
-        --current_;
-      } while ((*current_ & 0xC0) == 0x80);
+      if (pos_ > 0) {
+        --pos_;
+      }
       return *this;
     }
 
@@ -151,18 +150,18 @@ class basic_string_t<char> {
       return temp;
     }
 
-    const char& operator*() const { return *current_; }
+    reference operator*() const { return str_[pos_]; }
 
     bool operator==(const const_iterator& other) const {
-      return current_ == other.current_;
+      return pos_ == other.pos_;
     }
     bool operator!=(const const_iterator& other) const {
       return !(*this == other);
     }
 
   private:
-    base_iterator current_;
-    base_iterator end_;
+    const basic_string_t& str_;
+    size_t pos_;
   };
 
   using reverse_iterator = std::reverse_iterator<iterator>;
@@ -244,9 +243,7 @@ public:
     return data_.substr(start_byte_pos, end_byte_pos - start_byte_pos);
   }
 
-  data_type substr(const size_t pos) const {
-    return substr(pos, size() - 1);
-  }
+  data_type substr(const size_t pos) const { return substr(pos, size() - 1); }
 
 public:
   data_type str() const { return data_; }
@@ -449,14 +446,14 @@ public:
   }
 
 public:
-  iterator begin() { return {data_.begin(), data_.end()}; }
-  iterator end() { return {data_.end(), data_.end()}; }
+  iterator begin() { return {*this, 0}; }
+  iterator end() { return {*this, size()}; }
 
-  const_iterator begin() const { return {data_.cbegin(), data_.cend()}; }
-  const_iterator end() const { return {data_.cend(), data_.cend()}; }
+  const_iterator begin() const { return {*this, 0}; }
+  const_iterator end() const { return {*this, size()}; }
 
-  const_iterator cbegin() const { return {data_.cbegin(), data_.cend()}; }
-  const_iterator cend() const { return {data_.cend(), data_.cend()}; }
+  const_iterator cbegin() const { return {*this, 0}; }
+  const_iterator cend() const { return {*this, size()}; }
 
   reverse_iterator rbegin() { return reverse_iterator{end()}; }
   reverse_iterator rend() { return reverse_iterator{begin()}; }
@@ -473,6 +470,23 @@ public:
   }
   const_reverse_iterator crend() const {
     return const_reverse_iterator{begin()};
+  }
+
+  void replace_character(const data_type& old_char, const data_type& new_char) {
+    auto it = data_.begin();
+    while (it != data_.end()) {
+      const auto char_length = utf8_char_length(it);
+      auto current_char =
+          data_.substr(std::distance(data_.begin(), it), char_length);
+
+      if (current_char == old_char) {
+        it = data_.erase(it, it + static_cast<difference_type>(char_length));
+        it = data_.insert(it, new_char.begin(), new_char.end());
+        std::advance(it, new_char.size());
+      } else {
+        std::advance(it, char_length);
+      }
+    }
   }
 
 private:
@@ -559,13 +573,11 @@ private:
 
 }  // namespace cait
 
-inline bool operator==(const cait::basic_string_t<char>& lhs,
-                       const char rhs) {
+inline bool operator==(const cait::basic_string_t<char>& lhs, const char rhs) {
   return lhs.data() == std::to_string(rhs);
 }
 
-inline bool operator!=(const cait::basic_string_t<char>& lhs,
-                       const char rhs) {
+inline bool operator!=(const cait::basic_string_t<char>& lhs, const char rhs) {
   return lhs.data() != std::to_string(rhs);
 }
 
