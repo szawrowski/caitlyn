@@ -106,9 +106,9 @@ int main() {
   cait::println("Char at position 0: {}", data[0]);
   cait::println("Char at position 7: {}", data.at(7));
   
-  for (auto i : data) {
-    if (i == "🙂") {
-      i = "🍉";
+  for (auto elem : data) {
+    if (elem == "🙂") {
+      elem = "🍉";
     }
   }
   cait::println("Updated: {}", data);
