@@ -39,13 +39,13 @@ class basic_string_t<char> {
   using pointer = data_type::pointer;
   using const_pointer = data_type::const_pointer;
 
-  class utf8_char_proxy_t {
+  class char_proxy_t {
   public:
-    utf8_char_proxy_t(basic_string_t& str, const size_t pos)
+    char_proxy_t(basic_string_t& str, const size_t pos)
         : str_{str}, pos_{pos} {}
 
   public:
-    utf8_char_proxy_t& operator=(const data_type& utf8_char) {
+    char_proxy_t& operator=(const data_type& utf8_char) {
       str_.replace_utf8_at(pos_, utf8_char);
       return *this;
     }
@@ -67,8 +67,8 @@ class basic_string_t<char> {
     using iterator_category = std::bidirectional_iterator_tag;
     using value_type = data_type;
     using difference_type = data_type::difference_type;
-    using pointer = utf8_char_proxy_t;
-    using reference = utf8_char_proxy_t;
+    using pointer = char_proxy_t;
+    using reference = char_proxy_t;
 
   public:
     iterator(basic_string_t& str, const size_t pos) : str_{str}, pos_{pos} {}
@@ -429,14 +429,14 @@ public:
   }
 
 public:
-  utf8_char_proxy_t at(const size_t pos) {
-    return utf8_char_proxy_t{*this, pos};
+  char_proxy_t at(const size_t pos) {
+    return char_proxy_t{*this, pos};
   }
 
   data_type at(const size_t pos) const { return get_utf8_at(pos); }
 
-  utf8_char_proxy_t operator[](const size_t pos) {
-    return utf8_char_proxy_t{*this, pos};
+  char_proxy_t operator[](const size_t pos) {
+    return char_proxy_t{*this, pos};
   }
 
   data_type operator[](const size_t pos) const { return get_utf8_at(pos); }
