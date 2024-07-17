@@ -93,7 +93,7 @@ int main() {
   cait::string_t data = "Hello, 世界! 🙂";
 
   cait::println("String: {}", data);
-  cait::println("Substring: {}", data.substr(7));
+  cait::println("Substring (from 7): {}", data.substr(7));
 
   cait::println("Char count: {}", data.size());
   cait::println("Byte count: {}", data.byte_count());
@@ -105,16 +105,13 @@ int main() {
 
   cait::println("Char at position 0: {}", data[0]);
   cait::println("Char at position 7: {}", data.at(7));
-
-  data[11] = "❤️";
-  cait::println("Updated [11]: {}", data);
   
-  // Get std::string
-  const auto std_string = data.str();
-  
-  // Get const char*
-  const auto c_string = data.c_str();
-
+  for (auto i : data) {
+    if (i == "🙂") {
+      i = "🍉";
+    }
+  }
+  cait::println("Updated: {}", data);
   return 0;
 }
 ```
@@ -133,7 +130,7 @@ int main() {
 
 ```text
 String: Hello, 世界! 🙂
-Substring: 世界! 🙂
+Substring (from 7): 世界! 🙂
 Char count: 12
 Byte count: 19
 Starts with H? true
@@ -142,7 +139,7 @@ Contains '世界'? true
 Contains 'some text'? false
 Char at position 0: H
 Char at position 7: 世
-Updated [11]: Hello, 世界! ❤️
+Updated: Hello, 世界! 🍉
 ```
 
 ### Text Formatting
