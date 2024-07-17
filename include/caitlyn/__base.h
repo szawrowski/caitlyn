@@ -177,21 +177,19 @@ using floatx_t = long double;
 
 }  // namespace cait
 
-#if defined(__caitlyn_windows)
+#ifdef __caitlyn_windows
   #define NOMINMAX
   #include <windows.h>
 #endif
 
 namespace cait {
 
-#if defined(__caitlyn_windows)
 inline void set_windows_utf8_encode() {
+#ifdef __caitlyn_windows
   SetConsoleOutputCP(CP_UTF8);
   SetConsoleCP(CP_UTF8);
-}
-#else
-inline void set_windows_utf8_encode() {}
 #endif
+}
 
 }  // namespace cait
 
