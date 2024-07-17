@@ -28,7 +28,7 @@ namespace strfmt {
 struct spec_t {
   align_t align = align_t::left;
   size_t width = 0;
-  string_t fill = ' ';
+  string_t fill = " ";
   type_t type = type_t::string;
   int precision = -1;
 };

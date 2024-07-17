@@ -30,7 +30,6 @@
 
 namespace cait {
 namespace strfmt {
-namespace __detail {
 
 inline void process_spec(const spec_t& spec, string_t& str) {
   switch (spec.align) {
@@ -123,7 +122,6 @@ required_t<is_boolean<T>(), string_t> to_string(const T& value,
   return to_string(get_as_string(value), spec);
 }
 
-}  // namespace __detail
 }  // namespace strfmt
 }  // namespace cait
 
