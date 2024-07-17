@@ -25,14 +25,14 @@
 
 #include "caitlyn/__base.h"
 #include "caitlyn/core/format/types.h"
-#include "caitlyn/core/traits.h"
 #include "caitlyn/core/string.h"
+#include "caitlyn/core/traits.h"
 
 namespace cait {
 namespace strfmt {
 namespace __detail {
 
-inline void process_spec(const spec_t& spec, std::string& str) {
+inline void process_spec(const spec_t& spec, string_t& str) {
   switch (spec.align) {
     case align_t::left:
       str.append(spec.width - str.size(), spec.fill);
@@ -50,8 +50,8 @@ inline void process_spec(const spec_t& spec, std::string& str) {
 }
 
 template <typename T>
-required_t<is_integer<T>(), std::string> to_string(const T& value,
-                                                   const spec_t& spec) {
+required_t<is_integer<T>(), string_t> to_string(const T& value,
+                                                const spec_t& spec) {
   std::ostringstream oss;
   oss << std::fixed << std::setprecision(0);
 
@@ -60,7 +60,7 @@ required_t<is_integer<T>(), std::string> to_string(const T& value,
   } else {
     oss << value;
   }
-  std::string str = oss.str();
+  string_t str = oss.str();
 
   if (str.size() < spec.width) {
     process_spec(spec, str);
@@ -69,8 +69,8 @@ required_t<is_integer<T>(), std::string> to_string(const T& value,
 }
 
 template <typename T>
-required_t<is_floating<T>(), std::string>
-to_string(const T& value, const spec_t& spec) {
+required_t<is_floating<T>(), string_t> to_string(const T& value,
+                                                 const spec_t& spec) {
   std::ostringstream oss;
   oss << std::fixed
       << std::setprecision(spec.precision >= 0 ? spec.precision : 6);
@@ -78,7 +78,7 @@ to_string(const T& value, const spec_t& spec) {
   oss << (spec.type == type_t::floating_point ? static_cast<float64_t>(value)
                                               : value);
 
-  std::string str = oss.str();
+  string_t str = oss.str();
 
   if (str.size() < spec.width) {
     process_spec(spec, str);
@@ -86,8 +86,8 @@ to_string(const T& value, const spec_t& spec) {
   return str;
 }
 
-inline std::string to_string(const std::string& value, const spec_t& spec) {
-  std::string str = value;
+inline string_t to_string(const string_t& value, const spec_t& spec) {
+  string_t str = value;
 
   if (str.size() < spec.width) {
     process_spec(spec, str);
@@ -95,31 +95,31 @@ inline std::string to_string(const std::string& value, const spec_t& spec) {
   return str;
 }
 
-inline std::string to_string(const char* value, const spec_t& spec) {
-  return to_string(std::string{value}, spec);
-}
+// inline std::string to_string(const char* value, const spec_t& spec) {
+//   return to_string(std::string{value}, spec);
+// }
 
 template <typename T>
-required_t<has_to_string<T>(), std::string> to_string(
-    const T& value, const spec_t& spec) {
+required_t<has_to_string<T>(), string_t> to_string(const T& value,
+                                                   const spec_t& spec) {
   return to_string(value.to_string(), spec);
 }
 
 template <typename T>
-required_t<has_str<T>(), std::string> to_string(const T& value,
-                                                const spec_t& spec) {
+required_t<has_str<T>(), string_t> to_string(const T& value,
+                                             const spec_t& spec) {
   return to_string(value.str(), spec);
 }
 
 template <typename T>
-required_t<is_character<T>(), std::string> to_string(const T& value,
-                                                const spec_t& spec) {
-  return to_string(std::to_string(value), spec);
+required_t<is_character<T>(), string_t> to_string(const T& value,
+                                                  const spec_t& spec) {
+  return to_string(value, spec);
 }
 
 template <typename T>
-required_t<is_boolean<T>(), std::string> to_string(const T& value,
-                                                   const spec_t& spec) {
+required_t<is_boolean<T>(), string_t> to_string(const T& value,
+                                                const spec_t& spec) {
   return to_string(get_as_string(value), spec);
 }
 

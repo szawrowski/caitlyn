@@ -25,7 +25,11 @@ namespace cait {
 namespace strfmt {
 namespace __detail {
 
-inline spec_t parse_format_spec(const std::string& spec) {
+inline bool is_digit(const string_t& str) {
+  return str >= 0x30 && str < 0x3A;
+}
+
+inline spec_t parse_format_spec(const string_t& spec) {
   spec_t result;
   size_t i{};
 
@@ -48,7 +52,7 @@ inline spec_t parse_format_spec(const std::string& spec) {
 
   // Parse width
   if (i < spec.size() && is_digit(spec[i])) {
-    result.width = std::stoi(spec.substr(i));
+    result.width = std::stoi(spec.substr(i).c_str());
     while (i < spec.size() && is_digit(spec[i])) {
       ++i;
     }
@@ -58,7 +62,7 @@ inline spec_t parse_format_spec(const std::string& spec) {
   if (i < spec.size() && spec[i] == '.') {
     ++i;
     if (i < spec.size() && is_digit(spec[i])) {
-      result.precision = std::stoi(spec.substr(i));
+      result.precision = std::stoi(spec.substr(i).c_str());
       while (i < spec.size() && is_digit(spec[i])) ++i;
     }
   }
