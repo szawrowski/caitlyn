@@ -59,7 +59,7 @@ endif()
 add_library(Caitlyn::Caitlyn INTERFACE IMPORTED)
 
 set_target_properties(Caitlyn::Caitlyn PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "C:/Users/szawrowski/Documents/Source/caitlyn/include;${_IMPORT_PREFIX}/include"
+  INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include;${_IMPORT_PREFIX}/include"
 )
 
 # Load information for each installed configuration.

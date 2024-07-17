@@ -61,7 +61,7 @@ if(LIB_INSTALL)
   target_include_directories(
     ${LIB_TARGET_NAME} INTERFACE
     $<BUILD_INTERFACE:${LIB_INCLUDE_DIR}>
-    $<INSTALL_INTERFACE:${LIB_INCLUDE_DIR}>
+    $<INSTALL_INTERFACE:include>
   )
 
   include(CMakePackageConfigHelpers)
