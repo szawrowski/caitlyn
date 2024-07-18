@@ -165,7 +165,7 @@ int main() {
   cait::println("R: '{0:>25}'\n", data);
   // Precision
   cait::println("Floating: {0:.4f}", 64.932698);
-  cait::println("Decinal : {0:d}\n", 6427123266375693);
+  cait::println("Decimal : {0:d}\n", 6427123266375693);
   // Filling
   cait::println("Line: {0:-<24}", "");
   cait::println("Fill: {0:*^24}\n", "TEXT");
