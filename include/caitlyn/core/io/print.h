@@ -28,19 +28,19 @@ namespace cait {
 
 inline void print(const string_t& str) {
   std::ios::sync_with_stdio(false);
-  std::cout << str;
+  std::cout << format(str);
 }
 
 template <typename T>
 required_t<has_to_string<T>()> print(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cout << value.to_string();
+  std::cout << format(value.to_string());
 }
 
 template <typename T>
 required_t<has_str<T>()> print(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cout << value.str();
+  std::cout << format(value.str());
 }
 
 template <typename... Args>
@@ -56,19 +56,19 @@ inline void println() {
 
 inline void println(const string_t& str) {
   std::ios::sync_with_stdio(false);
-  std::cout << str << get_char(ascii_t::line_feed);
+  std::cout << format(str) << get_char(ascii_t::line_feed);
 }
 
 template <typename T>
 required_t<has_to_string<T>()> println(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cout << value.to_string() << get_char(ascii_t::line_feed);
+  std::cout << format(value.to_string()) << get_char(ascii_t::line_feed);
 }
 
 template <typename T>
 required_t<has_str<T>()> println(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cout << value.str() << get_char(ascii_t::line_feed);
+  std::cout << format(value.str()) << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
@@ -80,19 +80,19 @@ void println(const string_t& str, Args&&... args) {
 
 inline void eprint(const string_t& str) {
   std::ios::sync_with_stdio(false);
-  std::cerr << str;
+  std::cerr << format(str);
 }
 
 template <typename T>
 required_t<has_to_string<T>()> eprint(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cerr << value.to_string();
+  std::cerr << format(value.to_string());
 }
 
 template <typename T>
 required_t<has_str<T>()> eprint(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cerr << value.str();
+  std::cerr << format(value.str());
 }
 
 template <typename... Args>
@@ -103,19 +103,19 @@ void eprint(const string_t& str, Args&&... args) {
 
 inline void eprintln(const string_t& str) {
   std::ios::sync_with_stdio(false);
-  std::cerr << str << get_char(ascii_t::line_feed);
+  std::cerr << format(str) << get_char(ascii_t::line_feed);
 }
 
 template <typename T>
 required_t<has_to_string<T>()> eprintln(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cerr << value.to_string() << get_char(ascii_t::line_feed);
+  std::cerr << format(value.to_string()) << get_char(ascii_t::line_feed);
 }
 
 template <typename T>
 required_t<has_str<T>()> eprintln(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cerr << value.str() << get_char(ascii_t::line_feed);
+  std::cerr << format(value.str()) << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
@@ -127,19 +127,19 @@ void eprintln(const string_t& str, Args&&... args) {
 
 inline void log(const string_t& str) {
   std::ios::sync_with_stdio(false);
-  std::clog << str;
+  std::clog << format(str);
 }
 
 template <typename T>
 required_t<has_to_string<T>()> log(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::clog << value.to_string() << get_char(ascii_t::line_feed);
+  std::clog << format(value.to_string()) << get_char(ascii_t::line_feed);
 }
 
 template <typename T>
 required_t<has_str<T>()> log(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::clog << value.str() << get_char(ascii_t::line_feed);
+  std::clog << format(value.str()) << get_char(ascii_t::line_feed);
 }
 
 template <typename... Args>
