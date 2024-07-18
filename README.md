@@ -180,6 +180,8 @@ int main() {
 }
 ```
 
+**Output:**
+
 ```text
 L: 'Hello, world!            '
 C: '      Hello, world!      '
