@@ -260,6 +260,7 @@ public:
 public:
   void clear() { data_.clear(); }
   bool is_empty() const { return data_.empty(); }
+  bool not_empty() const { return !data_.empty(); }
 
 public:
   void push_back(const char* str) { data_.append(str); }
