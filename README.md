@@ -154,15 +154,22 @@ Updated: Hello, 世界! 🍉
 #include <caitlyn/text>
 
 int main() {
-  const auto string = "Hello, 世界!"_str;
-  const auto emoji = "🙂"_str;
+  const auto some = "Hello"_str;
+  const auto other = "world"_str;
 
-  const auto formatted = cait::format("{} {}", string, emoji);
+  const auto data = cait::format("{}, {}!", some, other);
+
+  cait::println("L: '{0:<25}'", data);
+  cait::println("C: '{0:^25}'", data);
+  cait::println("R: '{0:>25}'", data);
+  cait::println("F: '{0:<25.4f}'", 64.932698);
+  cait::println("D: '{0:<25d}'", 6427123266375693);
+  cait::println();
 
   auto content = cait::make_text("Text: ");
   content.append("Lorem ipsum dolor sit amet, ");
   content.append_line("consectetur adipiscing elit...");
-  content.append_line(formatted);
+  content.append_line(data);
 
   cait::println(content);
   return 0;
@@ -170,8 +177,14 @@ int main() {
 ```
 
 ```text
+L: 'Hello, world!            '
+C: '      Hello, world!      '
+R: '            Hello, world!'
+F: '64.9326                  '
+D: '6427123266375693         '
+
 Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-Hello, 世界! 🙂
+Hello, world!
 ```
 
 ### File Management
