@@ -159,12 +159,16 @@ int main() {
 
   const auto data = cait::format("{}, {}!", some, other);
 
+  // Alignment
   cait::println("L: '{0:<25}'", data);
   cait::println("C: '{0:^25}'", data);
-  cait::println("R: '{0:>25}'", data);
-  cait::println("F: '{0:<25.4f}'", 64.932698);
-  cait::println("D: '{0:<25d}'", 6427123266375693);
-  cait::println();
+  cait::println("R: '{0:>25}'\n", data);
+  // Precision
+  cait::println("Floating: {0:.4f}", 64.932698);
+  cait::println("Decinal : {0:d}\n", 6427123266375693);
+  // Filling
+  cait::println("Line: {0:-<24}", "");
+  cait::println("Fill: {0:*^24}\n", "TEXT");
 
   auto content = cait::make_text("Text: ");
   content.append("Lorem ipsum dolor sit amet, ");
@@ -180,8 +184,12 @@ int main() {
 L: 'Hello, world!            '
 C: '      Hello, world!      '
 R: '            Hello, world!'
-F: '64.9326                  '
-D: '6427123266375693         '
+
+Floating: 64.9326
+Decimal : 6427123266375693
+
+Line: ------------------------
+Fill: **********TEXT**********
 
 Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 Hello, world!
