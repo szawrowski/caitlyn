@@ -23,7 +23,7 @@
 #include "caitlyn/core/string.h"
 
 namespace cait {
-namespace strfmt {
+namespace fmt {
 
 struct spec_t {
   align_t align = align_t::left;
@@ -33,7 +33,7 @@ struct spec_t {
   int precision = -1;
 };
 
-}  // namespace strfmt
+}  // namespace fmt
 }  // namespace cait
 
 #endif  // CAITLYN_CORE_FORMAT_TYPES_SPEC_H_

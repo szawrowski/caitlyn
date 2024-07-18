@@ -20,16 +20,18 @@
 
 #include <stdexcept>
 
+#include "caitlyn/core/string.h"
+
 namespace cait {
-namespace strfmt {
+namespace fmt {
 
 class error_t final : public std::runtime_error {
 public:
-  explicit error_t(const std::string& message)
-      : std::runtime_error(message) {}
+  explicit error_t(const string_t& message)
+      : std::runtime_error(message.str()) {}
 };
 
-}  // namespace strfmt
+}  // namespace fmt
 }  // namespace cait
 
 #endif  // CAITLYN_CORE_FORMAT_TYPES_ERROR_H_

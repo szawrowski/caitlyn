@@ -19,11 +19,11 @@
 #define CAITLYN_CORE_FORMAT_TYPES_TYPE_H_
 
 namespace cait {
-namespace strfmt {
+namespace fmt {
 
-enum class type_t { string, integral, floating_point };
+enum class type_t { string, integral, floating };
 
-}  // namespace strfmt
+}  // namespace fmt
 }  // namespace cait
 
 #endif  // CAITLYN_CORE_FORMAT_TYPES_TYPE_H_

@@ -19,11 +19,11 @@
 #define CAITLYN_CORE_FORMAT_TYPES_ALIGN_H_
 
 namespace cait {
-namespace strfmt {
+namespace fmt {
 
 enum class align_t { left, right, center };
 
-}  // namespace strfmt
+}  // namespace fmt
 }  // namespace cait
 
 #endif  // CAITLYN_CORE_FORMAT_TYPES_ALIGN_H_
