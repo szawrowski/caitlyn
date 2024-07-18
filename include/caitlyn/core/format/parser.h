@@ -24,7 +24,7 @@
 namespace cait {
 namespace fmt {
 
-inline bool is_digit(const string_t& str) { return str >= 0x30 && str < 0x3A; }
+inline bool is_digit(const string_t& str) { return str >= "0" && str <= "9"; }
 
 inline spec_t make_spec(const string_t& spec) {
   if (spec[0] != ":") {
@@ -35,24 +35,24 @@ inline spec_t make_spec(const string_t& spec) {
 
   // Parse fill character and alignment
   if (i + 1 < spec.size() &&
-      (spec[i + 1] == '<' || spec[i + 1] == '>' || spec[i + 1] == '^')) {
+      (spec[i + 1] == "<" || spec[i + 1] == ">" || spec[i + 1] == "^")) {
     result.fill = spec[i];
     ++i;
-    if (spec[i] == '<') {
+    if (spec[i] == "<") {
       result.align = align_t::left;
-    } else if (spec[i] == '>') {
+    } else if (spec[i] == ">") {
       result.align = align_t::right;
-    } else if (spec[i] == '^') {
+    } else if (spec[i] == "^") {
       result.align = align_t::center;
     }
     ++i;
-  } else if (spec[i] == '<') {
+  } else if (spec[i] == "<") {
     result.align = align_t::left;
     ++i;
-  } else if (spec[i] == '>') {
+  } else if (spec[i] == ">") {
     result.align = align_t::right;
     ++i;
-  } else if (spec[i] == '^') {
+  } else if (spec[i] == "^") {
     result.align = align_t::center;
     ++i;
   }
@@ -66,7 +66,7 @@ inline spec_t make_spec(const string_t& spec) {
   }
 
   // Parse precision
-  if (i < spec.size() && spec[i] == '.') {
+  if (i < spec.size() && spec[i] == ".") {
     ++i;
     if (i < spec.size() && is_digit(spec[i])) {
       result.precision = std::stoi(spec.substr(i).str());
@@ -78,11 +78,11 @@ inline spec_t make_spec(const string_t& spec) {
 
   // Parse type
   if (i < spec.size()) {
-    if (spec[i] == 's') {
+    if (spec[i] == "s") {
       result.type = type_t::string;
-    } else if (spec[i] == 'd') {
+    } else if (spec[i] == "d") {
       result.type = type_t::integral;
-    } else if (spec[i] == 'f') {
+    } else if (spec[i] == "f") {
       result.type = type_t::floating;
     }
   }

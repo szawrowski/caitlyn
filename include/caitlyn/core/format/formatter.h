@@ -12,6 +12,7 @@ namespace fmt {
 
 constexpr auto left_curly_bracket = "{";
 constexpr auto right_curly_bracket = "}";
+constexpr auto colon = ":";
 
 }  // namespace fmt
 
@@ -34,49 +35,78 @@ string_t format(const string_t& formatter, Args&&... args) {
         if (end == string_t::npos) {
           throw fmt::error_t{"Mismatched braces in format string"};
         }
+        // Extracting the contents of {}
         const auto spec = formatter.substr(pos + 1, end - pos - 1);
-        size_t arg_index = 0;
-        size_t spec_pos = 0;
 
-        if (!spec.is_empty() && fmt::is_digit(spec[spec_pos])) {
-          size_t index_end = spec_pos;
-          while (index_end < spec.size() && fmt::is_digit(spec[index_end])) {
-            ++index_end;
-          }
-          try {
-            arg_index =
-                std::stoul(spec.substr(spec_pos, index_end - spec_pos).str());
-          } catch (const std::out_of_range&) {
-            throw fmt::error_t{"Invalid argument index"};
-          }
-          if (arg_index > arguments.size() - 1) {
-            throw fmt::error_t{"Argument index out of range"};
-          }
-          auto format_spec = spec.substr(index_end);
-          if (!format_spec.is_empty()) {
-            if (format_spec[0] == ":") {
-              auto parsed_spec = fmt::make_spec(format_spec);
+        if (spec.not_empty()) {
+          constexpr size_t spec_begin = 0;
+          size_t format_spec_begin = 0;
+          size_t arg_index = 0;
+          bool has_index = false;
+          string_t format_spec;
 
-              if (parsed_spec.type == fmt::type_t::integral) {
-                result << fmt::process_integral(arguments[arg_index],
-                                                parsed_spec);
-              } else if (parsed_spec.type == fmt::type_t::floating) {
-                result << fmt::process_floating(arguments[arg_index],
-                                                parsed_spec);
-              } else {
-                result << fmt::process_string(arguments[arg_index],
-                                              parsed_spec);
+          // Parsing the index, if it exists {}
+          if (fmt::is_digit(spec[spec_begin])) {
+            format_spec_begin = spec_begin;
+
+            while (format_spec_begin < spec.size() &&
+                   fmt::is_digit(spec[format_spec_begin])) {
+              ++format_spec_begin;
+            }
+            try {
+              arg_index = std::stoul(
+                  spec.substr(spec_begin, format_spec_begin - spec_begin)
+                      .str());
+            } catch (const std::out_of_range&) {
+              throw fmt::error_t{"Invalid argument index"};
+            }
+            if (arg_index > arguments.size() - 1) {
+              throw fmt::error_t{"Argument index out of range"};
+            }
+            format_spec = spec.substr(format_spec_begin);
+            has_index = true;
+          } else {
+            format_spec = spec;
+            has_index = false;
+          }
+
+          if (format_spec.not_empty()) {
+            if (format_spec[0] != fmt::colon) {
+              throw fmt::error_t{"Invalid format specifier. Expected colon"};
+            }
+            auto parsed_spec = fmt::make_spec(format_spec);
+
+            if (has_index) {
+              result << fmt::process(arguments[arg_index], parsed_spec);
+            } else {
+              if (arguments.size() == 1) {
+                result << fmt::process(arguments[0], parsed_spec);
+              } else if (arguments.size() > 1) {
+                if (auto_index > arguments.size() - 1) {
+                  throw fmt::error_t{"Argument index out of range"};
+                }
+                result << fmt::process(arguments[auto_index++], parsed_spec);
               }
             }
           } else {
-            result << arguments[arg_index];
+            if (arguments.size() == 1) {
+              result << arguments[0];
+            } else if (arguments.size() > 1) {
+              if (auto_index > arguments.size() - 1) {
+                throw fmt::error_t{"Argument index out of range"};
+              }
+              result << arguments[auto_index++];
+            }
           }
-        } else if (arguments.size() == 1) {
-          result << arguments[0];
-        } else if (arguments.size() > 1) {
-          result << arguments[auto_index++];
         } else {
-          throw fmt::error_t{"Missing argument index in format string"};
+          if (arguments.size() == 1) {
+            result << arguments[0];
+          } else if (arguments.size() > 1) {
+            if (auto_index > arguments.size() - 1) {
+              throw fmt::error_t{"Argument index out of range"};
+            }
+            result << arguments[auto_index++];
+          }
         }
         pos = end + 1;
       }
@@ -93,6 +123,10 @@ string_t format(const string_t& formatter, Args&&... args) {
     }
   }
   return result.str();
+}
+
+inline string_t format(const string_t& formatter) {
+  return format(formatter, "");
 }
 
 }  // namespace cait

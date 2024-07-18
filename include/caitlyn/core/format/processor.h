@@ -18,8 +18,8 @@
 #ifndef CAITLYN_CORE_FORMAT_PROCESSOR_H_
 #define CAITLYN_CORE_FORMAT_PROCESSOR_H_
 
-#include "caitlyn/core/string.h"
 #include "caitlyn/core/format/parser.h"
+#include "caitlyn/core/string.h"
 
 namespace cait {
 namespace fmt {
@@ -45,9 +45,9 @@ inline void process_spec(string_t& value, const spec_t& spec) {
 }
 
 inline string_t process_string(const string_t& value, const spec_t& spec) {
-  string_t str = value;
-  process_spec(str, spec);
-  return str;
+  string_t result = value;
+  process_spec(result, spec);
+  return result;
 }
 
 inline string_t process_floating(const string_t& value, const spec_t& spec) {
@@ -89,6 +89,19 @@ inline string_t process_integral(const string_t& value, const spec_t& spec) {
   string_t result = value;
   process_spec(result, spec);
   return result;
+}
+
+inline string_t process(const string_t& value, const spec_t& spec) {
+  const auto type = spec.type;
+
+  switch (type) {
+    case type_t::integral:
+      return process_integral(value, spec);
+    case type_t::floating:
+      return process_floating(value, spec);
+    default:
+      return process_string(value, spec);
+  }
 }
 
 }  // namespace fmt
