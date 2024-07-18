@@ -18,12 +18,13 @@
 #ifndef CAITLYN_CORE_FORMAT_TYPES_SPEC_H_
 #define CAITLYN_CORE_FORMAT_TYPES_SPEC_H_
 
-#include "caitlyn/core/format/types/align.h"
-#include "caitlyn/core/format/types/type.h"
 #include "caitlyn/core/string.h"
 
 namespace cait {
 namespace fmt {
+
+enum class align_t { left, right, center };
+enum class type_t { string, integral, floating };
 
 struct spec_t {
   align_t align = align_t::left;
