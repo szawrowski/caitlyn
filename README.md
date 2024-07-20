@@ -102,26 +102,26 @@ Basic string enhanced with correct UTF-8 operations.
 int main() {
   cait::string data = "Hello, 世界! 🙂";
 
-  cait::println("String: {}", data);
-  cait::println("Substring (from 7): {}", data.substr(7));
+  cait::println("string: {}", data);
+  cait::println("substring (from 7): {}", data.substr(7));
 
-  cait::println("Char count: {}", data.size());
-  cait::println("Byte count: {}", data.byte_count());
+  cait::println("char count: {}", data.size());
+  cait::println("byte count: {}", data.byte_count());
 
-  cait::println("Starts with H? {}", data.starts_with("H"));
-  cait::println("Ends with 🙂? {}", data.ends_with("🙂"));
-  cait::println("Contains '世界'? {}", data.contains("世界"));
-  cait::println("Contains 'some text'? {}", data.contains("some text"));
+  cait::println("starts with H? {}", data.starts_with("H"));
+  cait::println("ends with 🙂? {}", data.ends_with("🙂"));
+  cait::println("contains '世界'? {}", data.contains("世界"));
+  cait::println("contains 'some text'? {}", data.contains("some text"));
 
-  cait::println("Char at position 0: {}", data[0]);
-  cait::println("Char at position 7: {}", data.at(7));
+  cait::println("char at position 0: {}", data[0]);
+  cait::println("char at position 7: {}", data.at(7));
   
   for (auto&& elem : data) {
     if (elem == "🙂") {
       elem = "🍉";
     }
   }
-  cait::println("Updated: {}", data);
+  cait::println("updated: {}", data);
   return 0;
 }
 ```
@@ -129,17 +129,17 @@ int main() {
 **Output:**
 
 ```text
-String: Hello, 世界! 🙂
-Substring (from 7): 世界! 🙂
-Char count: 12
-Byte count: 19
-Starts with H? true
-Ends with 🙂? true
-Contains '世界'? true
-Contains 'some text'? false
-Char at position 0: H
-Char at position 7: 世
-Updated: Hello, 世界! 🍉
+string: Hello, 世界! 🙂
+substring (from 7): 世界! 🙂
+char count: 12
+byte count: 19
+starts with H? true
+ends with 🙂? true
+contains '世界'? true
+contains 'some text'? false
+char at position 0: H
+char at position 7: 世
+updated: Hello, 世界! 🍉
 ```
 
 ### Text Formatting
@@ -160,15 +160,17 @@ int main() {
   const auto data = cait::format("{}, {}!", first, second);
 
   // Alignment
-  cait::println("L: '{:<25}'", data);
-  cait::println("C: '{:^25}'", data);
-  cait::println("R: '{:>25}'\n", data);
+  cait::println("l: '{:<25}'", data);
+  cait::println("c: '{:^25}'", data);
+  cait::println("r: '{:>25}'\n", data);
   // Precision
-  cait::println("Floating: {:.4f}", 64.932698);
-  cait::println("Decimal:  {:d}\n", 6427123266375693);
+  cait::println("floating: {:.4f}", 64.932698);
+  cait::println("decimal:  {:d}\n", 6427123266375693);
   // Filling
-  cait::println("Line: {:-<24}", "");
-  cait::println("Fill: {:*^24}\n", "TEXT");
+  cait::println("line: {:-<24}", "");
+  cait::println("fill: {:*^24}\n", "TEXT");
+  // Other
+  cait::println("escaped: {{text}}\n");
 
   auto content = cait::make_text("Text: ");
   content.append("Lorem ipsum dolor sit amet, ");
@@ -183,15 +185,17 @@ int main() {
 **Output:**
 
 ```text
-L: 'Hello, world!            '
-C: '      Hello, world!      '
-R: '            Hello, world!'
+l: 'Hello, world!            '
+c: '      Hello, world!      '
+r: '            Hello, world!'
 
-Floating: 64.9326
-Decimal:  6427123266375693
+floating: 64.9326
+decimal:  6427123266375693
 
-Line: ------------------------
-Fill: **********TEXT**********
+line: ------------------------
+fill: **********TEXT**********
+
+escaped: {text}
 
 Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
 Hello, world!
