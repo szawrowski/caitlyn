@@ -77,6 +77,16 @@ int main() {
 }
 ```
 
+To make your program work correctly on all platforms, you must initialize
+application at the entry point.
+
+```c++
+int main() {
+  const auto app = cait::application::init();
+  // ...
+}
+```
+
 ## Examples
 
 ### Unicode String Support
@@ -90,7 +100,7 @@ Basic string enhanced with correct UTF-8 operations.
 #include <caitlyn/string>
 
 int main() {
-  cait::string_t data = "Hello, 世界! 🙂";
+  cait::string data = "Hello, 世界! 🙂";
 
   cait::println("String: {}", data);
   cait::println("Substring (from 7): {}", data.substr(7));
@@ -116,16 +126,6 @@ int main() {
 }
 ```
 
-To correctly display UTF-8 characters in Windows, you must call the
-`set_windows_utf8_encode` function at the entry point.
-
-```c++
-int main() {
-  cait::set_windows_utf8_encode();
-  // ...
-}
-```
-
 **Output:**
 
 ```text
@@ -144,7 +144,7 @@ Updated: Hello, 世界! 🍉
 
 ### Text Formatting
 
-- `text_t`: - String builder type.
+- `text_builder`: - String builder type.
 - `format`: - Universal string formatter.
 
 **Usage**
@@ -154,8 +154,8 @@ Updated: Hello, 世界! 🍉
 #include <caitlyn/text>
 
 int main() {
-  const auto first = "Hello"_str;
-  const auto second = "world"_str;
+  const cait::string first = "Hello";
+  const cait::string second = "world";
 
   const auto data = cait::format("{}, {}!", first, second);
 
@@ -163,11 +163,11 @@ int main() {
   cait::println("L: '{:<25}'", data);
   cait::println("C: '{:^25}'", data);
   cait::println("R: '{:>25}'\n", data);
-  // // Precision
+  // Precision
   cait::println("Floating: {:.4f}", 64.932698);
   cait::println("Decimal:  {:d}\n", 6427123266375693);
-  // // Filling
-  cait::println("Line: {:-<24}");
+  // Filling
+  cait::println("Line: {:-<24}", "");
   cait::println("Fill: {:*^24}\n", "TEXT");
 
   auto content = cait::make_text("Text: ");
@@ -199,7 +199,7 @@ Hello, world!
 
 ### File Management
 
-- `file_t`: Universal file handler.
+- `file`: Universal file handler.
 
 **Usage**
 
@@ -256,7 +256,7 @@ Hello, 世界!
 The JSON format is crucial for web development, API integration, and any
 applications that need efficient data exchange in a structured format.
 
-- `json_t`: Provides comprehensive support for JSON handling.
+- `document`: Provides comprehensive support for JSON handling.
   Facilitates parsing, generating, and manipulating JSON data structures.
   Enables easy serialization of complex data into JSON format for storage or
   transmission, and deserialization of JSON back into native data structures.
@@ -273,7 +273,7 @@ applications that need efficient data exchange in a structured format.
 #include <caitlyn/serializing>
 
 int main() {
-  auto config = cait::make_json();
+  auto config = cait::json::make_document();
   config["name"] = cait::json::make_object();
   config["name"]["first"] = "John";
   config["name"]["last"] = "Doe";
@@ -296,7 +296,7 @@ int main() {
 #include <caitlyn/serializing>
 
 int main() {
-  const auto config = json_str(
+  const auto config = JSON_STRING(
     {
       "name": {
         "first": "John",
@@ -362,12 +362,12 @@ config.str(true, 2);
 
 Handling errors without standard exceptions.
 
-- `result_t`: Represents a type to encapsulate the result of an operation that
+- `expected`: Represents a type to encapsulate the result of an operation that
   may succeed or fail, along with an associated error type.
   It provides a type-safe way to handle both successful outcomes and errors
   without relying on exceptions.
 
-- `error_t`: Represents error types used in conjunction with `result_t`
+- `unexpected`: Represents error types used in conjunction with `expected`
   for detailed error reporting and handling within operations.
   It provides a structured way to categorize and manage errors that occur during
   computations or operations.
@@ -383,9 +383,9 @@ enum class MathError {
 };
 
 auto Divide(const double lhs, const double rhs)
-    -> cait::result_t<double, MathError> {
+    -> cait::expected<double, MathError> {
   if (lhs == 0 || rhs == 0) {
-    return cait::make_error(MathError::kDivideByZero);
+    return cait::make_failure(MathError::kDivideByZero);
   }
   return lhs / rhs;
 }
@@ -415,8 +415,8 @@ computations with high precision, avoiding data loss due to type limitations.
 Such types are often used in applications requiring high-precision calculations,
 such as financial applications, scientific research, or cryptography.
 
-- `pwrint_t`: Integral type of arbitrary length
-- `pwrnum_t`: Floating point type with arbitrary precision
+- `pwrint`: Integral type of arbitrary length
+- `pwrnum`: Floating point type with arbitrary precision
 
 **Usage**
 
@@ -464,7 +464,7 @@ int main() {
 
 **required_t** _**< CONDITION**, **OPTIONAL_RETURN_TYPE >**_
 
-The `required_t` type trait provides a more elegant alternative to
+The `required` type trait provides a more elegant alternative to
 `std::enable_if` for enforcing template constraints in C++.
 
 - **CONDITION**: A boolean value that determines whether the template is
@@ -477,13 +477,13 @@ The `required_t` type trait provides a more elegant alternative to
 Use SFINAE with a template default type parameter.
 
 Function template `Add` accepts two parameters of type `T` and returns
-their sum. It uses `required_t` to enforce that `T` is an integral type,
+their sum. It uses `required` to enforce that `T` is an integral type,
 as a template default type parameter.
 
 ```c++
 #include <caitlyn/traits>
 
-template <typename T, typename = cait::required_t<cait::is_integral<T>()>>
+template <typename T, typename = cait::required<cait::is_integral<T>()>>
 T Add(const T lhs, const T rhs) {
   return lhs + rhs;
 }
@@ -491,14 +491,14 @@ T Add(const T lhs, const T rhs) {
 
 Use SFINAE as a return type constraint.
 
-Function template `Add` uses `required_t` directly in the return type.
+Function template `Add` uses `required` directly in the return type.
 This enforces that `T` must be an integral type.
 
 ```c++
 #include <caitlyn/traits>
 
 template <typename T>
-cait::required_t<cait::is_integral<T>(), T>
+cait::required<cait::is_integral<T>(), T>
 Add(const T lhs, const T rhs) {
   return lhs + rhs;
 }
@@ -506,7 +506,7 @@ Add(const T lhs, const T rhs) {
 
 Use SFINAE as a trailing return type constraint.
 
-Function template `Add` uses a trailing return type to apply the `required_t`
+Function template `Add` uses a trailing return type to apply the `required`
 constraint. This ensures that `T` is an integral type.
 
 ```c++
@@ -514,7 +514,7 @@ constraint. This ensures that `T` is an integral type.
 
 template <typename T>
 auto Add(const T lhs, const T rhs)
-    -> cait::required_t<cait::is_integral<T>(), T> {
+    -> cait::required<cait::is_integral<T>(), T> {
   return lhs + rhs;
 }
 ```
@@ -566,7 +566,7 @@ TEST_F(MathFixture<int>, TestFixtureAddition) {
 }
 
 int main() {
-  return cait::test::registry_t::instance().run_all();
+  return cait::test::registry::instance().run_all();
 }
 ```
 
