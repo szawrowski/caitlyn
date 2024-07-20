@@ -1,5 +1,5 @@
-#include "caitlyn/core/algo.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__core/algo.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(AlgoTest, Sample) {
   PASS();

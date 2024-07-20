@@ -1,8 +1,8 @@
-#include "caitlyn/ser/json.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__serializing/json.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(JsonTest, InitBracketOperator) {
-  auto config = cait::make_json();
+  auto config = cait::json::make_document();
   config["name"] = cait::json::make_object();
   config["name"]["first"] = "John";
   config["name"]["last"] = "Doe";
@@ -17,7 +17,7 @@ TEST(JsonTest, InitBracketOperator) {
 }
 
 TEST(JsonTest, InitNative) {
-  const auto config = json_str(
+  const auto config = JSON_STRING(
     {
       "name": {
         "first": "John",

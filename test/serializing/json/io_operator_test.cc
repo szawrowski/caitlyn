@@ -1,8 +1,8 @@
-#include "caitlyn/ser/json.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__serializing/json.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(JsonTest, IoOperator) {
-  const auto oconfig = json_str(
+  const auto oconfig = JSON_STRING(
     {
       "name": {
         "first": "John",
@@ -27,15 +27,13 @@ TEST(JsonTest, IoOperator) {
     ofile << oconfig;
     ofile.close();
   }
-
-  auto iconfig = cait::make_json();
+  auto iconfig = cait::json::make_document();
 
   std::ifstream ifile{"operator_test.json"};
   if (ifile.is_open()) {
     ifile >> iconfig;
     ofile.close();
   }
-
   ASSERT_FALSE(iconfig.has_error());
   ASSERT_STREQ(oconfig.str().c_str(), iconfig.str().c_str());
 }

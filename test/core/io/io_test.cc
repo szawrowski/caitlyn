@@ -1,5 +1,5 @@
-#include "caitlyn/core/io.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__core/io.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(IoTest, Sample) {
   PASS();

@@ -1,8 +1,8 @@
-#include "caitlyn/ser/json.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__serializing/json.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(JsonTest, CorrectJsonMacroDocument) {
-  auto config = cait::make_json();
+  auto config = cait::json::make_document();
 
   config["name"] = "John Doe";
   config["age"] = 30;
@@ -41,7 +41,7 @@ TEST(JsonTest, CorrectJsonMacroDocument) {
 }
 
 TEST(JsonTest, CorrectJsonMacro) {
-  const auto config = json_str(
+  const auto config = JSON_STRING(
     {
       "name": "John Doe",
       "age": 30,

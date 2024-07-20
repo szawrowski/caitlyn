@@ -1,8 +1,8 @@
-#include "caitlyn/core/error.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__core/error.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(ResultTest, FoldValue) {
-  const auto result = cait::make_result<int, std::string>(42);
+  const auto result = cait::make_correct<int, cait::basic_string_t<char>>(42);
 
   const auto folded = result.fold(
       10, [](const int acc, const int value) { return acc + value; });
@@ -11,8 +11,8 @@ TEST(ResultTest, FoldValue) {
 }
 
 TEST(ResultTest, FoldError) {
-  const cait::result_t<int, std::string> result{
-      cait::make_error("Error message")};
+  const cait::error::expected_t<int, cait::basic_string_t<char>> result{
+      cait::make_failure("Error message")};
 
   const auto folded = result.fold(
       10, [](const int acc, const int value) { return acc + value; });

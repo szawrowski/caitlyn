@@ -1,8 +1,8 @@
-#include "caitlyn/core/error.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__core/error.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(ResultTest, Map) {
-  const auto result = cait::make_result<int, std::string>(42);
+  const auto result = cait::make_correct<int, cait::basic_string_t<char>>(42);
   const auto mapped = result.map([](const int value) { return value + 1; });
 
   ASSERT_TRUE(mapped.has_value());

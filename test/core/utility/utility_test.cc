@@ -1,5 +1,5 @@
-#include "caitlyn/test/macro.h"
-#include "caitlyn/core/utility.h"
+#include "caitlyn/__testing/macro.h"
+#include "caitlyn/__core/utility.h"
 
 TEST(UtilityTest, Sample) {
   PASS();

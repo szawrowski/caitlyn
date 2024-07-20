@@ -1,11 +1,11 @@
-#include "caitlyn/core/error.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__core/error.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(ResultTest, AndThen) {
-  const cait::result_t<int, std::string> result{42};
+  const cait::error::expected_t<int, cait::basic_string_t<char>> result{42};
 
   const auto next_result = result.and_then([](const int value) {
-    return cait::make_result<int, std::string>(value * 2);
+    return cait::make_correct<int, cait::basic_string_t<char>>(value * 2);
   });
 
   ASSERT_TRUE(next_result.has_value());

@@ -1,5 +1,5 @@
-#include "caitlyn/core/containers.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__core/containers.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(ContainersTest, Sample) {
   PASS();

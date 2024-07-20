@@ -1,5 +1,5 @@
-#include "caitlyn/core/numeric.h"
-#include "caitlyn/test/macro.h"
+#include "caitlyn/__core/numeric.h"
+#include "caitlyn/__testing/macro.h"
 
 TEST(NumericTest, Sample) {
   PASS();

@@ -1,5 +1,5 @@
-#include "caitlyn/test/macro.h"
-#include "caitlyn/core/traits.h"
+#include "caitlyn/__testing/macro.h"
+#include "caitlyn/__core/traits.h"
 
 TEST(TraitsTest, Sample) {
   PASS();

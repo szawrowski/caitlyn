@@ -1,5 +1,5 @@
-#include "caitlyn/test/macro.h"
-#include "caitlyn/core/time.h"
+#include "caitlyn/__testing/macro.h"
+#include "caitlyn/__core/time.h"
 
 TEST(TimeTest, Sample) {
   PASS();
