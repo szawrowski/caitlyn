@@ -174,8 +174,8 @@ int main() {
 
   auto content = cait::make_text("Text: ");
   content.append("Lorem ipsum dolor sit amet, ");
-  content.append_line("consectetur adipiscing elit...");
-  content.append_line(data);
+  content.appendln("consectetur adipiscing elit...");
+  content.appendln(data);
 
   cait::println(content);
   return 0;
@@ -218,7 +218,7 @@ int main() {
   const auto unicode = "Hello, 世界!"_str;
 
   auto file = "somefile.txt"_file;
-  file.write("{} {}\n{}", some, other, unicode);
+  file.writef("{} {}\n{}", some, other, unicode);
   file.close();
   
   return 0;
@@ -241,7 +241,7 @@ int main() {
   auto file = "somefile.txt"_file;
   
   while (file) {
-    cait::println("{}", file.read_line());
+    cait::println("{}", file.readln());
   }
   file.close();
   return 0;
@@ -431,8 +431,8 @@ such as financial applications, scientific research, or cryptography.
 #include <caitlyn/numeric>
 
 int main() {
-  const auto a = "47011878636176761032731633812398273982371829"_pwrint;
-  const auto b = "10218827321893782973821793709217371273"_pwrint;
+  const pwrint a = "47011878636176761032731633812398273982371829";
+  const pwrint b = "10218827321893782973821793709217371273";
   const auto result = a * b;
 
   cait::println(result);
@@ -451,8 +451,8 @@ int main() {
 #include <caitlyn/numeric>
 
 int main() {
-  const auto a = "182.81278920101871298728193797392737812737"_pwrnum;
-  const auto b = "7.8827318902910380293782646543821795732418"_pwrnum;
+  const pwrnum a = "182.81278920101871298728193797392737812737";
+  const pwrnum b = "7.8827318902910380293782646543821795732418";
   const auto result = a * b;
 
   cait::println(result);
