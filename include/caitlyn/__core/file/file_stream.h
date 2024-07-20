@@ -108,7 +108,7 @@ public:
     return {};
   }
 
-  basic_string_t<char> read_line(const char delim = '\n') {
+  basic_string_t<char> readln(const char delim = def::line_feed[0]) {
     if (!file_.is_open()) {
       open();
     }
@@ -175,7 +175,7 @@ public:
   }
 
   template <typename... Args>
-  void write(const basic_string_t<char>& str, Args&&... args) {
+  void writef(const basic_string_t<char>& str, Args&&... args) {
     if (!file_.is_open()) {
       open();
     }
@@ -183,7 +183,7 @@ public:
     file_.flush();
   }
 
-  void write_line(const char* data) {
+  void writeln(const char* data) {
     if (!file_.is_open()) {
       open();
     }
@@ -191,7 +191,7 @@ public:
     file_.flush();
   }
 
-  void write_line(const basic_string_t<char>& data) {
+  void writeln(const basic_string_t<char>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -200,7 +200,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_to_string<T>()> write_line(const T& data) {
+  required_t<has_to_string<T>()> writeln(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -209,20 +209,11 @@ public:
   }
 
   template <typename T>
-  required_t<has_str<T>()> write_line(const T& data) {
+  required_t<has_str<T>()> writeln(const T& data) {
     if (!file_.is_open()) {
       open();
     }
     file_ << data.str() << def::line_feed;
-    file_.flush();
-  }
-
-  template <typename... Args>
-  void write_line(const basic_string_t<char>& str, Args&&... args) {
-    if (!file_.is_open()) {
-      open();
-    }
-    file_ << format(str, std::forward<Args>(args)...) << def::line_feed;
     file_.flush();
   }
 
@@ -265,7 +256,7 @@ public:
   }
 
   template <typename... Args>
-  void append(const basic_string_t<char>& str, Args&&... args) {
+  void appendf(const basic_string_t<char>& str, Args&&... args) {
     if (!file_.is_open()) {
       open();
     }
@@ -274,7 +265,7 @@ public:
     file_.flush();
   }
 
-  void append_line(const char* data) {
+  void appendln(const char* data) {
     if (!file_.is_open()) {
       open();
     }
@@ -283,7 +274,7 @@ public:
     file_.flush();
   }
 
-  void append_line(const basic_string_t<char>& data) {
+  void appendln(const basic_string_t<char>& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -293,7 +284,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_to_string<T>()> append_line(const T& data) {
+  required_t<has_to_string<T>()> appendln(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -303,22 +294,12 @@ public:
   }
 
   template <typename T>
-  required_t<has_str<T>()> append_line(const T& data) {
+  required_t<has_str<T>()> appendln(const T& data) {
     if (!file_.is_open()) {
       open();
     }
     file_.seekp(0, std::ios::end);
     file_ << data.str() << def::line_feed;
-    file_.flush();
-  }
-
-  template <typename... Args>
-  void append_line(const basic_string_t<char>& str, Args&&... args) {
-    if (!file_.is_open()) {
-      open();
-    }
-    file_.seekp(0, std::ios::end);
-    file_ << format(str, std::forward<Args>(args)...) << def::line_feed;
     file_.flush();
   }
 
