@@ -312,6 +312,11 @@ private:
   std::streampos current_position_{};
 };
 
+inline basic_file_stream_t<char> make_file(
+    const basic_string_t<char>& filename) {
+  return cait::basic_file_stream_t<char>{filename};
+}
+
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 inline cait::basic_file_stream_t<char> operator""_file(const char* filename,
