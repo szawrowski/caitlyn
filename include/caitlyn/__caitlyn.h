@@ -15,9 +15,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_CHAR_TYPES_H_
-#define CAITLYN_CORE_CHAR_TYPES_H_
+#ifndef CAITLYN_CAITLYN_H_
+#define CAITLYN_CAITLYN_H_
 
-#include "caitlyn/core/char/types/ascii.h"
+#include "caitlyn/__caitlyn/application.h"
 
-#endif  // CAITLYN_CORE_CHAR_TYPES_H_
+__CAITLYN_GLOBAL_NAMESPACE_BEGIN
+
+using application = __detail::application_t;
+
+__CAITLYN_GLOBAL_NAMESPACE_END
+
+#endif  // CAITLYN_CAITLYN_H_
