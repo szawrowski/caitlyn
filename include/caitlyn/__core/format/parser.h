@@ -18,73 +18,125 @@
 #ifndef CAITLYN_CORE_FORMAT_PARSER_H_
 #define CAITLYN_CORE_FORMAT_PARSER_H_
 
-#include "caitlyn/__core/format/types.h"
+#include "caitlyn/__core/format/error.h"
+#include "caitlyn/__core/format/specifier.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_FORMAT_NAMESPACE_BEGIN
 
-inline specifier make_spec(const basic_string_t<char>& spec) {
-  if (spec[0] != def::colon) {
-    throw error_t{"Incorrect format specifier"};
-  }
-  specifier result;
-  size_t i = 1;
-
-  // Parse fill character and alignment
-  if (i + 1 < spec.size() && (spec[i + 1] == def::less_than_sign ||
-                              spec[i + 1] == def::greater_than_sign ||
-                              spec[i + 1] == def::circumflex_accent)) {
-    result.fill = spec[i];
-    ++i;
-    if (spec[i] == def::less_than_sign) {
-      result.align = align_t::left;
-    } else if (spec[i] == def::greater_than_sign) {
-      result.align = align_t::right;
-    } else if (spec[i] == def::circumflex_accent) {
-      result.align = align_t::center;
+inline void parse_view(const basic_string_t<char>& config, spec_t& spec,
+                       size_t& pos) {
+  if (pos + 1 < config.size() && config[pos] == def::number_sign) {
+    if (config[pos + 1] == def::latin_small_letter_b) {
+      spec.repr = repr_t::binary_pref;
+      pos += 2;
+    } else if (config[pos + 1] == def::latin_small_letter_o) {
+      spec.repr = repr_t::octal_pref;
+      pos += 2;
+    } else if (config[pos + 1] == def::latin_small_letter_x) {
+      spec.repr = repr_t::hex_pref;
+      pos += 2;
     }
-    ++i;
-  } else if (spec[i] == def::less_than_sign) {
-    result.align = align_t::left;
-    ++i;
-  } else if (spec[i] == def::greater_than_sign) {
-    result.align = align_t::right;
-    ++i;
-  } else if (spec[i] == def::circumflex_accent) {
-    result.align = align_t::center;
-    ++i;
+  } else if (config[pos] == def::latin_small_letter_b) {
+    spec.repr = repr_t::binary;
+    ++pos;
+  } else if (config[pos] == def::latin_capital_letter_o) {
+    spec.repr = repr_t::octal;
+    ++pos;
+  } else if (config[pos] == def::latin_capital_letter_x) {
+    spec.repr = repr_t::hex;
+    ++pos;
   }
+}
 
-  // Parse width
-  if (i < spec.size() && is_digit(spec[i])) {
-    result.width = std::stoul(spec.substr(i).str());
-    while (i < spec.size() && is_digit(spec[i])) {
-      ++i;
+inline void set_fill(const basic_string_t<char>& config, spec_t& spec,
+                     size_t& pos) {
+  spec.fill = config[pos++];
+}
+
+// Parse fill character and alignment
+inline void parse_alignment(const basic_string_t<char>& config, spec_t& spec,
+                            size_t& pos) {
+  if (pos + 1 < config.size() && (config[pos + 1] == def::less_than_sign ||
+                                  config[pos + 1] == def::greater_than_sign ||
+                                  config[pos + 1] == def::circumflex_accent)) {
+    set_fill(config, spec, pos);
+
+    if (config[pos] == def::less_than_sign) {
+      spec.align = align_t::left;
+      ++pos;
+    } else if (config[pos] == def::greater_than_sign) {
+      spec.align = align_t::right;
+      ++pos;
+    } else if (config[pos] == def::circumflex_accent) {
+      spec.align = align_t::center;
+      ++pos;
+    }
+  } else if (config[pos] == def::less_than_sign) {
+    spec.align = align_t::left;
+    ++pos;
+  } else if (config[pos] == def::greater_than_sign) {
+    spec.align = align_t::right;
+    ++pos;
+  } else if (config[pos] == def::circumflex_accent) {
+    spec.align = align_t::center;
+    ++pos;
+  }
+}
+
+inline void parse_width(const basic_string_t<char>& config, spec_t& spec,
+                        size_t& pos) {
+  if (pos < config.size() && is_digit(config[pos])) {
+    spec.width = std::stoul(config.substr(pos).str());
+    while (pos < config.size() && is_digit(config[pos])) {
+      ++pos;
     }
   }
+}
 
-  // Parse precision
-  if (i < spec.size() && spec[i] == def::full_stop) {
-    ++i;
-    if (i < spec.size() && is_digit(spec[i])) {
-      result.precision = std::stoi(spec.substr(i).str());
-      while (i < spec.size() && is_digit(spec[i])) {
-        ++i;
+inline void parse_precision(const basic_string_t<char>& config, spec_t& spec,
+                            size_t& pos) {
+  if (pos < config.size() && config[pos] == def::full_stop) {
+    ++pos;
+    if (pos < config.size() && is_digit(config[pos])) {
+      spec.precision = std::stoi(config.substr(pos).str());
+      while (pos < config.size() && is_digit(config[pos])) {
+        ++pos;
       }
     }
   }
+}
 
-  // Parse type
-  if (i < spec.size()) {
-    if (spec[i] == def::latin_small_letter_s) {
-      result.type = value_t::string;
-    } else if (spec[i] == def::latin_small_letter_d) {
-      result.type = value_t::integer;
-    } else if (spec[i] == def::latin_small_letter_f) {
-      result.type = value_t::floating;
+inline void parse_type(const basic_string_t<char>& config, spec_t& spec,
+                       size_t& pos) {
+  if (pos < config.size()) {
+    if (config[pos] == def::latin_small_letter_s) {
+      spec.type = value_t::string;
+      ++pos;
+    } else if (config[pos] == def::latin_small_letter_d) {
+      spec.type = value_t::integral;
+      ++pos;
+    } else if (config[pos] == def::latin_small_letter_f) {
+      spec.type = value_t::floating;
+      ++pos;
     }
   }
-  return result;
+}
+
+inline spec_t make_spec(const basic_string_t<char>& config) {
+  spec_t spec;
+  size_t pos = 0;
+
+  if (config[pos++] != def::colon) {
+    throw error_t{"Incorrect format specifier"};
+  }
+  parse_view(config, spec, pos);
+  parse_alignment(config, spec, pos);
+  parse_width(config, spec, pos);
+  parse_precision(config, spec, pos);
+  parse_type(config, spec, pos);
+
+  return spec;
 }
 
 __CAITLYN_FORMAT_NAMESPACE_END

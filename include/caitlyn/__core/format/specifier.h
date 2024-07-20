@@ -24,9 +24,9 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_FORMAT_NAMESPACE_BEGIN
 
 enum class align_t { left, right, center };
-enum class value_t { string, integer, floating };
+enum class value_t { string, integral, floating };
 
-enum class view_t {
+enum class repr_t {
   standard,
   binary,
   binary_pref,
@@ -36,11 +36,11 @@ enum class view_t {
   hex_pref
 };
 
-struct specifier {
+struct spec_t {
   align_t align = align_t::left;
   size_t width = 0;
   basic_string_t<char> fill = def::space;
-  view_t view = view_t::standard;
+  repr_t repr = repr_t::standard;
   value_t type = value_t::string;
   int precision = -1;
 };

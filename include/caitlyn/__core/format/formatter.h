@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "caitlyn/__core/format/converters.h"
+#include "caitlyn/__core/format/parser.h"
 #include "caitlyn/__core/format/processor.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN

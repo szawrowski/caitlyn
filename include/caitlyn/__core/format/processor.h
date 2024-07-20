@@ -18,13 +18,108 @@
 #ifndef CAITLYN_CORE_FORMAT_PROCESSOR_H_
 #define CAITLYN_CORE_FORMAT_PROCESSOR_H_
 
-#include "caitlyn/__core/format/parser.h"
+#include <bitset>
+
+#include "caitlyn/__core/format/specifier.h"
 #include "caitlyn/__core/string.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_FORMAT_NAMESPACE_BEGIN
 
-inline void process_spec(basic_string_t<char>& value, const specifier& spec) {
+inline void process_string_view(basic_string_t<char>& value,
+                                const spec_t& spec) {
+  auto to_binary = [](const basic_string_t<char>& str, const bool prefix) {
+    std::ostringstream oss;
+    if (prefix) {
+      oss << def::digit_zero << def::latin_small_letter_b;
+    }
+    const auto bytes = str.c_str();
+    for (size_t i = 0; i < str.byte_count(); ++i) {
+      oss << std::bitset<8>(bytes[i]).to_string();
+      if (i < str.byte_count() - 1) {
+        oss << def::space;
+      }
+    }
+    return oss.str();
+  };
+  switch (spec.repr) {
+    case repr_t::binary:
+      value = to_binary(value, false);
+      break;
+    case repr_t::binary_pref:
+      value = to_binary(value, true);
+      break;
+    default:
+      break;
+  }
+}
+
+inline void process_integral_view(basic_string_t<char>& value,
+                                  const spec_t& spec) {
+  auto to_binary = [](const basic_string_t<char>& str, const bool prefix) {
+    std::ostringstream oss;
+    if (prefix) {
+      oss << def::digit_zero << def::latin_small_letter_b;
+    }
+    oss << std::bitset<8>(std::stoll(str.str())).to_string();
+    return oss.str();
+  };
+  switch (spec.repr) {
+    case repr_t::binary:
+      value = to_binary(value, false);
+      break;
+    case repr_t::binary_pref:
+      value = to_binary(value, true);
+      break;
+    default:
+      break;
+  }
+}
+
+inline void process_floating_view(basic_string_t<char>& value,
+                                  const spec_t& spec) {
+  auto to_binary = [](const basic_string_t<char>& str, const bool prefix) {
+    std::ostringstream oss;
+    if (prefix) {
+      oss << def::digit_zero << def::latin_small_letter_b;
+    }
+    double v = std::stod(str.str());
+    const std::bitset<sizeof(double) * 8> bits{
+        *reinterpret_cast<unsigned long long*>(&v)};
+    oss << bits.to_string();
+    return oss.str();
+  };
+  switch (spec.repr) {
+    case repr_t::binary:
+      value = to_binary(value, false);
+      break;
+    case repr_t::binary_pref:
+      value = to_binary(value, true);
+      break;
+    default:
+      break;
+  }
+}
+
+inline void process_repr(basic_string_t<char>& value, const spec_t& spec) {
+  if (spec.repr == repr_t::standard) {
+    return;
+  }
+  switch (spec.type) {
+    case value_t::integral:
+      process_integral_view(value, spec);
+      break;
+    case value_t::floating:
+      process_floating_view(value, spec);
+      break;
+    default:
+      process_string_view(value, spec);
+      break;
+  }
+}
+
+inline void process_align(basic_string_t<char>& value,
+                               const spec_t& spec) {
   if (value.size() >= spec.width) {
     return;
   }
@@ -44,15 +139,21 @@ inline void process_spec(basic_string_t<char>& value, const specifier& spec) {
   }
 }
 
+inline void process_spec(basic_string_t<char>& value,
+                                  const spec_t& spec) {
+  process_repr(value, spec);
+  process_align(value, spec);
+}
+
 inline basic_string_t<char> process_string(const basic_string_t<char>& value,
-                                           const specifier& spec) {
+                                           const spec_t& spec) {
   basic_string_t<char> result = value;
   process_spec(result, spec);
   return result;
 }
 
 inline basic_string_t<char> process_floating(const basic_string_t<char>& value,
-                                             const specifier& spec) {
+                                             const spec_t& spec) {
   std::ostringstream oss;
   const auto dot_index = value.find(def::full_stop);
 
@@ -87,18 +188,18 @@ inline basic_string_t<char> process_floating(const basic_string_t<char>& value,
 }
 
 inline basic_string_t<char> process_integral(const basic_string_t<char>& value,
-                                             const specifier& spec) {
+                                             const spec_t& spec) {
   basic_string_t<char> result = value;
   process_spec(result, spec);
   return result;
 }
 
 inline basic_string_t<char> process(const basic_string_t<char>& value,
-                                    const specifier& spec) {
+                                    const spec_t& spec) {
   const auto type = spec.type;
 
   switch (type) {
-    case value_t::integer:
+    case value_t::integral:
       return process_integral(value, spec);
     case value_t::floating:
       return process_floating(value, spec);
