@@ -47,23 +47,15 @@ public:
       : data_{std::move(other.data_)} {}
 
 public:
-  void append(const char* str) { data_ << str; }
   void append(const basic_string_t<char>& str) { data_ << str; }
 
   template <typename... Args>
-  void append(const basic_string_t<char>& str, Args&&... args) {
+  void appendf(const basic_string_t<char>& str, Args&&... args) {
     data_ << format(str, std::forward<Args>(args)...);
   }
 
-  void append_line(const char* str) { data_ << str << def::line_feed; }
-
-  void append_line(const basic_string_t<char>& str) {
+  void appendln(const basic_string_t<char>& str) {
     data_ << str << def::line_feed;
-  }
-
-  template <typename... Args>
-  void append_line(const basic_string_t<char>& str, Args&&... args) {
-    data_ << format(str, std::forward<Args>(args)...) << def::line_feed;
   }
 
 public:
