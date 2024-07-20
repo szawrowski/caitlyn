@@ -466,10 +466,10 @@ int main() {
 
 ### Type Traits
 
-**required_t** _**< CONDITION**, **OPTIONAL_RETURN_TYPE >**_
-
 The `required` type trait provides a more elegant alternative to
 `std::enable_if` for enforcing template constraints in C++.
+
+**required** _**< CONDITION**, **OPTIONAL_RETURN_TYPE >**_
 
 - **CONDITION**: A boolean value that determines whether the template is
   enabled.
