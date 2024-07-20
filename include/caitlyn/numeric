@@ -15,5 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "caitlyn/core/numeric.h"
-#include "caitlyn/num/types.h"
+#include "caitlyn/__caitlyn.h"
+#include "caitlyn/__core/numeric.h"
+#include "caitlyn/__numeric/types.h"

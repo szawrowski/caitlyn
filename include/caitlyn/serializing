@@ -15,4 +15,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "caitlyn/ser/json.h"
+#include "caitlyn/__caitlyn.h"
+#include "caitlyn/__serializing/json.h"

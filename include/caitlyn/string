@@ -15,6 +15,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "caitlyn/core/format.h"
-#include "caitlyn/core/string.h"
-#include "caitlyn/core/text.h"
+#include "caitlyn/__caitlyn.h"
+#include "caitlyn/__core/format.h"
+#include "caitlyn/__core/string.h"
+#include "caitlyn/__core/text.h"

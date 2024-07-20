@@ -15,4 +15,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "caitlyn/core/utility.h"
+#include "caitlyn/__caitlyn.h"
+#include "caitlyn/__core/utility.h"

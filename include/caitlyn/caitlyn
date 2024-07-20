@@ -15,29 +15,29 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+#include "caitlyn/__caitlyn.h"
+
 // Core
-#include "caitlyn/core/algo.h"
-#include "caitlyn/core/char.h"
-#include "caitlyn/core/containers.h"
-#include "caitlyn/core/date.h"
-#include "caitlyn/core/error.h"
-#include "caitlyn/core/file.h"
-#include "caitlyn/core/format.h"
-#include "caitlyn/core/io.h"
-#include "caitlyn/core/math.h"
-#include "caitlyn/core/memory.h"
-#include "caitlyn/core/numeric.h"
-#include "caitlyn/core/string.h"
-#include "caitlyn/core/system.h"
-#include "caitlyn/core/text.h"
-#include "caitlyn/core/threads.h"
-#include "caitlyn/core/time.h"
-#include "caitlyn/core/traits.h"
-#include "caitlyn/core/utility.h"
+#include "caitlyn/__core/algo.h"
+#include "caitlyn/__core/containers.h"
+#include "caitlyn/__core/date.h"
+#include "caitlyn/__core/error.h"
+#include "caitlyn/__core/file.h"
+#include "caitlyn/__core/format.h"
+#include "caitlyn/__core/io.h"
+#include "caitlyn/__core/math.h"
+#include "caitlyn/__core/memory.h"
+#include "caitlyn/__core/numeric.h"
+#include "caitlyn/__core/string.h"
+#include "caitlyn/__core/system.h"
+#include "caitlyn/__core/text.h"
+#include "caitlyn/__core/threads.h"
+#include "caitlyn/__core/time.h"
+#include "caitlyn/__core/traits.h"
+#include "caitlyn/__core/utility.h"
 
 // Numeric
-#include "caitlyn/num/types.h"
+#include "caitlyn/__numeric/types.h"
 
 // Serializing
-#include "caitlyn/ser/json.h"
-
+#include "caitlyn/__serializing/json.h"

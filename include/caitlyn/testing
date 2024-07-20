@@ -15,5 +15,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "caitlyn/test/macro.h"
-#include "caitlyn/test/types.h"
+#include "caitlyn/__caitlyn.h"
+#include "caitlyn/__testing/macro.h"
+#include "caitlyn/__testing/types.h"
