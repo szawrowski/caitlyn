@@ -217,7 +217,7 @@ int main() {
   const auto other = "consectetur adipiscing elit..."_str;
   const auto unicode = "Hello, 世界!"_str;
 
-  auto file = "somefile.txt"_file;
+  auto file = cait::make_file("somefile.txt");
   file.writef("{} {}\n{}", some, other, unicode);
   file.close();
   
@@ -238,7 +238,7 @@ Hello, 世界!
 #include <caitlyn/io>
 
 int main() {
-  auto file = "somefile.txt"_file;
+  auto file = cait::make_file("somefile.txt");
   
   while (file) {
     cait::println("{}", file.readln());
