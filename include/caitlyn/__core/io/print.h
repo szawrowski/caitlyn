@@ -28,122 +28,131 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 inline void print(const basic_string_t<char>& str) {
   std::ios::sync_with_stdio(false);
-  std::cout << str;
+  std::cout << str << std::flush;
 }
 
 template <typename T>
 required_t<has_to_string<T>()> print(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cout << value.to_string();
+  std::cout << value.to_string() << std::flush;
 }
 
 template <typename T>
 required_t<has_str<T>()> print(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cout << value.str();
+  std::cout << value.str() << std::flush;
 }
 
 template <typename... Args>
 void print(const basic_string_t<char>& str, Args&&... args) {
   std::ios::sync_with_stdio(false);
-  std::cout << format(str, std::forward<Args>(args)...);
+  std::cout << format(str, std::forward<Args>(args)...) << std::flush;
+}
+
+template <typename... Args>
+void printf(const basic_string_t<char>& str, Args&&... args) {
+  std::ios::sync_with_stdio(false);
+  std::cout << format(str, std::forward<Args>(args)...) << std::flush;
 }
 
 inline void println() {
   std::ios::sync_with_stdio(false);
-  std::cout << std::endl;
+  std::cout << def::line_feed << std::flush;
 }
 
 inline void println(const basic_string_t<char>& str) {
   std::ios::sync_with_stdio(false);
-  std::cout << str << std::endl;
+  std::cout << str << def::line_feed << std::flush;
 }
 
 template <typename T>
 required_t<has_to_string<T>()> println(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cout << value.to_string() << std::endl;
+  std::cout << value.to_string() << def::line_feed << std::flush;
 }
 
 template <typename T>
 required_t<has_str<T>()> println(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cout << value.str() << std::endl;
+  std::cout << value.str() << def::line_feed << std::flush;
 }
 
 template <typename... Args>
 void println(const basic_string_t<char>& str, Args&&... args) {
   std::ios::sync_with_stdio(false);
-  std::cout << format(str, std::forward<Args>(args)...) << std::endl;
+  std::cout << format(str, std::forward<Args>(args)...) << def::line_feed
+            << std::flush;
 }
 
 inline void eprint(const basic_string_t<char>& str) {
   std::ios::sync_with_stdio(false);
-  std::cerr << str;
+  std::cerr << str << std::flush;
 }
 
 template <typename T>
 required_t<has_to_string<T>()> eprint(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cerr << value.to_string();
+  std::cerr << value.to_string() << std::flush;
 }
 
 template <typename T>
 required_t<has_str<T>()> eprint(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cerr << value.str();
+  std::cerr << value.str() << std::flush;
 }
 
 template <typename... Args>
 void eprint(const basic_string_t<char>& str, Args&&... args) {
   std::ios::sync_with_stdio(false);
-  std::cerr << format(str, std::forward<Args>(args)...);
+  std::cerr << format(str, std::forward<Args>(args)...) << std::flush;
 }
 
 inline void eprintln(const basic_string_t<char>& str) {
   std::ios::sync_with_stdio(false);
-  std::cerr << str << std::endl;
+  std::cerr << str << def::line_feed << std::flush;
 }
 
 template <typename T>
 required_t<has_to_string<T>()> eprintln(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cerr << value.to_string() << std::endl;
+  std::cerr << value.to_string() << def::line_feed << std::flush;
 }
 
 template <typename T>
 required_t<has_str<T>()> eprintln(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::cerr << value.str() << std::endl;
+  std::cerr << value.str() << def::line_feed << std::flush;
 }
 
 template <typename... Args>
 void eprintln(const basic_string_t<char>& str, Args&&... args) {
   std::ios::sync_with_stdio(false);
-  std::cerr << format(str, std::forward<Args>(args)...) << std::endl;
+  std::cerr << format(str, std::forward<Args>(args)...) << def::line_feed
+            << std::flush;
 }
 
 inline void log(const basic_string_t<char>& str) {
   std::ios::sync_with_stdio(false);
-  std::clog << str << std::endl;
+  std::clog << str << def::line_feed << std::flush;
 }
 
 template <typename T>
 required_t<has_to_string<T>()> log(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::clog << value.to_string() << std::endl;
+  std::clog << value.to_string() << def::line_feed << std::flush;
 }
 
 template <typename T>
 required_t<has_str<T>()> log(const T& value) {
   std::ios::sync_with_stdio(false);
-  std::clog << value.str() << std::endl;
+  std::clog << value.str() << def::line_feed << std::flush;
 }
 
 template <typename... Args>
 void log(const basic_string_t<char>& str, Args&&... args) {
   std::ios::sync_with_stdio(false);
-  std::clog << format(str, std::forward<Args>(args)...) << std::endl;
+  std::clog << format(str, std::forward<Args>(args)...) << def::line_feed
+            << std::flush;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
