@@ -37,8 +37,8 @@ __CAITLYN_DETAIL_NAMESPACE_BEGIN
 class data_t {
 public:
   using array_type = std::deque<data_t*>;
-  using object_type = std::vector<std::pair<std::string, data_t*>>;
-  using string_type = std::string;
+  using object_type = std::vector<std::pair<basic_string_t<char>, data_t*>>;
+  using string_type = basic_string_t<char>;
   using null_type = std::nullptr_t;
   using floating_type = float64_t;
   using integral_type = int64_t;
@@ -84,7 +84,7 @@ public:
   template <typename T>
   data_t(T value,
          typename std::enable_if<
-             std::is_convertible<T, string_type>::value>::type* = nullptr)
+             std::is_convertible<T, std::string>::value>::type* = nullptr)
       : type_{class_t::string} {
     new (&data_.string_value) string_type(value);
   }
@@ -137,7 +137,7 @@ public:
   }
 
   template <typename T>
-  typename std::enable_if<std::is_convertible<T, string_type>::value,
+  typename std::enable_if<std::is_convertible<T, std::string>::value,
                           data_t&>::type
   operator=(T value) {
     set_type(class_t::string);
@@ -314,27 +314,27 @@ private:
 
     switch (type_) {
       case class_t::object: {
-        oss << def::left_curly_bracket[0];
+        oss << def::left_curly_bracket;
         const auto& object = data_.object_value;
         if (!object.empty()) {
           if (mangling) {
-            oss << def::line_feed[0];
+            oss << def::line_feed;
           }
           boolean_type first = true;
           for (const auto& member : object) {
             if (!first) {
-              oss << def::comma[0];
+              oss << def::comma;
               if (mangling) {
-                oss << def::line_feed[0];
+                oss << def::line_feed;
               }
             }
             if (mangling) {
-              oss << indent_str[0];
+              oss << indent_str;
             }
             oss << def::quotation_mark << member.first
                 << def::quotation_mark << def::colon;
             if (mangling) {
-              oss << def::space[0];
+              oss << def::space;
             }
             member.second->make_output(oss, mangling, base_indent,
                                        indent + base_indent);
@@ -351,18 +351,18 @@ private:
         break;
       }
       case class_t::array: {
-        oss << def::left_square_bracket[0];
+        oss << def::left_square_bracket;
         const auto& array = data_.array_value;
         if (!array.empty()) {
           if (mangling) {
-            oss << def::line_feed[0];
+            oss << def::line_feed;
           }
           boolean_type first = true;
           for (const auto& value : array) {
             if (!first) {
-              oss << def::comma[0];
+              oss << def::comma;
               if (mangling) {
-                oss << def::line_feed[0];
+                oss << def::line_feed;
               }
             }
             if (mangling) {
@@ -379,12 +379,12 @@ private:
         if (mangling) {
           oss << string_type(indent - base_indent, def::space[0]);
         }
-        oss << def::right_square_bracket[0];
+        oss << def::right_square_bracket;
         break;
       }
       case class_t::string:
-        oss << def::quotation_mark[0] << data_.string_value
-            << def::quotation_mark[0];
+        oss << def::quotation_mark << data_.string_value
+            << def::quotation_mark;
         break;
       case class_t::floating:
         oss << data_.floating_value;
@@ -557,23 +557,23 @@ __detail::data_t make_array(Args... args) {
 inline __detail::data_t make_null() { return make(class_t::null); }
 
 inline __detail::data_t make_string(
-    const __detail::data_t::string_type& value) {
+    const std::string& value) {
   return __detail::data_t{value};
 }
 
 inline __detail::data_t make_floating(
     const __detail::data_t::floating_type value) {
-  return __detail::data_t{value};
+  return __detail::data_t{std::to_string(value)};
 }
 
 inline __detail::data_t make_integral(
     const __detail::data_t::integral_type value) {
-  return __detail::data_t{value};
+  return __detail::data_t{std::to_string(value)};
 }
 
 inline __detail::data_t make_boolean(
     const __detail::data_t::boolean_type value) {
-  return __detail::data_t{value};
+  return __detail::data_t{std::to_string(value)};
 }
 
 __CAITLYN_JSON_NAMESPACE_END

@@ -31,23 +31,23 @@ public:
 public:
   pwrnum_t() = default;
 
-  pwrnum_t(const char* number) : pwrnum_t{std::string{number}} {}
+  pwrnum_t(const char* number) : pwrnum_t{basic_string_t<char>{number}} {}
 
-  pwrnum_t(const std::string& number) {
-    if (number.empty()) {
+  pwrnum_t(const basic_string_t<char>& number) {
+    if (number.is_empty()) {
       throw std::invalid_argument{"Invalid number format"};
     }
     size_t point_pos = number.find('.');
-    if (point_pos == std::string::npos) {
+    if (point_pos == basic_string_t<char>::npos) {
       integer_part_ = pwrint_t{number};
     } else {
-      std::string integer_str = number.substr(0, point_pos);
-      std::string fractional_str = number.substr(point_pos + 1);
+      basic_string_t<char> integer_str = number.substr(0, point_pos);
+      basic_string_t<char> fractional_str = number.substr(point_pos + 1);
 
-      if (integer_str.empty()) {
+      if (integer_str.is_empty()) {
         integer_str = "0";
       }
-      if (fractional_str.empty()) {
+      if (fractional_str.is_empty()) {
         fractional_str = "0";
       }
       integer_part_ = pwrint_t{integer_str};
@@ -103,8 +103,8 @@ public:
     // over to integer part
     if (fractional_result.size() > this_fractional.size()) {
       carry = true;
-      fractional_result = fractional_result.subtract(
-          pwrint_t{"10"}.multiply(std::to_string(this_fractional.size())));
+      fractional_result = fractional_result.subtract(pwrint_t{"10"}.multiply(
+          basic_string_t<char>{std::to_string(this_fractional.size())}));
     }
     pwrint_t integer_result = integer_part_.add(other.integer_part_);
     if (carry) {
@@ -129,8 +129,8 @@ public:
     bool borrow = false;
     if (this_fractional.less_than(other_fractional)) {
       borrow = true;
-      this_fractional = this_fractional.add(
-          pwrint_t{"10"}.multiply(std::to_string(this_fractional.size())));
+      this_fractional = this_fractional.add(pwrint_t{"10"}.multiply(
+          basic_string_t<char>{std::to_string(this_fractional.size())}));
     }
     const pwrint_t fractional_result =
         this_fractional.subtract(other_fractional);
@@ -146,9 +146,9 @@ public:
   pwrnum_t multiply(const pwrnum_t& other) const {
     // Convert both numbers to their full string representation without the
     // decimal point
-    const std::string this_full =
+    const basic_string_t<char> this_full =
         integer_part_.to_string() + fractional_part_.to_string();
-    const std::string other_full =
+    const basic_string_t<char> other_full =
         other.integer_part_.to_string() + other.fractional_part_.to_string();
 
     // Count the number of digits after the decimal point in both numbers
@@ -163,12 +163,12 @@ public:
     const size_t total_frac_size = this_frac_size + other_frac_size;
 
     // Convert the result back to a string
-    std::string result_str = result_full.to_string();
+    basic_string_t<char> result_str = result_full.to_string();
 
     // Insert the decimal point at the correct position
     if (total_frac_size >= result_str.size()) {
-      result_str.insert(
-          0, std::string(total_frac_size - result_str.size() + 1, '0'));
+      result_str.insert(0, basic_string_t<char>(
+                               total_frac_size - result_str.size() + 1, '0'));
     }
     result_str.insert(result_str.size() - total_frac_size, 1, '.');
 
@@ -182,10 +182,10 @@ public:
     }
     // Convert both numbers to their full string representation without the
     // decimal point
-    const std::string this_full =
+    const basic_string_t<char> this_full =
         integer_part_.to_string() + fractional_part_.to_string();
 
-    const std::string other_full =
+    const basic_string_t<char> other_full =
         other.integer_part_.to_string() + other.fractional_part_.to_string();
 
     // Count the number of digits after the decimal point in both numbers
@@ -200,12 +200,12 @@ public:
     const size_t total_frac_size = this_frac_size - other_frac_size;
 
     // Convert the result back to a string
-    std::string result_str = result_full.to_string();
+    basic_string_t<char> result_str = result_full.to_string();
 
     // Insert the decimal point at the correct position
     if (total_frac_size >= result_str.size()) {
-      result_str.insert(
-          0, std::string(total_frac_size - result_str.size() + 1, '0'));
+      result_str.insert(0, basic_string_t<char>(
+                               total_frac_size - result_str.size() + 1, '0'));
     }
     result_str.insert(result_str.size() - total_frac_size, 1, '.');
 
@@ -293,9 +293,9 @@ public:
     return !less_than(other) && !equal(other);
   }
 
-  std::string to_string() const {
-    std::string result = integer_part_.to_string();
-    if (!fractional_part_.to_string().empty() &&
+  basic_string_t<char> to_string() const {
+    basic_string_t<char> result = integer_part_.to_string();
+    if (!fractional_part_.to_string().is_empty() &&
         fractional_part_.to_string() != "0") {
       result.push_back('.');
       result += fractional_part_.to_string();

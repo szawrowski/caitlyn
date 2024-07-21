@@ -47,6 +47,11 @@ class basic_string_t<char> {
         : str_{str}, pos_{pos} {}
 
   public:
+    char_proxy_t& operator=(const char utf8_char) {
+      str_.replace_utf8_at(pos_, {utf8_char});
+      return *this;
+    }
+
     char_proxy_t& operator=(const basic_string_t& utf8_char) {
       str_.replace_utf8_at(pos_, utf8_char);
       return *this;
@@ -54,9 +59,23 @@ class basic_string_t<char> {
 
   public:
     operator const basic_string_t() const { return str_.get_utf8_at(pos_); }
+    operator const std::string() const { return str_.get_utf8_at(pos_).str(); }
+    operator const char*() const { return str_.get_utf8_at(pos_).c_str(); }
 
     bool operator==(const basic_string_t& other) const {
       return str_.get_utf8_at(pos_).str() == other.str();
+    }
+
+    bool operator==(const std::string& other) const {
+      return str_.get_utf8_at(pos_).str() == other;
+    }
+
+    bool operator==(const char* other) const {
+      return str_.get_utf8_at(pos_).str() == other;
+    }
+
+    bool operator==(const char other) const {
+      return str_.get_utf8_at(pos_).str() == basic_string_t{other}.str();
     }
 
   private:
@@ -171,18 +190,27 @@ class basic_string_t<char> {
 
 public:
   basic_string_t() = default;
-  basic_string_t(const char c) : data_{c} {}
+  basic_string_t(const basic_string_t& other) = default;
+  basic_string_t(basic_string_t&& other) noexcept = default;
+
+  basic_string_t(const char str) : data_{str} {}
   basic_string_t(const char* str) : data_{str} {}
-  basic_string_t(data_type str) : data_{std::move(str)} {}
+  basic_string_t(const char* str, const size_t count) : data_(str, count) {}
+  basic_string_t(const size_t count, const char c) : data_(count, c) {}
 
-  // template <typename T, typename = typename std::enable_if<
-  //                           std::is_fundamental<T>::value>::type>
-  // basic_string_t(const T& value) : data_{std::to_string(value)} {}
+  template <class InputIterator>
+  basic_string_t(InputIterator first, InputIterator last)
+      : data_(first, last) {}
 
-  basic_string_t(const basic_string_t& str) = default;
-  basic_string_t(basic_string_t&& str) noexcept : data_{std::move(str.data_)} {}
+  basic_string_t(const std::initializer_list<char> ilist) : data_{ilist} {}
+
+  basic_string_t(const data_type& str) : data_{str} {}
+  basic_string_t(data_type&& str) noexcept : data_{std::move(str)} {}
 
 public:
+  basic_string_t& operator=(const basic_string_t& other) = default;
+  basic_string_t& operator=(basic_string_t&& other) noexcept = default;
+
   basic_string_t& operator=(const char c) {
     data_ = c;
     return *this;
@@ -193,15 +221,13 @@ public:
     return *this;
   }
 
-  basic_string_t& operator=(const data_type& str) {
-    data_ = str;
+  basic_string_t& operator=(const std::initializer_list<char> ilist) {
+    data_ = ilist;
     return *this;
   }
 
-  basic_string_t& operator=(const basic_string_t& str) = default;
-
-  basic_string_t& operator=(basic_string_t&& str) noexcept {
-    data_ = std::move(str.data_);
+  basic_string_t& operator=(const data_type& str) {
+    data_ = str;
     return *this;
   }
 
@@ -212,7 +238,7 @@ public:
   }
 
   basic_string_t operator+(const basic_string_t& str) const {
-    return {data_ + str.data_};
+    return basic_string_t{data_ + str.data_};
   }
 
 public:
@@ -228,7 +254,8 @@ public:
 
   bool ends_with(const basic_string_t& suffix) const {
     if (suffix.byte_count() > byte_count()) return false;
-    return std::equal(suffix.data_.rbegin(), suffix.data_.rend(), data_.rbegin());
+    return std::equal(suffix.data_.rbegin(), suffix.data_.rend(),
+                      data_.rbegin());
   }
 
   bool contains(const basic_string_t& str) const { return find(str) != npos; }
@@ -269,6 +296,7 @@ public:
   bool not_empty() const { return !data_.empty(); }
 
 public:
+  void push_back(const char c) { data_.push_back(c); }
   void push_back(const char* str) { data_.append(str); }
   void push_back(const basic_string_t& str) { data_.append(str.c_str()); }
 
@@ -385,61 +413,115 @@ public:
 public:
   size_t find(const basic_string_t& str, const size_t pos = 0) const {
     const auto byte_pos = data_.find(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == npos) {
+    if (byte_pos == data_type::npos) {
       return npos;
     }
     return char_pos_for_byte_pos(byte_pos);
   }
 
   size_t find(const char pattern, const size_t pos = 0) const {
-    return find(std::to_string(pattern), pos);
+    return find(basic_string_t(1, pattern), pos);
   }
 
   size_t rfind(const basic_string_t& str, const size_t pos = npos) const {
     const auto byte_pos = data_.rfind(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == npos) {
+    if (byte_pos == data_type::npos) {
       return npos;
     }
     return char_pos_for_byte_pos(byte_pos);
+  }
+
+  size_t rfind(const char pattern, const size_t pos = npos) const {
+    return rfind(basic_string_t(1, pattern), pos);
   }
 
   size_t find_first_of(const basic_string_t& str, const size_t pos = 0) const {
     const auto byte_pos =
         data_.find_first_of(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == npos) {
+    if (byte_pos == data_type::npos) {
       return npos;
     }
     return char_pos_for_byte_pos(byte_pos);
+  }
+
+  size_t find_first_of(const char* s, const size_t pos = 0) const {
+    return find_first_of(basic_string_t(s), pos);
+  }
+
+  size_t find_first_of(const char* s, const size_t pos, const size_t n) const {
+    return find_first_of(basic_string_t(s, n), pos);
+  }
+
+  size_t find_first_of(const char c, const size_t pos = 0) const {
+    return find_first_of(basic_string_t(1, c), pos);
   }
 
   size_t find_last_of(const basic_string_t& str,
                       const size_t pos = npos) const {
     const auto byte_pos =
         data_.find_last_of(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == npos) {
+    if (byte_pos == data_type::npos) {
       return npos;
     }
     return char_pos_for_byte_pos(byte_pos);
+  }
+
+  size_t find_last_of(const char* s, const size_t pos = npos) const {
+    return find_last_of(basic_string_t(s), pos);
+  }
+
+  size_t find_last_of(const char* s, const size_t pos, const size_t n) const {
+    return find_last_of(basic_string_t(s, n), pos);
+  }
+
+  size_t find_last_of(const char c, const size_t pos = npos) const {
+    return find_last_of(basic_string_t(1, c), pos);
   }
 
   size_t find_first_not_of(const basic_string_t& str,
                            const size_t pos = 0) const {
     const auto byte_pos =
         data_.find_first_not_of(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == npos) {
+    if (byte_pos == data_type::npos) {
       return npos;
     }
     return char_pos_for_byte_pos(byte_pos);
+  }
+
+  size_t find_first_not_of(const char* s, const size_t pos = 0) const {
+    return find_first_not_of(basic_string_t(s), pos);
+  }
+
+  size_t find_first_not_of(const char* s, const size_t pos,
+                           const size_t n) const {
+    return find_first_not_of(basic_string_t(s, n), pos);
+  }
+
+  size_t find_first_not_of(const char c, const size_t pos = 0) const {
+    return find_first_not_of(basic_string_t(1, c), pos);
   }
 
   size_t find_last_not_of(const basic_string_t& str,
                           const size_t pos = npos) const {
     const auto byte_pos =
         data_.find_last_not_of(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == npos) {
+    if (byte_pos == data_type::npos) {
       return npos;
     }
     return char_pos_for_byte_pos(byte_pos);
+  }
+
+  size_t find_last_not_of(const char* s, const size_t pos = npos) const {
+    return find_last_not_of(basic_string_t(s), pos);
+  }
+
+  size_t find_last_not_of(const char* s, const size_t pos,
+                          const size_t n) const {
+    return find_last_not_of(basic_string_t(s, n), pos);
+  }
+
+  size_t find_last_not_of(const char c, const size_t pos = npos) const {
+    return find_last_not_of(basic_string_t(1, c), pos);
   }
 
 public:
@@ -487,6 +569,15 @@ public:
   }
 
 private:
+  static size_t utf8_char_length(const char c) {
+    if ((c & 0x80) == 0x00) return 1;  // 0xxxxxxx
+    if ((c & 0xE0) == 0xC0) return 2;  // 110xxxxx
+    if ((c & 0xF0) == 0xE0) return 3;  // 1110xxxx
+    if ((c & 0xF8) == 0xF0) return 4;  // 11110xxx
+
+    throw std::runtime_error{"Invalid UTF-8 encoding"};
+  }
+
   static size_t utf8_char_length(const data_type::const_iterator& it) {
     if ((*it & 0x80) == 0x00) return 1;  // 0xxxxxxx
     if ((*it & 0xE0) == 0xC0) return 2;  // 110xxxxx
@@ -500,15 +591,22 @@ private:
     if (byte_pos > data_.size()) {
       throw std::out_of_range{"Byte position out of range"};
     }
-    const auto it = data_.cbegin();
     size_t char_pos = 0;
-
-    for (size_t i = 0; i < byte_pos; ++i) {
-      if ((*it & 0xC0) != 0x80) {
-        ++char_pos;
-      }
+    for (auto it = data_.begin();
+         it != data_.begin() + static_cast<difference_type>(byte_pos);) {
+      const auto length = utf8_char_length(*it);
+      std::advance(it, static_cast<difference_type>(length));
+      ++char_pos;
     }
     return char_pos;
+  }
+
+  size_t byte_pos_for_char_pos(const size_t char_pos) const {
+    size_t byte_pos = 0;
+    for (size_t i = 0; i < char_pos; ++i) {
+      byte_pos += utf8_char_length(data_[byte_pos]);
+    }
+    return byte_pos;
   }
 
   void replace_utf8_at(const size_t pos, const basic_string_t& utf8_char) {
@@ -524,7 +622,6 @@ private:
     if (pos >= utf8_char_count()) {
       throw std::out_of_range{"Index out of range"};
     }
-
     const size_t byte_pos = byte_pos_for_char_pos(pos);
     const size_t bytes_to_read = bytes_for_char_at(byte_pos);
     return data_.substr(byte_pos, bytes_to_read);
@@ -540,23 +637,11 @@ private:
     return count;
   }
 
-  size_t byte_pos_for_char_pos(const size_t char_pos) const {
-    size_t byte_pos = 0;
-    size_t count = 0;
-    for (auto it = data_.begin(); it != data_.end(); ++it, ++byte_pos) {
-      if ((*it & 0xC0) != 0x80) {
-        if (count == char_pos) return byte_pos;
-        ++count;
-      }
-    }
-    return byte_pos;
-  }
-
   size_t bytes_for_char_at(const size_t byte_pos) const {
-    if ((data_[byte_pos] & 0x80) == 0x00) return 1;  // ASCII
-    if ((data_[byte_pos] & 0xE0) == 0xC0) return 2;  // 2-byte UTF-8
-    if ((data_[byte_pos] & 0xF0) == 0xE0) return 3;  // 3-byte UTF-8
-    if ((data_[byte_pos] & 0xF8) == 0xF0) return 4;  // 4-byte UTF-8
+    if ((data_[byte_pos] & 0x80) == 0x00) return 1;  // 0xxxxxxx
+    if ((data_[byte_pos] & 0xE0) == 0xC0) return 2;  // 110xxxxx
+    if ((data_[byte_pos] & 0xF0) == 0xE0) return 3;  // 1110xxxx
+    if ((data_[byte_pos] & 0xF8) == 0xF0) return 4;  // 11110xxx
 
     throw std::runtime_error{"Invalid UTF-8 encoding"};
   }

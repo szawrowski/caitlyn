@@ -37,19 +37,19 @@ public:
 public:
   pwrint_t() = default;
 
-  pwrint_t(const char* number) : pwrint_t{std::string{number}} {}
+  pwrint_t(const char* number) : pwrint_t{basic_string_t<char>{number}} {}
 
-  pwrint_t(const std::string& number) {
-    if (number.empty()) {
+  pwrint_t(const basic_string_t<char>& number) {
+    if (number.is_empty()) {
       throw std::invalid_argument{"Invalid number format"};
     }
     size_type start{};
-    if (number[0] == '-') {
+    if (number[0] == def::hyphen_minus) {
       is_negative_ = true;
       start = 1;
     } else {
       is_negative_ = false;
-      if (number[0] == '+') {
+      if (number[0] == def::plus_sign) {
         start = 1;
       }
     }
@@ -57,7 +57,7 @@ public:
       if (!is_digit(number[i])) {
         throw std::invalid_argument{"Invalid number format"};
       }
-      digits_.push_back(number[i] - '0');
+      digits_.push_back(static_cast<int>(number[i].c_str() - def::digit_zero));
     }
     std::reverse(digits_.begin(), digits_.end());
     remove_leading_zeros();
@@ -300,11 +300,11 @@ public:
     return !less_than(other) && !equal(other);
   }
 
-  std::string to_string() const {
+  basic_string_t<char> to_string() const {
     if (digits_.empty()) {
       return "0";
     }
-    std::string result;
+    basic_string_t<char> result;
     if (is_negative_) {
       result.push_back('-');
     }

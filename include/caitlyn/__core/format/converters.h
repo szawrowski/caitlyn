@@ -29,10 +29,6 @@ inline basic_string_t<char> str(const basic_string_t<char>& value) {
   return str;
 }
 
-inline basic_string_t<char> str(const char* value) {
-  return basic_string_t<char>{value};
-}
-
 template <typename T>
 required_t<is_integer<T>(), basic_string_t<char>> str(const T& value) {
   return std::to_string(value);

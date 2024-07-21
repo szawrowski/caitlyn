@@ -34,7 +34,7 @@ public:
 
 public:
   json_t() = default;
-  json_t(const std::string& value) { parse(value); }
+  json_t(const basic_string_t<char>& value) { parse(value); }
   json_t(const std::ifstream& stream) { parse(stream); }
   json_t(const json_t& other) : root_{other.root_}, error_{other.error_} {}
   json_t(json_t&& other) noexcept
@@ -46,7 +46,7 @@ public:
   ~json_t() = default;
 
 public:
-  json_t& operator=(const std::string& value) {
+  json_t& operator=(const basic_string_t<char>& value) {
     parse(value);
     return *this;
   }
@@ -75,14 +75,14 @@ public:
   }
 
 public:
-  data_type& operator[](const std::string& key) { return root_[key]; }
+  data_type& operator[](const basic_string_t<char>& key) { return root_[key]; }
 
-  const data_type& operator[](const std::string& key) const {
+  const data_type& operator[](const basic_string_t<char>& key) const {
     return root_.at(key);
   }
 
 public:
-  void parse(const std::string& value) {
+  void parse(const basic_string_t<char>& value) {
     const auto parser = parser_type::parse(value);
     if (parser.has_error()) {
       error_ = parser.get_error();
@@ -99,16 +99,16 @@ public:
     parse(buffer.str());
   }
 
-  void add_member(const std::string& key, const data_type& value) {
+  void add_member(const basic_string_t<char>& key, const data_type& value) {
     root_[key] = value;
   }
 
-  void remove_member(const std::string& key) {
+  void remove_member(const basic_string_t<char>& key) {
     if (root_.has_member(key)) {
       auto& obj = root_.get_data();
       obj.erase(std::remove_if(
                     obj.begin(), obj.end(),
-                    [&key](const std::pair<const std::string&,
+                    [&key](const std::pair<const basic_string_t<char>&,
                                            const __detail::data_t*>& pair) {
                       return pair.first == key;
                     }),
@@ -116,7 +116,7 @@ public:
     }
   }
 
-  bool has_member(const std::string& key) const {
+  bool has_member(const basic_string_t<char>& key) const {
     return root_.has_member(key);
   }
 
@@ -126,13 +126,13 @@ public:
 
   error_type get_error() const { return error_; }
 
-  std::string get_error_string() const {
+  basic_string_t<char> get_error_string() const {
     return json::get_error_string(error_);
   }
 
   class_t get_type() const { return root_.get_type(); }
 
-  std::string str(const bool mangling = false, const size_t indent = 2) const {
+  basic_string_t<char> str(const bool mangling = false, const size_t indent = 2) const {
     return root_.str(mangling, indent);
   }
 
@@ -143,7 +143,7 @@ private:
 
 inline json_t make_document() { return json_t{}; }
 
-inline json_t make_document(const std::string& value) { return json_t{value}; }
+inline json_t make_document(const basic_string_t<char>& value) { return json_t{value}; }
 
 inline json_t make_document(const json_t& value) { return json_t{value}; }
 
