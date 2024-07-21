@@ -18,13 +18,13 @@
 #ifndef CAITLYN_APPLICATION_H_
 #define CAITLYN_APPLICATION_H_
 
+#include "caitlyn/__caitlyn/config.h"
+#include "caitlyn/__caitlyn/types.h"
+
 #include <memory>
 #include <stdexcept>
 #include <string>
 #include <vector>
-
-#include "caitlyn/__caitlyn/config.h"
-#include "caitlyn/__caitlyn/types.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_DETAIL_NAMESPACE_BEGIN
@@ -49,6 +49,18 @@ public:
   }
 
   const std::vector<std::string>& get_args() const { return args_; }
+
+  const char* system_name() const {
+#if defined(__CAITLYN_OS_LINUX)
+    return "Linux";
+#elif defined(__CAITLYN_OS_APPLE)
+    return "Apple";
+#elif defined(__CAITLYN_OS_WINDOWS)
+    return "Windows";
+#elif defined(__CAITLYN_OS_ANDROID)
+    return "Android";
+#endif
+  }
 
 private:
   application_t() { configure(); }
