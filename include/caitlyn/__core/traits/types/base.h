@@ -57,6 +57,11 @@ struct type_identity_t {
   using type = T;
 };
 
+template <typename T>
+T&& make_movable(T& value) {
+  return static_cast<T&&>(value);
+}
+
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif  // CAITLUN_CORE_TRAITS_TYPES_BASE_H_
