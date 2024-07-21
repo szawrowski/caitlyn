@@ -18,20 +18,21 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_FORWARD_H_
 #define CAITLUN_CORE_TRAITS_TYPES_FORWARD_H_
 
+#include "caitlyn/__core/traits/types/primary.h"
 #include "caitlyn/__core/traits/types/references.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-T&& forward(typename std::remove_reference<T>::type& t) noexcept {
-  return static_cast<T&&>(t);
+T&& forward(traits::remove_reference_t<T>& value) noexcept {
+  return static_cast<T&&>(value);
 }
 
 // Версия для rvalue-ссылок
 template <typename T>
-T&& forward(typename std::remove_reference<T>::type&& t) noexcept {
-  static_assert(!std::is_lvalue_reference<T>::value, "bad forward call");
-  return static_cast<T&&>(t);
+T&& forward(traits::remove_reference_t<T>&& value) noexcept {
+  static_assert(!is_lvalue_reference<T>(), "bad forward call");
+  return static_cast<T&&>(value);
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END

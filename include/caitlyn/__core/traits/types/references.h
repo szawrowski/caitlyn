@@ -22,46 +22,58 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN
+__CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename T>
-auto try_add_lvref(T*) -> type_identity_t<T&>;
+auto try_add_lvalue_reference(T*) -> type_identity_t<T&>;
 
 template <typename T>
-auto try_add_lvref(...) -> type_identity_t<T>;
+auto try_add_lvalue_reference(...) -> type_identity_t<T>;
 
 template <typename T>
-auto try_add_rvref(T*) -> type_identity_t<T&&>;
+auto try_add_rvalue_reference(T*) -> type_identity_t<T&&>;
 
 template <typename T>
-auto try_add_rvref(...) -> type_identity_t<T>;
+auto try_add_rvalue_reference(...) -> type_identity_t<T>;
 
 template <typename T>
-struct remove_ref_t {
+struct remove_reference_t {
   using type = T;
 };
 
 template <typename T>
-struct remove_ref_t<T&> {
+struct remove_reference_t<T&> {
   using type = T;
 };
 
 template <typename T>
-struct remove_ref_t<T&&> {
+struct remove_reference_t<T&&> {
   using type = T;
 };
+
+__CAITLYN_DETAIL_NAMESPACE_END
+
+template <typename T>
+using add_lvalue_reference_t =
+    typename decltype(__detail::try_add_lvalue_reference<T>(nullptr))::type;
+
+template <typename T>
+using add_rvalue_reference_t =
+    typename decltype(__detail::try_add_rvalue_reference<T>(nullptr))::type;
+
+template <typename T>
+using remove_reference_t = typename __detail::remove_reference_t<T>::type;
 
 __CAITLYN_TRAITS_NAMESPACE_END
 
 template <typename T>
-using add_lvalue_ref_t =
-    typename decltype(traits::try_add_lvref<T>(nullptr))::type;
+using add_lvalue_reference = traits::add_lvalue_reference_t<T>;
 
 template <typename T>
-using add_rvalue_ref_t =
-    typename decltype(traits::try_add_rvref<T>(nullptr))::type;
+using add_rvalue_reference = traits::add_rvalue_reference_t<T>;
 
 template <typename T>
-using remove_ref_t = typename traits::remove_ref_t<T>::type;
+using remove_reference = traits::remove_reference_t<T>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 

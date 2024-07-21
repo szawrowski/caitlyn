@@ -21,9 +21,9 @@
 #include <algorithm>
 #include <sstream>
 
+#include "caitlyn/__core/string/types.h"
 #include <caitlyn/__core/traits/types/base.h>
 #include <caitlyn/__core/traits/types/primary.h>
-#include "caitlyn/__core/string/types.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
@@ -194,12 +194,14 @@ inline size_t find_last_nonws(const basic_string_t<char>& str) {
 // }
 
 template <typename T>
-required_t<is_boolean<T>(), const char*> to_string(T value) {
+traits::required_t<traits::is_boolean_t<T>::value, const char*> to_string(
+    T value) {
   return value ? "true" : "false";
 }
 
 template <typename T>
-required_t<is_null_ptr<T>(), const char*> to_string(T) {
+traits::required_t<traits::is_null_pointer_t<T>::value, const char*> to_string(
+    T) {
   return "null";
 }
 

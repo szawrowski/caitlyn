@@ -93,7 +93,8 @@ public:
       if (has_value_) {
         new (&data_.value) value_type{std::move(other.data_.value)};
       } else {
-        new (&data_.error) unexpected_t<error_type>{std::move(other.data_.error)};
+        new (&data_.error)
+            unexpected_t<error_type>{std::move(other.data_.error)};
       }
     }
     return *this;
@@ -122,7 +123,8 @@ public:
 
   template <typename Func>
   auto map(Func func) const
-      -> expected_t<typename std::result_of<Func(const value_type&)>::type, error_type> {
+      -> expected_t<typename std::result_of<Func(const value_type&)>::type,
+                    error_type> {
     using result_value_type =
         typename std::result_of<Func(const value_type&)>::type;
     if (has_value_) {
@@ -134,7 +136,7 @@ public:
   template <typename Func>
   auto map_error(Func func) const
       -> expected_t<value_type,
-                  typename std::result_of<Func(const error_type&)>::type> {
+                    typename std::result_of<Func(const error_type&)>::type> {
     using result_error_type =
         typename std::result_of<Func(const error_type&)>::type;
     if (!has_value_) {
@@ -259,21 +261,24 @@ public:
 
 private:
   template <typename Result = T, typename Error = E>
-  required_t<destructible<Result>() && !destructible<Error>()> destroy_union() {
+  traits::required_t<destructible<Result>() && !destructible<Error>()>
+  destroy_union() {
     if (has_value_) {
       data_.value.~value_type();
     }
   }
 
   template <typename Result = T, typename Error = E>
-  required_t<!destructible<Result>() && destructible<Error>()> destroy_union() {
+  traits::required_t<!destructible<Result>() && destructible<Error>()>
+  destroy_union() {
     if (!has_value_) {
       data_.error.~unexpected_t<error_type>();
     }
   }
 
   template <typename Result = T, typename Error = E>
-  required_t<destructible<Result>() && destructible<Error>()> destroy_union() {
+  traits::required_t<destructible<Result>() && destructible<Error>()>
+  destroy_union() {
     if (has_value_) {
       data_.value.~value_type();
     } else {
@@ -282,7 +287,7 @@ private:
   }
 
   template <typename Result = T, typename Error = E>
-  required_t<!destructible<Result>() && !destructible<Error>()>
+  traits::required_t<!destructible<Result>() && !destructible<Error>()>
   destroy_union() {}
 
 private:
@@ -296,7 +301,6 @@ private:
 
   bool has_value_;
 };
-
 
 __CAITLYN_ERROR_NAMESPACE_END
 

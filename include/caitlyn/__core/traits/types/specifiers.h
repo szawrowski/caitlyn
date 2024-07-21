@@ -22,6 +22,7 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN
+__CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename T>
 struct add_const_t {
@@ -58,25 +59,45 @@ struct remove_cv_t<const volatile T> {
   using type = T;
 };
 
+__CAITLYN_DETAIL_NAMESPACE_END
+
+template <typename T>
+using add_const_t = typename __detail::add_const_t<T>::type;
+
+template <typename T>
+using add_volatile_t = typename __detail::add_volatile_t<T>::type;
+
+template <typename T>
+using add_cv_t = typename __detail::add_cv_t<T>::type;
+
+template <typename T>
+using remove_const_t = typename __detail::remove_cv_t<const T>::type;
+
+template <typename T>
+using remove_volatile_t = typename __detail::remove_cv_t<volatile T>::type;
+
+template <typename T>
+using remove_cv_t = typename __detail::remove_cv_t<T>::type;
+
 __CAITLYN_TRAITS_NAMESPACE_END
 
 template <typename T>
-using add_const_t = typename traits::add_const_t<T>::type;
+using add_const = traits::add_const_t<T>;
 
 template <typename T>
-using add_volatile_t = typename traits::add_volatile_t<T>::type;
+using add_volatile = traits::add_volatile_t<T>;
 
 template <typename T>
-using add_cv_t = typename traits::add_cv_t<T>::type;
+using add_cv = traits::add_cv_t<T>;
 
 template <typename T>
-using remove_const = typename traits::remove_cv_t<const T>::type;
+using remove_const = traits::remove_const_t<T>;
 
 template <typename T>
-using remove_volatile = typename traits::remove_cv_t<volatile T>::type;
+using remove_volatile = traits::remove_volatile_t<T>;
 
 template <typename T>
-using clean_t = typename traits::remove_cv_t<T>::type;
+using remove_cv = traits::remove_cv_t<T>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 

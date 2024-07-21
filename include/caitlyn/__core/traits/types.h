@@ -31,11 +31,4 @@
 #include "caitlyn/__core/traits/types/sign_modifiers.h"
 #include "caitlyn/__core/traits/types/specifiers.h"
 
-__CAITLYN_GLOBAL_NAMESPACE_BEGIN
-
-template <bool Condition, typename Ret = void>
-using required = required_t<Condition, Ret>;
-
-__CAITLYN_GLOBAL_NAMESPACE_END
-
 #endif  // CAITLIN_CORE_TRAITS_TYPES_H_

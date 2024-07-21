@@ -24,16 +24,19 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <typename T>
-struct is_arithmetic_t : condition_t<is_integral<T>() || is_floating<T>()> {};
+struct is_arithmetic_t
+    : condition_t<is_integer_t<T>::value || is_floating_t<T>::value> {};
 
 template <typename T>
-struct is_fundamental_t : condition_t<is_arithmetic_t<T>::value ||
-                                      is_void<T>() || is_null_ptr<T>()> {};
+struct is_fundamental_t
+    : condition_t<is_arithmetic_t<T>::value || is_void_t<T>::value ||
+                  is_null_pointer_t<T>::value> {};
 
 template <class T>
 struct is_scalar_t
-    : condition_t<is_arithmetic_t<T>::value || is_enum<T>() || is_ptr<T>() ||
-                  std::is_member_pointer<T>::value || is_null_ptr<T>()> {};
+    : condition_t<is_arithmetic_t<T>::value || std::is_enum<T>::value ||
+                  is_pointer_t<T>::value || std::is_member_pointer<T>::value ||
+                  is_null_pointer_t<T>::value> {};
 
 __CAITLYN_TRAITS_NAMESPACE_END
 
@@ -63,12 +66,12 @@ constexpr bool is_compound() {
 }
 
 template <typename T>
-constexpr bool is_ref() {
+constexpr bool is_reference() {
   return std::is_reference<T>::value;
 }
 
 template <typename T>
-constexpr bool is_member_ptr() {
+constexpr bool is_member_pointer() {
   return std::is_member_pointer<T>::value;
 }
 

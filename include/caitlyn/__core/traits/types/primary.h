@@ -25,87 +25,50 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <class T>
-struct is_void_t : is_same_t<void, clean_t<T>>::type {};
+struct is_void_t : is_same_t<void, remove_cv_t<T>>::type {};
 
 template <class T>
-struct is_null_pointer_t : is_same_t<std::nullptr_t, clean_t<T>>::type {};
+struct is_null_pointer_t : is_same_t<std::nullptr_t, remove_cv_t<T>>::type {};
 
 template <class T>
-struct is_boolean_t : is_same_t<bool, clean_t<T>>::type {};
+struct is_boolean_t : is_same_t<bool, remove_cv_t<T>>::type {};
 
 // Characters
 template <typename, typename = void>
 struct is_character_t : false_t {};
 
-template <>
-struct is_character_t<char> : true_t {};
-
-template <>
-struct is_character_t<signed char> : true_t {};
-
-template <>
-struct is_character_t<unsigned char> : true_t {};
-
-template <>
-struct is_character_t<wchar_t> : true_t {};
-
-#if __caitlyn_has_cxx20
-template <>
-struct is_char_t<char8_t> : true_t {};
+template <> struct is_character_t<char> : true_t {};
+template <> struct is_character_t<signed char> : true_t {};
+template <> struct is_character_t<unsigned char> : true_t {};
+template <> struct is_character_t<wchar_t> : true_t {};
+#if __CAITLYN_HAS_CXX20
+template <> struct is_char_t<char8_t> : true_t {};
 #endif
-
-template <>
-struct is_character_t<char16_t> : true_t {};
-
-template <>
-struct is_character_t<char32_t> : true_t {};
+template <> struct is_character_t<char16_t> : true_t {};
+template <> struct is_character_t<char32_t> : true_t {};
 
 // Integers
 template <typename, typename = void>
 struct is_integer_t : false_t {};
 
-template <>
-struct is_integer_t<signed char> : true_t {};
-
-template <>
-struct is_integer_t<unsigned char> : true_t {};
-
-template <>
-struct is_integer_t<short> : true_t {};
-
-template <>
-struct is_integer_t<unsigned short> : true_t {};
-
-template <>
-struct is_integer_t<int> : true_t {};
-
-template <>
-struct is_integer_t<unsigned> : true_t {};
-
-template <>
-struct is_integer_t<long> : true_t {};
-
-template <>
-struct is_integer_t<unsigned long> : true_t {};
-
-template <>
-struct is_integer_t<long long> : true_t {};
-
-template <>
-struct is_integer_t<unsigned long long> : true_t {};
+template <> struct is_integer_t<signed char> : true_t {};
+template <> struct is_integer_t<unsigned char> : true_t {};
+template <> struct is_integer_t<short> : true_t {};
+template <> struct is_integer_t<unsigned short> : true_t {};
+template <> struct is_integer_t<int> : true_t {};
+template <> struct is_integer_t<unsigned> : true_t {};
+template <> struct is_integer_t<long> : true_t {};
+template <> struct is_integer_t<unsigned long> : true_t {};
+template <> struct is_integer_t<long long> : true_t {};
+template <> struct is_integer_t<unsigned long long> : true_t {};
 
 // Floating point
 template <typename, typename = void>
 struct is_floating_t : false_t {};
 
-template <>
-struct is_floating_t<float> : true_t {};
-
-template <>
-struct is_floating_t<double> : true_t {};
-
-template <>
-struct is_floating_t<long double> : true_t {};
+template <> struct is_floating_t<float> : true_t {};
+template <> struct is_floating_t<double> : true_t {};
+template <> struct is_floating_t<long double> : true_t {};
 
 template <class T>
 struct is_array_t : false_t {};
@@ -116,6 +79,33 @@ struct is_array_t<T[]> : true_t {};
 template <class T, std::size_t N>
 struct is_array_t<T[N]> : true_t {};
 
+template<class T>
+struct is_pointer_t : false_t {};
+
+template<class T>
+struct is_pointer_t<T*> : true_t {};
+
+template<class T>
+struct is_pointer_t<T* const> : true_t {};
+
+template<class T>
+struct is_pointer_t<T* volatile> : true_t {};
+
+template<class T>
+struct is_pointer_t<T* const volatile> : true_t {};
+
+template <typename T>
+struct is_lvalue_reference_t : false_t {};
+
+template<typename T>
+struct is_lvalue_reference_t<T&> : true_t {};
+
+template <typename T>
+struct is_rvalue_reference_t : false_t {};
+
+template<typename T>
+struct is_rvalue_reference_t<T&&> : true_t {};
+
 __CAITLYN_TRAITS_NAMESPACE_END
 
 template <typename T>
@@ -124,7 +114,7 @@ constexpr bool is_void() {
 }
 
 template <typename T>
-constexpr bool is_null_ptr() {
+constexpr bool is_null_pointer() {
   return traits::is_null_pointer_t<T>::value;
 }
 
@@ -175,32 +165,32 @@ constexpr bool is_class() {
 }
 
 template <typename T>
-constexpr bool is_func() {
+constexpr bool is_function() {
   return std::is_function<T>::value;
 }
 
 template <typename T>
-constexpr bool is_ptr() {
-  return std::is_pointer<T>::value;
+constexpr bool is_pointer() {
+  return traits::is_pointer_t<T>::value;
 }
 
 template <typename T>
-constexpr bool is_lvref() {
-  return std::is_lvalue_reference<T>::value;
+constexpr bool is_lvalue_reference() {
+  return traits::is_lvalue_reference_t<T>::value;
 }
 
 template <typename T>
-constexpr bool is_rvref() {
-  return std::is_rvalue_reference<T>::value;
+constexpr bool is_rvalue_reference() {
+  return traits::is_lvalue_reference_t<T>::value;
 }
 
 template <typename T>
-constexpr bool is_member_obj_ptr() {
+constexpr bool is_member_object_pointer() {
   return std::is_member_object_pointer<T>::value;
 }
 
 template <typename T>
-constexpr bool is_member_func_ptr() {
+constexpr bool is_member_function_pointer() {
   return std::is_member_function_pointer<T>::value;
 }
 

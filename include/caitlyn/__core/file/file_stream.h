@@ -157,7 +157,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_to_string<T>()> write(const T& data) {
+  traits::required_t<has_to_string<T>()> write(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -166,7 +166,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_str<T>()> write(const T& data) {
+  traits::required_t<has_str<T>()> write(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -200,7 +200,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_to_string<T>()> writeln(const T& data) {
+  traits::required_t<has_to_string<T>()> writeln(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -209,7 +209,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_str<T>()> writeln(const T& data) {
+  traits::required_t<has_str<T>()> writeln(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -236,7 +236,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_to_string<T>()> append(const T& data) {
+  traits::required_t<has_to_string<T>()> append(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -246,7 +246,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_str<T>()> append(const T& data) {
+  traits::required_t<has_str<T>()> append(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -284,7 +284,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_to_string<T>()> appendln(const T& data) {
+  traits::required_t<has_to_string<T>()> appendln(const T& data) {
     if (!file_.is_open()) {
       open();
     }
@@ -294,7 +294,7 @@ public:
   }
 
   template <typename T>
-  required_t<has_str<T>()> appendln(const T& data) {
+  traits::required_t<has_str<T>()> appendln(const T& data) {
     if (!file_.is_open()) {
       open();
     }

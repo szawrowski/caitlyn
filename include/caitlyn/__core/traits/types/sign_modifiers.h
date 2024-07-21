@@ -21,12 +21,21 @@
 #include "caitlyn/__core/traits/types/base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
+__CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <typename T>
 using make_signed_t = typename std::make_signed<T>::type;
 
 template <typename T>
 using make_unsigned_t = typename std::make_unsigned<T>::type;
+
+__CAITLYN_TRAITS_NAMESPACE_END
+
+template <typename T>
+using make_signed = traits::make_signed_t<T>;
+
+template <typename T>
+using make_unsigned = traits::make_unsigned_t<T>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
