@@ -21,7 +21,8 @@ enhance productivity for everyday tasks.
 Supported Platforms: **Linux, Windows, macOS**\
 Supported Standard: **C++11** or later
 
-## Installation Guide
+## Documentation
+- [Installation Guide](https://github.com/szawrowski/caitlyn/blob/main/docs/installation.md)
 
 ### Step 1: Clone the Repository
 
