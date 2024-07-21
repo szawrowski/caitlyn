@@ -20,6 +20,7 @@
 
 #include "caitlyn/__core/traits/types/base.h"
 #include "caitlyn/__core/traits/types/composite.h"
+#include "caitlyn/__core/traits/types/forward.h"
 #include "caitlyn/__core/traits/types/operations.h"
 #include "caitlyn/__core/traits/types/pointers.h"
 #include "caitlyn/__core/traits/types/primary.h"
