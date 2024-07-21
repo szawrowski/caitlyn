@@ -5,9 +5,12 @@
 **Caitlyn** is a header-only versatile general-purpose C++ library designed to
 enhance productivity for everyday tasks.
 
+## Install
+
+- [Installation Guide](https://github.com/szawrowski/caitlyn/tree/main/docs/installation.md)
+
 ## Features
 
-### Caitlyn includes
 - [Unicode String Support](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#unicode-string-support)
 - [Text Formatting](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#text-formatting)
 - [File Management](https://github.com/szawrowski/caitlyn?tab=readme-ov-file#file-management)
@@ -20,9 +23,6 @@ enhance productivity for everyday tasks.
 
 Supported Platforms: **Linux, Windows, macOS**\
 Supported Standard: **C++11** or later
-
-## Documentation
-- [Installation Guide](https://github.com/szawrowski/caitlyn/blob/main/docs/installation.md)
 
 ### Step 1: Clone the Repository
 
