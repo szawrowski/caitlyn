@@ -8,10 +8,6 @@ enhance productivity for everyday tasks.
 Supported Platforms: **Linux, Windows, macOS**\
 Supported Standard: **C++11** or later
 
-## Install
-
-- [Installation Guide](https://github.com/szawrowski/caitlyn/blob/main/docs/installation.md)
-
 ## Features
 
 - [Unicode String Support](https://github.com/szawrowski/caitlyn/blob/main/docs/usage/unicode.md)
@@ -23,3 +19,7 @@ Supported Standard: **C++11** or later
 - [Type Traits](https://github.com/szawrowski/caitlyn/blob/main/docs/usage/traits.md)
 - [Unit Testing](https://github.com/szawrowski/caitlyn/blob/main/docs/usage/testing.md)
 - [Utilities](https://github.com/szawrowski/caitlyn/blob/main/docs/usage/utilities.md)
+
+## Get started
+
+- [Installation Guide](https://github.com/szawrowski/caitlyn/blob/main/docs/installation.md)
