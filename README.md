@@ -87,6 +87,21 @@ int main() {
 }
 ```
 
+Handling arguments and additional operations
+
+```c++
+int main(int argc, const char** argv) {
+  const auto app = cait::application::init(argc, argv);
+  
+  // Get vector of arguments
+  for (const auto& arg : app->get_args()) {
+    cait::println("{} ", arg);
+  }
+  // Get system information
+  cait::println("system name: {}", app->system_name());
+}
+```
+
 ## Examples
 
 ### Unicode String Support
@@ -104,17 +119,15 @@ int main() {
 
   cait::println("string: {}", data);
   cait::println("substring (from 7): {}", data.substr(7));
-
   cait::println("char count: {}", data.size());
   cait::println("byte count: {}", data.byte_count());
-
   cait::println("starts with H? {}", data.starts_with("H"));
   cait::println("ends with 🙂? {}", data.ends_with("🙂"));
   cait::println("contains '世界'? {}", data.contains("世界"));
   cait::println("contains 'some text'? {}", data.contains("some text"));
-
   cait::println("char at position 0: {}", data[0]);
   cait::println("char at position 7: {}", data.at(7));
+  cait::println("find(!)... found at: {}", data.find("!"));
   
   for (auto&& elem : data) {
     if (elem == "🙂") {
@@ -139,6 +152,7 @@ contains '世界'? true
 contains 'some text'? false
 char at position 0: H
 char at position 7: 世
+find(!)... found at: 9
 updated: Hello, 世界! 🍉
 ```
 
@@ -213,9 +227,9 @@ Hello, world!
 #include <caitlyn/file>
 
 int main() {
-  const auto some = "Lorem ipsum dolor sit amet,"_str;
-  const auto other = "consectetur adipiscing elit..."_str;
-  const auto unicode = "Hello, 世界!"_str;
+  const cait::string some = "Lorem ipsum dolor sit amet,"_str;
+  const cait::string other = "consectetur adipiscing elit..."_str;
+  const cait::string unicode = "Hello, 世界!"_str;
 
   auto file = cait::make_file("somefile.txt");
   file.writef("{} {}\n{}", some, other, unicode);
