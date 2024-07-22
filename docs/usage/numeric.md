@@ -1,6 +1,4 @@
-### Numeric
-
-#### Arbitrary-precision Numbers
+# Arbitrary-precision Numbers
 
 Arbitrary-precision types provides tools for working with numbers of any size
 or precision, unrestricted by standard data types like `int` or `float`.
@@ -12,7 +10,7 @@ such as financial applications, scientific research, or cryptography.
 - `pwrint`: Integral type of arbitrary length
 - `pwrnum`: Floating point type with arbitrary precision
 
-**Usage**
+## Usage
 
 - Integral
 
