@@ -1,6 +1,6 @@
 # Quick Start
 
-#### Compile the simple program
+#### Run the simple program
 
 ```c++
 #include <caitlyn/io>
@@ -32,5 +32,6 @@ int main(int argc, const char** argv) {
   }
   // Get system information
   cait::println("system name: {}", app->system_name());
+  // ...
 }
 ```
