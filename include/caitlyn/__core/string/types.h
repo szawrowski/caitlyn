@@ -18,7 +18,9 @@
 #ifndef CAITLYN_CORE_STRING_TYPES_H_
 #define CAITLYN_CORE_STRING_TYPES_H_
 
+#include "caitlyn/__core/string/types/basic_character.h"
 #include "caitlyn/__core/string/types/basic_string.h"
+#include "caitlyn/__core/string/types/character.h"
 #include "caitlyn/__core/string/types/string.h"
 
 #endif  // CAITLYN_CORE_STRING_TYPES_H_
