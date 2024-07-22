@@ -1,7 +1,6 @@
-### Utilities
+# Utilities
 
-- Get keys and values from the `std::map` using `get_map_keys` and
-  `get_map_values`
+#### Get keys and values from a map
 
 ```c++
 #include <caitlyn/containers>
