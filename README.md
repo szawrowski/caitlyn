@@ -2,7 +2,7 @@
 
 **Caitlyn** is a header-only versatile general-purpose C++ library designed to
 enhance productivity for everyday tasks.\
-Whether you’re working on text processing, file management, or unit testing,
+Whether you’re working on text processing, data serializing, file management, or unit testing,
 Caitlyn aims to provide efficient and easy-to-use tools.
 
 Supported Platforms: **Linux, Windows, macOS**\
