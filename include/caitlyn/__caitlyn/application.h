@@ -18,63 +18,70 @@
 #ifndef CAITLYN_APPLICATION_H_
 #define CAITLYN_APPLICATION_H_
 
+#include <cstring>
+#include <stdexcept>
+#include <vector>
+
 #include "caitlyn/__caitlyn/config.h"
 #include "caitlyn/__caitlyn/types.h"
-
-#include <memory>
-#include <stdexcept>
-#include <string>
-#include <vector>
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 class application_t {
 public:
-  static std::unique_ptr<application_t> init() {
+  static const application_t* init() {
     if (initialized_) {
       throw std::runtime_error("caitlyn::init can only be called once.");
     }
     initialized_ = true;
-    return std::unique_ptr<application_t>(new application_t());
+    return new application_t{};
   }
 
-  static std::unique_ptr<application_t> init(const int& argc,
-                                             const char** argv) {
+  static const application_t* init(const int& argc, const char** argv) {
     if (initialized_) {
       throw std::runtime_error("caitlyn::init can only be called once.");
     }
     initialized_ = true;
-    return std::unique_ptr<application_t>(new application_t(argc, argv));
+    return new application_t{argc, argv};
   }
 
-  const std::vector<std::string>& get_args() const { return args_; }
+  const std::vector<const char*>& get_args() const { return args_; }
 
-  const char* system_name() const {
-#if defined(__CAITLYN_OS_LINUX)
-    return "Linux";
-#elif defined(__CAITLYN_OS_APPLE)
-    return "Apple";
-#elif defined(__CAITLYN_OS_WINDOWS)
-    return "Windows";
-#elif defined(__CAITLYN_OS_ANDROID)
-    return "Android";
-#endif
-  }
+  const char* get_system() const { return system_name_; }
+  const char* get_compiler() const { return compiler_; }
+  const char* get_caitlyn_info() const { return lib_version_; }
 
 private:
-  application_t() { configure(); }
+  application_t()
+      : lib_version_{__CAITLYN_VERSION},
+        system_name_{__CAITLYN_OS_NAME},
+        compiler_{__CAITLYN_COMPILER_VERSION} {
+    configure();
+  }
 
-  application_t(const int argc, const char** argv) {
+  application_t(const int argc, const char** argv)
+      : lib_version_{__CAITLYN_VERSION},
+        system_name_{__CAITLYN_OS_NAME},
+        compiler_{__CAITLYN_COMPILER_VERSION} {
     if (argc > 0) {
       args_.reserve(argc);
       for (int i = 0; i < argc; ++i) {
-        args_.emplace_back(argv[i]);
+        auto arg_copy = new char[std::strlen(argv[i]) + 1];
+        std::strcpy(arg_copy, argv[i]);
+        args_.emplace_back(arg_copy);
       }
     }
     configure();
   }
 
+  ~application_t() {
+    for (const char* arg : args_) {
+      delete[] arg;
+    }
+  }
+
+private:
   static void configure() {
 #ifdef __CAITLYN_OS_WINDOWS
     SetConsoleOutputCP(CP_UTF8);
@@ -83,7 +90,10 @@ private:
   }
 
 private:
-  std::vector<std::string> args_{};
+  std::vector<const char*> args_{};
+  const char* lib_version_;
+  const char* system_name_;
+  const char* compiler_;
   static bool initialized_;
 };
 

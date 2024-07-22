@@ -20,6 +20,18 @@
 
 #define __CAITLYN__
 
+#define __CAITLYN_MAJOR_VERSION__ 1
+#define __CAITLYN_MINOR_VERSION__ 0
+#define __CAITLYN_PATCH_VERSION__ 0
+
+#define __CAITLYN_STRINGIFY(...) #__VA_ARGS__
+#define __CAITLYN_TOSTRING(x) __CAITLYN_STRINGIFY(x)
+
+#define __CAITLYN_VERSION "Caitlyn " \
+   __CAITLYN_TOSTRING(__CAITLYN_MAJOR_VERSION__) "." \
+   __CAITLYN_TOSTRING(__CAITLYN_MINOR_VERSION__) "." \
+   __CAITLYN_TOSTRING(__CAITLYN_MINOR_VERSION__)
+
 // Architecture
 #if defined(__i386__) || defined(_M_IX86) || defined(__32BIT__)
   #define __CAITLYN_ARCH_X86
@@ -42,12 +54,16 @@
 // Operating System
 #if defined(__linux__) || defined(__linux) || defined(__gnu_linux__)
   #define __CAITLYN_OS_LINUX
+  #define __CAITLYN_OS_NAME "Linux"
 #elif defined(__APPLE__) && defined(__MACH__)
   #define __CAITLYN_OS_APPLE
+  #define __CAITLYN_OS_NAME "Apple"
 #elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32) || defined(_WIN64)
   #define __CAITLYN_OS_WINDOWS
+  #define __CAITLYN_OS_NAME "Windows"
 #elif defined(__ANDROID__)
   #define __CAITLYN_OS_ANDROID
+  #define __CAITLYN_OS_NAME "Android"
 #else
   #error "Unsupported Operating System"
 #endif
@@ -70,12 +86,37 @@
   #define __CAITLYN_COMPILER_CLANG
 #elif defined(__GNUC__) || defined(__GNUG__)
   #define __CAITLYN_COMPILER_GCC
+  #if defined(__MINGW32__) || defined(__MINGW64__)
+    #define __CAITLYN_COMPILER_MINGW
+  #endif
 #elif defined(_MSC_VER)
   #define __CAITLYN_COMPILER_MSVC
 #elif defined(__INTEL_COMPILER) || defined(__ICC)
   #define __CAITLYN_COMPILER_INTEL
 #else
   #error "Unknown Compiler"
+#endif
+
+#if defined(__CAITLYN_COMPILER_CLANG)
+  #define __CAITLYN_COMPILER_VERSION "Clang " \
+     __CAITLYN_TOSTRING(__clang_major__) "." \
+    __CAITLYN_TOSTRING(__clang_minor__)
+#elif defined(__CAITLYN_COMPILER_GCC)
+  #if defined(__CAITLYN_COMPILER_MINGW)
+    #define __CAITLYN_COMPILER_VERSION "GCC " \
+       __CAITLYN_TOSTRING(__GNUC__) "." \
+       __CAITLYN_TOSTRING(__GNUC_MINOR__)
+    #else
+      #define __CAITLYN_COMPILER_VERSION "MinGW " \
+        __CAITLYN_TOSTRING(__GNUC__) "." \
+        __CAITLYN_TOSTRING(__GNUC_MINOR__)
+  #endif
+#elif defined(__CAITLYN_COMPILER_MSVC)
+  #define __CAITLYN_COMPILER_VERSION "MSVC " \
+    __CAITLYN_TOSTRING(_MSC_VER)
+#elif defined(__CAITLYN_COMPILER_INTEL)
+  #define CAITLYN_COMPILER_VERSION "Intel " \
+    __CAITLYN_TOSTRING(__INTEL_COMPILER)
 #endif
 
 // Standard
@@ -131,13 +172,13 @@
   #define __CAITLYN_CONSTEXPR20 constexpr
   #define __CAITLYN_CONSTEVAL20 consteval
   #define __CAITLYN_CONSTINIT20 constinit
-  #define __CAITLYN_NODISCARD20(...) [[nodiscard(__VA_ARGS__)]]
+  #define __CAITLYN_NODISCARD20(x) [[nodiscard(__CAITLYN_TOSTRING(x))]]
 #else
   #define __CAITLYN_HAS_CXX20 0
   #define __CAITLYN_CONSTEXPR20
   #define __CAITLYN_CONSTEVAL20
   #define __CAITLYN_CONSTINIT20
-  #define __CAITLYN_NODISCARD20(...)
+  #define __CAITLYN_NODISCARD20(x)
 #endif
 
 #if __CAITLYN_CXX_STANDARD >= __CAITLYN_CXX_STANDARD23_VERSION
@@ -149,7 +190,9 @@
 #endif
 
 #ifdef __CAITLYN_OS_WINDOWS
-  #define NOMINMAX
+  #if defined(__CAITLYN_COMPILER_MSVC) || defined(__CAITLYN_COMPILER_CLANG)
+    #define NOMINMAX
+  #endif
   #include <windows.h>
 #endif
 
