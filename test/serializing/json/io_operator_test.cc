@@ -22,6 +22,7 @@ TEST(JsonTest, IoOperator) {
   );
   ASSERT_FALSE(oconfig.has_error());
 
+
   std::ofstream ofile{"operator_test.json"};
   if (ofile.is_open()) {
     ofile << oconfig;
@@ -34,6 +35,10 @@ TEST(JsonTest, IoOperator) {
     ifile >> iconfig;
     ofile.close();
   }
+
   ASSERT_FALSE(iconfig.has_error());
-  ASSERT_STREQ(oconfig.str().c_str(), iconfig.str().c_str());
+  std::cout << "OCONFIG:" << oconfig.str() << std::endl;
+  std::cout << "ICONFIG:" << iconfig.str() << std::endl;
+
+  ASSERT_EQ(oconfig.str(), iconfig.str());
 }
