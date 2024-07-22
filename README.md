@@ -56,7 +56,7 @@ Caitlyn aims to provide efficient and easy-to-use tools.
 
 ## License
 
-This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
+This project is licensed under the GNU General Public License version 3 (GPLv3).
 See the [LICENSE](LICENSE) file for details.
 
 ### GNU General Public License v3.0 (GPL-3.0)
