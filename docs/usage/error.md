@@ -1,4 +1,4 @@
-### Error Handling
+## Error Handling
 
 Handling errors without standard exceptions.
 
@@ -12,7 +12,7 @@ Handling errors without standard exceptions.
   It provides a structured way to categorize and manage errors that occur during
   computations or operations.
 
-**Usage**
+### Usage
 
 ```c++
 #include <caitlyn/error>
