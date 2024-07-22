@@ -1,4 +1,4 @@
-### Type Traits
+# Type Traits
 
 The `required` type trait provides a more elegant alternative to
 `std::enable_if` for enforcing template constraints in C++.
@@ -10,9 +10,9 @@ The `required` type trait provides a more elegant alternative to
 - **OPTIONAL_RETURN_TYPE**: The type to return if the condition is met.
   Defaults to `void`
 
-**Usage**
+## Usage
 
-Use SFINAE with a template default type parameter.
+#### SFINAE with a template default type parameter
 
 Function template `Add` accepts two parameters of type `T` and returns
 their sum. It uses `required` to enforce that `T` is an integral type,
@@ -27,7 +27,7 @@ T Add(const T lhs, const T rhs) {
 }
 ```
 
-Use SFINAE as a return type constraint.
+#### SFINAE as a return type constraint
 
 Function template `Add` uses `required` directly in the return type.
 This enforces that `T` must be an integral type.
@@ -42,7 +42,7 @@ Add(const T lhs, const T rhs) {
 }
 ```
 
-Use SFINAE as a trailing return type constraint.
+#### SFINAE as a trailing return type constraint
 
 Function template `Add` uses a trailing return type to apply the `required`
 constraint. This ensures that `T` is an integral type.
