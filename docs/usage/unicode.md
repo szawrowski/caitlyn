@@ -1,8 +1,8 @@
-### Unicode String Support
+# Unicode String Support
 
 Basic string enhanced with correct UTF-8 operations.
 
-**Usage**
+## Usage
 
 ```c++
 #include <caitlyn/io>
@@ -37,7 +37,7 @@ int main() {
 }
 ```
 
-**Output:**
+### Output
 
 ```text
 string: Hello, 世界! 🙂
