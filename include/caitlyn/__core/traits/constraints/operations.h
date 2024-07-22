@@ -15,22 +15,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLUN_CORE_TRAITS_TYPES_OPERATIONS_H_
-#define CAITLUN_CORE_TRAITS_TYPES_OPERATIONS_H_
+#ifndef CAITLUN_CORE_TRAITS_CONSTRAINTS_OPERATIONS_H_
+#define CAITLUN_CORE_TRAITS_CONSTRAINTS_OPERATIONS_H_
 
 #include "caitlyn/__core/traits/types/base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
-
-template <typename, typename = void>
-struct has_destructor_t : false_t {};
-
-template <typename T>
-struct has_destructor_t<T, indicator_t<decltype(std::declval<T>().~T())>>
-    : true_t {};
-
-__CAITLYN_TRAITS_NAMESPACE_END
 
 template <typename T>
 constexpr bool constructible() {
@@ -159,4 +149,4 @@ constexpr bool has_virtual_destructor() {
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_OPERATIONS_H_
+#endif  // CAITLUN_CORE_TRAITS_CONSTRAINTS_OPERATIONS_H_

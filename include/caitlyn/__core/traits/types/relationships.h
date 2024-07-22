@@ -30,27 +30,6 @@ template <typename T>
 struct is_same_t<T, T> : true_t {};
 
 __CAITLYN_TRAITS_NAMESPACE_END
-
-template <typename T, typename U>
-constexpr bool same_as() {
-  return traits::is_same_t<T, U>::value;
-}
-
-template <typename T, typename U>
-constexpr bool not_same() {
-  return !same_as<T, U>();
-}
-
-template <typename Base, typename Derived>
-constexpr bool base_of() {
-  return std::is_base_of<Base, Derived>::value;
-}
-
-template <typename T, typename U>
-constexpr bool convertible() {
-  return std::is_convertible<T, U>::value;
-}
-
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif  // CAITLUN_CORE_TRAITS_TYPES_RELATIONSHIPS_H_

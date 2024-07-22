@@ -61,27 +61,6 @@ struct type_identity_t {
 };
 
 __CAITLYN_TRAITS_NAMESPACE_END
-
-template <bool B>
-using condition = traits::condition_t<B>;
-
-using true_type = traits::true_t;
-using false_type = traits::false_t;
-
-template <typename... Args>
-using indicator = traits::indicator_t<Args...>;
-
-template <bool Condition, typename Ret = void>
-using required = traits::required_t<Condition, Ret>;
-
-template <typename T>
-using type_identity = traits::type_identity_t<T>;
-
-template <typename T>
-T&& make_movable(T& value) {
-  return static_cast<T&&>(value);
-}
-
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif  // CAITLUN_CORE_TRAITS_TYPES_BASE_H_

@@ -18,7 +18,7 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_SPECIFIERS_H_
 #define CAITLUN_CORE_TRAITS_TYPES_SPECIFIERS_H_
 
-#include "caitlyn/__core/traits/types/base.h"
+#include "caitlyn/__base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN

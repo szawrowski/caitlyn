@@ -66,13 +66,6 @@ template <typename T>
 using remove_pointer_t = typename __detail::remove_pointer_t<T>::type;
 
 __CAITLYN_TRAITS_NAMESPACE_END
-
-template <typename T>
-using add_pointer = traits::add_pointer_t<T>;
-
-template <typename T>
-using remove_pointer = traits::remove_pointer_t<T>;
-
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif  // CAITLUN_CORE_TRAITS_TYPES_POINTERS_H_

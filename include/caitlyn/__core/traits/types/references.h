@@ -65,16 +65,6 @@ template <typename T>
 using remove_reference_t = typename __detail::remove_reference_t<T>::type;
 
 __CAITLYN_TRAITS_NAMESPACE_END
-
-template <typename T>
-using add_lvalue_reference = traits::add_lvalue_reference_t<T>;
-
-template <typename T>
-using add_rvalue_reference = traits::add_rvalue_reference_t<T>;
-
-template <typename T>
-using remove_reference = traits::remove_reference_t<T>;
-
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif  // CAITLUN_CORE_TRAITS_TYPES_REFERENCES_H_

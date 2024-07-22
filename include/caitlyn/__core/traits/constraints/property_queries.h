@@ -15,17 +15,28 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_H_
-#define CAITLYN_CORE_TRAITS_CONSTRAINTS_H_
+#ifndef CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTY_QUERIES_H_
+#define CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTY_QUERIES_H_
 
-#include "caitlyn/__core/traits/constraints/composite.h"
-#include "caitlyn/__core/traits/constraints/containers.h"
-#include "caitlyn/__core/traits/constraints/operations.h"
-#include "caitlyn/__core/traits/constraints/operators.h"
-#include "caitlyn/__core/traits/constraints/primary.h"
-#include "caitlyn/__core/traits/constraints/properties.h"
-#include "caitlyn/__core/traits/constraints/property_queries.h"
-#include "caitlyn/__core/traits/constraints/relationships.h"
-#include "caitlyn/__core/traits/constraints/string.h"
+#include <type_traits>
 
-#endif // CAITLYN_CORE_TRAITS_CONSTRAINTS_H_
+__CAITLYN_GLOBAL_NAMESPACE_BEGIN
+
+template <typename T>
+constexpr bool alignment_of() {
+  return std::alignment_of<T>::value;
+}
+
+template <typename T>
+constexpr bool rank() {
+  return std::rank<T>::value;
+}
+
+template <typename T>
+constexpr bool extent() {
+  return std::extent<T>::value;
+}
+
+__CAITLYN_GLOBAL_NAMESPACE_END
+
+#endif  // CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTY_QUERIES_H_

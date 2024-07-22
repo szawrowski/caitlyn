@@ -15,28 +15,48 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLUN_CORE_TRAITS_TYPES_PROPERTY_QUERIES_H_
-#define CAITLUN_CORE_TRAITS_TYPES_PROPERTY_QUERIES_H_
+#ifndef CAITLUN_CORE_TRAITS_CONSTRAINTS_COMPOSITE_H_
+#define CAITLUN_CORE_TRAITS_CONSTRAINTS_COMPOSITE_H_
 
 #include "caitlyn/__core/traits/types/base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-constexpr bool alignment_of() {
-  return std::alignment_of<T>::value;
+constexpr bool is_fundamental() {
+  return std::is_fundamental<T>::value;
 }
 
 template <typename T>
-constexpr bool rank() {
-  return std::rank<T>::value;
+constexpr bool is_arithmetic() {
+  return std::is_arithmetic<T>::value;
 }
 
 template <typename T>
-constexpr bool extent() {
-  return std::extent<T>::value;
+constexpr bool is_scalar() {
+  return std::is_scalar<T>::value;
+}
+
+template <typename T>
+constexpr bool is_object() {
+  return std::is_object<T>::value;
+}
+
+template <typename T>
+constexpr bool is_compound() {
+  return std::is_compound<T>::value;
+}
+
+template <typename T>
+constexpr bool is_reference() {
+  return std::is_reference<T>::value;
+}
+
+template <typename T>
+constexpr bool is_member_pointer() {
+  return std::is_member_pointer<T>::value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_PROPERTY_QUERIES_H_
+#endif  // CAITLUN_CORE_TRAITS_CONSTRAINTS_COMPOSITE_H_

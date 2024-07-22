@@ -19,13 +19,9 @@
 #define CAITLIN_CORE_TRAITS_TYPES_H_
 
 #include "caitlyn/__core/traits/types/base.h"
-#include "caitlyn/__core/traits/types/composite.h"
-#include "caitlyn/__core/traits/types/forward.h"
-#include "caitlyn/__core/traits/types/operations.h"
 #include "caitlyn/__core/traits/types/pointers.h"
 #include "caitlyn/__core/traits/types/primary.h"
 #include "caitlyn/__core/traits/types/properties.h"
-#include "caitlyn/__core/traits/types/property_queries.h"
 #include "caitlyn/__core/traits/types/references.h"
 #include "caitlyn/__core/traits/types/relationships.h"
 #include "caitlyn/__core/traits/types/sign_modifiers.h"

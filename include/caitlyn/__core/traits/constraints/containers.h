@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_CONTAINERS_H
-#define CAITLYN_CORE_TRAITS_CONSTRAINTS_CONTAINERS_H
+#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_CONTAINERS_H_
+#define CAITLYN_CORE_TRAITS_CONSTRAINTS_CONTAINERS_H_
 
 #include "caitlyn/__core/traits/types/base.h"
 
@@ -104,4 +104,4 @@ struct has_empty_t<T, indicator_t<decltype(std::declval<T>().empty())>>
 __CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_CONTAINERS_H
+#endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_CONTAINERS_H_

@@ -15,26 +15,33 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLUN_CORE_TRAITS_TYPES_FORWARD_H_
-#define CAITLUN_CORE_TRAITS_TYPES_FORWARD_H_
+#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_RELATIONSHIPS_H_
+#define CAITLYN_CORE_TRAITS_CONSTRAINTS_RELATIONSHIPS_H_
 
-#include "caitlyn/__core/traits/types/primary.h"
-#include "caitlyn/__core/traits/types/references.h"
+#include "caitlyn/__core/traits/types/relationships.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-template <typename T>
-T&& forward(traits::remove_reference_t<T>& value) noexcept {
-  return static_cast<T&&>(value);
+template <typename T, typename U>
+constexpr bool same_as() {
+  return traits::is_same_t<T, U>::value;
 }
 
-// Версия для rvalue-ссылок
-template <typename T>
-T&& forward(traits::remove_reference_t<T>&& value) noexcept {
-  static_assert(!is_lvalue_reference<T>(), "bad forward call");
-  return static_cast<T&&>(value);
+template <typename T, typename U>
+constexpr bool not_same() {
+  return !same_as<T, U>();
+}
+
+template <typename Base, typename Derived>
+constexpr bool base_of() {
+  return std::is_base_of<Base, Derived>::value;
+}
+
+template <typename T, typename U>
+constexpr bool convertible() {
+  return std::is_convertible<T, U>::value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_FORWARD_H_
+#endif // CAITLYN_CORE_TRAITS_CONSTRAINTS_RELATIONSHIPS_H_

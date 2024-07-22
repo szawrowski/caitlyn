@@ -15,8 +15,8 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H
-#define CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H
+#ifndef CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H_
+#define CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H_
 
 #include "caitlyn/__core/traits/types/base.h"
 
@@ -63,4 +63,4 @@ constexpr bool has_std_string() {
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H
+#endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H_
