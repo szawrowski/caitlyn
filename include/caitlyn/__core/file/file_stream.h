@@ -31,9 +31,7 @@ template <>
 class basic_file_stream_t<char> {
 public:
   basic_file_stream_t() = default;
-  basic_file_stream_t(const char* filename) : filename_(filename) { open(); }
-  basic_file_stream_t(basic_string_t<char> filename)
-      : filename_(std::move(filename)) {
+  basic_file_stream_t(const basic_string_t<char>& filename) : filename_(filename) {
     open();
   }
   template <typename... Args>
@@ -304,7 +302,7 @@ public:
   }
 
 private:
-  std::basic_string<char> get_filename() const { return filename_.c_str(); }
+  std::basic_string<char> get_filename() const { return filename_.str(); }
 
 private:
   basic_string_t<char> filename_;
@@ -312,8 +310,7 @@ private:
   std::streampos current_position_{};
 };
 
-inline basic_file_stream_t<char> make_file(
-    const basic_string_t<char>& filename) {
+inline basic_file_stream_t<char> make_file(const basic_string_t<char>& filename) {
   return cait::basic_file_stream_t<char>{filename};
 }
 

@@ -22,7 +22,7 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-template <typename Char>
+template <typename CharT>
 class basic_string_t;
 
 __CAITLYN_GLOBAL_NAMESPACE_END

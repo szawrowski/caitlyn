@@ -40,8 +40,7 @@ basic_string_t<char> format(const basic_string_t<char>& formatter,
 
   while (pos < formatter.size()) {
     if (formatter[pos] == def::left_curly_bracket) {
-      if (pos + 1 < formatter.size() &&
-          formatter[pos + 1] == def::left_curly_bracket) {
+      if (pos + 1 < formatter.size() && formatter[pos + 1] == def::left_curly_bracket) {
         result << def::left_curly_bracket;
         pos += 2;
       } else {
@@ -90,6 +89,7 @@ basic_string_t<char> format(const basic_string_t<char>& formatter,
         pos = end + 1;
       }
     } else if (formatter[pos] == def::right_curly_bracket) {
+
       if (pos + 1 < formatter.size() &&
           formatter[pos + 1] == def::right_curly_bracket) {
         result << def::right_curly_bracket;

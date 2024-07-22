@@ -39,7 +39,7 @@ enum class repr_t {
 struct spec_t {
   align_t align = align_t::left;
   size_t width = 0;
-  basic_string_t<char> fill = def::space;
+  basic_character_t<char> fill = def::space;
   repr_t repr = repr_t::standard;
   value_t type = value_t::string;
   int precision = -1;

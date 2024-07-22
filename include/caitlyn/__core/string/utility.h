@@ -27,7 +27,7 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-inline bool is_space(const basic_string_t<char>& value) {
+inline bool is_space(const basic_character_t<char>& value) {
   return value == def::character_tabulation || value == def::line_feed ||
          value == def::line_tabulation || value == def::form_feed ||
          value == def::carriage_return || value == def::space;
@@ -115,7 +115,7 @@ inline basic_string_t<char> escape_string(const basic_string_t<char>& str) {
   return oss.str();
 }
 
-inline bool is_digit(const basic_string_t<char>& str) {
+inline bool is_digit(const basic_character_t<char>& str) {
   return str >= def::digit_zero && str <= def::digit_nine;
 }
 
@@ -123,17 +123,17 @@ inline bool is_number(const basic_string_t<char>& str) {
   return str.not_empty() && std::all_of(str.begin(), str.end(), is_digit);
 }
 
-inline bool is_uppercase(const basic_string_t<char>& value) {
+inline bool is_uppercase(const basic_character_t<char>& value) {
   return value >= def::latin_capital_letter_a &&
          value <= def::latin_capital_letter_z;
 }
 
-inline bool is_lowercase(const basic_string_t<char>& value) {
+inline bool is_lowercase(const basic_character_t<char>& value) {
   return value >= def::latin_small_letter_a &&
          value <= def::latin_small_letter_a;
 }
 
-inline bool is_alpha(const basic_string_t<char>& value) {
+inline bool is_alpha(const basic_character_t<char>& value) {
   return is_uppercase(value) || is_lowercase(value);
 }
 
@@ -142,7 +142,7 @@ inline basic_string_t<char> to_uppercase(const basic_string_t<char>& value) {
   for (size_t i = 0; i < result.length(); ++i) {
     if (result[i] >= def::latin_small_letter_a &&
         result[i] <= def::latin_small_letter_z) {
-      const auto tmp = result.get_chars_at(i)[0];
+      const auto tmp = result[i].c_str()[0];
       result[i] = static_cast<char>(tmp - (def::latin_small_letter_a[0] -
                                            def::latin_capital_letter_a[0]));
     }
@@ -155,7 +155,7 @@ inline basic_string_t<char> to_lowercase(const basic_string_t<char>& value) {
   for (size_t i = 0; i < result.length(); ++i) {
     if (result[i] >= def::latin_capital_letter_a &&
         result[i] <= def::latin_capital_letter_z) {
-      const auto tmp = result.get_chars_at(i)[0];
+      const auto tmp = result.c_str()[0];
       result[i] = static_cast<char>(tmp + (def::latin_small_letter_a[0] -
                                            def::latin_capital_letter_a[0]));
     }

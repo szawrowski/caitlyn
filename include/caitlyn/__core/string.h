@@ -33,6 +33,7 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
+using character = basic_character_t<char>;
 using string = basic_string_t<char>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END

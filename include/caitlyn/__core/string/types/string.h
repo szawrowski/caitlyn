@@ -30,665 +30,384 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <>
 class basic_string_t<char> {
+public:
   using value_type = char;
-  using data_type = std::basic_string<char>;
-  using traits_type = data_type::traits_type;
-  using allocator_type = data_type::allocator_type;
-  using size_type = data_type::size_type;
+  using char_type = basic_character_t<value_type>;
+  using data_type = std::vector<char_type>;
+  using basic_string = std::basic_string<value_type>;
   using difference_type = data_type::difference_type;
-  using reference = data_type::reference;
-  using const_reference = data_type::const_reference;
-  using pointer = data_type::pointer;
-  using const_pointer = data_type::const_pointer;
-
-  class char_proxy_t {
-  public:
-    char_proxy_t(basic_string_t& str, const size_t pos)
-        : str_{str}, pos_{pos} {}
-
-  public:
-    char_proxy_t& operator=(const char utf8_char) {
-      str_.replace_utf8_at(pos_, {utf8_char});
-      return *this;
-    }
-
-    char_proxy_t& operator=(const basic_string_t& utf8_char) {
-      str_.replace_utf8_at(pos_, utf8_char);
-      return *this;
-    }
-
-  public:
-    operator const basic_string_t() const { return str_.get_utf8_at(pos_); }
-    operator const std::string() const { return str_.get_utf8_at(pos_).str(); }
-    operator const char*() const { return str_.get_utf8_at(pos_).c_str(); }
-
-    bool operator==(const basic_string_t& other) const {
-      return str_.get_utf8_at(pos_).str() == other.str();
-    }
-
-    bool operator==(const std::string& other) const {
-      return str_.get_utf8_at(pos_).str() == other;
-    }
-
-    bool operator==(const char* other) const {
-      return str_.get_utf8_at(pos_).str() == other;
-    }
-
-    bool operator==(const char other) const {
-      return str_.get_utf8_at(pos_).str() == basic_string_t{other}.str();
-    }
-
-  private:
-    basic_string_t& str_;
-    size_t pos_;
-  };
-
-  class iterator {
-  public:
-    using iterator_category = std::bidirectional_iterator_tag;
-    using value_type = data_type;
-    using difference_type = data_type::difference_type;
-    using pointer = char_proxy_t;
-    using reference = char_proxy_t;
-
-  public:
-    iterator(basic_string_t& str, const size_t pos) : str_{str}, pos_{pos} {}
-
-  public:
-    iterator& operator++() {
-      if (pos_ < str_.size()) {
-        ++pos_;
-      }
-      return *this;
-    }
-
-    iterator operator++(int) {
-      const iterator temp = *this;
-      ++(*this);
-      return temp;
-    }
-
-    iterator& operator--() {
-      if (pos_ > 0) {
-        --pos_;
-      }
-      return *this;
-    }
-
-    iterator operator--(int) {
-      const iterator temp = *this;
-      --(*this);
-      return temp;
-    }
-
-    reference operator*() { return str_[pos_]; }
-    reference operator*() const { return str_[pos_]; }
-
-    bool operator==(const iterator& other) const { return pos_ == other.pos_; }
-    bool operator!=(const iterator& other) const { return !(*this == other); }
-
-  private:
-    basic_string_t& str_;
-    size_t pos_;
-  };
-
-  class const_iterator {
-  public:
-    using iterator_category = std::bidirectional_iterator_tag;
-    using value_type = data_type;
-    using difference_type = data_type::difference_type;
-    using pointer = basic_string_t;
-    using reference = basic_string_t;
-
-  public:
-    const_iterator(const basic_string_t& str, const size_t pos)
-        : str_{str}, pos_{pos} {}
-
-  public:
-    const_iterator& operator++() {
-      if (pos_ < str_.size()) {
-        ++pos_;
-      }
-      return *this;
-    }
-
-    const_iterator operator++(int) {
-      const const_iterator temp = *this;
-      ++(*this);
-      return temp;
-    }
-
-    const_iterator& operator--() {
-      if (pos_ > 0) {
-        --pos_;
-      }
-      return *this;
-    }
-
-    const_iterator operator--(int) {
-      const const_iterator temp = *this;
-      --(*this);
-      return temp;
-    }
-
-    reference operator*() const { return str_[pos_]; }
-
-    bool operator==(const const_iterator& other) const {
-      return pos_ == other.pos_;
-    }
-    bool operator!=(const const_iterator& other) const {
-      return !(*this == other);
-    }
-
-  private:
-    const basic_string_t& str_;
-    size_t pos_;
-  };
-
-  using reverse_iterator = std::reverse_iterator<iterator>;
-  using const_reverse_iterator = std::reverse_iterator<const_iterator>;
+  using size_type = data_type::size_type;
+  using iterator = data_type::iterator;
+  using const_iterator = data_type::const_iterator;
+  using reverse_iterator = data_type::reverse_iterator;
+  using const_reverse_iterator = data_type::const_reverse_iterator;
 
 public:
+  // Default constructor
   basic_string_t() = default;
-  basic_string_t(const basic_string_t& other) = default;
-  basic_string_t(basic_string_t&& other) noexcept = default;
 
-  basic_string_t(const char str) : data_{str} {}
-  basic_string_t(const char* str) : data_{str} {}
-  basic_string_t(const char* str, const size_t count) : data_(str, count) {}
-  basic_string_t(const size_t count, const char c) : data_(count, c) {}
+  // Constructor from C-string
+  basic_string_t(const char* cstr) {
+    while (*cstr) {
+      data_.emplace_back(decode_utf8_char(cstr));
+      // Move past the current UTF-8 character
+      cstr += decode_utf8_char(cstr).size();
+    }
+  }
 
-  template <class InputIterator>
-  basic_string_t(InputIterator first, InputIterator last)
-      : data_(first, last) {}
+  // Constructor from basic_string
+  basic_string_t(const basic_string& str) {
+    const char* cstr = str.c_str();
+    while (*cstr) {
+      data_.emplace_back(decode_utf8_char(cstr));
+      // Move past the current UTF-8 character
+      cstr += decode_utf8_char(cstr).size();
+    }
+  }
 
-  basic_string_t(const std::initializer_list<char> ilist) : data_{ilist} {}
+  // Constructor from std::vector<character>
+  basic_string_t(const std::vector<char_type>& chars) : data_(chars) {}
 
-  basic_string_t(const data_type& str) : data_{str} {}
-  basic_string_t(data_type&& str) noexcept : data_{std::move(str)} {}
+  // Constructor from size_type and char
+  basic_string_t(const size_type count, const char ch) {
+    for (size_type i = 0; i < count; ++i) {
+      data_.emplace_back(basic_string(1, ch));
+    }
+  }
+
+  basic_string_t(const size_type count, const basic_character_t<char>& ch) {
+    for (size_type i = 0; i < count; ++i) {
+      data_.emplace_back(ch);
+    }
+  }
+
+  // Constructor from iterator range
+  template <typename InputIt>
+  basic_string_t(InputIt first, InputIt last) {
+    while (first != last) {
+      data_.emplace_back(decode_utf8_char(&(*first)));
+      ++first;
+    }
+  }
+
+  // Copy constructor
+  basic_string_t(const basic_string_t& other) : data_(other.data_) {}
+
+  // Move constructor
+  basic_string_t(basic_string_t&& other) noexcept
+      : data_(std::move(other.data_)) {}
+
+  // Copy assignment operator
+  basic_string_t& operator=(const basic_string_t& other) {
+    if (this != &other) {
+      data_ = other.data_;
+    }
+    return *this;
+  }
+
+  // Move assignment operator
+  basic_string_t& operator=(basic_string_t&& other) noexcept {
+    if (this != &other) {
+      data_ = std::move(other.data_);
+    }
+    return *this;
+  }
 
 public:
-  basic_string_t& operator=(const basic_string_t& other) = default;
-  basic_string_t& operator=(basic_string_t&& other) noexcept = default;
+  // Size
+  size_type size() const { return data_.size(); }
+  size_type length() const { return data_.size(); }
 
-  basic_string_t& operator=(const char c) {
-    data_ = c;
-    return *this;
+  // Access character
+  const char_type& operator[](const size_type index) const { return data_[index]; }
+  char_type& operator[](const size_type index) { return data_[index]; }
+
+  // At method
+  const char_type& at(const size_type index) const {
+    if (index >= size()) {
+      throw std::out_of_range("Index out of range");
+    }
+    return data_[index];
   }
 
-  basic_string_t& operator=(const char* str) {
-    data_ = str;
-    return *this;
+  char_type& at(const size_type idx) {
+    if (idx >= size()) {
+      throw std::out_of_range("Index out of range");
+    }
+    return data_[idx];
   }
 
-  basic_string_t& operator=(const std::initializer_list<char> ilist) {
-    data_ = ilist;
-    return *this;
-  }
+public:
+  iterator begin() { return data_.begin(); }
+  iterator end() { return data_.end(); }
+  const_iterator begin() const { return data_.begin(); }
+  const_iterator end() const { return data_.end(); }
 
-  basic_string_t& operator=(const data_type& str) {
-    data_ = str;
-    return *this;
-  }
+  reverse_iterator rbegin() { return data_.rbegin(); }
+  reverse_iterator rend() { return data_.rend(); }
+  const_reverse_iterator rbegin() const { return data_.rbegin(); }
+  const_reverse_iterator rend() const { return data_.rend(); }
+
+  const_iterator cbegin() const { return data_.cbegin(); }
+  const_iterator cend() const { return data_.cend(); }
+  const_reverse_iterator crbegin() const { return data_.crbegin(); }
+  const_reverse_iterator crend() const { return data_.crend(); }
 
 public:
   basic_string_t& operator+=(const basic_string_t& str) {
-    data_ += str.data_;
+    data_.insert(data_.end(), str.data_.begin(), str.data_.end());
     return *this;
   }
 
   basic_string_t operator+(const basic_string_t& str) const {
-    return basic_string_t{data_ + str.data_};
-  }
+    data_type ret(data_.size() + str.data_.size());
+    size_type pos = 0;
 
-public:
-  size_t size() const { return utf8_char_count(); }
-  size_t length() const { return utf8_char_count(); }
-  size_t byte_count() const { return data_.size(); }
-
-public:
-  bool starts_with(const basic_string_t& prefix) const {
-    if (prefix.byte_count() > byte_count()) return false;
-    return std::equal(prefix.data_.begin(), prefix.data_.end(), data_.begin());
-  }
-
-  bool ends_with(const basic_string_t& suffix) const {
-    if (suffix.byte_count() > byte_count()) return false;
-    return std::equal(suffix.data_.rbegin(), suffix.data_.rend(),
-                      data_.rbegin());
-  }
-
-  bool contains(const basic_string_t& str) const { return find(str) != npos; }
-
-public:
-  basic_string_t substr(const size_t pos, const size_t len) const {
-    if (pos > utf8_char_count())
-      throw std::out_of_range{"Position out of range"};
-
-    const auto it = data_.cbegin();
-    size_t start_byte_pos = 0;
-    for (size_t i = 0; i < pos; ++i) {
-      start_byte_pos +=
-          utf8_char_length(it + static_cast<difference_type>(start_byte_pos));
+    for (; pos < data_.size(); ++pos) {
+      ret[pos] = data_[pos];
     }
-
-    size_t end_byte_pos = start_byte_pos;
-    for (size_t i = 0; i < len && end_byte_pos < data_.size(); ++i) {
-      end_byte_pos +=
-          utf8_char_length(it + static_cast<difference_type>(end_byte_pos));
+    for (size_type i = 0; i < str.data_.size(); ++i) {
+      ret[pos + i] = str.data_[i];
     }
-
-    return data_.substr(start_byte_pos, end_byte_pos - start_byte_pos);
+    return basic_string_t{ret};
   }
 
-  basic_string_t substr(const size_t pos) const {
-    return substr(pos, size() - 1);
+  // Append character
+  void push_back(const char_type& c) { data_.push_back(c); }
+
+  // Append C-string
+  void append(const char* cstr) {
+    while (*cstr) {
+      data_.emplace_back(decode_utf8_char(cstr));
+      // Move past the current UTF-8 character
+      cstr += decode_utf8_char(cstr).size();
+    }
   }
 
-public:
-  data_type str() const { return data_; }
-  const char* c_str() const { return data_.c_str(); }
-  const data_type& data() const { return data_; }
+  // Append C-string
+  void append(const size_type count, const char* pattern) {
+    size_type i = 0;
+    while (i < count) {
+      data_.emplace_back(pattern);
+      ++i;
+    }
+  }
 
-public:
+  void append(const size_type count, const char_type& pattern) {
+    size_type i = 0;
+    while (i < count) {
+      data_.emplace_back(pattern);
+      ++i;
+    }
+  }
+
+  // Clear
   void clear() { data_.clear(); }
-  bool is_empty() const { return data_.empty(); }
-  bool not_empty() const { return !data_.empty(); }
 
-public:
-  void push_back(const char c) { data_.push_back(c); }
-  void push_back(const char* str) { data_.append(str); }
-  void push_back(const basic_string_t& str) { data_.append(str.c_str()); }
 
-  basic_string_t& append(const char* s) {
-    data_.append(s);
-    return *this;
+  // Comparison
+  bool operator>(const char* other) const { return str() > other; }
+  bool operator<(const char* other) const { return str() < other; }
+  bool operator>=(const char* other) const { return str() >= other; }
+  bool operator<=(const char* other) const { return str() <= other; }
+  bool operator==(const char* other) const { return str() == other; }
+  bool operator!=(const char* other) const { return str() != other; }
+
+  bool operator>(const basic_string_t& other) const {
+    return data_ > other.data_;
   }
 
-  basic_string_t& append(const basic_string_t& str) {
-    data_.append(str.c_str());
-    return *this;
+  bool operator<(const basic_string_t& other) const {
+    return data_ < other.data_;
   }
 
-  basic_string_t& append(const size_type count, const char pattern) {
-    std::ostringstream oss;
-    for (size_type i = 0; i < count; ++i) {
-      oss << pattern;
-    }
-    data_.append(oss.str());
-    return *this;
+  bool operator>=(const basic_string_t& other) const {
+    return data_ >= other.data_;
   }
 
-  basic_string_t& append(const size_type count, const basic_string_t& pattern) {
-    std::ostringstream oss;
-    for (size_type i = 0; i < count; ++i) {
-      oss << pattern.str();
-    }
-    data_.append(oss.str());
-    return *this;
+  bool operator<=(const basic_string_t& other) const {
+    return data_ <= other.data_;
   }
 
-  basic_string_t& replace(const size_t pos, const size_t len,
-                          const basic_string_t& str) {
-    if (pos > utf8_char_count())
-      throw std::out_of_range{"Position out of range"};
-
-    const auto it = data_.begin();
-    size_t start_byte_pos = 0;
-    for (size_t i = 0; i < pos; ++i) {
-      start_byte_pos +=
-          utf8_char_length(it + static_cast<difference_type>(start_byte_pos));
-    }
-
-    size_t end_byte_pos = start_byte_pos;
-    for (size_t i = 0; i < len && end_byte_pos < data_.size(); ++i) {
-      end_byte_pos +=
-          utf8_char_length(it + static_cast<difference_type>(end_byte_pos));
-    }
-
-    data_.replace(start_byte_pos, end_byte_pos - start_byte_pos, str.data_);
-    return *this;
+  bool operator==(const basic_string_t& other) const {
+    return data_ == other.data_;
   }
 
-  basic_string_t& erase(const size_t pos, const size_t len) {
-    if (pos > utf8_char_count())
-      throw std::out_of_range{"Position out of range"};
-
-    const auto it = data_.begin();
-    size_t start_byte_pos = 0;
-    for (size_t i = 0; i < pos; ++i) {
-      start_byte_pos +=
-          utf8_char_length(it + static_cast<difference_type>(start_byte_pos));
-    }
-
-    size_t end_byte_pos = start_byte_pos;
-    for (size_t i = 0; i < len && end_byte_pos < data_.size(); ++i) {
-      end_byte_pos +=
-          utf8_char_length(it + static_cast<difference_type>(end_byte_pos));
-    }
-
-    data_.erase(start_byte_pos, end_byte_pos - start_byte_pos);
-    return *this;
+  bool operator!=(const basic_string_t& other) const {
+    return !(*this == other);
   }
 
-  basic_string_t& insert(const size_t pos, const basic_string_t& str) {
-    if (pos > utf8_char_count())
-      throw std::out_of_range{"Position out of range"};
-
-    const auto it = data_.begin();
-    size_t start_byte_pos = 0;
-    for (size_t i = 0; i < pos; ++i) {
-      start_byte_pos +=
-          utf8_char_length(it + static_cast<difference_type>(start_byte_pos));
-    }
-
-    data_.insert(start_byte_pos, str.data_);
-    return *this;
+  // Method to check if the string starts with a given prefix
+  bool starts_with(const basic_string_t& prefix) const {
+    if (prefix.size() > size()) return false;
+    return std::equal(prefix.begin(), prefix.end(), data_.begin());
   }
 
-  basic_string_t& insert(const size_t pos, const size_t count,
-                         const char pattern) {
-    std::ostringstream oss;
-    for (size_t i = 0; i < count; ++i) {
-      oss << pattern;
-    }
-    data_.insert(pos, oss.str());
-    return *this;
+  // Method to check if the string ends with a given suffix
+  bool ends_with(const basic_string_t& suffix) const {
+    if (suffix.size() > size()) return false;
+    return std::equal(suffix.rbegin(), suffix.rend(), data_.rbegin());
   }
 
-  basic_string_t& insert(const size_t pos, const size_t count,
-                         const basic_string_t& pattern) {
-    std::ostringstream oss;
-    for (size_t i = 0; i < count; ++i) {
-      oss << pattern.str();
-    }
-    data_.insert(pos, oss.str());
-    return *this;
+  // Method to check if the string contains a given substring
+  bool contains(const basic_string_t& substring) const {
+    return std::search(data_.begin(), data_.end(), substring.begin(),
+                       substring.end()) != data_.end();
   }
 
-  int compare(const basic_string_t& str) const {
-    return data_.compare(str.data_);
+  // Method to find the first occurrence of a character
+  // size_type find(const char_type& ch, const size_type pos = 0) const {
+  //   const auto it = std::find(data_.begin() +
+  //   static_cast<difference_type>(pos),
+  //                             data_.end(), ch);
+  //   return (it != data_.end()) ? std::distance(data_.begin(), it) : npos;
+  // }
+
+  // Method to find the first occurrence of a substring
+  size_type find(const basic_string_t& substr, const size_type pos = 0) const {
+    const auto it =
+        std::search(data_.begin() + static_cast<difference_type>(pos),
+                    data_.end(), substr.begin(), substr.end());
+    return (it != data_.end()) ? std::distance(data_.begin(), it) : npos;
   }
 
-public:
-  size_t find(const basic_string_t& str, const size_t pos = 0) const {
-    const auto byte_pos = data_.find(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == data_type::npos) {
-      return npos;
-    }
-    return char_pos_for_byte_pos(byte_pos);
+  // Method to find the last occurrence of a character
+  // size_type rfind(const char_type& ch, size_type pos = npos) const {
+  //   if (pos >= size()) pos = size() - 1;
+  //   const auto it = std::find(
+  //       data_.rbegin() + static_cast<difference_type>(size() - pos - 1),
+  //       data_.rend(), ch);
+  //   return (it != data_.rend()) ? size() - 1 - std::distance(data_.rbegin(), it)
+  //                               : npos;
+  // }
+
+  // Method to find the last occurrence of a substring
+  size_type rfind(const basic_string_t& substr, size_type pos = npos) const {
+    if (substr.size() > size()) return npos;
+    if (pos >= size()) pos = size() - 1;
+    const auto it = std::search(
+        data_.rbegin() + static_cast<difference_type>(size() - pos - 1),
+        data_.rend(), substr.rbegin(), substr.rend());
+    return (it != data_.rend()) ? size() - 1 - std::distance(data_.rbegin(), it)
+                                : npos;
   }
 
-  size_t find(const char pattern, const size_t pos = 0) const {
-    return find(basic_string_t(1, pattern), pos);
+  // Substring method
+  basic_string_t substr(const size_type pos,
+                        const size_type count = npos) const {
+    if (pos > size()) throw std::out_of_range("Position out of range");
+    return basic_string_t{std::vector<char_type>(
+        data_.begin() + static_cast<difference_type>(pos),
+        data_.begin() +
+            static_cast<difference_type>(pos + std::min(count, size() - pos)))};
   }
 
-  size_t rfind(const basic_string_t& str, const size_t pos = npos) const {
-    const auto byte_pos = data_.rfind(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == data_type::npos) {
-      return npos;
-    }
-    return char_pos_for_byte_pos(byte_pos);
-  }
-
-  size_t rfind(const char pattern, const size_t pos = npos) const {
-    return rfind(basic_string_t(1, pattern), pos);
-  }
-
-  size_t find_first_of(const basic_string_t& str, const size_t pos = 0) const {
-    const auto byte_pos =
-        data_.find_first_of(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == data_type::npos) {
-      return npos;
-    }
-    return char_pos_for_byte_pos(byte_pos);
-  }
-
-  size_t find_first_of(const char* s, const size_t pos = 0) const {
-    return find_first_of(basic_string_t(s), pos);
-  }
-
-  size_t find_first_of(const char* s, const size_t pos, const size_t n) const {
-    return find_first_of(basic_string_t(s, n), pos);
-  }
-
-  size_t find_first_of(const char c, const size_t pos = 0) const {
-    return find_first_of(basic_string_t(1, c), pos);
-  }
-
-  size_t find_last_of(const basic_string_t& str,
-                      const size_t pos = npos) const {
-    const auto byte_pos =
-        data_.find_last_of(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == data_type::npos) {
-      return npos;
-    }
-    return char_pos_for_byte_pos(byte_pos);
-  }
-
-  size_t find_last_of(const char* s, const size_t pos = npos) const {
-    return find_last_of(basic_string_t(s), pos);
-  }
-
-  size_t find_last_of(const char* s, const size_t pos, const size_t n) const {
-    return find_last_of(basic_string_t(s, n), pos);
-  }
-
-  size_t find_last_of(const char c, const size_t pos = npos) const {
-    return find_last_of(basic_string_t(1, c), pos);
-  }
-
-  size_t find_first_not_of(const basic_string_t& str,
-                           const size_t pos = 0) const {
-    const auto byte_pos =
-        data_.find_first_not_of(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == data_type::npos) {
-      return npos;
-    }
-    return char_pos_for_byte_pos(byte_pos);
-  }
-
-  size_t find_first_not_of(const char* s, const size_t pos = 0) const {
-    return find_first_not_of(basic_string_t(s), pos);
-  }
-
-  size_t find_first_not_of(const char* s, const size_t pos,
-                           const size_t n) const {
-    return find_first_not_of(basic_string_t(s, n), pos);
-  }
-
-  size_t find_first_not_of(const char c, const size_t pos = 0) const {
-    return find_first_not_of(basic_string_t(1, c), pos);
-  }
-
-  size_t find_last_not_of(const basic_string_t& str,
-                          const size_t pos = npos) const {
-    const auto byte_pos =
-        data_.find_last_not_of(str.data_, byte_pos_for_char_pos(pos));
-    if (byte_pos == data_type::npos) {
-      return npos;
-    }
-    return char_pos_for_byte_pos(byte_pos);
-  }
-
-  size_t find_last_not_of(const char* s, const size_t pos = npos) const {
-    return find_last_not_of(basic_string_t(s), pos);
-  }
-
-  size_t find_last_not_of(const char* s, const size_t pos,
-                          const size_t n) const {
-    return find_last_not_of(basic_string_t(s, n), pos);
-  }
-
-  size_t find_last_not_of(const char c, const size_t pos = npos) const {
-    return find_last_not_of(basic_string_t(1, c), pos);
-  }
-
-public:
-  iterator begin() { return {*this, 0}; }
-  iterator end() { return {*this, size()}; }
-
-  const_iterator begin() const { return {*this, 0}; }
-  const_iterator end() const { return {*this, size()}; }
-
-  const_iterator cbegin() const { return {*this, 0}; }
-  const_iterator cend() const { return {*this, size()}; }
-
-  reverse_iterator rbegin() { return reverse_iterator{end()}; }
-  reverse_iterator rend() { return reverse_iterator{begin()}; }
-
-  const_reverse_iterator rbegin() const {
-    return const_reverse_iterator{end()};
-  }
-  const_reverse_iterator rend() const {
-    return const_reverse_iterator{begin()};
-  }
-
-  const_reverse_iterator crbegin() const {
-    return const_reverse_iterator{end()};
-  }
-  const_reverse_iterator crend() const {
-    return const_reverse_iterator{begin()};
-  }
-
-public:
-  char_proxy_t at(const size_t pos) { return char_proxy_t{*this, pos}; }
-
-  basic_string_t at(const size_t pos) const { return get_utf8_at(pos); }
-
-  char_proxy_t operator[](const size_t pos) { return char_proxy_t{*this, pos}; }
-
-  basic_string_t operator[](const size_t pos) const { return get_utf8_at(pos); }
-
-  void operator()(const size_t pos, const basic_string_t& utf8_char) {
-    replace_utf8_at(pos, utf8_char);
-  }
-
-  const char* get_chars_at(const size_t pos) const {
-    return get_utf8_at(pos).c_str();
-  }
-
-private:
-  static size_t utf8_char_length(const char c) {
-    if ((c & 0x80) == 0x00) return 1;  // 0xxxxxxx
-    if ((c & 0xE0) == 0xC0) return 2;  // 110xxxxx
-    if ((c & 0xF0) == 0xE0) return 3;  // 1110xxxx
-    if ((c & 0xF8) == 0xF0) return 4;  // 11110xxx
-
-    throw std::runtime_error{"Invalid UTF-8 encoding"};
-  }
-
-  static size_t utf8_char_length(const data_type::const_iterator& it) {
-    if ((*it & 0x80) == 0x00) return 1;  // 0xxxxxxx
-    if ((*it & 0xE0) == 0xC0) return 2;  // 110xxxxx
-    if ((*it & 0xF0) == 0xE0) return 3;  // 1110xxxx
-    if ((*it & 0xF8) == 0xF0) return 4;  // 11110xxx
-
-    throw std::runtime_error{"Invalid UTF-8 encoding"};
-  }
-
-  size_t char_pos_for_byte_pos(const size_t byte_pos) const {
-    if (byte_pos > data_.size()) {
-      throw std::out_of_range{"Byte position out of range"};
-    }
-    size_t char_pos = 0;
-    for (auto it = data_.begin();
-         it != data_.begin() + static_cast<difference_type>(byte_pos);) {
-      const auto length = utf8_char_length(*it);
-      std::advance(it, static_cast<difference_type>(length));
-      ++char_pos;
-    }
-    return char_pos;
-  }
-
-  size_t byte_pos_for_char_pos(const size_t char_pos) const {
-    size_t byte_pos = 0;
-    for (size_t i = 0; i < char_pos; ++i) {
-      byte_pos += utf8_char_length(data_[byte_pos]);
-    }
-    return byte_pos;
-  }
-
-  void replace_utf8_at(const size_t pos, const basic_string_t& utf8_char) {
-    if (pos >= utf8_char_count()) {
-      throw std::out_of_range{"Index out of range"};
-    }
-    const size_t byte_pos = byte_pos_for_char_pos(pos);
-    const size_t bytes_to_erase = bytes_for_char_at(byte_pos);
-    data_.replace(byte_pos, bytes_to_erase, utf8_char.str());
-  }
-
-  basic_string_t get_utf8_at(const size_t pos) const {
-    if (pos >= utf8_char_count()) {
-      throw std::out_of_range{"Index out of range"};
-    }
-    const size_t byte_pos = byte_pos_for_char_pos(pos);
-    const size_t bytes_to_read = bytes_for_char_at(byte_pos);
-    return data_.substr(byte_pos, bytes_to_read);
-  }
-
-  size_t utf8_char_count() const {
-    size_t count = 0;
-    for (const char it : data_) {
-      if ((it & 0xC0) != 0x80) {
-        ++count;
-      }
+  // Byte count method
+  size_type byte_count() const {
+    size_type count = 0;
+    for (const auto& ch : data_) {
+      count += ch.size();
     }
     return count;
   }
 
-  size_t bytes_for_char_at(const size_t byte_pos) const {
-    if ((data_[byte_pos] & 0x80) == 0x00) return 1;  // 0xxxxxxx
-    if ((data_[byte_pos] & 0xE0) == 0xC0) return 2;  // 110xxxxx
-    if ((data_[byte_pos] & 0xF0) == 0xE0) return 3;  // 1110xxxx
-    if ((data_[byte_pos] & 0xF8) == 0xF0) return 4;  // 11110xxx
+  // Find_if method
+  template <typename Predicate>
+  size_type find_if(Predicate pred, const size_type pos = 0) const {
+    auto it = std::find_if(data_.begin() + static_cast<difference_type>(pos),
+                           data_.end(), pred);
+    return (it != data_.end()) ? std::distance(data_.begin(), it) : npos;
+  }
 
-    throw std::runtime_error{"Invalid UTF-8 encoding"};
+  // Find_if_not method
+  template <typename Predicate>
+  size_type find_if_not(Predicate pred, const size_type pos = 0) const {
+    auto it = std::find_if_not(
+        data_.begin() + static_cast<difference_type>(pos), data_.end(), pred);
+    return (it != data_.end()) ? std::distance(data_.begin(), it) : npos;
+  }
+
+public:
+  bool is_empty() const { return data_.empty(); }
+  bool not_empty() const { return !data_.empty(); }
+
+  data_type data() const { return data_; }
+
+  std::basic_string<char> str() const {
+    std::ostringstream oss;
+
+    for (const auto& elem : data_) {
+      oss << elem.data();
+    }
+    return oss.str();
+  }
+
+  const char* c_str() const {
+    std::ostringstream oss;
+
+    for (const auto& elem : data_) {
+      oss << elem.data();
+    }
+    return oss.str().c_str();
+  }
+
+  // Insert method
+  void insert(const size_type pos, const char* cstr) {
+    if (pos > size()) throw std::out_of_range("Position out of range");
+    data_type temp_data;
+    while (*cstr) {
+      temp_data.emplace_back(decode_utf8_char(cstr));
+      cstr += decode_utf8_char(cstr).size();
+    }
+    data_.insert(data_.begin() + static_cast<difference_type>(pos),
+                 temp_data.begin(), temp_data.end());
+  }
+
+  void insert(const size_type pos, const basic_string_t& str) {
+    if (pos > size()) throw std::out_of_range("Position out of range");
+    data_.insert(data_.begin() + static_cast<difference_type>(pos),
+                 str.data_.begin(), str.data_.end());
+  }
+
+  void insert(const size_type pos, const size_type count, const char_type& ch) {
+    if (pos > size()) throw std::out_of_range("Position out of range");
+    data_.insert(data_.begin() + static_cast<difference_type>(pos), count, ch);
   }
 
 public:
   static constexpr auto npos{static_cast<size_type>(-1)};
 
 private:
-  data_type data_{};
+  // Helper function to decode a UTF-8 character
+  static char_type decode_utf8_char(const char*& cstr) {
+    size_type len;
+    const unsigned char c = *cstr;
+
+    if ((c & 0x80) == 0) {
+      len = 1;
+    } else if ((c & 0xE0) == 0xC0) {
+      len = 2;
+    } else if ((c & 0xF0) == 0xE0) {
+      len = 3;
+    } else if ((c & 0xF8) == 0xF0) {
+      len = 4;
+    } else {
+      throw std::runtime_error("Invalid UTF-8 sequence");
+    }
+
+    return char_type{basic_string(cstr, len)};
+  }
+
+private:
+  data_type data_;
 };
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline bool operator==(const cait::basic_string_t<char>& lhs,
-                       const cait::basic_string_t<char>& rhs) {
-  return lhs.data() == rhs.data();
-}
-
-inline bool operator!=(const cait::basic_string_t<char>& lhs,
-                       const cait::basic_string_t<char>& rhs) {
-  return lhs.data() != rhs.data();
-}
-
-inline bool operator<(const cait::basic_string_t<char>& lhs,
-                      const cait::basic_string_t<char>& rhs) {
-  return lhs.data() < rhs.data();
-}
-
-inline bool operator<=(const cait::basic_string_t<char>& lhs,
-                       const cait::basic_string_t<char>& rhs) {
-  return lhs.data() <= rhs.data();
-}
-
-inline bool operator>(const cait::basic_string_t<char>& lhs,
-                      const cait::basic_string_t<char>& rhs) {
-  return lhs.data() > rhs.data();
-}
-
-inline bool operator>=(const cait::basic_string_t<char>& lhs,
-                       const cait::basic_string_t<char>& rhs) {
-  return lhs.data() >= rhs.data();
-}
-
 inline std::istream& operator>>(std::istream& is,
                                 cait::basic_string_t<char>& str) {
   if (is.good()) {
-    std::string input;
+    std::basic_string<char> input;
     std::getline(is, input);
     str = input;
   }
@@ -697,9 +416,7 @@ inline std::istream& operator>>(std::istream& is,
 
 inline std::ostream& operator<<(std::ostream& os,
                                 const cait::basic_string_t<char>& str) {
-  if (os.good()) {
-    os << str.str();
-  }
+  os << str.str();
   return os;
 }
 

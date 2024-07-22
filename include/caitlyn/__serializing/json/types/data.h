@@ -239,33 +239,19 @@ public:
     return false;
   }
 
-  boolean_type is_null() const {
-    return type_ == class_t::null;
-  }
+  boolean_type is_null() const { return type_ == class_t::null; }
 
-  boolean_type is_object() const {
-    return type_ == class_t::object;
-  }
+  boolean_type is_object() const { return type_ == class_t::object; }
 
-  boolean_type is_array() const {
-    return type_ == class_t::array;
-  }
+  boolean_type is_array() const { return type_ == class_t::array; }
 
-  boolean_type is_string() const {
-    return type_ == class_t::string;
-  }
+  boolean_type is_string() const { return type_ == class_t::string; }
 
-  boolean_type is_floating() const {
-    return type_ == class_t::floating;
-  }
+  boolean_type is_floating() const { return type_ == class_t::floating; }
 
-  boolean_type is_integral() const {
-    return type_ == class_t::integral;
-  }
+  boolean_type is_integral() const { return type_ == class_t::integral; }
 
-  boolean_type is_boolean() const {
-    return type_ == class_t::boolean;
-  }
+  boolean_type is_boolean() const { return type_ == class_t::boolean; }
 
 public:
   object_type& get_data() {
@@ -295,7 +281,7 @@ public:
 
 public:
   string_type str(const boolean_type mangling = false,
-                                      const size_type indent = 2) const {
+                  const size_type indent = 2) const {
     std::ostringstream oss;
     make_output(oss, mangling, indent, indent);
     return oss.str();
@@ -310,7 +296,7 @@ public:
 private:
   void make_output(std::ostringstream& oss, const boolean_type mangling,
                    const size_type base_indent, const size_type indent) const {
-    const string_type indent_str(indent, def::space[0]);
+    const string_type indent_str(indent, def::space);
 
     switch (type_) {
       case class_t::object: {
@@ -331,8 +317,8 @@ private:
             if (mangling) {
               oss << indent_str;
             }
-            oss << def::quotation_mark << member.first
-                << def::quotation_mark << def::colon;
+            oss << def::quotation_mark << member.first << def::quotation_mark
+                << def::colon;
             if (mangling) {
               oss << def::space;
             }
@@ -341,13 +327,13 @@ private:
             first = false;
           }
           if (mangling) {
-            oss << def::line_feed[0];
+            oss << def::line_feed;
           }
         }
         if (mangling) {
-          oss << string_type(indent - base_indent, def::space[0]);
+          oss << string_type(indent - base_indent, def::space);
         }
-        oss << def::right_curly_bracket[0];
+        oss << def::right_curly_bracket;
         break;
       }
       case class_t::array: {
@@ -377,14 +363,13 @@ private:
           }
         }
         if (mangling) {
-          oss << string_type(indent - base_indent, def::space[0]);
+          oss << string_type(indent - base_indent, def::space);
         }
         oss << def::right_square_bracket;
         break;
       }
       case class_t::string:
-        oss << def::quotation_mark << data_.string_value
-            << def::quotation_mark;
+        oss << def::quotation_mark << data_.string_value << def::quotation_mark;
         break;
       case class_t::floating:
         oss << data_.floating_value;
@@ -393,8 +378,7 @@ private:
         oss << data_.integral_value;
         break;
       case class_t::boolean:
-        oss << (data_.boolean_value ? to_string(true)
-                                    : to_string(false));
+        oss << (data_.boolean_value ? to_string(true) : to_string(false));
         break;
       case class_t::null:
         oss << to_string(nullptr);
@@ -556,8 +540,7 @@ __detail::data_t make_array(Args... args) {
 
 inline __detail::data_t make_null() { return make(class_t::null); }
 
-inline __detail::data_t make_string(
-    const std::string& value) {
+inline __detail::data_t make_string(const std::string& value) {
   return __detail::data_t{value};
 }
 
