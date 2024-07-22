@@ -1,11 +1,11 @@
-## Installation Guide
+# Installation Guide
 
-### Step 1: Clone the Repository
+## Step 1: Clone the Repository
 
 First, navigate to your project root and create an `external` directory to hold
 third-party libraries. Next, clone the **Caitlyn** repository into this folder.
 
-Open your terminal and run the following commands:
+#### Open your terminal and run the following commands
 
 ```shell
 mkdir external
@@ -13,12 +13,12 @@ cd external
 git clone https://github.com/szawrowski/caitlyn.git
 ```
 
-### Step 2: Integrate Caitlyn into your CMake Project
+## Step 2: Integrate Caitlyn into your CMake Project
 
 Add the necessary configurations to the `CMakeLists.txt` file to link the
 **Caitlyn** library to your project.
 
-Use the following template as a reference:
+#### Use the following template as a reference
 
 ```cmake
 cmake_minimum_required(VERSION 3.10)
@@ -43,7 +43,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE Caitlyn::Caitlyn)
 Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
 is the source file for your main executable.
 
-Run the simple program.
+## Step 3: Compile the simple program
 
 ```c++
 #include <caitlyn/io>
@@ -54,8 +54,7 @@ int main() {
 }
 ```
 
-To make your program work correctly on all platforms, you must initialize
-application at the entry point.
+#### Make your program work correctly on all platforms
 
 ```c++
 int main() {
@@ -64,7 +63,7 @@ int main() {
 }
 ```
 
-Handling arguments and additional operations
+#### Handling arguments and additional operations
 
 ```c++
 int main(int argc, const char** argv) {
