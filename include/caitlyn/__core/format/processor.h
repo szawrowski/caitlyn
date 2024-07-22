@@ -118,8 +118,7 @@ inline void process_repr(basic_string_t<char>& value, const spec_t& spec) {
   }
 }
 
-inline void process_align(basic_string_t<char>& value,
-                               const spec_t& spec) {
+inline void process_align(basic_string_t<char>& value, const spec_t& spec) {
   if (value.size() >= spec.width) {
     return;
   }
@@ -139,8 +138,7 @@ inline void process_align(basic_string_t<char>& value,
   }
 }
 
-inline void process_spec(basic_string_t<char>& value,
-                                  const spec_t& spec) {
+inline void process_spec(basic_string_t<char>& value, const spec_t& spec) {
   process_repr(value, spec);
   process_align(value, spec);
 }
@@ -164,7 +162,8 @@ inline basic_string_t<char> process_floating(const basic_string_t<char>& value,
       const size_t limit = dot_index + 1 + spec.precision;
       size_t index = dot_index + 1;
 
-      while (index < value.size() && is_digit(value[index]) && index < limit) {
+      while (index < value.size() && is_digit(value[index].get_codepoint()) &&
+             index < limit) {
         oss << value[index];
         ++index;
       }

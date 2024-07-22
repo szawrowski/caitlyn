@@ -91,8 +91,8 @@ private:
     if (current_char == def::latin_small_letter_n) {
       return parse_null();
     }
-    if (is_digit(current_char) || current_char == def::hyphen_minus ||
-        current_char == def::plus_sign) {
+    if (is_digit(current_char.get_codepoint()) ||
+        current_char == def::hyphen_minus || current_char == def::plus_sign) {
       return parse_number();
     }
     set_error(error_t::unexpected_character);
@@ -293,7 +293,7 @@ private:
     data_t result;
     auto end_number = position_;
     while (end_number < json_.size() &&
-           (is_digit(json_[end_number]) ||
+           (is_digit(json_[end_number].get_codepoint()) ||
             json_[end_number] == def::full_stop ||
             json_[end_number] == def::latin_small_letter_e ||
             json_[end_number] == def::latin_capital_letter_e ||
@@ -325,7 +325,8 @@ private:
   }
 
   void skip_ws() {
-    while (position_ < json_.size() && is_space(json_[position_])) {
+    while (position_ < json_.size() &&
+           is_space(json_[position_].get_codepoint())) {
       next();
     }
   }

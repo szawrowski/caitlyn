@@ -40,7 +40,8 @@ basic_string_t<char> format(const basic_string_t<char>& formatter,
 
   while (pos < formatter.size()) {
     if (formatter[pos] == def::left_curly_bracket) {
-      if (pos + 1 < formatter.size() && formatter[pos + 1] == def::left_curly_bracket) {
+      if (pos + 1 < formatter.size() &&
+          formatter[pos + 1] == def::left_curly_bracket) {
         result << def::left_curly_bracket;
         pos += 2;
       } else {
@@ -50,16 +51,17 @@ basic_string_t<char> format(const basic_string_t<char>& formatter,
         }
         const auto spec = formatter.substr(pos + 1, end - pos - 1);
         size_t arg_index = 0;
-        size_t spec_pos = 0;
+        constexpr size_t spec_begin = 0;
 
-        if (spec.not_empty() && is_digit(spec[spec_pos])) {
-          size_t index_end = spec_pos;
-          while (index_end < spec.size() && is_digit(spec[index_end])) {
+        if (spec.not_empty() && is_digit(spec[spec_begin].get_codepoint())) {
+          size_t index_end = spec_begin;
+          while (index_end < spec.size() &&
+                 is_digit(spec[index_end].get_codepoint())) {
             ++index_end;
           }
           try {
-            arg_index =
-                std::stoul(spec.substr(spec_pos, index_end - spec_pos).str());
+            arg_index = std::stoul(
+                spec.substr(spec_begin, index_end - spec_begin).str());
           } catch (const std::out_of_range&) {
             throw fmt::error_t{"Invalid argument index"};
           }
@@ -76,7 +78,7 @@ basic_string_t<char> format(const basic_string_t<char>& formatter,
           } else {
             result << arguments[arg_index];
           }
-        } else if (spec.not_empty() && spec[spec_pos] == def::colon) {
+        } else if (spec.not_empty() && spec[spec_begin] == def::colon) {
           auto parsed_spec = fmt::make_spec(spec);
           result << fmt::process(arguments[arg_index], parsed_spec);
         } else if (arguments.size() == 1) {
@@ -89,7 +91,6 @@ basic_string_t<char> format(const basic_string_t<char>& formatter,
         pos = end + 1;
       }
     } else if (formatter[pos] == def::right_curly_bracket) {
-
       if (pos + 1 < formatter.size() &&
           formatter[pos + 1] == def::right_curly_bracket) {
         result << def::right_curly_bracket;

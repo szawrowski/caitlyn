@@ -25,7 +25,7 @@
 #include <utility>
 
 #include "caitlyn/__base.h"
-#include "caitlyn/__core/char/types.h"
+#include "caitlyn/__core/char.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
@@ -120,7 +120,9 @@ public:
   size_type length() const { return data_.size(); }
 
   // Access character
-  const char_type& operator[](const size_type index) const { return data_[index]; }
+  const char_type& operator[](const size_type index) const {
+    return data_[index];
+  }
   char_type& operator[](const size_type index) { return data_[index]; }
 
   // At method
@@ -205,7 +207,6 @@ public:
   // Clear
   void clear() { data_.clear(); }
 
-
   // Comparison
   bool operator>(const char* other) const { return str() > other; }
   bool operator<(const char* other) const { return str() < other; }
@@ -278,8 +279,8 @@ public:
   //   const auto it = std::find(
   //       data_.rbegin() + static_cast<difference_type>(size() - pos - 1),
   //       data_.rend(), ch);
-  //   return (it != data_.rend()) ? size() - 1 - std::distance(data_.rbegin(), it)
-  //                               : npos;
+  //   return (it != data_.rend()) ? size() - 1 - std::distance(data_.rbegin(),
+  //   it) : npos;
   // }
 
   // Method to find the last occurrence of a substring
@@ -364,6 +365,23 @@ public:
   void insert(const size_type pos, const size_type count, const char_type& ch) {
     if (pos > size()) throw std::out_of_range("Position out of range");
     data_.insert(data_.begin() + static_cast<difference_type>(pos), count, ch);
+  }
+
+public:
+  basic_string_t to_uppercase() const {
+    auto tmp = data_;
+    for (auto& elem : tmp) {
+      elem = ::cait::to_uppercase(elem.get_codepoint());
+    }
+    return tmp;
+  }
+
+  basic_string_t to_lowercase() const {
+    auto tmp = data_;
+    for (auto& elem : tmp) {
+      elem = ::cait::to_lowercase(elem.get_codepoint());
+    }
+    return tmp;
   }
 
 public:

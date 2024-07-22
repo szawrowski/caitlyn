@@ -20,5 +20,6 @@
 
 #include "caitlyn/__core/char/types/basic_character.h"
 #include "caitlyn/__core/char/types/character.h"
+#include "caitlyn/__core/char/types/codepoint.h"
 
 #endif  // CAITLYN_CORE_CHAR_TYPES_H_

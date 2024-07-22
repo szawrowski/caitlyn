@@ -27,12 +27,6 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-inline bool is_space(const basic_character_t<char>& value) {
-  return value == def::character_tabulation || value == def::line_feed ||
-         value == def::line_tabulation || value == def::form_feed ||
-         value == def::carriage_return || value == def::space;
-}
-
 inline std::vector<std::string> split(const std::string& text,
                                       const char delim) {
   std::stringstream ss{text};
@@ -115,57 +109,15 @@ inline basic_string_t<char> escape_string(const basic_string_t<char>& str) {
   return oss.str();
 }
 
-inline bool is_digit(const basic_character_t<char>& str) {
-  return str >= def::digit_zero && str <= def::digit_nine;
-}
-
 inline bool is_number(const basic_string_t<char>& str) {
-  return str.not_empty() && std::all_of(str.begin(), str.end(), is_digit);
-}
-
-inline bool is_uppercase(const basic_character_t<char>& value) {
-  return value >= def::latin_capital_letter_a &&
-         value <= def::latin_capital_letter_z;
-}
-
-inline bool is_lowercase(const basic_character_t<char>& value) {
-  return value >= def::latin_small_letter_a &&
-         value <= def::latin_small_letter_a;
-}
-
-inline bool is_alpha(const basic_character_t<char>& value) {
-  return is_uppercase(value) || is_lowercase(value);
-}
-
-inline basic_string_t<char> to_uppercase(const basic_string_t<char>& value) {
-  basic_string_t<char> result = value;
-  for (size_t i = 0; i < result.length(); ++i) {
-    if (result[i] >= def::latin_small_letter_a &&
-        result[i] <= def::latin_small_letter_z) {
-      const auto tmp = result[i].c_str()[0];
-      result[i] = static_cast<char>(tmp - (def::latin_small_letter_a[0] -
-                                           def::latin_capital_letter_a[0]));
-    }
-  }
-  return result;
-}
-
-inline basic_string_t<char> to_lowercase(const basic_string_t<char>& value) {
-  basic_string_t<char> result = value;
-  for (size_t i = 0; i < result.length(); ++i) {
-    if (result[i] >= def::latin_capital_letter_a &&
-        result[i] <= def::latin_capital_letter_z) {
-      const auto tmp = result[i].c_str()[0];
-      result[i] = static_cast<char>(tmp + (def::latin_small_letter_a[0] -
-                                           def::latin_capital_letter_a[0]));
-    }
-  }
-  return result;
+  return str.not_empty() && std::all_of(str.begin(), str.end(), [](const basic_character_t<char>& c) {
+    return is_digit(c.get_codepoint());
+  });
 }
 
 inline size_t find_first_nonws(const basic_string_t<char>& str) {
   for (size_t i = 0; i < str.size(); ++i) {
-    if (!is_space(str[i])) {
+    if (!is_space(str[i].get_codepoint())) {
       return i;
     }
   }
@@ -174,24 +126,12 @@ inline size_t find_first_nonws(const basic_string_t<char>& str) {
 
 inline size_t find_last_nonws(const basic_string_t<char>& str) {
   for (size_t i = str.size() - 1; i > 0; --i) {
-    if (!is_space(str[i])) {
+    if (!is_space(str[i].get_codepoint())) {
       return i;
     }
   }
   return str.size();
 }
-
-// inline int char_to_digit(const char value) {
-//   if (value >= 0x30 && value <= 0x39) {
-//     return value - 0x30;
-//   }
-//   return -1;
-// }
-//
-// inline int char_to_int(const char value) {
-//   return std::isdigit(value) ? value - 0x30 : std::tolower(value - 0x61) +
-//   0xA;
-// }
 
 template <typename T>
 traits::required_t<traits::is_boolean_t<T>::value, const char*> to_string(

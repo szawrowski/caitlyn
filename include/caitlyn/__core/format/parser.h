@@ -86,9 +86,9 @@ inline void parse_alignment(const basic_string_t<char>& config, spec_t& spec,
 
 inline void parse_width(const basic_string_t<char>& config, spec_t& spec,
                         size_t& pos) {
-  if (pos < config.size() && is_digit(config[pos])) {
+  if (pos < config.size() && is_digit(config[pos].get_codepoint())) {
     spec.width = std::stoul(config.substr(pos).str());
-    while (pos < config.size() && is_digit(config[pos])) {
+    while (pos < config.size() && is_digit(config[pos].get_codepoint())) {
       ++pos;
     }
   }
@@ -98,9 +98,9 @@ inline void parse_precision(const basic_string_t<char>& config, spec_t& spec,
                             size_t& pos) {
   if (pos < config.size() && config[pos] == def::full_stop) {
     ++pos;
-    if (pos < config.size() && is_digit(config[pos])) {
+    if (pos < config.size() && is_digit(config[pos].get_codepoint())) {
       spec.precision = std::stoi(config.substr(pos).str());
-      while (pos < config.size() && is_digit(config[pos])) {
+      while (pos < config.size() && is_digit(config[pos].get_codepoint())) {
         ++pos;
       }
     }

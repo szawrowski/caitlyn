@@ -21,7 +21,9 @@
 #include <iostream>
 #include <stdexcept>
 #include <string>
+#include <sstream>
 
+#include "caitlyn/__core/char/types/codepoint.h"
 #include "caitlyn/__core/char/types/basic_character.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
@@ -30,13 +32,17 @@ template <>
 class basic_character_t<char> {
 public:
   using value_type = char;
-  using data_type = std::string;
+  using data_type = std::basic_string<value_type>;
   using size_type = data_type::size_type;
+  using codepoint_type = codepoint_t;
 
 public:
   basic_character_t() = default;
 
   basic_character_t(const char byte) { data_ = byte; }
+
+  basic_character_t(const codepoint_type codepoint)
+      : data_{from_code_point(codepoint)} {}
 
   basic_character_t(const char* bytes) {
     if (!is_valid_utf8_char(bytes)) {
@@ -52,8 +58,14 @@ public:
     data_ = bytes;
   }
 
+public:
   basic_character_t& operator=(const char byte) {
     data_ = byte;
+    return *this;
+  }
+
+  basic_character_t& operator=(const codepoint_t codepoint) {
+    data_ = from_code_point(codepoint);
     return *this;
   }
 
@@ -104,6 +116,74 @@ public:
 
   bool operator!=(const basic_character_t& other) const {
     return !(*this == other);
+  }
+
+public:
+  codepoint_type get_codepoint() const {
+    codepoint_type codepoint;
+
+    const auto lead = static_cast<unsigned char>(data_[0]);
+    if ((lead & 0x80) == 0) {
+      codepoint = lead;
+    } else if ((lead & 0xE0) == 0xC0) {
+      codepoint = (lead & 0x1F) << 6;
+      codepoint |= (static_cast<unsigned char>(data_[1]) & 0x3F);
+    } else if ((lead & 0xF0) == 0xE0) {
+      codepoint = (lead & 0x0F) << 12;
+      codepoint |= (static_cast<unsigned char>(data_[1]) & 0x3F) << 6;
+      codepoint |= (static_cast<unsigned char>(data_[2]) & 0x3F);
+    } else if ((lead & 0xF8) == 0xF0) {
+      codepoint = (lead & 0x07) << 18;
+      codepoint |= (static_cast<unsigned char>(data_[1]) & 0x3F) << 12;
+      codepoint |= (static_cast<unsigned char>(data_[2]) & 0x3F) << 6;
+      codepoint |= (static_cast<unsigned char>(data_[3]) & 0x3F);
+    } else {
+      codepoint = 0;
+    }
+    return codepoint;
+  }
+
+private:
+  static data_type from_code_point(const codepoint_type codepoint) {
+    if (codepoint == 0x00) {
+      return {};
+    }
+    const size_type length = calculat_length(codepoint);
+
+    if (length == 1) {
+      return data_type{static_cast<char>(codepoint)};
+    }
+    std::ostringstream oss;
+
+    if (length == 2) {
+      oss << static_cast<unsigned char>(0xC0 | (codepoint >> 6));
+      oss << static_cast<unsigned char>(0x80 | (codepoint & 0x3F));
+      return oss.str();
+    }
+    if (length == 3) {
+      oss << static_cast<unsigned char>(0xE0 | (codepoint >> 12));
+      oss << static_cast<unsigned char>(0x80 | ((codepoint >> 6) & 0x3F));
+      oss << static_cast<unsigned char>(0x80 | (codepoint & 0x3F));
+      return oss.str();
+    }
+    oss << static_cast<unsigned char>(0xF0 | (codepoint >> 18));
+    oss << static_cast<unsigned char>(0x80 | ((codepoint >> 12) & 0x3F));
+    oss << static_cast<unsigned char>(0x80 | ((codepoint >> 6) & 0x3F));
+    oss << static_cast<unsigned char>(0x80 | (codepoint & 0x3F));
+    return oss.str();
+  }
+
+  static size_type calculat_length(const codepoint_type codepoint) {
+    if (codepoint < 0x80) {
+      return 1;
+    }
+    if (codepoint < 0x800) {
+      return 2;
+    }
+    if (codepoint < 0x10000) {
+      return 3;
+    }
+    return 4;
   }
 
 private:
