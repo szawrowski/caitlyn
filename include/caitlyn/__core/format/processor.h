@@ -33,7 +33,7 @@ inline void process_string_view(basic_string_t<char>& value,
     if (prefix) {
       oss << def::digit_zero << def::latin_small_letter_b;
     }
-    const auto bytes = str.c_str();
+    const auto bytes = str.str();
     for (size_t i = 0; i < str.byte_count(); ++i) {
       oss << std::bitset<8>(bytes[i]).to_string();
       if (i < str.byte_count() - 1) {

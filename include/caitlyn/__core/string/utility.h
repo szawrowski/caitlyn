@@ -155,7 +155,7 @@ inline basic_string_t<char> to_lowercase(const basic_string_t<char>& value) {
   for (size_t i = 0; i < result.length(); ++i) {
     if (result[i] >= def::latin_capital_letter_a &&
         result[i] <= def::latin_capital_letter_z) {
-      const auto tmp = result.c_str()[0];
+      const auto tmp = result[i].c_str()[0];
       result[i] = static_cast<char>(tmp + (def::latin_small_letter_a[0] -
                                            def::latin_capital_letter_a[0]));
     }

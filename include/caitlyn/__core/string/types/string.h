@@ -342,15 +342,6 @@ public:
     return oss.str();
   }
 
-  const char* c_str() const {
-    std::ostringstream oss;
-
-    for (const auto& elem : data_) {
-      oss << elem.data();
-    }
-    return oss.str().c_str();
-  }
-
   // Insert method
   void insert(const size_type pos, const char* cstr) {
     if (pos > size()) throw std::out_of_range("Position out of range");
