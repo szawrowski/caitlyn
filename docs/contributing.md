@@ -22,7 +22,7 @@ including steps to reproduce the issue or examples of the desired feature.
 2. **Clone Your Fork**: Clone your forked repository to your local machine:
 
    ```sh
-   git clone https://github.com/szawrowski/caitlyn/caitlyn.git
+   git clone https://github.com/szawrowski/caitlyn.git
    ```
 
 3. **Create a Branch**: Create a new branch for your changes:
