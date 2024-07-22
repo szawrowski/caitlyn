@@ -15,10 +15,27 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_STRING_TYPES_H_
-#define CAITLYN_CORE_STRING_TYPES_H_
+#ifndef CAITLYN_CORE_CHAR_H_
+#define CAITLYN_CORE_CHAR_H_
 
-#include "caitlyn/__core/string/types/basic_string.h"
-#include "caitlyn/__core/string/types/string.h"
+#include <cctype>
+#include <cwchar>
+#include <cwctype>
+#include <cuchar>
+#include <cstring>
 
-#endif  // CAITLYN_CORE_STRING_TYPES_H_
+#include "caitlyn/__core/char/defs.h"
+#include "caitlyn/__core/char/types.h"
+#include "caitlyn/__core/char/utility.h"
+
+#if __CAITLYN_HAS_CXX17
+  #include <charconv>
+#endif
+
+__CAITLYN_GLOBAL_NAMESPACE_BEGIN
+
+using character = basic_character_t<char>;
+
+__CAITLYN_GLOBAL_NAMESPACE_END
+
+#endif  // CAITLYN_CORE_CHAR_H_

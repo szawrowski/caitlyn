@@ -25,6 +25,7 @@
 #include <utility>
 
 #include "caitlyn/__base.h"
+#include "caitlyn/__core/char/types.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 

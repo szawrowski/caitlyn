@@ -1,5 +1,5 @@
 /**
-* This file is part of the Caitlyn library
+ * This file is part of the Caitlyn library
  * Copyright (C) 2024 Alexander Szawrowski
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,16 +15,5 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_STRING_TYPES_BASIC_CHAR_H_
-#define CAITLYN_CORE_STRING_TYPES_BASIC_CHAR_H_
-
-#include "caitlyn/__base.h"
-
-__CAITLYN_GLOBAL_NAMESPACE_BEGIN
-
-template <typename CharT>
-class basic_character_t;
-
-__CAITLYN_GLOBAL_NAMESPACE_END
-
-#endif  // CAITLYN_CORE_STRING_TYPES_BASIC_CHAR_H_
+#include "caitlyn/__caitlyn.h"
+#include "caitlyn/__core/char.h"

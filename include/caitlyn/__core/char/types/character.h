@@ -15,13 +15,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef CAITLYN_CORE_STRING_TYPES_CHARACTER_H_
-#define CAITLYN_CORE_STRING_TYPES_CHARACTER_H_
+#ifndef CAITLYN_CORE_CHAR_TYPES_CHARACTER_H_
+#define CAITLYN_CORE_CHAR_TYPES_CHARACTER_H_
 
+#include <iostream>
 #include <stdexcept>
 #include <string>
 
-#include "caitlyn/__core/string/types/basic_character.h"
+#include "caitlyn/__core/char/types/basic_character.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
@@ -35,9 +36,7 @@ public:
 public:
   basic_character_t() = default;
 
-  basic_character_t(const char byte) {
-    data_ = byte;
-  }
+  basic_character_t(const char byte) { data_ = byte; }
 
   basic_character_t(const char* bytes) {
     if (!is_valid_utf8_char(bytes)) {
@@ -162,4 +161,4 @@ inline cait::basic_character_t<char> operator""_char(const char* str,
   return cait::basic_character_t<char>{str};
 }
 
-#endif  // CAITLYN_CORE_STRING_TYPES_CHARACTER_H_
+#endif  // CAITLYN_CORE_CHAR_TYPES_CHARACTER_H_

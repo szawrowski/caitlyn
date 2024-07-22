@@ -18,14 +18,12 @@
 #ifndef CAITLYN_CORE_STRING_H_
 #define CAITLYN_CORE_STRING_H_
 
-#include <cctype>
-#include <cwchar>
-#include <cwctype>
-#include <cuchar>
+
 #include <cstring>
 #include <sstream>
 #include <string>
 
+#include "caitlyn/__core/char.h"
 #include "caitlyn/__core/string/algo.h"
 #include "caitlyn/__core/string/defs.h"
 #include "caitlyn/__core/string/utility.h"
@@ -33,7 +31,6 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-using character = basic_character_t<char>;
 using string = basic_string_t<char>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
@@ -48,10 +45,6 @@ using namespace std::literals::string_literals;
 
 #if __CAITLYN_HAS_CXX17
 using namespace std::literals::string_view_literals;
-#endif
-
-#if __CAITLYN_HAS_CXX17
-  #include <charconv>
 #endif
 
 #endif  // CAITLYN_CORE_STRING_H_
