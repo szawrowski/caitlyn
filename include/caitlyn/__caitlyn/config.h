@@ -103,11 +103,11 @@
     __CAITLYN_TOSTRING(__clang_minor__)
 #elif defined(__CAITLYN_COMPILER_GCC)
   #if defined(__CAITLYN_COMPILER_MINGW)
-    #define __CAITLYN_COMPILER_VERSION "GCC " \
+    #define __CAITLYN_COMPILER_VERSION "MinGW " \
        __CAITLYN_TOSTRING(__GNUC__) "." \
        __CAITLYN_TOSTRING(__GNUC_MINOR__)
     #else
-      #define __CAITLYN_COMPILER_VERSION "MinGW " \
+      #define __CAITLYN_COMPILER_VERSION "GCC " \
         __CAITLYN_TOSTRING(__GNUC__) "." \
         __CAITLYN_TOSTRING(__GNUC_MINOR__)
   #endif
