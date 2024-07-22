@@ -1,4 +1,4 @@
-### Unit Testing
+# Unit Testing
 
 **Caitlyn** includes a lightweight testing component for unit testing within
 your projects.
@@ -12,7 +12,7 @@ your projects.
 - **Detailed Reporting**: Reports detailed information on passed and failed
   tests, aiding in debugging.
 
-**Usage**
+## Usage
 
 ```c++
 #include <caitlyn/testing>
@@ -49,7 +49,7 @@ int main() {
 }
 ```
 
-**Output**
+### Output
 
 ```text
 [==========] Running 3 tests from 2 test cases.
