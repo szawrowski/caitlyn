@@ -24,7 +24,7 @@ int main() {
   cait::println("last index of ' ': {}", data.rfind(" "));
   cait::println("char count: {}", data.size());
   cait::println("byte count: {}", data.byte_count());
-  cait::println("char at index 0: {}", data[0]);
+  cait::println("char at index 1: {}", data[1]);
   cait::println("char at index 9: {}", data[9]);
 
   for (auto& elem : data) {
@@ -50,7 +50,7 @@ index of '🙂': 11
 last index of ' ': 10
 char count: 12
 byte count: 19
-char at index 0: H
+char at index 1: e
 char at index 9: !
 updated: Hello, 世界! 🍉
 ```
