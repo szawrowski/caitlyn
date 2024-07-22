@@ -58,11 +58,11 @@ using __uintmax_t = __unsigned_long_t;
 using __intptr_t = __signed_long_type;
 using __uintptr_t = __unsigned_long_t;
 #else
-using __int64_t = __long_long_t;
+using __int64_t = __signed_long_long_t;
 using __uint64_t = __unsigned_long_long_t;
-using __intmax_t = __long_long_t;
+using __intmax_t = __signed_long_long_t;
 using __uintmax_t = __unsigned_long_long_t;
-using __intptr_t = __long_long_t;
+using __intptr_t = __signed_long_long_t;
 using __uintptr_t = __unsigned_long_long_t;
 #endif
 
