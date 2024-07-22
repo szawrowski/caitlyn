@@ -1,8 +1,8 @@
-### File Management
+# File Management
 
 - `file`: Universal file handler.
 
-**Usage**
+## Usage
 
 - Write text to file
 
@@ -10,9 +10,9 @@
 #include <caitlyn/file>
 
 int main() {
-  const cait::string some = "Lorem ipsum dolor sit amet,"_str;
-  const cait::string other = "consectetur adipiscing elit..."_str;
-  const cait::string unicode = "Hello, 世界!"_str;
+  const cait::string some = "Lorem ipsum dolor sit amet,";
+  const cait::string other = "consectetur adipiscing elit...";
+  const cait::string unicode = "Hello, 世界!";
 
   auto file = cait::make_file("somefile.txt");
   file.writef("{} {}\n{}", some, other, unicode);

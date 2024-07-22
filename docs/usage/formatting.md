@@ -1,9 +1,9 @@
-### Text Formatting
+# Text Formatting
 
 - `text_builder`: - String builder type.
 - `format`: - Universal string formatter.
 
-**Usage**
+## Usage
 
 ```c++
 #include <caitlyn/io>
@@ -38,7 +38,7 @@ int main() {
 }
 ```
 
-**Output:**
+### Output
 
 ```text
 l: 'Hello, world!            '

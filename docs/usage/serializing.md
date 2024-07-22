@@ -1,6 +1,4 @@
-### Serializing
-
-#### JSON
+# JSON
 
 The JSON format is crucial for web development, API integration, and any
 applications that need efficient data exchange in a structured format.
@@ -13,7 +11,7 @@ applications that need efficient data exchange in a structured format.
   objects and arrays, ensuring compatibility across various platforms and
   systems.
 
-**Usage**
+## Usage
 
 - Brackets operator
 
@@ -82,7 +80,7 @@ config.str(true);
 config.str(true, 2);
 ```
 
-**Output**
+### Output
 
 ```json
 {"name":{"first":"John","last":"Doe"},"age":30,"address":{"street":"123 Main St","city":"Anytown","zip":"12345"},"phone_numbers":["555-1234","555-5678"]}

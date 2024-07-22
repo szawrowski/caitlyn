@@ -1,7 +1,5 @@
 # Caitlyn
 
-## About
-
 **Caitlyn** is a header-only versatile general-purpose C++ library designed to
 enhance productivity for everyday tasks.
 
