@@ -21,3 +21,21 @@ Supported Standard: **C++11** or later
 ## Get started
 
 - [Installation Guide](https://github.com/szawrowski/caitlyn/blob/main/docs/installation.md)
+
+## License
+
+This project is licensed under the GNU General Public License v3.0 (GPL-3.0).
+See the [LICENSE](LICENSE) file for details.
+
+### GNU General Public License v3.0 (GPL-3.0)
+
+The GPL-3.0 license ensures that everyone has the freedom to run, study, modify,
+and share the software. Key points include:
+
+- **Freedom to Use**: You can use the software for any purpose.
+- **Freedom to Study and Modify**: You can study and change the software, with
+  access to the source code.
+- **Freedom to Distribute**: You can share both the original and modified
+  versions of the software, provided that the same freedoms are preserved.
+
+For the complete text of the license, refer to the [LICENSE](LICENSE) file.
