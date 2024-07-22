@@ -30,8 +30,10 @@ int main(int argc, const char** argv) {
   for (const auto& arg : app->get_args()) {
     cait::println("{} ", arg);
   }
-  // Get system information
-  cait::println("system name: {}", app->system_name());
+  // Get information
+  cait::println(app->get_system());
+  cait::println(app->get_compiler());
+  cait::println(app->get_caitlyn_info());
   // ...
 }
 ```
