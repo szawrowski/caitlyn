@@ -35,8 +35,6 @@ endif()
 set(LIB_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/include")
 
 if(BUILD_TESTS)
-    add_subdirectory(src)
-
     enable_testing()
     add_subdirectory(test)
 endif()
