@@ -24,14 +24,16 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <typename T>
-struct is_signed_t : condition_t<std::is_arithmetic<T>::value && T(-1) < T(0)> {
+struct is_signed_t : condition_t<std::is_arithmetic<T>::value && T(-1) < T(0)>
+{
 };
 
 template <typename T>
-struct is_unsigned_t
-    : condition_t<std::is_arithmetic<T>::value && T(0) < T(-1)> {};
+struct is_unsigned_t : condition_t<std::is_arithmetic<T>::value && T(0) < T(-1)>
+{
+};
 
 __CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_PROPERTIES_H_
+#endif // CAITLUN_CORE_TRAITS_TYPES_PROPERTIES_H_

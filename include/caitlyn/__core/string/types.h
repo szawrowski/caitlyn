@@ -21,4 +21,4 @@
 #include "caitlyn/__core/string/types/basic_string.h"
 #include "caitlyn/__core/string/types/string.h"
 
-#endif  // CAITLYN_CORE_STRING_TYPES_H_
+#endif // CAITLYN_CORE_STRING_TYPES_H_

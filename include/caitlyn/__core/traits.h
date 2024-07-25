@@ -51,21 +51,24 @@ template <typename T>
 using remove_pointer = traits::remove_pointer_t<T>;
 
 template <typename T>
-T&& make_movable(T& value) {
-  return static_cast<T&&>(value);
+T&& make_movable(T& value)
+{
+    return static_cast<T&&>(value);
 }
 
 template <typename T>
-T&& forward(traits::remove_reference_t<T>& value) noexcept {
-  return static_cast<T&&>(value);
+T&& forward(traits::remove_reference_t<T>& value) noexcept
+{
+    return static_cast<T&&>(value);
 }
 
 template <typename T>
-T&& forward(traits::remove_reference_t<T>&& value) noexcept {
-  static_assert(!traits::is_lvalue_reference_t<T>::value, "bad forward call");
-  return static_cast<T&&>(value);
+T&& forward(traits::remove_reference_t<T>&& value) noexcept
+{
+    static_assert(!traits::is_lvalue_reference_t<T>::value, "bad forward call");
+    return static_cast<T&&>(value);
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_TREITS_H_
+#endif // CAITLYN_CORE_TREITS_H_

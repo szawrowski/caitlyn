@@ -20,20 +20,23 @@
 
 #include "caitlyn/__testing/types.h"
 
-#define TEST_F(fixture, test_case_name)                           \
-  struct test_case_name##_fixture : public fixture {              \
-    void run();                                                   \
-  };                                                              \
-  namespace {                                                     \
-  struct test_case_name##_registrar {                             \
-    test_case_name##_registrar() {                                \
-      cait::test::registry_t::instance().add_test(                \
-          #fixture, #test_case_name,                              \
-          []() { test_case_name##_fixture().run(); });            \
-    }                                                             \
-  };                                                              \
-  test_case_name##_registrar test_case_name##_registrar_instance; \
-  }                                                               \
-  void test_case_name##_fixture::run()
+#define TEST_F(fixture, test_case_name)                                                                                \
+    struct test_case_name##_fixture : public fixture                                                                   \
+    {                                                                                                                  \
+        void run();                                                                                                    \
+    };                                                                                                                 \
+    namespace                                                                                                          \
+    {                                                                                                                  \
+    struct test_case_name##_registrar                                                                                  \
+    {                                                                                                                  \
+        test_case_name##_registrar()                                                                                   \
+        {                                                                                                              \
+            cait::test::registry_t::instance().add_test(                                                               \
+                #fixture, #test_case_name, []() { test_case_name##_fixture().run(); });                                \
+        }                                                                                                              \
+    };                                                                                                                 \
+    test_case_name##_registrar test_case_name##_registrar_instance;                                                    \
+    }                                                                                                                  \
+    void test_case_name##_fixture::run()
 
-#endif  // CAITLYN_TEST_MACRO_FIXTURE_H_
+#endif // CAITLYN_TEST_MACRO_FIXTURE_H_

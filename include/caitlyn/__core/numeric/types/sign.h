@@ -22,8 +22,12 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-enum class sign_t : byte_t { positive, negative };
+enum class sign_t : byte_t
+{
+    positive,
+    negative
+};
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_NUMERIC_TYPES_SIGN_H_
+#endif // CAITLYN_CORE_NUMERIC_TYPES_SIGN_H_

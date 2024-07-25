@@ -23,9 +23,9 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_DEF_NAMESPACE_BEGIN
 
-constexpr auto empty = "";  // Empty string
+constexpr auto empty = ""; // Empty string
 
 __CAITLYN_DEF_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_STRING_DEFS_H_
+#endif // CAITLYN_CORE_STRING_DEFS_H_

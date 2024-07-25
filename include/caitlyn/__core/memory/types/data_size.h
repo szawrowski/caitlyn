@@ -22,17 +22,42 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-enum class datasize_t : byte_t {
-  bit,
-  byte,
-  kilobit,  kibibit, kilobyte,  kibibyte,
-  megabit,  mebibit, megabyte,  mebibyte,
-  gigabit,  gibibit, gigabyte,  gibibyt,
-  terabit,  tebibit, terabyte,  tebibyt,
-  petabit,  pebibit, petabyte,  pebibyte,
-  exabit,   exbibit, exabyte,   exbibyte,
-  zetabit,  zebibit, zetabyte,  zebibyte,
-  yottabit, yobibit, yottabyte, yobibyte
+enum class datasize_t : byte_t
+{
+    bit,
+    byte,
+    kilobit,
+    kibibit,
+    kilobyte,
+    kibibyte,
+    megabit,
+    mebibit,
+    megabyte,
+    mebibyte,
+    gigabit,
+    gibibit,
+    gigabyte,
+    gibibyt,
+    terabit,
+    tebibit,
+    terabyte,
+    tebibyt,
+    petabit,
+    pebibit,
+    petabyte,
+    pebibyte,
+    exabit,
+    exbibit,
+    exabyte,
+    exbibyte,
+    zetabit,
+    zebibit,
+    zetabyte,
+    zebibyte,
+    yottabit,
+    yobibit,
+    yottabyte,
+    yobibyte
 };
 
 __CAITLYN_GLOBAL_NAMESPACE_END

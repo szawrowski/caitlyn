@@ -20,4 +20,4 @@
 
 #define JSON_STRING(...) cait::json::make_document(#__VA_ARGS__)
 
-#endif  // CAITLYN_SERIALIZING_JSON_DEFS_H_
+#endif // CAITLYN_SERIALIZING_JSON_DEFS_H_

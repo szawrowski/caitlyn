@@ -24,43 +24,55 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <typename, typename = void>
-struct has_to_string_t : false_t {};
+struct has_to_string_t : false_t
+{
+};
 
 template <typename T>
-struct has_to_string_t<T, indicator_t<decltype(std::declval<T>().to_string())>>
-    : true_t {};
+struct has_to_string_t<T, indicator_t<decltype(std::declval<T>().to_string())>> : true_t
+{
+};
 
 template <typename, typename = void>
-struct has_str_t : false_t {};
+struct has_str_t : false_t
+{
+};
 
 template <typename T>
-struct has_str_t<T, indicator_t<decltype(std::declval<T>().str())>> : true_t {};
+struct has_str_t<T, indicator_t<decltype(std::declval<T>().str())>> : true_t
+{
+};
 
 template <typename, typename = void>
-struct has_std_string_t : false_t {};
+struct has_std_string_t : false_t
+{
+};
 
 template <typename T>
-struct has_std_string_t<T,
-                        indicator_t<decltype(std::declval<T>().std_string())>>
-    : true_t {};
+struct has_std_string_t<T, indicator_t<decltype(std::declval<T>().std_string())>> : true_t
+{
+};
 
 __CAITLYN_TRAITS_NAMESPACE_END
 
 template <typename T>
-constexpr bool has_to_string() {
-  return traits::has_to_string_t<T>::value;
+constexpr bool has_to_string()
+{
+    return traits::has_to_string_t<T>::value;
 }
 
 template <typename T>
-constexpr bool has_str() {
-  return traits::has_str_t<T>::value;
+constexpr bool has_str()
+{
+    return traits::has_str_t<T>::value;
 }
 
 template <typename T>
-constexpr bool has_std_string() {
+constexpr bool has_std_string()
+{
     return traits::has_std_string_t<T>::value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H_
+#endif // CAITLYN_CORE_TRAITS_CONSTRAINTS_STRING_H_

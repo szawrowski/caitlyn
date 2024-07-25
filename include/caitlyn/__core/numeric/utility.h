@@ -20,4 +20,4 @@
 
 #include "caitlyn/__core/numeric/utility/limits.h"
 
-#endif  // CAITLYN_CORE_NUMERIC_UTILITY_H_
+#endif // CAITLYN_CORE_NUMERIC_UTILITY_H_

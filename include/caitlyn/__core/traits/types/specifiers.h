@@ -25,38 +25,45 @@ __CAITLYN_TRAITS_NAMESPACE_BEGIN
 __CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename T>
-struct add_const_t {
-  using type = const T;
+struct add_const_t
+{
+    using type = const T;
 };
 
 template <typename T>
-struct add_volatile_t {
-  using type = const T;
+struct add_volatile_t
+{
+    using type = const T;
 };
 
 template <typename T>
-struct add_cv_t {
-  using type = const volatile T;
+struct add_cv_t
+{
+    using type = const volatile T;
 };
 
 template <typename T>
-struct remove_cv_t {
-  using type = T;
+struct remove_cv_t
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_cv_t<const T> {
-  using type = T;
+struct remove_cv_t<const T>
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_cv_t<volatile T> {
-  using type = T;
+struct remove_cv_t<volatile T>
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_cv_t<const volatile T> {
-  using type = T;
+struct remove_cv_t<const volatile T>
+{
+    using type = T;
 };
 
 __CAITLYN_DETAIL_NAMESPACE_END
@@ -101,4 +108,4 @@ using remove_cv = traits::remove_cv_t<T>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_SPECIFIERS_H_
+#endif // CAITLUN_CORE_TRAITS_TYPES_SPECIFIERS_H_

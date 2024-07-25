@@ -23,15 +23,15 @@
 #include "caitlyn/__base.h"
 
 #if __CAITLYN_HAS_CXX17
-  #include <execution>
+    #include <execution>
 #endif
 
 #if __CAITLYN_HAS_CXX20
-  #include <ranges>
+    #include <ranges>
 #endif
 
 #if __CAITLYN_HAS_CXX23
-  #include <generator>
+    #include <generator>
 #endif
 
-#endif  // CAITLYN_CORE_ALGO_H_
+#endif // CAITLYN_CORE_ALGO_H_

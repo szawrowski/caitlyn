@@ -37,29 +37,30 @@ template <typename T>
 auto try_add_rvalue_reference(...) -> type_identity_t<T>;
 
 template <typename T>
-struct remove_reference_t {
-  using type = T;
+struct remove_reference_t
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_reference_t<T&> {
-  using type = T;
+struct remove_reference_t<T&>
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_reference_t<T&&> {
-  using type = T;
+struct remove_reference_t<T&&>
+{
+    using type = T;
 };
 
 __CAITLYN_DETAIL_NAMESPACE_END
 
 template <typename T>
-using add_lvalue_reference_t =
-    typename decltype(__detail::try_add_lvalue_reference<T>(nullptr))::type;
+using add_lvalue_reference_t = typename decltype(__detail::try_add_lvalue_reference<T>(nullptr))::type;
 
 template <typename T>
-using add_rvalue_reference_t =
-    typename decltype(__detail::try_add_rvalue_reference<T>(nullptr))::type;
+using add_rvalue_reference_t = typename decltype(__detail::try_add_rvalue_reference<T>(nullptr))::type;
 
 template <typename T>
 using remove_reference_t = typename __detail::remove_reference_t<T>::type;
@@ -67,4 +68,4 @@ using remove_reference_t = typename __detail::remove_reference_t<T>::type;
 __CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_REFERENCES_H_
+#endif // CAITLUN_CORE_TRAITS_TYPES_REFERENCES_H_

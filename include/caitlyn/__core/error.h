@@ -38,11 +38,11 @@ using unexpected = error::unexpected_t<E>;
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #if __CAITLYN_HAS_CXX20
-  #include <stacktrace>
+    #include <stacktrace>
 #endif
 
 #if __CAITLYN_HAS_CXX23
-  #include <expected>
+    #include <expected>
 #endif
 
-#endif  // CAITLYN_CORE_ERROR_H_
+#endif // CAITLYN_CORE_ERROR_H_

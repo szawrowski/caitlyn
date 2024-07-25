@@ -29,4 +29,4 @@ using registry = test::registry_t;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_TEST_TYPES_H_
+#endif // CAITLYN_TEST_TYPES_H_

@@ -21,7 +21,7 @@
 #include "caitlyn/__core/format/formatter.h"
 
 #if __CAITLYN_HAS_CXX20
-  #include <format>
+    #include <format>
 #endif
 
-#endif  // CAITLYN_CORE_FORMAT_H_
+#endif // CAITLYN_CORE_FORMAT_H_

@@ -28,12 +28,12 @@
 #include "caitlyn/__core/io/print.h"
 
 #if __CAITLYN_HAS_CXX20
-  #include <syncstream>
+    #include <syncstream>
 #endif
 
 #if __CAITLYN_HAS_CXX23
-  #include <print>
-  #include <spanstream>
+    #include <print>
+    #include <spanstream>
 #endif
 
-#endif  // CAITLYN_CORE_IO_H_
+#endif // CAITLYN_CORE_IO_H_

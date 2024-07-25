@@ -36,12 +36,12 @@
 #include "caitlyn/__core/numeric/utility.h"
 
 #if __CAITLYN_HAS_CXX20
-  #include <bit>
-  #include <numbers>
+    #include <bit>
+    #include <numbers>
 #endif
 
 #if __CAITLYN_HAS_CXX23
-  #include <stdfloat>
+    #include <stdfloat>
 #endif
 
-#endif  // CAITLYN_CORE_NUMERIC_H_
+#endif // CAITLYN_CORE_NUMERIC_H_

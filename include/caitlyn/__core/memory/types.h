@@ -21,8 +21,8 @@
 #include "caitlyn/__core/memory/types/data_size.h"
 #include "caitlyn/__core/memory/types/memory_format.h"
 #include "caitlyn/__core/memory/types/raw_pointer.h"
-#include "caitlyn/__core/memory/types/unique_pointer.h"
 #include "caitlyn/__core/memory/types/shared_pointer.h"
+#include "caitlyn/__core/memory/types/unique_pointer.h"
 #include "caitlyn/__core/memory/types/weak_pointer.h"
 
-#endif  // CAITLYN_CORE_MEMORY_TYPES_H_
+#endif // CAITLYN_CORE_MEMORY_TYPES_H_

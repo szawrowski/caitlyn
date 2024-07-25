@@ -26,16 +26,24 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <bool B>
-struct condition_t {
-  using value_type = bool;
-  using type = condition_t;
+struct condition_t
+{
+    using value_type = bool;
+    using type = condition_t;
 
 public:
-  constexpr explicit operator value_type() const noexcept { return value; }
-  constexpr value_type operator()() const noexcept { return value; }
+    constexpr explicit operator value_type() const noexcept
+    {
+        return value;
+    }
+
+    constexpr value_type operator()() const noexcept
+    {
+        return value;
+    }
 
 public:
-  static constexpr bool value = B;
+    static constexpr bool value = B;
 };
 
 using true_t = condition_t<true>;
@@ -45,22 +53,26 @@ template <typename...>
 using indicator_t = void;
 
 template <bool, typename = void>
-struct constraint_t {};
+struct constraint_t
+{
+};
 
 template <typename Ret>
-struct constraint_t<true, Ret> {
-  using type = Ret;
+struct constraint_t<true, Ret>
+{
+    using type = Ret;
 };
 
 template <bool Condition, typename Ret = void>
 using required_t = typename constraint_t<Condition, Ret>::type;
 
 template <typename T>
-struct type_identity_t {
-  using type = T;
+struct type_identity_t
+{
+    using type = T;
 };
 
 __CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_BASE_H_
+#endif // CAITLUN_CORE_TRAITS_TYPES_BASE_H_

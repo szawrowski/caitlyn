@@ -23,17 +23,18 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_JSON_NAMESPACE_BEGIN
 
-enum class class_t {
-  null,
-  object,
-  array,
-  string,
-  floating,
-  integral,
-  boolean
+enum class class_t
+{
+    null,
+    object,
+    array,
+    string,
+    floating,
+    integral,
+    boolean
 };
 
 __CAITLYN_JSON_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_SERIALIZING_JSON_TYPES_CLASS_H_
+#endif // CAITLYN_SERIALIZING_JSON_TYPES_CLASS_H_

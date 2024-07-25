@@ -23,55 +23,65 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-constexpr bool is_const() {
-  return std::is_const<T>::value;
+constexpr bool is_const()
+{
+    return std::is_const<T>::value;
 }
 
 template <typename T>
-constexpr bool is_volatile() {
-  return std::is_volatile<T>::value;
+constexpr bool is_volatile()
+{
+    return std::is_volatile<T>::value;
 }
 
 template <typename T>
-constexpr bool is_trivial() {
-  return std::is_trivial<T>::value;
+constexpr bool is_trivial()
+{
+    return std::is_trivial<T>::value;
 }
 
 template <typename T>
-constexpr bool trivially_copyable() {
-  return std::is_trivially_copyable<T>::value;
+constexpr bool trivially_copyable()
+{
+    return std::is_trivially_copyable<T>::value;
 }
 
 template <typename T>
-constexpr bool is_standard_layout() {
-  return std::is_standard_layout<T>::value;
+constexpr bool is_standard_layout()
+{
+    return std::is_standard_layout<T>::value;
 }
 
 template <typename T>
-constexpr bool is_empty() {
-  return std::is_empty<T>::value;
+constexpr bool is_empty()
+{
+    return std::is_empty<T>::value;
 }
 
 template <typename T>
-constexpr bool is_polymorphic() {
-  return std::is_polymorphic<T>::value;
+constexpr bool is_polymorphic()
+{
+    return std::is_polymorphic<T>::value;
 }
 
 template <typename T>
-constexpr bool is_abstract() {
-  return std::is_abstract<T>::value;
+constexpr bool is_abstract()
+{
+    return std::is_abstract<T>::value;
 }
 
 template <typename T>
-constexpr bool is_signed() {
-  return traits::is_signed_t<T>::value;
+constexpr bool is_signed()
+{
+    return traits::is_signed_t<T>::value;
 }
 
 template <typename T>
-constexpr bool is_unsigned() {
-  return traits::is_unsigned_t<T>::value;
+constexpr bool is_unsigned()
+{
+    return traits::is_unsigned_t<T>::value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTIES_H_
+#endif // CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTIES_H_

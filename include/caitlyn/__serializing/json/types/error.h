@@ -23,24 +23,25 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_JSON_NAMESPACE_BEGIN
 
-enum class error_t {
-  no_error,
-  unexpected_character,
-  unterminated_string,
-  unterminated_object,
-  unterminated_array,
-  expected_string_key,
-  missing_colon,
-  invalid_json,
-  invalid_value,
-  invalid_number,
-  invalid_escape_sequence,
-  number_conversion_error,
-  out_of_range_error,
-  trailing_comma
+enum class error_t
+{
+    no_error,
+    unexpected_character,
+    unterminated_string,
+    unterminated_object,
+    unterminated_array,
+    expected_string_key,
+    missing_colon,
+    invalid_json,
+    invalid_value,
+    invalid_number,
+    invalid_escape_sequence,
+    number_conversion_error,
+    out_of_range_error,
+    trailing_comma
 };
 
 __CAITLYN_JSON_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_SERIALIZING_JSON_TYPES_ERROR_H_
+#endif // CAITLYN_SERIALIZING_JSON_TYPES_ERROR_H_

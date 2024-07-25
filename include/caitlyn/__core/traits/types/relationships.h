@@ -24,12 +24,16 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <typename, typename>
-struct is_same_t : false_t {};
+struct is_same_t : false_t
+{
+};
 
 template <typename T>
-struct is_same_t<T, T> : true_t {};
+struct is_same_t<T, T> : true_t
+{
+};
 
 __CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_RELATIONSHIPS_H_
+#endif // CAITLUN_CORE_TRAITS_TYPES_RELATIONSHIPS_H_

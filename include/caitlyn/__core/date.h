@@ -23,4 +23,4 @@
 #include <ctime>
 #include <locale>
 
-#endif  // CAITLYN_CORE_DATE_H_
+#endif // CAITLYN_CORE_DATE_H_

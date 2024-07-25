@@ -26,4 +26,4 @@ using application = __detail::application_t;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CAITLYN_H_
+#endif // CAITLYN_CAITLYN_H_

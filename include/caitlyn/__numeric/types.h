@@ -28,4 +28,4 @@ using pwrnum = numeric::pwrnum_t;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_NUMERIC_TYPES_H_
+#endif // CAITLYN_NUMERIC_TYPES_H_

@@ -23,31 +23,35 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TESTING_NAMESPACE_BEGIN
 
-class fail_message_t {
+class fail_message_t
+{
 public:
-  fail_message_t(const char* file, const int line) : file{file}, line{line} {}
+    fail_message_t(const char* file, const int line) : file{file}, line{line}
+    {
+    }
 
-  template <typename T>
-  fail_message_t& operator<<(const T& value) {
-    message << value;
-    fail();
-    return *this;
-  }
+    template <typename T>
+    fail_message_t& operator<<(const T& value)
+    {
+        message << value;
+        fail();
+        return *this;
+    }
 
-  void fail() const {
-    std::ostringstream oss;
-    oss << "FAILURE: Test failed at " << file << ":" << line << " - "
-        << message.str();
-    throw std::runtime_error(oss.str());
-  }
+    void fail() const
+    {
+        std::ostringstream oss;
+        oss << "FAILURE: Test failed at " << file << ":" << line << " - " << message.str();
+        throw std::runtime_error(oss.str());
+    }
 
 private:
-  const char* file;
-  int line;
-  std::ostringstream message;
+    const char* file;
+    int line;
+    std::ostringstream message;
 };
 
 __CAITLYN_TESTING_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_TEST_TYPES_FAIL_MESSAGE_H_
+#endif // CAITLYN_TEST_TYPES_FAIL_MESSAGE_H_

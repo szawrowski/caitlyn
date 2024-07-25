@@ -22,4 +22,4 @@
 #include "caitlyn/__testing/macro/fixture.h"
 #include "caitlyn/__testing/macro/test.h"
 
-#endif  // CAITLYN_TEST_MACRO_H_
+#endif // CAITLYN_TEST_MACRO_H_

@@ -20,4 +20,4 @@
 
 #include "caitlyn/__core/string/algo/kmp.h"
 
-#endif  // CAITLYN_CORE_STRING_ALGO_H_
+#endif // CAITLYN_CORE_STRING_ALGO_H_

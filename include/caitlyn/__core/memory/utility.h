@@ -20,4 +20,4 @@
 
 #include "caitlyn/__core/memory/utility/size_calculation.h"
 
-#endif  // CAITLYN_CORE_MEMORY_UTILITY_H_
+#endif // CAITLYN_CORE_MEMORY_UTILITY_H_

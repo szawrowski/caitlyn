@@ -21,4 +21,4 @@
 #include "caitlyn/__caitlyn/config.h"
 #include "caitlyn/__caitlyn/types.h"
 
-#endif  // CAITLYN_BASE_H_
+#endif // CAITLYN_BASE_H_

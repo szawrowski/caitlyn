@@ -27,4 +27,4 @@
 #include "caitlyn/__core/traits/types/sign_modifiers.h"
 #include "caitlyn/__core/traits/types/specifiers.h"
 
-#endif  // CAITLIN_CORE_TRAITS_TYPES_H_
+#endif // CAITLIN_CORE_TRAITS_TYPES_H_

@@ -23,20 +23,23 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-constexpr bool alignment_of() {
-  return std::alignment_of<T>::value;
+constexpr bool alignment_of()
+{
+    return std::alignment_of<T>::value;
 }
 
 template <typename T>
-constexpr bool rank() {
-  return std::rank<T>::value;
+constexpr bool rank()
+{
+    return std::rank<T>::value;
 }
 
 template <typename T>
-constexpr bool extent() {
-  return std::extent<T>::value;
+constexpr bool extent()
+{
+    return std::extent<T>::value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTY_QUERIES_H_
+#endif // CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTY_QUERIES_H_

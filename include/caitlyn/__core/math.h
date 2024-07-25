@@ -20,4 +20,4 @@
 
 #include <cmath>
 
-#endif  // CAITLYN_CORE_MATH_H_
+#endif // CAITLYN_CORE_MATH_H_

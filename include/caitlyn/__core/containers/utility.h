@@ -20,4 +20,4 @@
 
 #include "caitlyn/__core/containers/utility/map_utility.h"
 
-#endif  // CAITLYN_CORE_CONTAINERS_UTILITY_H_
+#endif // CAITLYN_CORE_CONTAINERS_UTILITY_H_

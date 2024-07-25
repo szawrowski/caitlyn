@@ -23,40 +23,47 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-constexpr bool is_fundamental() {
-  return std::is_fundamental<T>::value;
+constexpr bool is_fundamental()
+{
+    return std::is_fundamental<T>::value;
 }
 
 template <typename T>
-constexpr bool is_arithmetic() {
-  return std::is_arithmetic<T>::value;
+constexpr bool is_arithmetic()
+{
+    return std::is_arithmetic<T>::value;
 }
 
 template <typename T>
-constexpr bool is_scalar() {
-  return std::is_scalar<T>::value;
+constexpr bool is_scalar()
+{
+    return std::is_scalar<T>::value;
 }
 
 template <typename T>
-constexpr bool is_object() {
-  return std::is_object<T>::value;
+constexpr bool is_object()
+{
+    return std::is_object<T>::value;
 }
 
 template <typename T>
-constexpr bool is_compound() {
-  return std::is_compound<T>::value;
+constexpr bool is_compound()
+{
+    return std::is_compound<T>::value;
 }
 
 template <typename T>
-constexpr bool is_reference() {
-  return std::is_reference<T>::value;
+constexpr bool is_reference()
+{
+    return std::is_reference<T>::value;
 }
 
 template <typename T>
-constexpr bool is_member_pointer() {
-  return std::is_member_pointer<T>::value;
+constexpr bool is_member_pointer()
+{
+    return std::is_member_pointer<T>::value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_CONSTRAINTS_COMPOSITE_H_
+#endif // CAITLUN_CORE_TRAITS_CONSTRAINTS_COMPOSITE_H_

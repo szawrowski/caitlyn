@@ -26,7 +26,7 @@
 #include "caitlyn/__core/memory/utility.h"
 
 #if __CAITLYN_HAS_CXX17
-  #include <memory_resource>
+    #include <memory_resource>
 #endif
 
-#endif  // CAITLYN_CORE_MEMORY_H_
+#endif // CAITLYN_CORE_MEMORY_H_

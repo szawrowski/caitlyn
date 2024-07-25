@@ -20,4 +20,4 @@
 
 #include "caitlyn/__serializing/json/types/document.h"
 
-#endif  // CAITLYN_SERIALIZING_JSON_TYPES_H_
+#endif // CAITLYN_SERIALIZING_JSON_TYPES_H_

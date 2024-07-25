@@ -23,29 +23,42 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_FORMAT_NAMESPACE_BEGIN
 
-enum class align_t { left, right, center };
-enum class value_t { string, integral, floating };
-
-enum class repr_t {
-  standard,
-  binary,
-  binary_pref,
-  octal,
-  octal_pref,
-  hex,
-  hex_pref
+enum class align_t
+{
+    left,
+    right,
+    center
 };
 
-struct spec_t {
-  align_t align = align_t::left;
-  size_t width = 0;
-  basic_character_t<char> fill = def::space;
-  repr_t repr = repr_t::standard;
-  value_t type = value_t::string;
-  int precision = -1;
+enum class value_t
+{
+    string,
+    integral,
+    floating
+};
+
+enum class repr_t
+{
+    standard,
+    binary,
+    binary_pref,
+    octal,
+    octal_pref,
+    hex,
+    hex_pref
+};
+
+struct spec_t
+{
+    align_t align = align_t::left;
+    size_t width = 0;
+    basic_character_t<char> fill = def::space;
+    repr_t repr = repr_t::standard;
+    value_t type = value_t::string;
+    int precision = -1;
 };
 
 __CAITLYN_FORMAT_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_FORMAT_TYPES_SPECIFIER_H_
+#endif // CAITLYN_CORE_FORMAT_TYPES_SPECIFIER_H_

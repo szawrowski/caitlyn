@@ -18,7 +18,7 @@
 #ifndef CAITLYN_CORE_NUMERIC_TYPES_H_
 #define CAITLYN_CORE_NUMERIC_TYPES_H_
 
-#include "caitlyn/__core/numeric/types/sign.h"
 #include "caitlyn/__core/numeric/types/radix.h"
+#include "caitlyn/__core/numeric/types/sign.h"
 
-#endif  // CAITLYN_CORE_NUMERIC_TYPES_H_
+#endif // CAITLYN_CORE_NUMERIC_TYPES_H_

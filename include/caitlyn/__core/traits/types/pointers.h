@@ -25,42 +25,45 @@ __CAITLYN_TRAITS_NAMESPACE_BEGIN
 __CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename T>
-auto try_add_pointer(T*)
-    -> type_identity_t<typename std::remove_reference<T>::type*>;
+auto try_add_pointer(T*) -> type_identity_t<typename std::remove_reference<T>::type*>;
 
 template <typename T>
 auto try_add_pointer(...) -> type_identity_t<T>;
 
 template <typename T>
-struct remove_pointer_t {
-  using type = T;
+struct remove_pointer_t
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_pointer_t<T*> {
-  using type = T;
+struct remove_pointer_t<T*>
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_pointer_t<T* const> {
-  using type = T;
+struct remove_pointer_t<T* const>
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_pointer_t<T* volatile> {
-  using type = T;
+struct remove_pointer_t<T* volatile>
+{
+    using type = T;
 };
 
 template <typename T>
-struct remove_pointer_t<T* const volatile> {
-  using type = T;
+struct remove_pointer_t<T* const volatile>
+{
+    using type = T;
 };
 
 __CAITLYN_DETAIL_NAMESPACE_END
 
 template <typename T>
-using add_pointer_t =
-    typename decltype(__detail::try_add_pointer<T>(nullptr))::type;
+using add_pointer_t = typename decltype(__detail::try_add_pointer<T>(nullptr))::type;
 
 template <typename T>
 using remove_pointer_t = typename __detail::remove_pointer_t<T>::type;
@@ -68,4 +71,4 @@ using remove_pointer_t = typename __detail::remove_pointer_t<T>::type;
 __CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLUN_CORE_TRAITS_TYPES_POINTERS_H_
+#endif // CAITLUN_CORE_TRAITS_TYPES_POINTERS_H_

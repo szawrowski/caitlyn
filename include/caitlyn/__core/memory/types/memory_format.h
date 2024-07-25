@@ -22,8 +22,12 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-enum class memfmt_t : byte_t { bit, byte };
+enum class memfmt_t : byte_t
+{
+    bit,
+    byte
+};
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_
+#endif // CAITLYN_CORE_MEMORY_TYPES_MEMORY_FORMAT_H_

@@ -20,19 +20,20 @@
 
 #include "caitlyn/__testing/types.h"
 
-#define TEST(test_suite_name, test_case_name)                  \
-  void test_suite_name##_##test_case_name();                   \
-  namespace {                                                  \
-  struct test_suite_name##_##test_case_name##_registrar {      \
-    test_suite_name##_##test_case_name##_registrar() {         \
-      cait::test::registry_t::instance().add_test(             \
-          #test_suite_name, #test_case_name,                   \
-          test_suite_name##_##test_case_name);                 \
-    }                                                          \
-  };                                                           \
-  test_suite_name##_##test_case_name##_registrar               \
-      test_suite_name##_##test_case_name##_registrar_instance; \
-  }                                                            \
-  void test_suite_name##_##test_case_name()
+#define TEST(test_suite_name, test_case_name)                                                                          \
+    void test_suite_name##_##test_case_name();                                                                         \
+    namespace                                                                                                          \
+    {                                                                                                                  \
+    struct test_suite_name##_##test_case_name##_registrar                                                              \
+    {                                                                                                                  \
+        test_suite_name##_##test_case_name##_registrar()                                                               \
+        {                                                                                                              \
+            cait::test::registry_t::instance().add_test(                                                               \
+                #test_suite_name, #test_case_name, test_suite_name##_##test_case_name);                                \
+        }                                                                                                              \
+    };                                                                                                                 \
+    test_suite_name##_##test_case_name##_registrar test_suite_name##_##test_case_name##_registrar_instance;            \
+    }                                                                                                                  \
+    void test_suite_name##_##test_case_name()
 
-#endif  // CAITLYN_TEST_MACRO_TEST_H_
+#endif // CAITLYN_TEST_MACRO_TEST_H_

@@ -23,53 +23,63 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T, typename U>
-bool cmp_eq(T t, U u) noexcept {
-  using UT = typename std::make_unsigned<T>::type;
-  using UU = typename std::make_unsigned<U>::type;
+bool cmp_eq(T t, U u) noexcept
+{
+    using UT = typename std::make_unsigned<T>::type;
+    using UU = typename std::make_unsigned<U>::type;
 
-  if (std::is_signed<T>::value == std::is_signed<U>::value) {
-    return t == u;
-  }
-  if (std::is_signed<T>::value) {
-    return t >= 0 && UT(t) == u;
-  }
-  return u >= 0 && t == UU(u);
+    if (std::is_signed<T>::value == std::is_signed<U>::value)
+    {
+        return t == u;
+    }
+    if (std::is_signed<T>::value)
+    {
+        return t >= 0 && UT(t) == u;
+    }
+    return u >= 0 && t == UU(u);
 }
 
 template <typename T, typename U>
-constexpr bool cmp_ne(T t, U u) noexcept {
-  return !compare_equal(t, u);
+constexpr bool cmp_ne(T t, U u) noexcept
+{
+    return !compare_equal(t, u);
 }
 
 template <typename T, typename U>
-bool cmp_less(T t, U u) noexcept {
-  using UT = typename std::make_unsigned<T>::type;
-  using UU = typename std::make_unsigned<U>::type;
+bool cmp_less(T t, U u) noexcept
+{
+    using UT = typename std::make_unsigned<T>::type;
+    using UU = typename std::make_unsigned<U>::type;
 
-  if (std::is_signed<T>::value == std::is_signed<U>::value) {
-    return t < u;
-  }
-  if (std::is_signed<T>::value) {
-    return t < 0 || UT(t) < u;
-  }
-  return u >= 0 && t < UU(u);
+    if (std::is_signed<T>::value == std::is_signed<U>::value)
+    {
+        return t < u;
+    }
+    if (std::is_signed<T>::value)
+    {
+        return t < 0 || UT(t) < u;
+    }
+    return u >= 0 && t < UU(u);
 }
 
 template <typename T, typename U>
-constexpr bool cmp_greater(T t, U u) noexcept {
-  return compare_less(u, t);
+constexpr bool cmp_greater(T t, U u) noexcept
+{
+    return compare_less(u, t);
 }
 
 template <typename T, typename U>
-constexpr bool cmp_le(T t, U u) noexcept {
-  return !compare_greater(t, u);
+constexpr bool cmp_le(T t, U u) noexcept
+{
+    return !compare_greater(t, u);
 }
 
 template <typename T, typename U>
-constexpr bool cmp_ge(T t, U u) noexcept {
-  return !compare_less(t, u);
+constexpr bool cmp_ge(T t, U u) noexcept
+{
+    return !compare_less(t, u);
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_UTILITY_COMPARATORS_H_
+#endif // CAITLYN_CORE_UTILITY_COMPARATORS_H_

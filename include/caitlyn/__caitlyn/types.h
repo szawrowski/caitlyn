@@ -26,7 +26,7 @@ __CAITLYN_DETAIL_NAMESPACE_BEGIN
 using __char_t = decltype('\0');
 using __wide_char_t = decltype(L'\0');
 #if __CAITLYN_HAS_CXX20
-using __utf8_char_t = decltype(u8'\0');
+using __utf8_char_t = decltype(u8 '\0');
 #else
 using __utf8_char_t = __char_t;
 #endif
@@ -44,12 +44,12 @@ using __unsigned_long_t = decltype(0UL);
 using __signed_long_long_t = decltype(0LL);
 using __unsigned_long_long_t = decltype(0ULL);
 
-using __int8_t  = __signed_char_t;
-using __uint8_t  = __unsigned_char_t;
-using __int16_t  = __signed_short_int;
-using __uint16_t  = __unsigned_short_int;
-using __int32_t  = __signed_int_t;
-using __uint32_t  = __unsigned_int_t;
+using __int8_t = __signed_char_t;
+using __uint8_t = __unsigned_char_t;
+using __int16_t = __signed_short_int;
+using __uint16_t = __unsigned_short_int;
+using __int32_t = __signed_int_t;
+using __uint32_t = __unsigned_int_t;
 #if defined(__CAITLYN_OS_UNIX) && (__CAITLYN_WORDSIZE == 64)
 using __int64_t = __signed_long_type;
 using __uint64_t = __unsigned_long_t;
@@ -70,8 +70,7 @@ using __float32_t = decltype(.0f);
 using __float64_t = decltype(.0);
 using __float_n_t = decltype(.0L);
 
-using __difference_type_t =
-    decltype(static_cast<int*>(nullptr) - static_cast<int*>(nullptr));
+using __difference_type_t = decltype(static_cast<int*>(nullptr) - static_cast<int*>(nullptr));
 
 using __signed_size_t = __difference_type_t;
 using __unsigned_size_t = decltype(sizeof(0));
@@ -81,7 +80,7 @@ using __null_pointer_t = decltype(nullptr);
 
 __CAITLYN_DETAIL_NAMESPACE_END
 
-// Character
+//Character
 using char_t = __detail::__char_t;
 using schar_t = __detail::__signed_char_t;
 using uchar_t = __detail::__unsigned_char_t;
@@ -90,7 +89,7 @@ using u8char_t = __detail::__utf8_char_t;
 using u16char_t = __detail::__utf16_char_t;
 using u32char_t = __detail::__utf32_char_t;
 
-// Integer
+//Integer
 using sbyte_t = __detail::__int8_t;
 using byte_t = __detail::__uint8_t;
 using int8_t = __detail::__int8_t;
@@ -112,15 +111,15 @@ using ssize_t = __detail::__signed_size_t;
 using size_t = __detail::__unsigned_size_t;
 using ptrdiff_t = __detail::__difference_type_t;
 
-// Floating point
+//Floating point
 using float32_t = __detail::__float32_t;
 using float64_t = __detail::__float64_t;
 using floatx_t = __detail::__float_n_t;
 
-// System
+//System
 using bool_t = __detail::__boolean_t;
 using nullptr_t = __detail::__null_pointer_t;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif // CAITLYN_TYPES_H_
+#endif //CAITLYN_TYPES_H_

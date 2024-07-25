@@ -26,147 +26,207 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_JSON_NAMESPACE_BEGIN
 
-class json_t {
+class json_t
+{
 public:
-  using error_type = error_t;
-  using data_type = __detail::data_t;
-  using parser_type = __detail::parser_t;
-
-public:
-  json_t() = default;
-  json_t(const basic_string_t<char>& value) { parse(value); }
-  json_t(const std::ifstream& stream) { parse(stream); }
-  json_t(const json_t& other) : root_{other.root_}, error_{other.error_} {}
-  json_t(json_t&& other) noexcept
-      : root_{std::move(other.root_)}, error_{other.error_} {
-    other.root_ = make_null();
-    other.error_ = error_t::no_error;
-  }
-
-  ~json_t() = default;
+    using error_type = error_t;
+    using data_type = __detail::data_t;
+    using parser_type = __detail::parser_t;
 
 public:
-  json_t& operator=(const basic_string_t<char>& value) {
-    parse(value);
-    return *this;
-  }
+    json_t() = default;
 
-  json_t& operator=(const std::ifstream& stream) {
-    parse(stream);
-    return *this;
-  }
-
-  json_t& operator=(const json_t& other) {
-    if (this != &other) {
-      root_ = other.root_;
-      error_ = other.error_;
+    json_t(const basic_string_t<char>& value)
+    {
+        parse(value);
     }
-    return *this;
-  }
 
-  json_t& operator=(json_t&& other) noexcept {
-    if (this != &other) {
-      root_ = std::move(other.root_);
-      error_ = other.error_;
-      other.root_ = make_null();
-      other.error_ = error_type::no_error;
+    json_t(const std::ifstream& stream)
+    {
+        parse(stream);
     }
-    return *this;
-  }
+
+    json_t(const json_t& other) : root_{other.root_}, error_{other.error_}
+    {
+    }
+
+    json_t(json_t&& other) noexcept : root_{std::move(other.root_)}, error_{other.error_}
+    {
+        other.root_ = make_null();
+        other.error_ = error_t::no_error;
+    }
+
+    ~json_t() = default;
 
 public:
-  data_type& operator[](const basic_string_t<char>& key) { return root_[key]; }
+    json_t& operator=(const basic_string_t<char>& value)
+    {
+        parse(value);
+        return *this;
+    }
 
-  const data_type& operator[](const basic_string_t<char>& key) const {
-    return root_.at(key);
-  }
+    json_t& operator=(const std::ifstream& stream)
+    {
+        parse(stream);
+        return *this;
+    }
+
+    json_t& operator=(const json_t& other)
+    {
+        if (this != &other)
+        {
+            root_ = other.root_;
+            error_ = other.error_;
+        }
+        return *this;
+    }
+
+    json_t& operator=(json_t&& other) noexcept
+    {
+        if (this != &other)
+        {
+            root_ = std::move(other.root_);
+            error_ = other.error_;
+            other.root_ = make_null();
+            other.error_ = error_type::no_error;
+        }
+        return *this;
+    }
 
 public:
-  void parse(const basic_string_t<char>& value) {
-    const auto parser = parser_type::parse(value);
-    if (parser.has_error()) {
-      error_ = parser.get_error();
-      root_ = make_null();
-    } else {
-      error_ = error_type::no_error;
-      root_ = parser.get_data();
+    data_type& operator[](const basic_string_t<char>& key)
+    {
+        return root_[key];
     }
-  }
 
-  void parse(const std::ifstream& ifs) {
-    std::ostringstream buffer;
-    buffer << ifs.rdbuf();
-    parse(buffer.str());
-  }
+    const data_type& operator[](const basic_string_t<char>& key) const
+    {
+        return root_.at(key);
+    }
 
-  void add_member(const basic_string_t<char>& key, const data_type& value) {
-    root_[key] = value;
-  }
+public:
+    void parse(const basic_string_t<char>& value)
+    {
+        const auto parser = parser_type::parse(value);
+        if (parser.has_error())
+        {
+            error_ = parser.get_error();
+            root_ = make_null();
+        }
+        else
+        {
+            error_ = error_type::no_error;
+            root_ = parser.get_data();
+        }
+    }
 
-  void remove_member(const basic_string_t<char>& key) {
-    if (root_.has_member(key)) {
-      auto& obj = root_.get_data();
-      obj.erase(std::remove_if(
-                    obj.begin(), obj.end(),
-                    [&key](const std::pair<const basic_string_t<char>&,
-                                           const __detail::data_t*>& pair) {
-                      return pair.first == key;
-                    }),
+    void parse(const std::ifstream& ifs)
+    {
+        std::ostringstream buffer;
+        buffer << ifs.rdbuf();
+        parse(buffer.str());
+    }
+
+    void add_member(const basic_string_t<char>& key, const data_type& value)
+    {
+        root_[key] = value;
+    }
+
+    void remove_member(const basic_string_t<char>& key)
+    {
+        if (root_.has_member(key))
+        {
+            auto& obj = root_.get_data();
+            obj.erase(
+                std::remove_if(
+                    obj.begin(),
+                    obj.end(),
+                    [&key](const std::pair<const basic_string_t<char>&, const __detail::data_t*>& pair)
+                    { return pair.first == key; }),
                 obj.end());
+        }
     }
-  }
 
-  bool has_member(const basic_string_t<char>& key) const {
-    return root_.has_member(key);
-  }
+    bool has_member(const basic_string_t<char>& key) const
+    {
+        return root_.has_member(key);
+    }
 
-  size_t size() const { return root_.size(); }
+    size_t size() const
+    {
+        return root_.size();
+    }
 
-  bool has_error() const { return error_ != error_type::no_error; }
+    bool has_error() const
+    {
+        return error_ != error_type::no_error;
+    }
 
-  error_type get_error() const { return error_; }
+    error_type get_error() const
+    {
+        return error_;
+    }
 
-  basic_string_t<char> get_error_string() const {
-    return json::get_error_string(error_);
-  }
+    basic_string_t<char> get_error_string() const
+    {
+        return json::get_error_string(error_);
+    }
 
-  class_t get_type() const { return root_.get_type(); }
+    class_t get_type() const
+    {
+        return root_.get_type();
+    }
 
-  basic_string_t<char> str(const bool mangling = false, const size_t indent = 2) const {
-    return root_.str(mangling, indent);
-  }
+    basic_string_t<char> str(const bool mangling = false, const size_t indent = 2) const
+    {
+        return root_.str(mangling, indent);
+    }
 
 private:
-  data_type root_{json::make_object()};
-  error_type error_{error_type::no_error};
+    data_type root_{json::make_object()};
+    error_type error_{error_type::no_error};
 };
 
-inline json_t make_document() { return json_t{}; }
+inline json_t make_document()
+{
+    return json_t{};
+}
 
-inline json_t make_document(const basic_string_t<char>& value) { return json_t{value}; }
+inline json_t make_document(const basic_string_t<char>& value)
+{
+    return json_t{value};
+}
 
-inline json_t make_document(const json_t& value) { return json_t{value}; }
+inline json_t make_document(const json_t& value)
+{
+    return json_t{value};
+}
 
-inline json_t make_document(json_t&& value) { return json_t{std::move(value)}; }
+inline json_t make_document(json_t&& value)
+{
+    return json_t{std::move(value)};
+}
 
-inline json_t make_document(const std::ifstream& stream) {
-  return json_t{stream};
+inline json_t make_document(const std::ifstream& stream)
+{
+    return json_t{stream};
 }
 
 __CAITLYN_JSON_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline std::istream& operator>>(std::istream& is, cait::json::json_t& value) {
-  std::ostringstream buffer;
-  buffer << is.rdbuf();
-  value.parse(buffer.str());
-  return is;
+inline std::istream& operator>>(std::istream& is, cait::json::json_t& value)
+{
+    std::ostringstream buffer;
+    buffer << is.rdbuf();
+    value.parse(buffer.str());
+    return is;
 }
 
-inline std::ostream& operator<<(std::ostream& os,
-                                const cait::json::json_t& value) {
-  os << value.str();
-  return os;
+inline std::ostream& operator<<(std::ostream& os, const cait::json::json_t& value)
+{
+    os << value.str();
+    return os;
 }
 
-#endif  // CAITLYN_SERIALIZING_JSON_TYPES_DOCUMENT_H_
+#endif // CAITLYN_SERIALIZING_JSON_TYPES_DOCUMENT_H_

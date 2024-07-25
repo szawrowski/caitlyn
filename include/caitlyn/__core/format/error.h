@@ -25,13 +25,15 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_FORMAT_NAMESPACE_BEGIN
 
-class error_t final : public std::runtime_error {
+class error_t final : public std::runtime_error
+{
 public:
-  explicit error_t(const basic_string_t<char>& message)
-      : std::runtime_error(message.str()) {}
+    explicit error_t(const basic_string_t<char>& message) : std::runtime_error(message.str())
+    {
+    }
 };
 
 __CAITLYN_FORMAT_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_FORMAT_TYPES_ERROR_H_
+#endif // CAITLYN_CORE_FORMAT_TYPES_ERROR_H_

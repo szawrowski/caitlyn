@@ -19,17 +19,17 @@
 #define CAITLYN_CORE_CHAR_H_
 
 #include <cctype>
+#include <cstring>
+#include <cuchar>
 #include <cwchar>
 #include <cwctype>
-#include <cuchar>
-#include <cstring>
 
 #include "caitlyn/__core/char/defs.h"
 #include "caitlyn/__core/char/types.h"
 #include "caitlyn/__core/char/utility.h"
 
 #if __CAITLYN_HAS_CXX17
-  #include <charconv>
+    #include <charconv>
 #endif
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
@@ -38,4 +38,4 @@ using character = basic_character_t<char>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_CHAR_H_
+#endif // CAITLYN_CORE_CHAR_H_

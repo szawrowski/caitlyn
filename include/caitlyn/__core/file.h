@@ -29,4 +29,4 @@ using file = basic_file_stream_t<char>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_FILE_H_
+#endif // CAITLYN_CORE_FILE_H_

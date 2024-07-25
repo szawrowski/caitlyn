@@ -22,13 +22,14 @@
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
-enum class radix_t : byte_t {
-  binary = 0x2,
-  octal = 0x8,
-  decimal = 0xA,
-  hexadecimal = 0x10,
+enum class radix_t : byte_t
+{
+    binary = 0x2,
+    octal = 0x8,
+    decimal = 0xA,
+    hexadecimal = 0x10,
 };
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_
+#endif // CAITLYN_CORE_NUMERIC_TYPES_RADIX_H_

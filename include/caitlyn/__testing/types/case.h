@@ -26,21 +26,25 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_TESTING_NAMESPACE_BEGIN
 
-struct case_t {
-  std::string suite_name;
-  std::string test_name;
-  function_t function;
-  bool passed;
+struct case_t
+{
+    std::string suite_name;
+    std::string test_name;
+    function_t function;
+    bool passed;
 
-  case_t(std::string suite, std::string name, const function_t func)
-      : suite_name{std::move(suite)},
-        test_name{std::move(name)},
-        function{func},
-        passed{false} {}
-  ~case_t() = default;
+    case_t(std::string suite, std::string name, const function_t func)
+        : suite_name{std::move(suite)},
+          test_name{std::move(name)},
+          function{func},
+          passed{false}
+    {
+    }
+
+    ~case_t() = default;
 };
 
 __CAITLYN_TESTING_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_TEST_TYPES_CASE_H_
+#endif // CAITLYN_TEST_TYPES_CASE_H_

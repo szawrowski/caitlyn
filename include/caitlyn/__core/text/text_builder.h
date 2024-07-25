@@ -24,65 +24,91 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <>
-class basic_text_builder_t<char> {
+class basic_text_builder_t<char>
+{
 public:
-  using data_type = std::ostringstream;
-
-public:
-  basic_text_builder_t() = default;
-
-  basic_text_builder_t(const char str) { data_ << str; }
-  basic_text_builder_t(const char* str) { data_ << str; }
-  basic_text_builder_t(const basic_string_t<char>& str) { data_ << str; }
-
-  template <typename... Args>
-  basic_text_builder_t(const basic_string_t<char>& str, Args&&... args) {
-    data_ << format(str, std::forward<Args>(args)...);
-  }
-
-  basic_text_builder_t(const basic_text_builder_t& other)
-      : data_{other.data_.str()} {}
-
-  basic_text_builder_t(basic_text_builder_t&& other) noexcept
-      : data_{std::move(other.data_)} {}
+    using data_type = std::ostringstream;
 
 public:
-  void append(const basic_string_t<char>& str) { data_ << str; }
+    basic_text_builder_t() = default;
 
-  template <typename... Args>
-  void appendf(const basic_string_t<char>& str, Args&&... args) {
-    data_ << format(str, std::forward<Args>(args)...);
-  }
+    basic_text_builder_t(const char str)
+    {
+        data_ << str;
+    }
 
-  void appendln(const basic_string_t<char>& str) {
-    data_ << str << def::line_feed;
-  }
+    basic_text_builder_t(const char* str)
+    {
+        data_ << str;
+    }
+
+    basic_text_builder_t(const basic_string_t<char>& str)
+    {
+        data_ << str;
+    }
+
+    template <typename... Args>
+    basic_text_builder_t(const basic_string_t<char>& str, Args&&... args)
+    {
+        data_ << format(str, std::forward<Args>(args)...);
+    }
+
+    basic_text_builder_t(const basic_text_builder_t& other) : data_{other.data_.str()}
+    {
+    }
+
+    basic_text_builder_t(basic_text_builder_t&& other) noexcept : data_{std::move(other.data_)}
+    {
+    }
 
 public:
-  basic_string_t<char> str() const { return data_.str(); }
+    void append(const basic_string_t<char>& str)
+    {
+        data_ << str;
+    }
+
+    template <typename... Args>
+    void appendf(const basic_string_t<char>& str, Args&&... args)
+    {
+        data_ << format(str, std::forward<Args>(args)...);
+    }
+
+    void appendln(const basic_string_t<char>& str)
+    {
+        data_ << str << def::line_feed;
+    }
+
+public:
+    basic_string_t<char> str() const
+    {
+        return data_.str();
+    }
 
 private:
-  data_type data_;
+    data_type data_;
 };
 
-inline basic_text_builder_t<char> make_text() {
-  return basic_text_builder_t<char>{};
+inline basic_text_builder_t<char> make_text()
+{
+    return basic_text_builder_t<char>{};
 }
 
-inline basic_text_builder_t<char> make_text(const char c) {
-  return basic_text_builder_t<char>{c};
+inline basic_text_builder_t<char> make_text(const char c)
+{
+    return basic_text_builder_t<char>{c};
 }
 
-inline basic_text_builder_t<char> make_text(const basic_string_t<char>& str) {
-  return basic_text_builder_t<char>{str};
+inline basic_text_builder_t<char> make_text(const basic_string_t<char>& str)
+{
+    return basic_text_builder_t<char>{str};
 }
 
 template <typename... Args>
-basic_text_builder_t<char> make_text(const basic_string_t<char>& str,
-                                     Args&&... args) {
-  return basic_text_builder_t<char>{format(str, std::forward<Args>(args)...)};
+basic_text_builder_t<char> make_text(const basic_string_t<char>& str, Args&&... args)
+{
+    return basic_text_builder_t<char>{format(str, std::forward<Args>(args)...)};
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_TEXT_TEXT_BUILDER_H_
+#endif // CAITLYN_CORE_TEXT_TEXT_BUILDER_H_

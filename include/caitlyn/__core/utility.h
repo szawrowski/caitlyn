@@ -27,24 +27,24 @@
 #include <functional>
 #include <initializer_list>
 #include <regex>
+#include <tuple>
 #include <type_traits>
 #include <typeindex>
 #include <typeinfo>
-#include <tuple>
 #include <utility>
 
 #include "caitlyn/__core/utility/comparators.h"
 #include "caitlyn/__core/utility/random.h"
 
 #if __caitlyn_has_cxx17
-  #include <any>
-  #include <optional>
-  #include <variant>
+    #include <any>
+    #include <optional>
+    #include <variant>
 #endif
 
 #if __caitlyn_has_cxx20
-  #include <source_location>
-  #include <version>
+    #include <source_location>
+    #include <version>
 #endif
 
-#endif  // CAITLYN_CORE_UTILITY_H_
+#endif // CAITLYN_CORE_UTILITY_H_

@@ -26,15 +26,15 @@
 #include "caitlyn/__base.h"
 
 #if __CAITLYN_HAS_CXX14
-  #include <shared_mutex>
+    #include <shared_mutex>
 #endif
 
 #if __CAITLYN_HAS_CXX20
-  #include <barrier>
-  #include <coroutine>
-  #include <latch>
-  #include <semaphore>
-  #include <stop_token>
+    #include <barrier>
+    #include <coroutine>
+    #include <latch>
+    #include <semaphore>
+    #include <stop_token>
 #endif
 
-#endif  // CAITLYN_CORE_THREADS_H_
+#endif // CAITLYN_CORE_THREADS_H_

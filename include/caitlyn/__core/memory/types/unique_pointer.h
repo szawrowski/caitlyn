@@ -23,77 +23,117 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-class uptr_t {
+class uptr_t
+{
 public:
-  using value_type = T;
-  using pointer = T*;
-  using reference = T&;
+    using value_type = T;
+    using pointer = T*;
+    using reference = T&;
 
 public:
-  uptr_t() = default;
-  uptr_t(pointer data) : data_{data} {}
-  uptr_t(const uptr_t& other) = delete;
-  uptr_t(uptr_t&& other) noexcept : data_{other.data_} { other.data_ = nullptr; }
-  ~uptr_t() { delete data_; }
+    uptr_t() = default;
 
-public:
-  uptr_t& operator=(pointer data) {
-    reset(data);
-    return *this;
-  }
-
-  uptr_t& operator=(uptr_t&& other) noexcept {
-    if (this != &other) {
-      delete data_;
-      data_ = other.data_;
-      other.data_ = nullptr;
+    uptr_t(pointer data) : data_{data}
+    {
     }
-    return *this;
-  }
 
-public:
-  reference operator*() const {
-    if (data_ == nullptr) {
-      throw std::runtime_error{"Dereferencing null pointer."};
+    uptr_t(const uptr_t& other) = delete;
+
+    uptr_t(uptr_t&& other) noexcept : data_{other.data_}
+    {
+        other.data_ = nullptr;
     }
-    return *data_;
-  }
 
-  pointer operator->() const {
-    if (data_ == nullptr) {
-      throw std::runtime_error{"Dereferencing null pointer."};
+    ~uptr_t()
+    {
+        delete data_;
     }
-    return data_;
-  }
 
 public:
-  pointer get() const { return data_; }
-
-public:
-  bool operator==(const uptr_t& other) const { return data_ == other.data_; }
-  bool operator!=(const uptr_t& other) const { return data_ != other.data_; }
-
-  bool operator==(std::nullptr_t) const { return data_ == nullptr; }
-  bool operator!=(std::nullptr_t) const { return data_ != nullptr; }
-
-public:
-  void reset(pointer new_data = nullptr) {
-    if (data_ != new_data) {
-      delete data_;
-      data_ = new_data;
+    uptr_t& operator=(pointer data)
+    {
+        reset(data);
+        return *this;
     }
-  }
 
-  pointer release() {
-    pointer tmp = data_;
-    data_ = nullptr;
-    return tmp;
-  }
+    uptr_t& operator=(uptr_t&& other) noexcept
+    {
+        if (this != &other)
+        {
+            delete data_;
+            data_ = other.data_;
+            other.data_ = nullptr;
+        }
+        return *this;
+    }
+
+public:
+    reference operator*() const
+    {
+        if (data_ == nullptr)
+        {
+            throw std::runtime_error{"Dereferencing null pointer."};
+        }
+        return *data_;
+    }
+
+    pointer operator->() const
+    {
+        if (data_ == nullptr)
+        {
+            throw std::runtime_error{"Dereferencing null pointer."};
+        }
+        return data_;
+    }
+
+public:
+    pointer get() const
+    {
+        return data_;
+    }
+
+public:
+    bool operator==(const uptr_t& other) const
+    {
+        return data_ == other.data_;
+    }
+
+    bool operator!=(const uptr_t& other) const
+    {
+        return data_ != other.data_;
+    }
+
+    bool operator==(std::nullptr_t) const
+    {
+        return data_ == nullptr;
+    }
+
+    bool operator!=(std::nullptr_t) const
+    {
+        return data_ != nullptr;
+    }
+
+public:
+    void reset(pointer new_data = nullptr)
+    {
+        if (data_ != new_data)
+        {
+            delete data_;
+            data_ = new_data;
+        }
+    }
+
+    pointer release()
+    {
+        pointer tmp = data_;
+        data_ = nullptr;
+        return tmp;
+    }
 
 private:
-  pointer data_{};
+    pointer data_{};
 };
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-#endif  // CAITLYN_CORE_MEMORY_TYPES_UNIQUE_POINTER_H
+#endif // CAITLYN_CORE_MEMORY_TYPES_UNIQUE_POINTER_H
