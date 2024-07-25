@@ -18,13 +18,14 @@ such as financial applications, scientific research, or cryptography.
 #include <caitlyn/io>
 #include <caitlyn/numeric>
 
-int main() {
-  const cait::pwrint a = "47011878636176761032731633812398273982371829";
-  const cait::pwrint b = "10218827321893782973821793709217371273";
-  const auto result = a * b;
-
-  cait::println(result);
-  return 0;
+int main()
+{
+    const cait::pwrint a = "47011878636176761032731633812398273982371829";
+    const cait::pwrint b = "10218827321893782973821793709217371273";
+    const auto result = a * b;
+    
+    cait::println(result);
+    return 0;
 }
 ```
 
@@ -38,13 +39,14 @@ int main() {
 #include <caitlyn/io>
 #include <caitlyn/numeric>
 
-int main() {
-  const cait::pwrnum a = "182.81278920101871298728193797392737812737";
-  const cait::pwrnum b = "7.8827318902910380293782646543821795732418";
-  const auto result = a * b;
-
-  cait::println(result);
-  return 0;
+int main()
+{
+    const cait::pwrnum a = "182.81278920101871298728193797392737812737";
+    const cait::pwrnum b = "7.8827318902910380293782646543821795732418";
+    const auto result = a * b;
+    
+    cait::println(result);
+    return 0;
 }
 ```
 

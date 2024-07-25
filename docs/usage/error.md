@@ -18,28 +18,32 @@ Handling errors without standard exceptions.
 #include <caitlyn/error>
 #include <caitlyn/io>
 
-enum class MathError {
-  kDivideByZero
+enum class MathError
+{
+    DivideByZero
 };
 
-auto Divide(const double lhs, const double rhs)
-    -> cait::expected<double, MathError> {
-  if (lhs == 0 || rhs == 0) {
-    return cait::make_failure(MathError::kDivideByZero);
-  }
-  return lhs / rhs;
+auto Divide(const double lhs, const double rhs) -> cait::expected<double, MathError>
+{
+    if (lhs == 0 || rhs == 0)
+    {
+        return cait::make_failure(MathError::DivideByZero);
+    }
+    return lhs / rhs;
 }
 
-int main() {
-  const auto result = Divide(64, 4);
-  
-  if (result) {
-    cait::println("64 / 4 = {}", result.get());
-  } else {
-    if (result.get_error() == MathError::kDivideByZero) {
-      cait::eprintln("Error: divide by zero");
+int main()
+{
+    const auto result = Divide(64, 4);
+
+    if (result)
+    {
+        cait::println("64 / 4 = {}", result.get());
     }
-  }
-  return 0;
+    else if (result.get_error() == MathError::DivideByZero)
+    {
+        cait::eprintln("Error: divide by zero");
+    }
+    return 0;
 }
 ```

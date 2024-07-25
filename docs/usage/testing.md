@@ -17,35 +17,46 @@ your projects.
 ```c++
 #include <caitlyn/testing>
 
-TEST(MathTests, TestAddition) {
-  ASSERT_EQ(2 + 3, 5);
+TEST(MathTests, TestAddition)
+{
+    ASSERT_EQ(2 + 3, 5);
 }
 
-TEST(MathTests, TestFailure) {
-  ASSERT_EQ_PRINTABLE(2 + 2, 5);
+TEST(MathTests, TestFailure)
+{
+    ASSERT_EQ_PRINTABLE(2 + 2, 5);
 }
 
 template <typename T>
-struct MathFixture {
-  T a{};
-  T b{};
+struct MathFixture
+{
+    T a{};
+    T b{};
 
-  MathFixture() {}
-  ~MathFixture() {}
+    MathFixture()
+    {
+    }
+    
+    ~MathFixture()
+    {
+    }
 
-  void SetValues(const T& x, const T& y) {
-    a = x;
-    b = y;
-  }
+    void SetValues(const T& x, const T& y)
+    {
+        a = x;
+        b = y;
+    }
 };
 
-TEST_F(MathFixture<int>, TestFixtureAddition) {
-  SetValues(1, 2);
-  ASSERT_EQ(a + b, 3);
+TEST_F(MathFixture<int>, TestFixtureAddition)
+{
+    SetValues(1, 2);
+    ASSERT_EQ(a + b, 3);
 }
 
-int main() {
-  return cait::test::registry::instance().run_all();
+int main()
+{
+    return cait::test::registry::instance().run_all();
 }
 ```
 

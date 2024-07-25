@@ -22,8 +22,9 @@ as a template default type parameter.
 #include <caitlyn/traits>
 
 template <typename T, typename = cait::required<cait::is_integral<T>()>>
-T Add(const T lhs, const T rhs) {
-  return lhs + rhs;
+T Add(const T lhs, const T rhs)
+{
+    return lhs + rhs;
 }
 ```
 
@@ -37,8 +38,9 @@ This enforces that `T` must be an integral type.
 
 template <typename T>
 cait::required<cait::is_integral<T>(), T>
-Add(const T lhs, const T rhs) {
-  return lhs + rhs;
+Add(const T lhs, const T rhs)
+{
+    return lhs + rhs;
 }
 ```
 
@@ -51,8 +53,8 @@ constraint. This ensures that `T` is an integral type.
 #include <caitlyn/traits>
 
 template <typename T>
-auto Add(const T lhs, const T rhs)
-    -> cait::required<cait::is_integral<T>(), T> {
-  return lhs + rhs;
+auto Add(const T lhs, const T rhs) -> cait::required<cait::is_integral<T>(), T>
+{
+    return lhs + rhs;
 }
 ```

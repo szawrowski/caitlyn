@@ -9,16 +9,17 @@
 ```c++
 #include <caitlyn/file>
 
-int main() {
-  const cait::string some = "Lorem ipsum dolor sit amet,";
-  const cait::string other = "consectetur adipiscing elit...";
-  const cait::string unicode = "Hello, 世界!";
+int main()
+{
+    const cait::string some = "Lorem ipsum dolor sit amet,";
+    const cait::string other = "consectetur adipiscing elit...";
+    const cait::string unicode = "Hello, 世界!";
 
-  auto file = cait::make_file("somefile.txt");
-  file.writef("{} {}\n{}", some, other, unicode);
-  file.close();
+    auto file = cait::make_file("somefile.txt");
+    file.writef("{} {}\n{}", some, other, unicode);
+    file.close();
   
-  return 0;
+    return 0;
 }
 ```
 
@@ -34,14 +35,16 @@ Hello, 世界!
 ```c++
 #include <caitlyn/io>
 
-int main() {
-  auto file = cait::make_file("somefile.txt");
-  
-  while (file) {
-    cait::println("{}", file.readln());
-  }
-  file.close();
-  return 0;
+int main()
+{
+    auto file = cait::make_file("somefile.txt");
+    
+    while (file)
+    {
+        cait::println("{}", file.readln());
+    }
+    file.close();
+    return 0;
 }
 ```
 

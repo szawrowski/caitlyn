@@ -8,32 +8,35 @@ Basic string enhanced with correct UTF-8 operations.
 #include <caitlyn/io>
 #include <caitlyn/string>
 
-int main() {
-  cait::string str = "Hello, 世界!";
-  cait::character emoji = "🙂";
-
-  auto data = cait::format("{} {}", str, emoji);
-
-  cait::println("string: {}", data);
-  cait::println("substring from index 7, length 2: {}", data.substr(7, 2));
-  cait::println("starts with 'Hello'? {}", data.starts_with("Hello"));
-  cait::println("ends with 🙂? {}", data.ends_with("🙂"));
-  cait::println("contains '世界'? {}", data.contains("世界"));
-  cait::println("index of '世': {}", data.find("世"));
-  cait::println("index of '🙂': {}", data.find("🙂"));
-  cait::println("last index of ' ': {}", data.rfind(" "));
-  cait::println("char count: {}", data.size());
-  cait::println("byte count: {}", data.byte_count());
-  cait::println("char at index 1: {}", data[1]);
-  cait::println("char at index 9: {}", data[9]);
-
-  for (auto& elem : data) {
-    if (elem == "🙂") {
-      elem = "🍉";
+int main()
+{
+    cait::string str = "Hello, 世界!";
+    cait::character emoji = "🙂";
+    
+    auto data = cait::format("{} {}", str, emoji);
+    
+    cait::println("string: {}", data);
+    cait::println("substring from index 7, length 2: {}", data.substr(7, 2));
+    cait::println("starts with 'Hello'? {}", data.starts_with("Hello"));
+    cait::println("ends with 🙂? {}", data.ends_with("🙂"));
+    cait::println("contains '世界'? {}", data.contains("世界"));
+    cait::println("index of '世': {}", data.find("世"));
+    cait::println("index of '🙂': {}", data.find("🙂"));
+    cait::println("last index of ' ': {}", data.rfind(" "));
+    cait::println("char count: {}", data.size());
+    cait::println("byte count: {}", data.byte_count());
+    cait::println("char at index 1: {}", data[1]);
+    cait::println("char at index 9: {}", data[9]);
+    
+    for (auto& elem : data)
+    {
+        if (elem == "🙂")
+        {
+            elem = "🍉";
+        }
     }
-  }
-  cait::println("updated: {}\n", data);
-  return 0;
+    cait::println("updated: {}\n", data);
+    return 0;
 }
 ```
 
