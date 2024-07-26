@@ -19,20 +19,23 @@ applications that need efficient data exchange in a structured format.
 #include <Caitlyn/IO>
 #include <Caitlyn/Serializing>
 
+using namespace Caitlyn;
+using namespace Caitlyn::Json;
+
 int main()
 {
-    auto config = cait::json::MakeDocument();
-    config["name"] = cait::json::MakeObject();
+    auto config = MakeDocument();
+    config["name"] = MakeObject();
     config["name"]["first"] = "John";
     config["name"]["last"] = "Doe";
     config["age"] = 30;
-    config["address"] = cait::json::MakeObject();
+    config["address"] = MakeObject();
     config["address"]["street"] = "123 Main St";
     config["address"]["city"] = "Anytown";
     config["address"]["zip"] = "12345";
-    config["phone_numbers"] = cait::json::MakeArray("555-1234", "555-5678");
+    config["phone_numbers"] = MakeArray("555-1234", "555-5678");
     
-    cait::WriteLine(config);
+    WriteLine(config);
     return 0;
 }
 ```
@@ -42,6 +45,8 @@ int main()
 ```c++
 #include <Caitlyn/IO>
 #include <Caitlyn/Serializing>
+
+using namespace Caitlyn;
 
 int main()
 {
@@ -63,7 +68,7 @@ int main()
             ]
         }
     );
-    cait::WriteLine(config);
+    WriteLine(config);
     return 0;
 }
 ```

@@ -9,32 +9,34 @@
 #include <Caitlyn/IO>
 #include <Caitlyn/String>
 
+using namespace Caitlyn;
+
 int main()
 {
-    const cait::String first = "Hello";
-    const cait::String second = "world";
+    const String first = "Hello";
+    const String second = "world";
     
-    const auto data = cait::String::Format("{}, {}!", first, second);
+    const auto data = String::Format("{}, {}!", first, second);
     
     // Alignment
-    cait::WriteLine("l: '{:<25}'", data);
-    cait::WriteLine("c: '{:^25}'", data);
-    cait::WriteLine("r: '{:>25}'\n", data);
+    WriteLine("l: '{:<25}'", data);
+    WriteLine("c: '{:^25}'", data);
+    WriteLine("r: '{:>25}'\n", data);
     // Precision
-    cait::WriteLine("floating: {:.4f}", 64.932698);
-    cait::WriteLine("decimal:  {:d}\n", 6427123266375693);
+    WriteLine("floating: {:.4f}", 64.932698);
+    WriteLine("decimal:  {:d}\n", 6427123266375693);
     // Filling
-    cait::WriteLine("line: {:-<24}", "");
-    cait::WriteLine("fill: {:*^24}\n", "TEXT");
+    WriteLine("line: {:-<24}", "");
+    WriteLine("fill: {:*^24}\n", "TEXT");
     // Other
-    cait::WriteLine("escaped: {{text}}\n");
+    WriteLine("escaped: {{text}}\n");
     
-    auto content = cait::MakeText("Text: ");
+    auto content = MakeText("Text: ");
     content.Append("Lorem ipsum dolor sit amet, ");
     content.AppendLine("consectetur adipiscing elit...");
     content.AppendLine(data);
     
-    cait::WriteLine(content);
+    WriteLine(content);
     return 0;
 }
 ```

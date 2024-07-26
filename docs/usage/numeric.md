@@ -18,13 +18,15 @@ such as financial applications, scientific research, or cryptography.
 #include <Caitlyn/IO>
 #include <Caitlyn/Numeric>
 
+using namespace Caitlyn;
+
 int main()
 {
-    const cait::BigInteger lhs = "47011878636176761032731633812398273982371829";
-    const cait::BigInteger rhs = "10218827321893782973821793709217371273";
+    const BigInteger lhs = "47011878636176761032731633812398273982371829";
+    const BigInteger rhs = "10218827321893782973821793709217371273";
     const auto result = lhs * rhs;
     
-    cait::WriteLine(result);
+    WriteLine(result);
     return 0;
 }
 ```
@@ -39,13 +41,15 @@ int main()
 #include <Caitlyn/IO>
 #include <Caitlyn/Numeric>
 
+using namespace Caitlyn;
+
 int main()
 {
-    const cait::BigFloat lhs = "182.81278920101871298728193797392737812737";
-    const cait::BigFloat rhs = "7.8827318902910380293782646543821795732418";
+    const BigFloat lhs = "182.81278920101871298728193797392737812737";
+    const BigFloat rhs = "7.8827318902910380293782646543821795732418";
     const auto result = lhs * rhs;
     
-    cait::WriteLine(result);
+    WriteLine(result);
     return 0;
 }
 ```

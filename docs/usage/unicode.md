@@ -8,25 +8,27 @@ Basic string enhanced with correct UTF-8 operations.
 #include <Caitlyn/IO>
 #include <Caitlyn/String>
 
+using namespace Caitlyn;
+
 int main()
 {
-    cait::String string = "Hello, 世界!";
-    cait::Char emoji = "🙂";
+    String string = "Hello, 世界!";
+    Char emoji = "🙂";
 
-    auto data = cait::String::Format("{} {}", string, emoji);
+    auto data = String::Format("{} {}", string, emoji);
 
-    cait::WriteLine("string: {}", data);
-    cait::WriteLine("substring from index 7, length 2: {}", data.Substring(7, 2));
-    cait::WriteLine("starts with 'Hello'? {}", data.StartsWith("Hello"));
-    cait::WriteLine("ends with 🙂? {}", data.EndsWith("🙂"));
-    cait::WriteLine("contains '世界'? {}", data.Contains("世界"));
-    cait::WriteLine("index of '世': {}", data.Find("世"));
-    cait::WriteLine("index of '🙂': {}", data.Find("🙂"));
-    cait::WriteLine("last index of ' ': {}", data.ReverseFind(" "));
-    cait::WriteLine("char count: {}", data.Length());
-    cait::WriteLine("byte count: {}", data.ByteCount());
-    cait::WriteLine("char at index 1: {}", data.At(1));
-    cait::WriteLine("char at index 9: {}", data.At(9));
+    WriteLine("string: {}", data);
+    WriteLine("substring from index 7, length 2: {}", data.Substring(7, 2));
+    WriteLine("starts with 'Hello'? {}", data.StartsWith("Hello"));
+    WriteLine("ends with 🙂? {}", data.EndsWith("🙂"));
+    WriteLine("contains '世界'? {}", data.Contains("世界"));
+    WriteLine("index of '世': {}", data.Find("世"));
+    WriteLine("index of '🙂': {}", data.Find("🙂"));
+    WriteLine("last index of ' ': {}", data.ReverseFind(" "));
+    WriteLine("char count: {}", data.Length());
+    WriteLine("byte count: {}", data.ByteCount());
+    WriteLine("char at index 1: {}", data.At(1));
+    WriteLine("char at index 9: {}", data.At(9));
 
     for (auto& elem : data)
     {
@@ -35,7 +37,7 @@ int main()
             elem = "🍉";
         }
     }
-    cait::WriteLine("updated: {}\n", data);
+    WriteLine("updated: {}\n", data);
     return 0;
 }
 ```

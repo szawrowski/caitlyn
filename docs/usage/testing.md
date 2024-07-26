@@ -17,6 +17,9 @@ your projects.
 ```c++
 #include <Caitlyn/Testing>
 
+using namespace Caitlyn;
+using namespace Caitlyn::Test;
+
 TEST(MathTests, TestAddition)
 {
     ASSERT_EQ(2 + 3, 5);
@@ -56,7 +59,7 @@ TEST_F(MathFixture<int>, TestFixtureAddition)
 
 int main()
 {
-    return cait::test::TestRegistry::Instance().RunAll();
+    return TestRegistry::Instance().RunAll();
 }
 ```
 

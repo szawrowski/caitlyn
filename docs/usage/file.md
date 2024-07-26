@@ -9,13 +9,15 @@
 ```c++
 #include <Caitlyn/File>
 
+using namespace Caitlyn;
+
 int main()
 {
-    const cait::String some = "Lorem ipsum dolor sit amet,";
-    const cait::String other = "consectetur adipiscing elit...";
-    const cait::String unicode = "Hello, 世界!";
+    const String some = "Lorem ipsum dolor sit amet,";
+    const String other = "consectetur adipiscing elit...";
+    const String unicode = "Hello, 世界!";
 
-    auto file = cait::MakeFile("somefile.txt");
+    auto file = MakeFile("somefile.txt");
     file.Write("{} {}\n{}", some, other, unicode);
     file.Close();
   
@@ -35,13 +37,15 @@ Hello, 世界!
 ```c++
 #include <Caitlyn/IO>
 
+using namespace Caitlyn;
+
 int main()
 {
-    auto file = cait::MakeFile("somefile.txt");
+    auto file = MakeFile("somefile.txt");
     
     while (file)
     {
-        cait::WriteLine("{}", file.ReadLine());
+        WriteLine("{}", file.ReadLine());
     }
     file.Close();
     return 0;

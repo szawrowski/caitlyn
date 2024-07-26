@@ -18,16 +18,18 @@ Handling errors without standard exceptions.
 #include <Caitlyn/Error>
 #include <Caitlyn/IO>
 
+using namespace Caitlyn;
+
 enum class MathError
 {
     DivideByZero
 };
 
-auto Divide(const double lhs, const double rhs) -> cait::Expected<double, MathError>
+auto Divide(const double lhs, const double rhs) -> Expected<double, MathError>
 {
     if (lhs == 0 || rhs == 0)
     {
-        return cait::MakeError(MathError::DivideByZero);
+        return MakeError(MathError::DivideByZero);
     }
     return lhs / rhs;
 }
@@ -38,11 +40,11 @@ int main()
 
     if (result)
     {
-        cait::WriteLine("64 / 4 = {}", result.Get());
+        WriteLine("64 / 4 = {}", result.Get());
     }
     else if (result.GetError() == MathError::DivideByZero)
     {
-        cait::ErrorWriteLine("Error: divide by zero");
+        ErrorWriteLine("Error: divide by zero");
     }
     return 0;
 }

@@ -7,19 +7,21 @@
 #include <Caitlyn/IO>
 #include <Caitlyn/String>
 
+using namespace Caitlyn;
+
 int main()
 {
-    const std::map<int, cait::String> numbers{{1, "One"}, {2, "Two"}, {3, "Three"}, {4, "Four"}, {5, "Five"}};
+    const std::map<int, String> numbers{{1, "One"}, {2, "Two"}, {3, "Three"}, {4, "Four"}, {5, "Five"}};
 
-    for (auto& key : cait::GetMapKeys(numbers))
+    for (auto& key : GetMapKeys(numbers))
     {
-        cait::Write("{} ", key);
+        Write("{} ", key);
     }
-    cait::WriteLine();
+    WriteLine();
 
-    for (auto& value : cait::GetMapValues(numbers))
+    for (auto& value : GetMapValues(numbers))
     {
-        cait::Write("{} ", value);
+        Write("{} ", value);
     }
     return 0;
 }

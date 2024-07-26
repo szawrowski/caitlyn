@@ -7,7 +7,7 @@
 
 int main()
 {
-    cait::WriteLine("Hello, world!");
+    Caitlyn::WriteLine("Hello, world!");
     return 0;
 }
 ```
@@ -17,7 +17,7 @@ int main()
 ```c++
 int main()
 {
-    const auto app = cait::Application::Initialize();
+    const auto app = Caitlyn::Application::Initialize();
     // ...
 }
 ```
@@ -27,17 +27,17 @@ int main()
 ```c++
 int main(int argc, const char** argv)
 {
-    const auto app = cait::Application::Initialize(argc, argv);
+    const auto app = Caitlyn::Application::Initialize(argc, argv);
 
     // Get vector of arguments
     for (const auto& arg : app->GetArgs())
     {
-        cait::WriteLine("{} ", arg);
+        Caitlyn::WriteLine("{} ", arg);
     }
     // Get information
-    cait::WriteLine(app->GetSystemName());
-    cait::WriteLine(app->GetCompilerInfo());
-    cait::WriteLine(app->GetCaitlynInfo());
+    Caitlyn::WriteLine(app->GetSystemName());
+    Caitlyn::WriteLine(app->GetCompilerInfo());
+    Caitlyn::WriteLine(app->GetCaitlynInfo());
     // ...
 }
 ```

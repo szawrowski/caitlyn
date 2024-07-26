@@ -1,6 +1,6 @@
 # Type Traits
 
-The `required` type trait provides a more elegant alternative to
+The `Required` type trait provides a more elegant alternative to
 `std::enable_if` for enforcing template constraints in C++.
 
 **required** _**< CONDITION**, **OPTIONAL_RETURN_TYPE >**_
@@ -21,7 +21,9 @@ as a template default type parameter.
 ```c++
 #include <Caitlyn/Traits>
 
-template <typename T, typename = cait::Required<cait::IsIntegral<T>()>>
+using namespace Caitlyn;
+
+template <typename T, typename = Required<IsIntegral<T>()>>
 T Add(const T lhs, const T rhs)
 {
     return lhs + rhs;
@@ -34,9 +36,12 @@ Function template `Add` uses `Required` directly in the return type.
 This enforces that `T` must be an integral type.
 
 ```c++
+#include <Caitlyn/Traits>
+
+using namespace Caitlyn;
+
 template <typename T>
-cait::Required<cait::IsIntegral<T>(), T>
-Add(const T lhs, const T rhs)
+Required<IsIntegral<T>(), T> Add(const T lhs, const T rhs)
 {
     return lhs + rhs;
 }
@@ -48,8 +53,12 @@ Function template `Add` uses a trailing return type to apply the `Required`
 constraint. This ensures that `T` is an integral type.
 
 ```c++
+#include <Caitlyn/Traits>
+
+using namespace Caitlyn;
+
 template <typename T>
-auto Add(const T lhs, const T rhs) -> cait::Required<cait::IsIntegral<T>(), T>
+auto Add(const T lhs, const T rhs) -> Required<IsIntegral<T>(), T>
 {
     return lhs + rhs;
 }
