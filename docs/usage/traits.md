@@ -15,13 +15,13 @@ The `required` type trait provides a more elegant alternative to
 #### SFINAE with a template default type parameter
 
 Function template `Add` accepts two parameters of type `T` and returns
-their sum. It uses `required` to enforce that `T` is an integral type,
+their sum. It uses `Required` to enforce that `T` is an integral type,
 as a template default type parameter.
 
 ```c++
-#include <caitlyn/traits>
+#include <Caitlyn/Traits>
 
-template <typename T, typename = cait::required<cait::is_integral<T>()>>
+template <typename T, typename = cait::Required<cait::IsIntegral<T>()>>
 T Add(const T lhs, const T rhs)
 {
     return lhs + rhs;
@@ -30,14 +30,12 @@ T Add(const T lhs, const T rhs)
 
 #### SFINAE as a return type constraint
 
-Function template `Add` uses `required` directly in the return type.
+Function template `Add` uses `Required` directly in the return type.
 This enforces that `T` must be an integral type.
 
 ```c++
-#include <caitlyn/traits>
-
 template <typename T>
-cait::required<cait::is_integral<T>(), T>
+cait::Required<cait::IsIntegral<T>(), T>
 Add(const T lhs, const T rhs)
 {
     return lhs + rhs;
@@ -46,14 +44,12 @@ Add(const T lhs, const T rhs)
 
 #### SFINAE as a trailing return type constraint
 
-Function template `Add` uses a trailing return type to apply the `required`
+Function template `Add` uses a trailing return type to apply the `Required`
 constraint. This ensures that `T` is an integral type.
 
 ```c++
-#include <caitlyn/traits>
-
 template <typename T>
-auto Add(const T lhs, const T rhs) -> cait::required<cait::is_integral<T>(), T>
+auto Add(const T lhs, const T rhs) -> cait::Required<cait::IsIntegral<T>(), T>
 {
     return lhs + rhs;
 }

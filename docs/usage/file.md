@@ -1,23 +1,23 @@
 # File Management
 
-- `file`: Universal file handler.
+- `File`: Universal file handler.
 
 ## Usage
 
 - Write text to file
 
 ```c++
-#include <caitlyn/file>
+#include <Caitlyn/File>
 
 int main()
 {
-    const cait::string some = "Lorem ipsum dolor sit amet,";
-    const cait::string other = "consectetur adipiscing elit...";
-    const cait::string unicode = "Hello, 世界!";
+    const cait::String some = "Lorem ipsum dolor sit amet,";
+    const cait::String other = "consectetur adipiscing elit...";
+    const cait::String unicode = "Hello, 世界!";
 
-    auto file = cait::make_file("somefile.txt");
-    file.writef("{} {}\n{}", some, other, unicode);
-    file.close();
+    auto file = cait::MakeFile("somefile.txt");
+    file.Write("{} {}\n{}", some, other, unicode);
+    file.Close();
   
     return 0;
 }
@@ -33,17 +33,17 @@ Hello, 世界!
 - Read lines from file
 
 ```c++
-#include <caitlyn/io>
+#include <Caitlyn/IO>
 
 int main()
 {
-    auto file = cait::make_file("somefile.txt");
+    auto file = cait::MakeFile("somefile.txt");
     
     while (file)
     {
-        cait::println("{}", file.readln());
+        cait::WriteLine("{}", file.ReadLine());
     }
-    file.close();
+    file.Close();
     return 0;
 }
 ```

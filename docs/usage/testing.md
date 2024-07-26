@@ -15,7 +15,7 @@ your projects.
 ## Usage
 
 ```c++
-#include <caitlyn/testing>
+#include <Caitlyn/Testing>
 
 TEST(MathTests, TestAddition)
 {
@@ -56,7 +56,7 @@ TEST_F(MathFixture<int>, TestFixtureAddition)
 
 int main()
 {
-    return cait::test::registry::instance().run_all();
+    return cait::test::TestRegistry::Instance().RunAll();
 }
 ```
 

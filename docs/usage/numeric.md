@@ -7,24 +7,24 @@ computations with high precision, avoiding data loss due to type limitations.
 Such types are often used in applications requiring high-precision calculations,
 such as financial applications, scientific research, or cryptography.
 
-- `pwrint`: Integral type of arbitrary length
-- `pwrnum`: Floating point type with arbitrary precision
+- `BigInteger`: Integral type of arbitrary length
+- `BigFloat`: Floating point type with arbitrary precision
 
 ## Usage
 
 - Integral
 
 ```c++
-#include <caitlyn/io>
-#include <caitlyn/numeric>
+#include <Caitlyn/IO>
+#include <Caitlyn/Numeric>
 
 int main()
 {
-    const cait::pwrint a = "47011878636176761032731633812398273982371829";
-    const cait::pwrint b = "10218827321893782973821793709217371273";
-    const auto result = a * b;
+    const cait::BigInteger lhs = "47011878636176761032731633812398273982371829";
+    const cait::BigInteger rhs = "10218827321893782973821793709217371273";
+    const auto result = lhs * rhs;
     
-    cait::println(result);
+    cait::WriteLine(result);
     return 0;
 }
 ```
@@ -36,16 +36,16 @@ int main()
 - Floating point
 
 ```c++
-#include <caitlyn/io>
-#include <caitlyn/numeric>
+#include <Caitlyn/IO>
+#include <Caitlyn/Numeric>
 
 int main()
 {
-    const cait::pwrnum a = "182.81278920101871298728193797392737812737";
-    const cait::pwrnum b = "7.8827318902910380293782646543821795732418";
-    const auto result = a * b;
+    const cait::BigFloat lhs = "182.81278920101871298728193797392737812737";
+    const cait::BigFloat rhs = "7.8827318902910380293782646543821795732418";
+    const auto result = lhs * rhs;
     
-    cait::println(result);
+    cait::WriteLine(result);
     return 0;
 }
 ```

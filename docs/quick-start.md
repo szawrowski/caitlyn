@@ -3,11 +3,11 @@
 #### Run the simple program
 
 ```c++
-#include <caitlyn/io>
+#include <Caitlyn/IO>
 
 int main()
 {
-    cait::println("Hello, world!");
+    cait::WriteLine("Hello, world!");
     return 0;
 }
 ```
@@ -17,7 +17,7 @@ int main()
 ```c++
 int main()
 {
-    const auto app = cait::application::init();    
+    const auto app = cait::Application::Initialize();
     // ...
 }
 ```
@@ -27,17 +27,17 @@ int main()
 ```c++
 int main(int argc, const char** argv)
 {
-    const auto app = cait::application::init(argc, argv);
-  
+    const auto app = cait::Application::Initialize(argc, argv);
+
     // Get vector of arguments
-    for (const auto& arg : app->get_args())
+    for (const auto& arg : app->GetArgs())
     {
-        cait::println("{} ", arg);
+        cait::WriteLine("{} ", arg);
     }
     // Get information
-    cait::println(app->get_system());
-    cait::println(app->get_compiler());
-    cait::println(app->get_caitlyn_info());
+    cait::WriteLine(app->GetSystemName());
+    cait::WriteLine(app->GetCompilerInfo());
+    cait::WriteLine(app->GetCaitlynInfo());
     // ...
 }
 ```
