@@ -52,10 +52,8 @@ Caitlyn aims to provide efficient and easy-to-use tools.
 
 ## Get Started
 
-1. **Installation**: Follow the **[Installation Guide](docs/installation.md)**
-   to get Caitlyn up and running.
-
-2. **Quick Start**: Follow the **[Quick Start Guide](docs/quick-start.md)**.
+- **Installation**: Follow the **[Installation Guide](docs/installation.md)**
+  to get Caitlyn up and running.
 
 ## License
 

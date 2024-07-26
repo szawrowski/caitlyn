@@ -42,3 +42,42 @@ target_link_libraries(${PROJECT_NAME} PRIVATE Caitlyn::Caitlyn)
 
 Replace `ProjectName` with the actual name of your project and ensure `main.cpp`
 is the source file for your main executable.
+
+#### Run the simple program
+
+```c++
+#include <Caitlyn/IO>
+
+int main()
+{
+    Caitlyn::WriteLine("Hello, world!");
+    return 0;
+}
+```
+
+## Step 3: Setup Application
+
+The Application class is essential for ensuring the program operates smoothly
+across different devices and displays UTF-8 characters correctly.
+
+It also provides important tools for argument handling and debugging.
+
+```c++
+int main(int argc, const char** argv)
+{
+    const auto app = Caitlyn::Application::Initialize(argc, argv);
+
+    // Get vector of arguments
+    for (const auto& arg : app->GetArgs())
+    {
+        Caitlyn::WriteLine("{} ", arg);
+    }
+    // Get optional information
+    Caitlyn::WriteLine(app->GetSystemName());
+    Caitlyn::WriteLine(app->GetCompilerInfo());
+    Caitlyn::WriteLine(app->GetCaitlynInfo());
+    
+    Caitlyn::WriteLine("Hello, world!");
+    return 0;
+}
+```
