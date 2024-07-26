@@ -32,14 +32,14 @@ inline void Write(const String& str)
 }
 
 template <typename T>
-Required<Has_to_string<T>()> Write(const T& value)
+Required<HasToString<T>()> Write(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::cout << value.to_string() << std::flush;
 }
 
 template <typename T>
-Required<Has_str<T>()> Write(const T& value)
+Required<HasStr<T>()> Write(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::cout << value.str() << std::flush;
@@ -72,14 +72,14 @@ inline void WriteLine(const String& str)
 }
 
 template <typename T>
-Required<Has_to_string<T>()> WriteLine(const T& value)
+Required<HasToString<T>()> WriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::cout << value.to_string() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
-Required<Has_str<T>()> WriteLine(const T& value)
+Required<HasStr<T>()> WriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::cout << value.str() << Def::LineFeed << std::flush;
@@ -106,14 +106,14 @@ inline void ErrorWrite(const String& str)
 }
 
 template <typename T>
-Required<Has_to_string<T>()> ErrorWrite(const T& value)
+Required<HasToString<T>()> ErrorWrite(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::cerr << value.to_string() << std::flush;
 }
 
 template <typename T>
-Required<Has_str<T>()> ErrorWrite(const T& value)
+Required<HasStr<T>()> ErrorWrite(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::cerr << value.str() << std::flush;
@@ -140,14 +140,14 @@ inline void ErrorWriteLine(const String& str)
 }
 
 template <typename T>
-Required<Has_to_string<T>()> ErrorWriteLine(const T& value)
+Required<HasToString<T>()> ErrorWriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::cerr << value.to_string() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
-Required<Has_str<T>()> ErrorWriteLine(const T& value)
+Required<HasStr<T>()> ErrorWriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::cerr << value.str() << Def::LineFeed << std::flush;
@@ -174,14 +174,14 @@ inline void Log(const String& str)
 }
 
 template <typename T>
-Required<Has_to_string<T>()> Log(const T& value)
+Required<HasToString<T>()> Log(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::clog << value.to_string() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
-Required<Has_str<T>()> Log(const T& value)
+Required<HasStr<T>()> Log(const T& value)
 {
     std::ios::sync_with_stdio(false);
     std::clog << value.str() << Def::LineFeed << std::flush;

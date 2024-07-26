@@ -22,204 +22,205 @@
 #include "Caitlyn/__Core/Traits/Types/Specifiers.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <class T>
-struct IsVoidType : IsSameType<void, RemoveCV<T>>::Type
+struct IsVoidType : IsSameType<void, RemoveCVType<T>>::Type
 {
 };
 
 template <class T>
-struct IsNullPointerType : IsSameType<std::nullptr_t, RemoveCV<T>>::Type
+struct IsNullPointerType : IsSameType<NullPtr, RemoveCVType<T>>::Type
 {
 };
 
 template <class T>
-struct IsBooleanType : IsSameType<bool, RemoveCV<T>>::Type
+struct IsBooleanType : IsSameType<Bool, RemoveCVType<T>>::Type
 {
 };
+
+__CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 // Characters
 template <typename, typename = void>
-struct IsCharacterType : FalseType
+struct __IsCharacter : FalseType
 {
 };
 
 template <>
-struct IsCharacterType<char> : TrueType
+struct __IsCharacter<char> : TrueType
 {
 };
 
 template <>
-struct IsCharacterType<signed char> : TrueType
+struct __IsCharacter<signed char> : TrueType
 {
 };
 
 template <>
-struct IsCharacterType<unsigned char> : TrueType
+struct __IsCharacter<unsigned char> : TrueType
 {
 };
 
 template <>
-struct IsCharacterType<wchar_t> : TrueType
+struct __IsCharacter<wchar_t> : TrueType
 {
 };
 
 #if __CAITLYN_HAS_CXX20
 template <>
-struct IsCharacterType<char8_t> : TrueType
+struct __IsCharacterType<char8_t> : TrueType
 {
 };
 #endif
 
 template <>
-struct IsCharacterType<char16_t> : TrueType
+struct __IsCharacter<char16_t> : TrueType
 {
 };
 
 template <>
-struct IsCharacterType<char32_t> : TrueType
+struct __IsCharacter<char32_t> : TrueType
 {
 };
 
 // Integers
 template <typename, typename = void>
-struct IsIntegerType : FalseType
+struct __IsInteger : FalseType
 {
 };
 
 template <>
-struct IsIntegerType<signed char> : TrueType
+struct __IsInteger<signed char> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<unsigned char> : TrueType
+struct __IsInteger<unsigned char> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<short> : TrueType
+struct __IsInteger<short> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<unsigned short> : TrueType
+struct __IsInteger<unsigned short> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<int> : TrueType
+struct __IsInteger<int> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<unsigned> : TrueType
+struct __IsInteger<unsigned> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<long> : TrueType
+struct __IsInteger<long> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<unsigned long> : TrueType
+struct __IsInteger<unsigned long> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<long long> : TrueType
+struct __IsInteger<long long> : TrueType
 {
 };
 
 template <>
-struct IsIntegerType<unsigned long long> : TrueType
+struct __IsInteger<unsigned long long> : TrueType
 {
 };
 
 // Floating point
 template <typename, typename = void>
-struct IsFloatingType : FalseType
+struct __IsFloating : FalseType
 {
 };
 
 template <>
-struct IsFloatingType<float> : TrueType
+struct __IsFloating<float> : TrueType
 {
 };
 
 template <>
-struct IsFloatingType<double> : TrueType
+struct __IsFloating<double> : TrueType
 {
 };
 
 template <>
-struct IsFloatingType<long double> : TrueType
+struct __IsFloating<long double> : TrueType
 {
 };
 
 template <class T>
-struct IsArrayType : FalseType
+struct __IsArray : FalseType
 {
 };
 
 template <class T>
-struct IsArrayType<T[]> : TrueType
+struct __IsArray<T[]> : TrueType
 {
 };
 
 template <class T, std::size_t N>
-struct IsArrayType<T[N]> : TrueType
+struct __IsArray<T[N]> : TrueType
 {
 };
 
 template <class T>
-struct IsPointerType : FalseType
+struct __IsPointer : FalseType
 {
 };
 
 template <class T>
-struct IsPointerType<T*> : TrueType
+struct __IsPointer<T*> : TrueType
 {
 };
 
 template <class T>
-struct IsPointerType<T* const> : TrueType
+struct __IsPointer<T* const> : TrueType
 {
 };
 
 template <class T>
-struct IsPointerType<T* volatile> : TrueType
+struct __IsPointer<T* volatile> : TrueType
 {
 };
 
 template <class T>
-struct IsPointerType<T* const volatile> : TrueType
+struct __IsPointer<T* const volatile> : TrueType
 {
 };
 
 template <typename T>
-struct IsLValueReferenceType : FalseType
+struct __IsLValueReference : FalseType
 {
 };
 
 template <typename T>
-struct IsLValueReferenceType<T&> : TrueType
+struct __IsLValueReference<T&> : TrueType
 {
 };
 
 template <typename T>
-struct IsRValueReferenceType : FalseType
+struct __IsRValueReference : FalseType
 {
 };
 
 template <typename T>
-struct IsRValueReferenceType<T&&> : TrueType
+struct __IsRValueReference<T&&> : TrueType
 {
 };
 
-__CAITLYN_TRAITS_NAMESPACE_END
+__CAITLYN_DETAIL_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif // CAITLUN_CORE_TRAITS_TYPES_PRIMARY_H_

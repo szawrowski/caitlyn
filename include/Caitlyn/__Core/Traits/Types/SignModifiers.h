@@ -21,157 +21,157 @@
 #include "Caitlyn/__Core/Traits/Types/Base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
+__CAITLYN_DETAIL_NAMESPACE_BEGIN
 
-template <typename T>
-struct MakeSignedType
+template <typename>
+struct __MakeSigned
 {
 };
 
 template <>
-struct MakeSignedType<char>
-{
-    using Type = signed char;
-};
-
-template <>
-struct MakeSignedType<unsigned char>
+struct __MakeSigned<char>
 {
     using Type = signed char;
 };
 
 template <>
-struct MakeSignedType<unsigned short>
+struct __MakeSigned<unsigned char>
+{
+    using Type = signed char;
+};
+
+template <>
+struct __MakeSigned<unsigned short>
 {
     using Type = short;
 };
 
 template <>
-struct MakeSignedType<unsigned int>
+struct __MakeSigned<unsigned int>
 {
     using Type = int;
 };
 
 template <>
-struct MakeSignedType<unsigned long>
+struct __MakeSigned<unsigned long>
 {
     using Type = long;
 };
 
 template <>
-struct MakeSignedType<unsigned long long>
+struct __MakeSigned<unsigned long long>
 {
     using Type = long long;
 };
 
 template <>
-struct MakeSignedType<signed char>
+struct __MakeSigned<signed char>
 {
     using Type = signed char;
 };
 
 template <>
-struct MakeSignedType<short>
+struct __MakeSigned<short>
 {
     using Type = short;
 };
 
 template <>
-struct MakeSignedType<int>
+struct __MakeSigned<int>
 {
     using Type = int;
 };
 
 template <>
-struct MakeSignedType<long>
+struct __MakeSigned<long>
 {
     using Type = long;
 };
 
 template <>
-struct MakeSignedType<long long>
+struct __MakeSigned<long long>
 {
     using Type = long long;
 };
 
-template <typename T>
-struct MakeUnsignedType
+template <typename>
+struct __MakeUnsigned
 {
 };
 
 template <>
-struct MakeUnsignedType<char>
-{
-    using Type = unsigned char;
-};
-
-template <>
-struct MakeUnsignedType<signed char>
+struct __MakeUnsigned<char>
 {
     using Type = unsigned char;
 };
 
 template <>
-struct MakeUnsignedType<short>
+struct __MakeUnsigned<signed char>
+{
+    using Type = unsigned char;
+};
+
+template <>
+struct __MakeUnsigned<short>
 {
     using Type = unsigned short;
 };
 
 template <>
-struct MakeUnsignedType<int>
+struct __MakeUnsigned<int>
 {
     using Type = unsigned int;
 };
 
 template <>
-struct MakeUnsignedType<long>
+struct __MakeUnsigned<long>
 {
     using Type = unsigned long;
 };
 
 template <>
-struct MakeUnsignedType<long long>
+struct __MakeUnsigned<long long>
 {
     using Type = unsigned long long;
 };
 
 template <>
-struct MakeUnsignedType<unsigned char>
+struct __MakeUnsigned<unsigned char>
 {
     using Type = unsigned char;
 };
 
 template <>
-struct MakeUnsignedType<unsigned short>
+struct __MakeUnsigned<unsigned short>
 {
     using Type = unsigned short;
 };
 
 template <>
-struct MakeUnsignedType<unsigned int>
+struct __MakeUnsigned<unsigned int>
 {
     using Type = unsigned int;
 };
 
 template <>
-struct MakeUnsignedType<unsigned long>
+struct __MakeUnsigned<unsigned long>
 {
     using Type = unsigned long;
 };
 
 template <>
-struct MakeUnsignedType<unsigned long long>
+struct __MakeUnsigned<unsigned long long>
 {
     using Type = unsigned long long;
 };
 
-__CAITLYN_TRAITS_NAMESPACE_END
+__CAITLYN_DETAIL_NAMESPACE_END
 
 template <typename T>
-using MakeSigned = Traits::MakeSignedType<T>;
+using MakeSignedType = typename __Detail::__MakeSigned<T>::Type;
 
 template <typename T>
-using MakeUnsigned = Traits::MakeUnsignedType<T>;
+using MakeUnsignedType = typename __Detail::__MakeUnsigned<T>::Type;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 

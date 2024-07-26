@@ -18,44 +18,43 @@
 #ifndef CAITLUN_CORE_TRAITS_TYPES_POINTERS_H_
 #define CAITLUN_CORE_TRAITS_TYPES_POINTERS_H_
 
-#include "Caitlyn/__Core/Traits/Types/Base.h"
+#include "Caitlyn/__Core/Traits/Types/References.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
 __CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename T>
-auto TryAddPointer(T*) -> TypeIdentity<typename std::remove_reference<T>::type*>;
+auto __TryAddPointer(T*) -> __TypeIdentity<RemoveReferenceType<T>*>;
 
 template <typename T>
-auto TryAddPointer(...) -> TypeIdentity<T>;
+auto __TryAddPointer(...) -> __TypeIdentity<T>;
 
 template <typename T>
-struct RemoveReference
+struct __RemovePointer
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveReference<T*>
+struct __RemovePointer<T*>
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveReference<T* const>
+struct __RemovePointer<T* const>
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveReference<T* volatile>
+struct __RemovePointer<T* volatile>
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveReference<T* const volatile>
+struct __RemovePointer<T* const volatile>
 {
     using Type = T;
 };
@@ -63,12 +62,11 @@ struct RemoveReference<T* const volatile>
 __CAITLYN_DETAIL_NAMESPACE_END
 
 template <typename T>
-using AddPointerType = typename decltype(__Detail::TryAddPointer<T>(nullptr))::Type;
+using AddPointerType = typename decltype(__Detail::__TryAddPointer<T>(nullptr))::Type;
 
 template <typename T>
-using RemovePointerType = typename __Detail::RemoveReference<T>::Type;
+using RemovePointerType = typename __Detail::__RemovePointer<T>::Type;
 
-__CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif // CAITLUN_CORE_TRAITS_TYPES_POINTERS_H_

@@ -21,35 +21,34 @@
 #include "Caitlyn/__Core/Traits/Types/Base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
 __CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename T>
-auto TryAddLValueReference(T*) -> TypeIdentity<T&>;
+auto __TryAddLValueReference(T*) -> __TypeIdentity<T&>;
 
 template <typename T>
-auto TryAddLValueReference(...) -> TypeIdentity<T>;
+auto __TryAddLValueReference(...) -> __TypeIdentity<T>;
 
 template <typename T>
-auto TryAddRValueReference(T*) -> TypeIdentity<T&&>;
+auto __TryAddRValueReference(T*) -> __TypeIdentity<T&&>;
 
 template <typename T>
-auto TryAddRValueReference(...) -> TypeIdentity<T>;
+auto __TryAddRValueReference(...) -> __TypeIdentity<T>;
 
 template <typename T>
-struct RemoveReferenceType
+struct __RemoveReference
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveReferenceType<T&>
+struct __RemoveReference<T&>
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveReferenceType<T&&>
+struct __RemoveReference<T&&>
 {
     using Type = T;
 };
@@ -57,15 +56,14 @@ struct RemoveReferenceType<T&&>
 __CAITLYN_DETAIL_NAMESPACE_END
 
 template <typename T>
-using AddLValueReferenceType = typename decltype(__Detail::TryAddLValueReference<T>(nullptr))::Type;
+using AddLValueReferenceType = typename decltype(__Detail::__TryAddLValueReference<T>(nullptr))::Type;
 
 template <typename T>
-using AddRValueReferenceType = typename decltype(__Detail::TryAddRValueReference<T>(nullptr))::Type;
+using AddRValueReferenceType = typename decltype(__Detail::__TryAddRValueReference<T>(nullptr))::Type;
 
 template <typename T>
-using RemoveReferenceType = typename __Detail::RemoveReferenceType<T>::Type;
+using RemoveReferenceType = typename __Detail::__RemoveReference<T>::Type;
 
-__CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif // CAITLUN_CORE_TRAITS_TYPES_REFERENCES_H_

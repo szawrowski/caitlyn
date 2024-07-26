@@ -194,7 +194,7 @@ public:
     }
 
     template <typename T>
-    Required<Has_to_string<T>()> Write(const T& data)
+    Required<HasToString<T>()> Write(const T& data)
     {
         if (!file_.is_open())
         {
@@ -205,7 +205,7 @@ public:
     }
 
     template <typename T>
-    Required<Has_str<T>()> Write(const T& data)
+    Required<HasStr<T>()> Write(const T& data)
     {
         if (!file_.is_open())
         {
@@ -258,7 +258,7 @@ public:
     }
 
     template <typename T>
-    Required<Has_to_string<T>()> WriteLine(const T& data)
+    Required<HasToString<T>()> WriteLine(const T& data)
     {
         if (!file_.is_open())
         {
@@ -269,7 +269,7 @@ public:
     }
 
     template <typename T>
-    Required<Has_str<T>()> WriteLine(const T& data)
+    Required<HasStr<T>()> WriteLine(const T& data)
     {
         if (!file_.is_open())
         {
@@ -324,7 +324,7 @@ public:
     }
 
     template <typename T>
-    Required<Has_to_string<T>()> Append(const T& data)
+    Required<HasToString<T>()> Append(const T& data)
     {
         if (!file_.is_open())
         {
@@ -336,7 +336,7 @@ public:
     }
 
     template <typename T>
-    Required<Has_str<T>()> Append(const T& data)
+    Required<HasStr<T>()> Append(const T& data)
     {
         if (!file_.is_open())
         {
@@ -394,7 +394,7 @@ public:
     }
 
     template <typename T>
-    Required<Has_to_string<T>()> AppendLine(const T& data)
+    Required<HasToString<T>()> AppendLine(const T& data)
     {
         if (!file_.is_open())
         {
@@ -406,7 +406,7 @@ public:
     }
 
     template <typename T>
-    Required<Has_str<T>()> AppendLine(const T& data)
+    Required<HasStr<T>()> AppendLine(const T& data)
     {
         if (!file_.is_open())
         {

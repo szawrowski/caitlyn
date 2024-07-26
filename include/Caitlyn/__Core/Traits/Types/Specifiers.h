@@ -21,47 +21,46 @@
 #include "Caitlyn/__Core/Traits/Types/Base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
 __CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename T>
-struct AddConst
+struct __AddConst
 {
     using Type = const T;
 };
 
 template <typename T>
-struct AddVolatile
+struct __AddVolatile
 {
-    using Type = const T;
+    using Type = volatile T;
 };
 
 template <typename T>
-struct AddCV
+struct __AddCV
 {
     using Type = const volatile T;
 };
 
 template <typename T>
-struct RemoveCV
+struct __RemoveCV
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveCV<const T>
+struct __RemoveCV<const T>
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveCV<volatile T>
+struct __RemoveCV<volatile T>
 {
     using Type = T;
 };
 
 template <typename T>
-struct RemoveCV<const volatile T>
+struct __RemoveCV<const volatile T>
 {
     using Type = T;
 };
@@ -69,42 +68,22 @@ struct RemoveCV<const volatile T>
 __CAITLYN_DETAIL_NAMESPACE_END
 
 template <typename T>
-using AddConstType = typename __Detail::AddConst<T>::Type;
+using AddConstType = typename __Detail::__AddConst<T>::Type;
 
 template <typename T>
-using AddVolatileType = typename __Detail::AddVolatile<T>::Type;
+using AddVolatileType = typename __Detail::__AddVolatile<T>::Type;
 
 template <typename T>
-using AddCVType = typename __Detail::AddCV<T>::Type;
+using AddCVType = typename __Detail::__AddCV<T>::Type;
 
 template <typename T>
-using RemoveConstType = typename __Detail::RemoveCV<const T>::Type;
+using RemoveConstType = typename __Detail::__RemoveCV<const T>::Type;
 
 template <typename T>
-using RemoveVolatileType = typename __Detail::RemoveCV<volatile T>::Type;
+using RemoveVolatileType = typename __Detail::__RemoveCV<volatile T>::Type;
 
 template <typename T>
-using RemoveCVType = typename __Detail::RemoveCV<T>::Type;
-
-__CAITLYN_TRAITS_NAMESPACE_END
-
-template <typename T>
-using AddConst = Traits::AddConstType<T>;
-
-template <typename T>
-using AddVolatile = Traits::AddVolatileType<T>;
-
-template <typename T>
-using AddCV = Traits::AddCVType<T>;
-
-template <typename T>
-using RemoveConst = Traits::RemoveConstType<T>;
-
-template <typename T>
-using RemoveVolatile = Traits::RemoveVolatileType<T>;
-
-template <typename T>
-using RemoveCV = Traits::RemoveCVType<T>;
+using RemoveCVType = typename __Detail::__RemoveCV<T>::Type;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 

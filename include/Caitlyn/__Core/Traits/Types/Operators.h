@@ -23,7 +23,6 @@
 #include "Caitlyn/__Core/Traits/Types/Base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
 
 template <typename, typename = void>
 struct HasLessOperatorType : FalseType
@@ -215,7 +214,6 @@ struct HasOStreamOperatorType<T, Indicator<decltype(std::declval<std::ostream&>(
 {
 };
 
-__CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif // CAITLYN_CORE_TRAITS_TYPES_OPERATORS_H_

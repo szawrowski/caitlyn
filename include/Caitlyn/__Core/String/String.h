@@ -26,11 +26,13 @@
 #include <string>
 #include <utility>
 
+
 #include "Caitlyn/__Base.h"
 #include "Caitlyn/__Core/Char.h"
 #include "Caitlyn/__Core/Traits/Constraints/String.h"
 #include "Caitlyn/__Core/Traits/Types/Base.h"
 #include "Caitlyn/__Core/Traits/Types/Primary.h"
+#include "Caitlyn/__Core/Traits/Constraints/Primary.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
@@ -536,13 +538,13 @@ public:
     }
 
     template <typename T>
-    static Required<Traits::IsBooleanType<T>::Value, const char*> ValueOf(T value)
+    static Required<IsBoolean<T>(), const char*> ValueOf(T value)
     {
         return value ? "true" : "false";
     }
 
     template <typename T>
-    static Required<Traits::IsNullPointerType<T>::Value, const char*> ValueOf(T)
+    static Required<IsNullPointer<T>(), const char*> ValueOf(T)
     {
         return "null";
     }
@@ -707,43 +709,43 @@ private:
         }
 
         template <typename T>
-        static Required<Traits::IsIntegerType<T>::Value, String> ToString(const T& value)
+        static Required<IsInteger<T>(), String> ToString(const T& value)
         {
             return std::to_string(value);
         }
 
         template <typename T>
-        static Required<Traits::IsFloatingType<T>::Value, String> ToString(const T& value)
+        static Required<IsFloating<T>(), String> ToString(const T& value)
         {
             return std::to_string(value);
         }
 
         template <typename T>
-        static Required<Traits::IsCharacterType<T>::Value, String> ToString(const T& value)
+        static Required<IsCharacter<T>(), String> ToString(const T& value)
         {
             return std::to_string(value);
         }
 
         template <typename T>
-        static Required<Traits::IsBooleanType<T>::Value, String> ToString(const T& value)
+        static Required<IsBoolean<T>(), String> ToString(const T& value)
         {
             return String::ValueOf(value);
         }
 
         template <typename T>
-        static Required<Traits::Has_to_string_Type<T>::Value, String> ToString(const T& value)
+        static Required<HasToString<T>(), String> ToString(const T& value)
         {
             return value.to_string();
         }
 
         template <typename T>
-        static Required<Traits::Has_str_Type<T>::Value, String> ToString(const T& value)
+        static Required<HasStr<T>(), String> ToString(const T& value)
         {
             return value.str();
         }
 
         template <typename T>
-        static Required<Traits::Has_ToString_Type<T>::Value, String> ToString(const T& value)
+        static Required<ConvertibleToString<T>(), String> ToString(const T& value)
         {
             return value.ToString();
         }

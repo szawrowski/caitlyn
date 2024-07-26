@@ -21,72 +21,72 @@
 #include "Caitlyn/__Core/Traits/Types/Base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
+__CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename, typename = void>
-struct Has_to_string_Type : FalseType
+struct __Has_to_string_Type : FalseType
 {
 };
 
 template <typename T>
-struct Has_to_string_Type<T, Indicator<decltype(std::declval<T>().to_string())>> : TrueType
-{
-};
-
-template <typename, typename = void>
-struct Has_str_Type : FalseType
-{
-};
-
-template <typename T>
-struct Has_str_Type<T, Indicator<decltype(std::declval<T>().str())>> : TrueType
+struct __Has_to_string_Type<T, Indicator<decltype(std::declval<T>().to_string())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct Has_c_str_Type : FalseType
+struct __Has_str_Type : FalseType
 {
 };
 
 template <typename T>
-struct Has_c_str_Type<T, Indicator<decltype(std::declval<T>().c_str())>> : TrueType
+struct __Has_str_Type<T, Indicator<decltype(std::declval<T>().str())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct Has_ToString_Type : FalseType
+struct __Has_c_str_Type : FalseType
 {
 };
 
 template <typename T>
-struct Has_ToString_Type<T, Indicator<decltype(std::declval<T>().ToString())>> : TrueType
+struct __Has_c_str_Type<T, Indicator<decltype(std::declval<T>().c_str())>> : TrueType
 {
 };
 
-__CAITLYN_TRAITS_NAMESPACE_END
+template <typename, typename = void>
+struct __Has_ToString_Type : FalseType
+{
+};
 
 template <typename T>
-constexpr Bool Has_to_string()
+struct __Has_ToString_Type<T, Indicator<decltype(std::declval<T>().ToString())>> : TrueType
 {
-    return Traits::Has_to_string_Type<T>::Value;
+};
+
+__CAITLYN_DETAIL_NAMESPACE_END
+
+template <typename T>
+constexpr Bool HasToString()
+{
+    return __Detail::__Has_to_string_Type<T>::Value;
 }
 
 template <typename T>
-constexpr Bool Has_str()
+constexpr Bool HasStr()
 {
-    return Traits::Has_str_Type<T>::Value;
+    return __Detail::__Has_str_Type<T>::Value;
 }
 
 template <typename T>
-constexpr Bool Has_c_str()
+constexpr Bool HasCStr()
 {
-    return Traits::Has_c_str_Type<T>::Value;
+    return __Detail::__Has_c_str_Type<T>::Value;
 }
 
 template <typename T>
 constexpr Bool ConvertibleToString()
 {
-    return Traits::Has_ToString_Type<T>::Value;
+    return __Detail::__Has_ToString_Type<T>::Value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END

@@ -25,13 +25,13 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 template <typename T, typename U>
 constexpr Bool Same()
 {
-    return Traits::IsSameType<T, U>::Value;
+    return IsSameType<T, U>::Value;
 }
 
 template <typename T, typename U>
 constexpr Bool Different()
 {
-    return !Traits::IsSameType<T, U>::Value;
+    return !IsSameType<T, U>::Value;
 }
 
 template <typename Base, typename Derived>

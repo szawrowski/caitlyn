@@ -23,43 +23,43 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-constexpr bool IsFundamental()
+constexpr Bool IsFundamental()
 {
     return std::is_fundamental<T>::value;
 }
 
 template <typename T>
-constexpr bool IsArithmetic()
+constexpr Bool IsArithmetic()
 {
     return std::is_arithmetic<T>::value;
 }
 
 template <typename T>
-constexpr bool IsScalar()
+constexpr Bool IsScalar()
 {
     return std::is_scalar<T>::value;
 }
 
 template <typename T>
-constexpr bool IsObject()
+constexpr Bool IsObject()
 {
     return std::is_object<T>::value;
 }
 
 template <typename T>
-constexpr bool IsCompound()
+constexpr Bool IsCompound()
 {
     return std::is_compound<T>::value;
 }
 
 template <typename T>
-constexpr bool IsReference()
+constexpr Bool IsReference()
 {
     return std::is_reference<T>::value;
 }
 
 template <typename T>
-constexpr bool IsMemberPointer()
+constexpr Bool IsMemberPointer()
 {
     return std::is_member_pointer<T>::value;
 }

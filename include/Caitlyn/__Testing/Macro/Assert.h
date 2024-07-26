@@ -81,8 +81,8 @@
     if (!((val1) == (val2)))                                                                                           \
     {                                                                                                                  \
         static_assert(                                                                                                 \
-            Caitlyn::Traits::HasOStreamOperatorType<decltype(val1)>::Value &&                                          \
-                Caitlyn::Traits::HasOStreamOperatorType<decltype(val2)>::Value,                                        \
+            Caitlyn::HasOStreamOperatorType<decltype(val1)>::Value &&                                                  \
+                Caitlyn::HasOStreamOperatorType<decltype(val2)>::Value,                                                \
             "Types must be printable to use ASSERT_EQ_PRINTABLE");                                                     \
                                                                                                                        \
         std::ostringstream oss;                                                                                        \

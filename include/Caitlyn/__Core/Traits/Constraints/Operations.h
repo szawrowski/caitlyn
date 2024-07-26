@@ -23,151 +23,151 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-constexpr bool Constructible()
+constexpr Bool Constructible()
 {
     return std::is_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool TriviallyConstructible()
+constexpr Bool TriviallyConstructible()
 {
     return std::is_trivially_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool NothrowConstructible()
+constexpr Bool NothrowConstructible()
 {
     return std::is_nothrow_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool DefaultConstructible()
+constexpr Bool DefaultConstructible()
 {
     return std::is_default_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool TriviallyDefaultConstructible()
+constexpr Bool TriviallyDefaultConstructible()
 {
     return std::is_trivially_default_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool NothrowDefaultConstructible()
+constexpr Bool NothrowDefaultConstructible()
 {
     return std::is_nothrow_default_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool CopyConstructible()
+constexpr Bool CopyConstructible()
 {
     return std::is_copy_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool TriviallyCopyConstructible()
+constexpr Bool TriviallyCopyConstructible()
 {
     return std::is_trivially_copy_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool NothrowCopyConstructible()
+constexpr Bool NothrowCopyConstructible()
 {
     return std::is_nothrow_copy_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool MoveConstructible()
+constexpr Bool MoveConstructible()
 {
     return std::is_move_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool TriviallyMoveConstructible()
+constexpr Bool TriviallyMoveConstructible()
 {
     return std::is_trivially_move_constructible<T>::value;
 }
 
 template <typename T>
-constexpr bool NothrowMoveConstructible()
+constexpr Bool NothrowMoveConstructible()
 {
     return std::is_nothrow_move_constructible<T>::value;
 }
 
 template <typename T, typename U>
-constexpr bool Assignable()
+constexpr Bool Assignable()
 {
     return std::is_assignable<T, U>::value;
 }
 
 template <typename T, typename U>
-constexpr bool TriviallyAssignable()
+constexpr Bool TriviallyAssignable()
 {
     return std::is_trivially_assignable<T, U>::value;
 }
 
 template <typename T, typename U>
-constexpr bool NothrowAssignable()
+constexpr Bool NothrowAssignable()
 {
     return std::is_nothrow_assignable<T, U>::value;
 }
 
 template <typename T>
-constexpr bool CopyAssignable()
+constexpr Bool CopyAssignable()
 {
     return std::is_copy_assignable<T>::value;
 }
 
 template <typename T>
-constexpr bool TriviallyCopyAssignable()
+constexpr Bool TriviallyCopyAssignable()
 {
     return std::is_trivially_copy_assignable<T>::value;
 }
 
 template <typename T>
-constexpr bool NothrowCopyAssignable()
+constexpr Bool NothrowCopyAssignable()
 {
     return std::is_nothrow_copy_assignable<T>::value;
 }
 
 template <typename T>
-constexpr bool MoveAssignable()
+constexpr Bool MoveAssignable()
 {
     return std::is_move_assignable<T>::value;
 }
 
 template <typename T>
-constexpr bool TriviallyMoveAssignable()
+constexpr Bool TriviallyMoveAssignable()
 {
     return std::is_trivially_move_assignable<T>::value;
 }
 
 template <typename T>
-constexpr bool NothrowMoveAssignable()
+constexpr Bool NothrowMoveAssignable()
 {
     return std::is_nothrow_move_assignable<T>::value;
 }
 
 template <typename T>
-constexpr bool Destructible()
+constexpr Bool Destructible()
 {
     return std::is_destructible<T>::value;
 }
 
 template <typename T>
-constexpr bool TriviallyDestructible()
+constexpr Bool TriviallyDestructible()
 {
     return std::is_trivially_destructible<T>::value;
 }
 
 template <typename T>
-constexpr bool NothrowDestructible()
+constexpr Bool NothrowDestructible()
 {
     return std::is_nothrow_destructible<T>::value;
 }
 
 template <typename T>
-constexpr bool HasVirtualDestructor()
+constexpr Bool HasVirtualDestructor()
 {
     return std::has_virtual_destructor<T>::value;
 }

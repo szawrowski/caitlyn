@@ -21,120 +21,121 @@
 #include "Caitlyn/__Core/Traits/Types/Base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
+__CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename, typename = void>
-struct has_begin_t : FalseType
+struct Has_begin_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_begin_t<T, Indicator<decltype(std::declval<T>().begin())>> : TrueType
+struct Has_begin_Type<T, Indicator<decltype(std::declval<T>().begin())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_end_t : FalseType
+struct Has_end_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_end_t<T, Indicator<decltype(std::declval<T>().end())>> : TrueType
+struct Has_end_Type<T, Indicator<decltype(std::declval<T>().end())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_push_back_t : FalseType
+struct Has_push_back_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_push_back_t<T, Indicator<decltype(std::declval<T>().push_back(std::declval<typename T::value_type>()))>>
+struct Has_push_back_Type<T, Indicator<decltype(std::declval<T>().push_back(std::declval<typename T::value_type>()))>>
     : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_pop_back_t : FalseType
+struct Has_pop_back_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_pop_back_t<T, Indicator<decltype(std::declval<T>().pop_back())>> : TrueType
+struct Has_pop_back_Type<T, Indicator<decltype(std::declval<T>().pop_back())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_size_t : FalseType
+struct Has_size_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_size_t<T, Indicator<decltype(std::declval<T>().size())>> : TrueType
+struct Has_size_Type<T, Indicator<decltype(std::declval<T>().size())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_front_t : FalseType
+struct Has_front_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_front_t<T, Indicator<decltype(std::declval<T>().front())>> : TrueType
+struct Has_front_Type<T, Indicator<decltype(std::declval<T>().front())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_back_t : FalseType
+struct Has_back_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_back_t<T, Indicator<decltype(std::declval<T>().back())>> : TrueType
+struct Has_back_Type<T, Indicator<decltype(std::declval<T>().back())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_data_t : FalseType
+struct Has_data_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_data_t<T, Indicator<decltype(std::declval<T>().data())>> : TrueType
+struct Has_data_Type<T, Indicator<decltype(std::declval<T>().data())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_clear_t : FalseType
+struct Has_clear_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_clear_t<T, Indicator<decltype(std::declval<T>().clear())>> : TrueType
+struct Has_clear_Type<T, Indicator<decltype(std::declval<T>().clear())>> : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_resize_t : FalseType
+struct Has_resize_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_resize_t<T, Indicator<decltype(std::declval<T>().resize(std::declval<typename T::size_type>()))>> : TrueType
+struct Has_resize_Type<T, Indicator<decltype(std::declval<T>().resize(std::declval<typename T::size_type>()))>>
+    : TrueType
 {
 };
 
 template <typename, typename = void>
-struct has_empty_t : FalseType
+struct Has_empty_Type : FalseType
 {
 };
 
 template <typename T>
-struct has_empty_t<T, Indicator<decltype(std::declval<T>().empty())>> : TrueType
+struct Has_empty_Type<T, Indicator<decltype(std::declval<T>().empty())>> : TrueType
 {
 };
 
-__CAITLYN_TRAITS_NAMESPACE_END
+__CAITLYN_DETAIL_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif // CAITLYN_CORE_TRAITS_TYPES_COLLECTIONS_H_

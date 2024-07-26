@@ -25,19 +25,19 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-constexpr bool AlignmentOf()
+constexpr Bool AlignmentOf()
 {
     return std::alignment_of<T>::value;
 }
 
 template <typename T>
-constexpr bool Rank()
+constexpr Bool Rank()
 {
     return std::rank<T>::value;
 }
 
 template <typename T>
-constexpr bool Extent()
+constexpr Bool Extent()
 {
     return std::extent<T>::value;
 }

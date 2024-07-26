@@ -23,6 +23,26 @@
 #include "Caitlyn/__Base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
+__CAITLYN_DETAIL_NAMESPACE_BEGIN
+
+template <typename T>
+struct __TypeIdentity
+{
+    using Type = T;
+};
+
+template <Bool, typename = void>
+struct __Constraint
+{
+};
+
+template <typename Ret>
+struct __Constraint<true, Ret>
+{
+    using Type = Ret;
+};
+
+__CAITLYN_DETAIL_NAMESPACE_END
 
 template <Bool B>
 struct BooleanConstant
@@ -51,25 +71,8 @@ using FalseType = BooleanConstant<false>;
 template <typename...>
 using Indicator = void;
 
-template <Bool, typename = void>
-struct Constraint
-{
-};
-
-template <typename Ret>
-struct Constraint<true, Ret>
-{
-    using Type = Ret;
-};
-
 template <Bool Condition, typename Ret = void>
-using Required = typename Constraint<Condition, Ret>::Type;
-
-template <typename T>
-struct TypeIdentity
-{
-    using Type = T;
-};
+using Required = typename __Detail::__Constraint<Condition, Ret>::Type;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 

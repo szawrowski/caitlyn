@@ -23,103 +23,103 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-constexpr bool IsVoid()
+constexpr Bool IsVoid()
 {
-    return Traits::IsVoidType<T>::Value;
+    return IsVoidType<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsNullPointer()
+constexpr Bool IsNullPointer()
 {
-    return Traits::IsNullPointerType<T>::Value;
+    return IsNullPointerType<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsBoolean()
+constexpr Bool IsBoolean()
 {
-    return Traits::IsBooleanType<T>::Value;
+    return IsBooleanType<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsCharacter()
+constexpr Bool IsCharacter()
 {
-    return Traits::IsCharacterType<T>::Value;
+    return __Detail::__IsCharacter<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsInteger()
+constexpr Bool IsInteger()
 {
-    return Traits::IsIntegerType<T>::Value;
+    return __Detail::__IsInteger<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsIntegral()
+constexpr Bool IsIntegral()
 {
-    return Traits::IsCharacterType<T>::Value || Traits::IsIntegerType<T>::Value || Traits::IsBooleanType<T>::Value;
+    return __Detail::__IsCharacter<T>::Value || __Detail::__IsInteger<T>::Value || IsBooleanType<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsFloating()
+constexpr Bool IsFloating()
 {
-    return Traits::IsFloatingType<T>::Value;
+    return __Detail::__IsFloating<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsArray()
+constexpr Bool IsArray()
 {
-    return Traits::IsArrayType<T>::Value;
+    return __Detail::__IsArray<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsEnum()
+constexpr Bool IsEnum()
 {
     return std::is_enum<T>::value;
 }
 
 template <typename T>
-constexpr bool IsUnion()
+constexpr Bool IsUnion()
 {
     return std::is_union<T>::value;
 }
 
 template <typename T>
-constexpr bool IsClass()
+constexpr Bool IsClass()
 {
     return std::is_class<T>::value;
 }
 
 template <typename T>
-constexpr bool IsFunction()
+constexpr Bool IsFunction()
 {
     return std::is_function<T>::value;
 }
 
 template <typename T>
-constexpr bool IsPointer()
+constexpr Bool IsPointer()
 {
-    return Traits::IsPointerType<T>::Value;
+    return __Detail::__IsPointer<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsLValueReference()
+constexpr Bool IsLValueReference()
 {
-    return Traits::IsLValueReferenceType<T>::Value;
+    return __Detail::__IsLValueReference<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsRValueReference()
+constexpr Bool IsRValueReference()
 {
-    return Traits::IsLValueReferenceType<T>::Value;
+    return __Detail::__IsLValueReference<T>::Value;
 }
 
 template <typename T>
-constexpr bool IsMemberObjectPointer()
+constexpr Bool IsMemberObjectPointer()
 {
     return std::is_member_object_pointer<T>::value;
 }
 
 template <typename T>
-constexpr bool IsMemberFunctionPointer()
+constexpr Bool IsMemberFunctionPointer()
 {
     return std::is_member_function_pointer<T>::value;
 }

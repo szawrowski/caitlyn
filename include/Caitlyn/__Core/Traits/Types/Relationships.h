@@ -21,19 +21,23 @@
 #include "Caitlyn/__Core/Traits/Types/Base.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
-__CAITLYN_TRAITS_NAMESPACE_BEGIN
+__CAITLYN_DETAIL_NAMESPACE_BEGIN
 
 template <typename, typename>
-struct IsSameType : FalseType
+struct __IsSame : FalseType
 {
 };
 
 template <typename T>
-struct IsSameType<T, T> : TrueType
+struct __IsSame<T, T> : TrueType
 {
 };
 
-__CAITLYN_TRAITS_NAMESPACE_END
+__CAITLYN_DETAIL_NAMESPACE_END
+
+template <typename T, typename U>
+using IsSameType = __Detail::__IsSame<T, U>;
+
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif // CAITLUN_CORE_TRAITS_TYPES_RELATIONSHIPS_H_
