@@ -59,7 +59,6 @@ int main()
 
 The Application class is essential for ensuring the program operates smoothly
 across different devices and displays UTF-8 characters correctly.
-
 It also provides important tools for argument handling and debugging.
 
 ```c++
