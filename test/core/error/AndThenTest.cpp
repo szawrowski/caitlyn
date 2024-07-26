@@ -3,11 +3,11 @@
 
 TEST(ResultTest, AndThen)
 {
-    const cait::Expected<int, cait::String> result{42};
+    const Caitlyn::Expected<Caitlyn::Int32, Caitlyn::String> result{42};
 
-    const auto next_result =
-        result.AndThen([](const int value) { return cait::MakeCorrect<int, cait::String>(value * 2); });
+    const auto nextResult = result.AndThen(
+        [](const Caitlyn::Int32 value) { return Caitlyn::MakeCorrect<Caitlyn::Int32, Caitlyn::String>(value * 2); });
 
-    ASSERT_TRUE(next_result.HasValue());
-    ASSERT_EQ(next_result.Get(), 84);
+    ASSERT_TRUE(nextResult.HasValue());
+    ASSERT_EQ(nextResult.Get(), 84);
 }

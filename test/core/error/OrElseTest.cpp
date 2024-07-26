@@ -3,11 +3,11 @@
 
 TEST(ResultTest, OrElse)
 {
-    const cait::Expected<int, cait::String> result{cait::MakeError("Error message")};
+    const Caitlyn::Expected<Caitlyn::Int32, Caitlyn::String> result{Caitlyn::MakeError("Error message")};
 
-    const auto next_result = result.OrElse([](const cait::String&)
-                                            { return cait::MakeCorrect<int, cait::String>(42); });
+    const auto nextResult =
+        result.OrElse([](const Caitlyn::String&) { return Caitlyn::MakeCorrect<Caitlyn::Int32, Caitlyn::String>(42); });
 
-    ASSERT_TRUE(next_result.HasValue());
-    ASSERT_EQ(next_result.Get(), 42);
+    ASSERT_TRUE(nextResult.HasValue());
+    ASSERT_EQ(nextResult.Get(), 42);
 }

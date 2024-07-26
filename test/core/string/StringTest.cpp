@@ -4,7 +4,7 @@
 
 TEST(StringTest, Sample)
 {
-    cait::String data = "Hello, 世界! 🙂";
+    Caitlyn::String data = "Hello, 世界! 🙂";
 
     ASSERT_EQ("世界"_str, data.Substring(7, 2));
     ASSERT_TRUE(data.StartsWith("Hello"));
@@ -15,8 +15,8 @@ TEST(StringTest, Sample)
     ASSERT_EQ(10, data.ReverseFind(" "));
     ASSERT_EQ(12, data.Length());
     ASSERT_EQ(19, data.ByteCount());
-    ASSERT_EQ(cait::Char{"e"}, data.At(1));
-    ASSERT_EQ(cait::Char{"!"}, data.At(9));
+    ASSERT_EQ(Caitlyn::Char{"e"}, data.At(1));
+    ASSERT_EQ(Caitlyn::Char{"!"}, data.At(9));
 
     for (auto& elem : data)
     {

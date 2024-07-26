@@ -3,18 +3,18 @@
 
 TEST(ResultTest, InspectValue)
 {
-    const auto success_result = cait::MakeCorrect<int, cait::String>(42);
+    const auto successResult = Caitlyn::MakeCorrect<Caitlyn::Int32, Caitlyn::String>(42);
 
-    success_result.Inspect(
-        [](const int value) { ASSERT_EQ(value, 42); },
-        [](const cait::String&) { FAIL_MESSAGE() << "Expected success"; });
+    successResult.Inspect(
+        [](const Caitlyn::Int32 value) { ASSERT_EQ(value, 42); },
+        [](const Caitlyn::String&) { FAIL_MESSAGE() << "Expected success"; });
 }
 
 TEST(ResultTest, InspectError)
 {
-    const cait::Expected<int, cait::String> error_result{cait::MakeError("Error message")};
+    const Caitlyn::Expected<Caitlyn::Int32, Caitlyn::String> errorResult{Caitlyn::MakeError("Error message")};
 
-    error_result.Inspect(
-        [](int) { FAIL_MESSAGE() << "Expected error"; },
-        [](const cait::String& error) { ASSERT_EQ(error, "Error message"); });
+    errorResult.Inspect(
+        [](Caitlyn::Int32) { FAIL_MESSAGE() << "Expected error"; },
+        [](const Caitlyn::String& error) { ASSERT_EQ(error, "Error message"); });
 }

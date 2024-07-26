@@ -17,7 +17,7 @@ TEST(JsonTest, IoOperator)
         ofile << oconfig;
         ofile.close();
     }
-    auto iconfig = cait::json::MakeDocument();
+    auto iconfig = Caitlyn::Json::MakeDocument();
 
     std::ifstream ifile{"operator_test.json"};
     if (ifile.is_open())

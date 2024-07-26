@@ -3,16 +3,16 @@
 
 TEST(JsonTest, InitBracketOperator)
 {
-    auto config = cait::json::MakeDocument();
-    config["name"] = cait::json::MakeObject();
+    auto config = Caitlyn::Json::MakeDocument();
+    config["name"] = Caitlyn::Json::MakeObject();
     config["name"]["first"] = "John";
     config["name"]["last"] = "Doe";
     config["age"] = 30;
-    config["address"] = cait::json::MakeObject();
+    config["address"] = Caitlyn::Json::MakeObject();
     config["address"]["street"] = "123 Main St";
     config["address"]["city"] = "Anytown";
     config["address"]["zip"] = "12345";
-    config["phone_numbers"] = cait::json::MakeArray("555-1234", "555-5678");
+    config["phone_numbers"] = Caitlyn::Json::MakeArray("555-1234", "555-5678");
 
     ASSERT_FALSE(config.HasError());
 }

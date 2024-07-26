@@ -3,12 +3,12 @@
 
 TEST(ResultTest, CatchError)
 {
-    const cait::Expected<int, cait::String> result{cait::MakeError("Error message")};
+    const Caitlyn::Expected<Caitlyn::Int32, Caitlyn::String> result{Caitlyn::MakeError("Error message")};
 
-    const auto caught_result = result.CatchError(
-        [](const cait::String& error)
-        { return cait::MakeCorrect<int, cait::String>(static_cast<int>(error.Length())); });
+    const auto caughtResult = result.CatchError(
+        [](const Caitlyn::String& error)
+        { return Caitlyn::MakeCorrect<Caitlyn::Int32, Caitlyn::String>(static_cast<Caitlyn::Int32>(error.Length())); });
 
-    ASSERT_TRUE(caught_result.HasValue());
-    ASSERT_EQ(caught_result.Get(), 13);
+    ASSERT_TRUE(caughtResult.HasValue());
+    ASSERT_EQ(caughtResult.Get(), 13);
 }

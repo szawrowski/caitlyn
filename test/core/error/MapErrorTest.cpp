@@ -3,9 +3,9 @@
 
 TEST(ResultTest, MapError)
 {
-    const cait::Expected<int, cait::String> result{cait::MakeError("Error message")};
+    const Caitlyn::Expected<Caitlyn::Int32, Caitlyn::String> result{Caitlyn::MakeError("Error message")};
 
-    const auto mapped = result.MapError([](const cait::String& error) { return error + " fixed"; });
+    const auto mapped = result.MapError([](const Caitlyn::String& error) { return error + " fixed"; });
 
     ASSERT_TRUE(mapped.HasError());
     ASSERT_EQ(mapped.GetError(), "Error message fixed");

@@ -3,7 +3,7 @@
 
 TEST(ResultTest, UnwrapOr)
 {
-    const cait::Expected<int, cait::String> result{cait::MakeError("Error message")};
+    const Caitlyn::Expected<Caitlyn::Int32, Caitlyn::String> result{Caitlyn::MakeError("Error message")};
 
     ASSERT_EQ(result.UnwrapOr(42), 42);
 }

@@ -3,34 +3,34 @@
 
 TEST(JsonTest, CorrectJsonMacroDocument)
 {
-    auto config = cait::json::MakeDocument();
+    auto config = Caitlyn::Json::MakeDocument();
 
     config["name"] = "John Doe";
     config["age"] = 30;
 
-    config["array"] = cait::json::MakeArray();
-    config["object"] = cait::json::MakeObject();
+    config["array"] = Caitlyn::Json::MakeArray();
+    config["object"] = Caitlyn::Json::MakeObject();
 
     config["is_student"] = false;
 
-    config["address"] = cait::json::MakeObject();
+    config["address"] = Caitlyn::Json::MakeObject();
     config["address"]["street"] = "123 Main St";
     config["address"]["city"] = "Anytown";
     config["address"]["zip"] = "12345";
 
-    config["phone_numbers"] = cait::json::MakeArray();
+    config["phone_numbers"] = Caitlyn::Json::MakeArray();
     config["phone_numbers"].Append("555-1234", "555-5678");
 
-    config["skills"] = cait::json::MakeArray("C++", "Python", "JSON");
+    config["skills"] = Caitlyn::Json::MakeArray("C++", "Python", "JSON");
 
-    config["education"] = cait::json::MakeObject();
+    config["education"] = Caitlyn::Json::MakeObject();
     config["education"]["highschool"] = "Anytown High School";
-    config["education"]["university"] = cait::json::MakeObject();
+    config["education"]["university"] = Caitlyn::Json::MakeObject();
     config["education"]["university"]["name"] = "State University";
     config["education"]["university"]["graduation_year"] = 2020;
 
-    config["projects"] = cait::json::MakeArray();
-    config["projects"].Append(cait::json::MakeObject(), cait::json::MakeObject());
+    config["projects"] = Caitlyn::Json::MakeArray();
+    config["projects"].Append(Caitlyn::Json::MakeObject(), Caitlyn::Json::MakeObject());
 
     config["projects"][0]["title"] = "Project One";
     config["projects"][0]["description"] = "Description of Project One";

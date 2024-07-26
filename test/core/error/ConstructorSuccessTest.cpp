@@ -3,7 +3,7 @@
 
 TEST(ResultTest, ConstructorSuccess)
 {
-    const auto result = cait::Expected<int, cait::String>(64);
+    const auto result = Caitlyn::Expected<Caitlyn::Int32, Caitlyn::String>(64);
 
     ASSERT_TRUE(result.HasValue());
     ASSERT_EQ(result.Get(), 64);
