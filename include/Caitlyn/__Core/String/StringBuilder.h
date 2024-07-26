@@ -73,13 +73,13 @@ public:
 
     void AppendLine(const String& str)
     {
-        data_ << str << def::LineFeed;
+        data_ << str << Def::LineFeed;
     }
 
     template <typename... Args>
     void AppendLine(const String& str, Args&&... args)
     {
-        data_ << String::Format(str, std::forward<Args>(args)...) << def::LineFeed;
+        data_ << String::Format(str, std::forward<Args>(args)...) << Def::LineFeed;
     }
 
 public:

@@ -31,7 +31,7 @@
     {                                                                                                                  \
         TestCaseName##_Registrar()                                                                                     \
         {                                                                                                              \
-            cait::test::TestRegistry::Instance().AddTest(                                                              \
+            Caitlyn::Test::TestRegistry::Instance().AddTest(                                                           \
                 #Fixture, #TestCaseName, []() { TestCaseName##_Fixture().Run(); });                                    \
         }                                                                                                              \
     };                                                                                                                 \

@@ -357,74 +357,74 @@ private:
     void MakeOutput(
         std::ostringstream& oss, const BooleanType mangling, const SizeType base_indent, const SizeType indent) const
     {
-        const StringType indent_str(indent, def::Space);
+        const StringType indent_str(indent, Def::Space);
 
         switch (type_)
         {
             case JsonClass::Object:
             {
-                oss << def::LeftCurlyBracket;
+                oss << Def::LeftCurlyBracket;
                 const auto& object = data_.object_value;
                 if (!object.empty())
                 {
                     if (mangling)
                     {
-                        oss << def::LineFeed;
+                        oss << Def::LineFeed;
                     }
                     BooleanType first = true;
                     for (const auto& member : object)
                     {
                         if (!first)
                         {
-                            oss << def::Comma;
+                            oss << Def::Comma;
                             if (mangling)
                             {
-                                oss << def::LineFeed;
+                                oss << Def::LineFeed;
                             }
                         }
                         if (mangling)
                         {
                             oss << indent_str;
                         }
-                        oss << def::QuotationMark << member.first << def::QuotationMark << def::Colon;
+                        oss << Def::QuotationMark << member.first << Def::QuotationMark << Def::Colon;
                         if (mangling)
                         {
-                            oss << def::Space;
+                            oss << Def::Space;
                         }
                         member.second->MakeOutput(oss, mangling, base_indent, indent + base_indent);
                         first = false;
                     }
                     if (mangling)
                     {
-                        oss << def::LineFeed;
+                        oss << Def::LineFeed;
                     }
                 }
                 if (mangling)
                 {
-                    oss << StringType(indent - base_indent, def::Space);
+                    oss << StringType(indent - base_indent, Def::Space);
                 }
-                oss << def::RightCurlyBracket;
+                oss << Def::RightCurlyBracket;
                 break;
             }
             case JsonClass::Array:
             {
-                oss << def::LeftSquareBracket;
+                oss << Def::LeftSquareBracket;
                 const auto& array = data_.array_value;
                 if (!array.empty())
                 {
                     if (mangling)
                     {
-                        oss << def::LineFeed;
+                        oss << Def::LineFeed;
                     }
                     BooleanType first = true;
                     for (const auto& value : array)
                     {
                         if (!first)
                         {
-                            oss << def::Comma;
+                            oss << Def::Comma;
                             if (mangling)
                             {
-                                oss << def::LineFeed;
+                                oss << Def::LineFeed;
                             }
                         }
                         if (mangling)
@@ -436,18 +436,18 @@ private:
                     }
                     if (mangling)
                     {
-                        oss << def::LineFeed;
+                        oss << Def::LineFeed;
                     }
                 }
                 if (mangling)
                 {
-                    oss << StringType(indent - base_indent, def::Space);
+                    oss << StringType(indent - base_indent, Def::Space);
                 }
-                oss << def::RightSquareBracket;
+                oss << Def::RightSquareBracket;
                 break;
             }
             case JsonClass::String:
-                oss << def::QuotationMark << data_.string_value << def::QuotationMark;
+                oss << Def::QuotationMark << data_.string_value << Def::QuotationMark;
                 break;
             case JsonClass::Floating:
                 oss << data_.floating_value;
@@ -619,52 +619,52 @@ private:
 
 __CAITLYN_DETAIL_NAMESPACE_END
 
-inline __detail::JsonData Make(const JsonClass value)
+inline __Detail::JsonData Make(const JsonClass value)
 {
-    return __detail::JsonData::__internal_make(value);
+    return __Detail::JsonData::__internal_make(value);
 }
 
-inline __detail::JsonData MakeObject()
+inline __Detail::JsonData MakeObject()
 {
     return Make(JsonClass::Object);
 }
 
-inline __detail::JsonData MakeArray()
+inline __Detail::JsonData MakeArray()
 {
     return Make(JsonClass::Array);
 }
 
 template <typename... Args>
-__detail::JsonData MakeArray(Args... args)
+__Detail::JsonData MakeArray(Args... args)
 {
     auto array = Make(JsonClass::Array);
     array.Append(std::forward<Args>(args)...);
     return array;
 }
 
-inline __detail::JsonData MakeNull()
+inline __Detail::JsonData MakeNull()
 {
     return Make(JsonClass::Null);
 }
 
-inline __detail::JsonData MakeString(const std::string& value)
+inline __Detail::JsonData MakeString(const std::string& value)
 {
-    return __detail::JsonData{value};
+    return __Detail::JsonData{value};
 }
 
-inline __detail::JsonData MakeFloating(const __detail::JsonData::FloatingType value)
+inline __Detail::JsonData MakeFloating(const __Detail::JsonData::FloatingType value)
 {
-    return __detail::JsonData{std::to_string(value)};
+    return __Detail::JsonData{std::to_string(value)};
 }
 
-inline __detail::JsonData MakeIntegral(const __detail::JsonData::IntegralType value)
+inline __Detail::JsonData MakeIntegral(const __Detail::JsonData::IntegralType value)
 {
-    return __detail::JsonData{std::to_string(value)};
+    return __Detail::JsonData{std::to_string(value)};
 }
 
-inline __detail::JsonData MakeBoolean(const __detail::JsonData::BooleanType value)
+inline __Detail::JsonData MakeBoolean(const __Detail::JsonData::BooleanType value)
 {
-    return __detail::JsonData{std::to_string(value)};
+    return __Detail::JsonData{std::to_string(value)};
 }
 
 __CAITLYN_JSON_NAMESPACE_END

@@ -24,19 +24,19 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
 template <typename T>
-using AddLValueReference = traits::AddLValueReferenceType<T>;
+using AddLValueReference = Traits::AddLValueReferenceType<T>;
 
 template <typename T>
-using AddRValueReference = traits::AddRValueReferenceType<T>;
+using AddRValueReference = Traits::AddRValueReferenceType<T>;
 
 template <typename T>
-using RemoveReference = traits::RemoveReferenceType<T>;
+using RemoveReference = Traits::RemoveReferenceType<T>;
 
 template <typename T>
-using AddPointer = traits::AddPointerType<T>;
+using AddPointer = Traits::AddPointerType<T>;
 
 template <typename T>
-using RemovePointer = traits::RemovePointerType<T>;
+using RemovePointer = Traits::RemovePointerType<T>;
 
 template <typename T>
 T&& MakeMovable(T& value)
@@ -45,15 +45,15 @@ T&& MakeMovable(T& value)
 }
 
 template <typename T>
-T&& Forward(traits::RemoveReferenceType<T>& value) noexcept
+T&& Forward(Traits::RemoveReferenceType<T>& value) noexcept
 {
     return static_cast<T&&>(value);
 }
 
 template <typename T>
-T&& Forward(traits::RemoveReferenceType<T>&& value) noexcept
+T&& Forward(Traits::RemoveReferenceType<T>&& value) noexcept
 {
-    static_assert(!traits::IsLValueReferenceType<T>::value, "Bad forward call");
+    static_assert(!Traits::IsLValueReferenceType<T>::value, "Bad forward call");
     return static_cast<T&&>(value);
 }
 

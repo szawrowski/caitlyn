@@ -374,7 +374,7 @@ public:
     {
         if (digits_.empty())
         {
-            return def::DigitZero;
+            return Def::DigitZero;
         }
         String result;
         if (is_negative_)
@@ -408,70 +408,70 @@ private:
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline bool operator<(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline bool operator<(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.LessThan(rhs);
 }
 
-inline bool operator>(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline bool operator>(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.GreaterThan(rhs);
 }
 
-inline bool operator<=(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline bool operator<=(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.LessThan(rhs) || lhs.Equal(rhs);
 }
 
-inline bool operator>=(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline bool operator>=(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.GreaterThan(rhs) || lhs.Equal(rhs);
 }
 
-inline bool operator==(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline bool operator==(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.Equal(rhs);
 }
 
-inline bool operator!=(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline bool operator!=(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return !lhs.Equal(rhs);
 }
 
-inline cait::BigInteger operator+(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline Caitlyn::BigInteger operator+(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.Add(rhs);
 }
 
-inline cait::BigInteger operator-(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline Caitlyn::BigInteger operator-(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.Subtract(rhs);
 }
 
-inline cait::BigInteger operator*(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline Caitlyn::BigInteger operator*(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.Multiply(rhs);
 }
 
-inline cait::BigInteger operator/(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline Caitlyn::BigInteger operator/(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.Divide(rhs);
 }
 
-inline cait::BigInteger operator%(const cait::BigInteger& lhs, const cait::BigInteger& rhs)
+inline Caitlyn::BigInteger operator%(const Caitlyn::BigInteger& lhs, const Caitlyn::BigInteger& rhs)
 {
     return lhs.Modulo(rhs);
 }
 
-inline std::ostream& operator<<(std::ostream& os, const cait::BigInteger& number)
+inline std::ostream& operator<<(std::ostream& os, const Caitlyn::BigInteger& number)
 {
     os << number.ToString();
     return os;
 }
 
-inline cait::BigInteger operator""_bigint(const char* number, const size_t)
+inline Caitlyn::BigInteger operator""_bigint(const char* number, const size_t)
 {
-    return cait::BigInteger{number};
+    return Caitlyn::BigInteger{number};
 }
 
 #endif // CAITLYN_NUMERIC_TYPES_BIGINTEGER_H_

@@ -520,7 +520,7 @@ public:
         auto tmp = data_;
         for (auto& elem : tmp)
         {
-            elem = ::cait::ToUppercase(elem.GetCodePoint());
+            elem = ::Caitlyn::ToUppercase(elem.GetCodePoint());
         }
         return tmp;
     }
@@ -530,19 +530,19 @@ public:
         auto tmp = data_;
         for (auto& elem : tmp)
         {
-            elem = ::cait::ToLowercase(elem.GetCodePoint());
+            elem = ::Caitlyn::ToLowercase(elem.GetCodePoint());
         }
         return tmp;
     }
 
     template <typename T>
-    static Required<traits::IsBooleanType<T>::Value, const char*> ValueOf(T value)
+    static Required<Traits::IsBooleanType<T>::Value, const char*> ValueOf(T value)
     {
         return value ? "true" : "false";
     }
 
     template <typename T>
-    static Required<traits::IsNullPointerType<T>::Value, const char*> ValueOf(T)
+    static Required<Traits::IsNullPointerType<T>::Value, const char*> ValueOf(T)
     {
         return "null";
     }
@@ -562,16 +562,16 @@ public:
 
         while (pos < formatter.size())
         {
-            if (formatter[pos] == def::LeftCurlyBracket)
+            if (formatter[pos] == Def::LeftCurlyBracket)
             {
-                if (pos + 1 < formatter.size() && formatter[pos + 1] == def::LeftCurlyBracket)
+                if (pos + 1 < formatter.size() && formatter[pos + 1] == Def::LeftCurlyBracket)
                 {
-                    result << def::LeftCurlyBracket;
+                    result << Def::LeftCurlyBracket;
                     pos += 2;
                 }
                 else
                 {
-                    const SizeType end = formatter.Find(def::RightCurlyBracket, pos);
+                    const SizeType end = formatter.Find(Def::RightCurlyBracket, pos);
                     if (end == String::NPosition)
                     {
                         throw Formatter::FormatError{"Mismatched braces in format string"};
@@ -603,7 +603,7 @@ public:
 
                         if (!format_spec.IsEmpty())
                         {
-                            if (format_spec[0] == def::Colon)
+                            if (format_spec[0] == Def::Colon)
                             {
                                 auto parsed_spec = Formatter::MakeSpacifier(format_spec);
                                 result << Formatter::Process(arguments[auto_index], parsed_spec).str();
@@ -614,7 +614,7 @@ public:
                             result << arguments[arg_index].str();
                         }
                     }
-                    else if (spec.NotEmpty() && spec[spec_begin] == def::Colon)
+                    else if (spec.NotEmpty() && spec[spec_begin] == Def::Colon)
                     {
                         auto parsed_spec = Formatter::MakeSpacifier(spec);
                         result << Formatter::Process(arguments[arg_index], parsed_spec).str();
@@ -634,11 +634,11 @@ public:
                     pos = end + 1;
                 }
             }
-            else if (formatter[pos] == def::RightCurlyBracket)
+            else if (formatter[pos] == Def::RightCurlyBracket)
             {
-                if (pos + 1 < formatter.size() && formatter[pos + 1] == def::RightCurlyBracket)
+                if (pos + 1 < formatter.size() && formatter[pos + 1] == Def::RightCurlyBracket)
                 {
-                    result << def::RightCurlyBracket;
+                    result << Def::RightCurlyBracket;
                     pos += 2;
                 }
                 else
@@ -686,7 +686,7 @@ private:
         {
             Alignment align = Alignment::Left;
             SizeType width = 0;
-            Char fill = def::Space;
+            Char fill = Def::Space;
             Representation repr = Representation::Default;
             ValueType type = ValueType::String;
             Int32 precision = -1;
@@ -707,43 +707,43 @@ private:
         }
 
         template <typename T>
-        static Required<traits::IsIntegerType<T>::Value, String> ToString(const T& value)
+        static Required<Traits::IsIntegerType<T>::Value, String> ToString(const T& value)
         {
             return std::to_string(value);
         }
 
         template <typename T>
-        static Required<traits::IsFloatingType<T>::Value, String> ToString(const T& value)
+        static Required<Traits::IsFloatingType<T>::Value, String> ToString(const T& value)
         {
             return std::to_string(value);
         }
 
         template <typename T>
-        static Required<traits::IsCharacterType<T>::Value, String> ToString(const T& value)
+        static Required<Traits::IsCharacterType<T>::Value, String> ToString(const T& value)
         {
             return std::to_string(value);
         }
 
         template <typename T>
-        static Required<traits::IsBooleanType<T>::Value, String> ToString(const T& value)
+        static Required<Traits::IsBooleanType<T>::Value, String> ToString(const T& value)
         {
             return String::ValueOf(value);
         }
 
         template <typename T>
-        static Required<traits::Has_to_string_Type<T>::Value, String> ToString(const T& value)
+        static Required<Traits::Has_to_string_Type<T>::Value, String> ToString(const T& value)
         {
             return value.to_string();
         }
 
         template <typename T>
-        static Required<traits::Has_str_Type<T>::Value, String> ToString(const T& value)
+        static Required<Traits::Has_str_Type<T>::Value, String> ToString(const T& value)
         {
             return value.str();
         }
 
         template <typename T>
-        static Required<traits::Has_ToString_Type<T>::Value, String> ToString(const T& value)
+        static Required<Traits::Has_ToString_Type<T>::Value, String> ToString(const T& value)
         {
             return value.ToString();
         }
@@ -757,38 +757,38 @@ private:
         static void ParseAlignment(const String& config, FormatSpecifier& spec, SizeType& pos)
         {
             if (pos + 1 < config.size() &&
-                (config[pos + 1] == def::LessThanSign || config[pos + 1] == def::GreaterThanSign ||
-                 config[pos + 1] == def::CircumflexAccent))
+                (config[pos + 1] == Def::LessThanSign || config[pos + 1] == Def::GreaterThanSign ||
+                 config[pos + 1] == Def::CircumflexAccent))
             {
                 SetFill(config, spec, pos);
 
-                if (config[pos] == def::LessThanSign)
+                if (config[pos] == Def::LessThanSign)
                 {
                     spec.align = Alignment::Left;
                     ++pos;
                 }
-                else if (config[pos] == def::GreaterThanSign)
+                else if (config[pos] == Def::GreaterThanSign)
                 {
                     spec.align = Alignment::Right;
                     ++pos;
                 }
-                else if (config[pos] == def::CircumflexAccent)
+                else if (config[pos] == Def::CircumflexAccent)
                 {
                     spec.align = Alignment::Center;
                     ++pos;
                 }
             }
-            else if (config[pos] == def::LessThanSign)
+            else if (config[pos] == Def::LessThanSign)
             {
                 spec.align = Alignment::Left;
                 ++pos;
             }
-            else if (config[pos] == def::GreaterThanSign)
+            else if (config[pos] == Def::GreaterThanSign)
             {
                 spec.align = Alignment::Right;
                 ++pos;
             }
-            else if (config[pos] == def::CircumflexAccent)
+            else if (config[pos] == Def::CircumflexAccent)
             {
                 spec.align = Alignment::Center;
                 ++pos;
@@ -809,7 +809,7 @@ private:
 
         static void ParsePrecision(const String& config, FormatSpecifier& spec, SizeType& pos)
         {
-            if (pos < config.size() && config[pos] == def::FullStop)
+            if (pos < config.size() && config[pos] == Def::FullStop)
             {
                 ++pos;
                 if (pos < config.size() && IsDigit(config[pos].GetCodePoint()))
@@ -827,17 +827,17 @@ private:
         {
             if (pos < config.size())
             {
-                if (config[pos] == def::LatinSmallLetterS)
+                if (config[pos] == Def::LatinSmallLetterS)
                 {
                     spec.type = ValueType::String;
                     ++pos;
                 }
-                else if (config[pos] == def::LatinSmallLetterD)
+                else if (config[pos] == Def::LatinSmallLetterD)
                 {
                     spec.type = ValueType::Integral;
                     ++pos;
                 }
-                else if (config[pos] == def::LatinSmallLetterF)
+                else if (config[pos] == Def::LatinSmallLetterF)
                 {
                     spec.type = ValueType::Floating;
                     ++pos;
@@ -850,7 +850,7 @@ private:
             FormatSpecifier spec;
             SizeType pos = 0;
 
-            if (config[pos++] != def::Colon)
+            if (config[pos++] != Def::Colon)
             {
                 throw FormatError{"Incorrect format specifier"};
             }
@@ -902,7 +902,7 @@ private:
         static String ProcessFloating(const String& value, const FormatSpecifier& spec)
         {
             std::ostringstream oss;
-            const auto dot_index = value.Find(def::FullStop);
+            const auto dot_index = value.Find(Def::FullStop);
 
             if (dot_index != NPosition)
             {
@@ -920,7 +920,7 @@ private:
                     }
                     while (index < limit)
                     {
-                        oss << def::DigitZero;
+                        oss << Def::DigitZero;
                         ++index;
                     }
                 }
@@ -930,10 +930,10 @@ private:
                 oss << value.str();
                 if (spec.precision > 0)
                 {
-                    oss << def::FullStop;
+                    oss << Def::FullStop;
                     for (SizeType i = 0; i < static_cast<SizeType>(spec.precision); ++i)
                     {
-                        oss << def::DigitZero;
+                        oss << Def::DigitZero;
                     }
                 }
             }
@@ -1000,7 +1000,7 @@ private:
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline std::istream& operator>>(std::istream& is, cait::String& str)
+inline std::istream& operator>>(std::istream& is, Caitlyn::String& str)
 {
     if (is.good())
     {
@@ -1011,15 +1011,15 @@ inline std::istream& operator>>(std::istream& is, cait::String& str)
     return is;
 }
 
-inline std::ostream& operator<<(std::ostream& os, const cait::String& str)
+inline std::ostream& operator<<(std::ostream& os, const Caitlyn::String& str)
 {
     os << str.str();
     return os;
 }
 
-inline cait::String operator""_str(const char* str, const cait::SizeType)
+inline Caitlyn::String operator""_str(const char* str, const Caitlyn::SizeType)
 {
-    return cait::String{str};
+    return Caitlyn::String{str};
 }
 
 #endif // CAITLYN_CORE_STRING_TYPES_STRING_H_

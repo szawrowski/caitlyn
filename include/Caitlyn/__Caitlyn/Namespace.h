@@ -18,31 +18,25 @@
 #ifndef CAITLYN_NAMESPACE_H_
 #define CAITLYN_NAMESPACE_H_
 
-#define __CAITLYN_GLOBAL_NAMESPACE_BEGIN namespace cait {
+#define __CAITLYN_GLOBAL_NAMESPACE_BEGIN namespace Caitlyn {
 #define __CAITLYN_GLOBAL_NAMESPACE_END }
 
-#define __CAITLYN_DETAIL_NAMESPACE_BEGIN namespace __detail {
+#define __CAITLYN_DETAIL_NAMESPACE_BEGIN namespace __Detail {
 #define __CAITLYN_DETAIL_NAMESPACE_END }
 
-#define __CAITLYN_DEF_NAMESPACE_BEGIN namespace def {
+#define __CAITLYN_DEF_NAMESPACE_BEGIN namespace Def {
 #define __CAITLYN_DEF_NAMESPACE_END }
 
-#define __CAITLYN_FORMAT_NAMESPACE_BEGIN namespace fmt {
-#define __CAITLYN_FORMAT_NAMESPACE_END }
-
-#define __CAITLYN_ERROR_NAMESPACE_BEGIN namespace error {
-#define __CAITLYN_ERROR_NAMESPACE_END }
-
-#define __CAITLYN_TRAITS_NAMESPACE_BEGIN namespace traits {
+#define __CAITLYN_TRAITS_NAMESPACE_BEGIN namespace Traits {
 #define __CAITLYN_TRAITS_NAMESPACE_END }
 
-#define __CAITLYN_NUMERIC_NAMESPACE_BEGIN namespace numeric {
+#define __CAITLYN_NUMERIC_NAMESPACE_BEGIN namespace Numeric {
 #define __CAITLYN_NUMERIC_NAMESPACE_END }
 
-#define __CAITLYN_JSON_NAMESPACE_BEGIN namespace json {
+#define __CAITLYN_JSON_NAMESPACE_BEGIN namespace Json {
 #define __CAITLYN_JSON_NAMESPACE_END }
 
-#define __CAITLYN_TESTING_NAMESPACE_BEGIN namespace test {
+#define __CAITLYN_TESTING_NAMESPACE_BEGIN namespace Test {
 #define __CAITLYN_TESTING_NAMESPACE_END }
 
 #endif // CAITLYN_NAMESPACE_H_

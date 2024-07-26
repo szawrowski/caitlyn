@@ -168,10 +168,10 @@ struct MakeUnsignedType<unsigned long long>
 __CAITLYN_TRAITS_NAMESPACE_END
 
 template <typename T>
-using MakeSigned = traits::MakeSignedType<T>;
+using MakeSigned = Traits::MakeSignedType<T>;
 
 template <typename T>
-using MakeUnsigned = traits::MakeUnsignedType<T>;
+using MakeUnsigned = Traits::MakeUnsignedType<T>;
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 

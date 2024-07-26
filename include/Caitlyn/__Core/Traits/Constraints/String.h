@@ -68,25 +68,25 @@ __CAITLYN_TRAITS_NAMESPACE_END
 template <typename T>
 constexpr Bool Has_to_string()
 {
-    return traits::Has_to_string_Type<T>::Value;
+    return Traits::Has_to_string_Type<T>::Value;
 }
 
 template <typename T>
 constexpr Bool Has_str()
 {
-    return traits::Has_str_Type<T>::Value;
+    return Traits::Has_str_Type<T>::Value;
 }
 
 template <typename T>
 constexpr Bool Has_c_str()
 {
-    return traits::Has_c_str_Type<T>::Value;
+    return Traits::Has_c_str_Type<T>::Value;
 }
 
 template <typename T>
 constexpr Bool ConvertibleToString()
 {
-    return traits::Has_ToString_Type<T>::Value;
+    return Traits::Has_ToString_Type<T>::Value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END

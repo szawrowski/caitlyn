@@ -60,64 +60,64 @@ inline String EscapeString(const String& str)
 
     for (size_t i = 0; i < str.size(); ++i)
     {
-        if (str[i] == def::ReverseSolidus && i + 1 < str.size())
+        if (str[i] == Def::ReverseSolidus && i + 1 < str.size())
         {
-            if (str[i + 1] == def::QuotationMark)
+            if (str[i + 1] == Def::QuotationMark)
             {
-                oss << def::QuotationMark;
+                oss << Def::QuotationMark;
                 ++i; // Skip the escaped character
             }
-            else if (str[i + 1] == def::QuestionMark)
+            else if (str[i + 1] == Def::QuestionMark)
             {
-                oss << def::QuestionMark;
+                oss << Def::QuestionMark;
                 ++i;
             }
-            else if (str[i + 1] == def::ReverseSolidus)
+            else if (str[i + 1] == Def::ReverseSolidus)
             {
-                oss << def::ReverseSolidus;
+                oss << Def::ReverseSolidus;
                 ++i;
             }
-            else if (str[i + 1] == def::Solidus)
+            else if (str[i + 1] == Def::Solidus)
             {
-                oss << def::Solidus;
+                oss << Def::Solidus;
                 ++i;
             }
-            else if (str[i + 1] == def::LatinSmallLetterA)
+            else if (str[i + 1] == Def::LatinSmallLetterA)
             {
-                oss << def::Bell;
+                oss << Def::Bell;
                 ++i;
             }
-            else if (str[i + 1] == def::LatinSmallLetterB)
+            else if (str[i + 1] == Def::LatinSmallLetterB)
             {
-                oss << def::Backspace;
+                oss << Def::Backspace;
                 ++i;
             }
-            else if (str[i + 1] == def::LatinSmallLetterF)
+            else if (str[i + 1] == Def::LatinSmallLetterF)
             {
-                oss << def::FormFeed;
+                oss << Def::FormFeed;
                 ++i;
             }
-            else if (str[i + 1] == def::LatinSmallLetterN)
+            else if (str[i + 1] == Def::LatinSmallLetterN)
             {
-                oss << def::LineFeed;
+                oss << Def::LineFeed;
                 ++i;
             }
-            else if (str[i + 1] == def::LatinSmallLetterR)
+            else if (str[i + 1] == Def::LatinSmallLetterR)
             {
-                oss << def::CarriageReturn;
+                oss << Def::CarriageReturn;
                 ++i;
             }
-            else if (str[i + 1] == def::LatinSmallLetterT)
+            else if (str[i + 1] == Def::LatinSmallLetterT)
             {
-                oss << def::CharacterTabulation;
+                oss << Def::CharacterTabulation;
                 ++i;
             }
-            else if (str[i + 1] == def::LatinSmallLetterV)
+            else if (str[i + 1] == Def::LatinSmallLetterV)
             {
-                oss << def::LineTabulation;
+                oss << Def::LineTabulation;
                 ++i;
             }
-            else if (str[i + 1] == def::LatinSmallLetterU)
+            else if (str[i + 1] == Def::LatinSmallLetterU)
             {
                 if (i + 5 < str.size())
                 {
@@ -129,13 +129,13 @@ inline String EscapeString(const String& str)
                 else
                 {
                     // Incomplete escape sequence, handle it as an error
-                    oss << def::ReverseSolidus << str[i + 1];
+                    oss << Def::ReverseSolidus << str[i + 1];
                 }
             }
             else
             {
                 // Invalid escape sequence, handle it as an error
-                oss << def::ReverseSolidus << str[i + 1];
+                oss << Def::ReverseSolidus << str[i + 1];
             }
         }
         else

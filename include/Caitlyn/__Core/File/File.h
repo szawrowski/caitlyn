@@ -133,7 +133,7 @@ public:
         return {};
     }
 
-    String ReadLine(const char delim = def::LineFeed[0])
+    String ReadLine(const char delim = Def::LineFeed[0])
     {
         if (!file_.is_open())
         {
@@ -243,7 +243,7 @@ public:
         {
             Open();
         }
-        file_ << data << def::LineFeed;
+        file_ << data << Def::LineFeed;
         file_.flush();
     }
 
@@ -253,7 +253,7 @@ public:
         {
             Open();
         }
-        file_ << data << def::LineFeed;
+        file_ << data << Def::LineFeed;
         file_.flush();
     }
 
@@ -264,7 +264,7 @@ public:
         {
             Open();
         }
-        file_ << data.to_string() << def::LineFeed;
+        file_ << data.to_string() << Def::LineFeed;
         file_.flush();
     }
 
@@ -275,7 +275,7 @@ public:
         {
             Open();
         }
-        file_ << data.str() << def::LineFeed;
+        file_ << data.str() << Def::LineFeed;
         file_.flush();
     }
 
@@ -286,7 +286,7 @@ public:
         {
             Open();
         }
-        file_ << data.ToString() << def::LineFeed;
+        file_ << data.ToString() << Def::LineFeed;
         file_.flush();
     }
 
@@ -297,7 +297,7 @@ public:
         {
             Open();
         }
-        file_ << String::Format(str, std::forward<Args>(args)...) << def::LineFeed;
+        file_ << String::Format(str, std::forward<Args>(args)...) << Def::LineFeed;
         file_.flush();
     }
 
@@ -378,7 +378,7 @@ public:
             Open();
         }
         file_.seekp(0, std::ios::end);
-        file_ << data << def::LineFeed;
+        file_ << data << Def::LineFeed;
         file_.flush();
     }
 
@@ -389,7 +389,7 @@ public:
             Open();
         }
         file_.seekp(0, std::ios::end);
-        file_ << data << def::LineFeed;
+        file_ << data << Def::LineFeed;
         file_.flush();
     }
 
@@ -401,7 +401,7 @@ public:
             Open();
         }
         file_.seekp(0, std::ios::end);
-        file_ << data.to_string() << def::LineFeed;
+        file_ << data.to_string() << Def::LineFeed;
         file_.flush();
     }
 
@@ -413,7 +413,7 @@ public:
             Open();
         }
         file_.seekp(0, std::ios::end);
-        file_ << data.str() << def::LineFeed;
+        file_ << data.str() << Def::LineFeed;
         file_.flush();
     }
 
@@ -425,7 +425,7 @@ public:
             Open();
         }
         file_.seekp(0, std::ios::end);
-        file_ << data.ToString() << def::LineFeed;
+        file_ << data.ToString() << Def::LineFeed;
         file_.flush();
     }
 
@@ -437,7 +437,7 @@ public:
             Open();
         }
         file_.seekp(0, std::ios::end);
-        file_ << String::Format(str, std::forward<Args>(args)...) << def::LineFeed;
+        file_ << String::Format(str, std::forward<Args>(args)...) << Def::LineFeed;
         file_.flush();
     }
 
@@ -455,14 +455,14 @@ private:
 
 inline File MakeFile(const String& filename)
 {
-    return cait::File{filename};
+    return File{filename};
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline cait::File operator""_file(const char* filename, const cait::SizeType)
+inline Caitlyn::File operator""_file(Caitlyn::CString filename, const Caitlyn::SizeType)
 {
-    return cait::File{filename};
+    return Caitlyn::File{filename};
 }
 
 #endif // CAITLYN_CORE_FILE_FILE_STREAM_H_

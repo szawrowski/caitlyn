@@ -28,7 +28,7 @@
     {                                                                                                                  \
         TestSuiteName##_##TestCaseName##_Registrar()                                                                   \
         {                                                                                                              \
-            cait::test::TestRegistry::Instance().AddTest(                                                              \
+            Caitlyn::Test::TestRegistry::Instance().AddTest(                                                           \
                 #TestSuiteName, #TestCaseName, TestSuiteName##_##TestCaseName);                                        \
         }                                                                                                              \
     };                                                                                                                 \

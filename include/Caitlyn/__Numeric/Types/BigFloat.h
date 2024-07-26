@@ -44,7 +44,7 @@ public:
         {
             throw std::invalid_argument{"Invalid number format"};
         }
-        size_t point_pos = number.Find(def::FullStop);
+        size_t point_pos = number.Find(Def::FullStop);
         if (point_pos == String::NPosition)
         {
             integerPart_ = BigInteger{number};
@@ -56,11 +56,11 @@ public:
 
             if (integer_str.IsEmpty())
             {
-                integer_str = def::DigitZero;
+                integer_str = Def::DigitZero;
             }
             if (fractional_str.IsEmpty())
             {
-                fractional_str = def::DigitZero;
+                fractional_str = Def::DigitZero;
             }
             integerPart_ = BigInteger{integer_str};
             fractionalPart_ = BigInteger{fractional_str};
@@ -129,9 +129,9 @@ public:
         BigInteger integer_result = integerPart_.Add(other.integerPart_);
         if (carry)
         {
-            integer_result = integer_result.Add(BigInteger{def::DigitOne});
+            integer_result = integer_result.Add(BigInteger{Def::DigitOne});
         }
-        return BigFloat{integer_result.ToString() + def::FullStop + fractional_result.ToString()};
+        return BigFloat{integer_result.ToString() + Def::FullStop + fractional_result.ToString()};
     }
 
     BigFloat Subtract(const BigFloat& other) const
@@ -360,65 +360,65 @@ private:
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline bool operator<(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline bool operator<(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.LessThan(rhs);
 }
 
-inline bool operator>(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline bool operator>(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.GreaterThan(rhs);
 }
 
-inline bool operator<=(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline bool operator<=(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.LessThan(rhs) || lhs.Equal(rhs);
 }
 
-inline bool operator>=(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline bool operator>=(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.GreaterThan(rhs) || lhs.Equal(rhs);
 }
 
-inline bool operator==(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline bool operator==(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.Equal(rhs);
 }
 
-inline bool operator!=(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline bool operator!=(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return !lhs.Equal(rhs);
 }
 
-inline cait::BigFloat operator+(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline Caitlyn::BigFloat operator+(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.Add(rhs);
 }
 
-inline cait::BigFloat operator-(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline Caitlyn::BigFloat operator-(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.Subtract(rhs);
 }
 
-inline cait::BigFloat operator*(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline Caitlyn::BigFloat operator*(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.Multiply(rhs);
 }
 
-inline cait::BigFloat operator/(const cait::BigFloat& lhs, const cait::BigFloat& rhs)
+inline Caitlyn::BigFloat operator/(const Caitlyn::BigFloat& lhs, const Caitlyn::BigFloat& rhs)
 {
     return lhs.Divide(rhs);
 }
 
-inline std::ostream& operator<<(std::ostream& os, const cait::BigFloat& number)
+inline std::ostream& operator<<(std::ostream& os, const Caitlyn::BigFloat& number)
 {
     os << number.ToString();
     return os;
 }
 
-inline cait::BigFloat operator""_bigfloat(const char* number, const size_t)
+inline Caitlyn::BigFloat operator""_bigfloat(const char* number, const size_t)
 {
-    return cait::BigFloat{number};
+    return Caitlyn::BigFloat{number};
 }
 
 #endif // CAITLYN_NUMERIC_TYPES_BIGFLOAT_H_

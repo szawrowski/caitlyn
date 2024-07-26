@@ -25,49 +25,49 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 template <typename T>
 constexpr bool IsVoid()
 {
-    return traits::IsVoidType<T>::Value;
+    return Traits::IsVoidType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsNullPointer()
 {
-    return traits::IsNullPointerType<T>::Value;
+    return Traits::IsNullPointerType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsBoolean()
 {
-    return traits::IsBooleanType<T>::Value;
+    return Traits::IsBooleanType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsCharacter()
 {
-    return traits::IsCharacterType<T>::Value;
+    return Traits::IsCharacterType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsInteger()
 {
-    return traits::IsIntegerType<T>::Value;
+    return Traits::IsIntegerType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsIntegral()
 {
-    return traits::IsCharacterType<T>::Value || traits::IsIntegerType<T>::Value || traits::IsBooleanType<T>::Value;
+    return Traits::IsCharacterType<T>::Value || Traits::IsIntegerType<T>::Value || Traits::IsBooleanType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsFloating()
 {
-    return traits::IsFloatingType<T>::Value;
+    return Traits::IsFloatingType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsArray()
 {
-    return traits::IsArrayType<T>::Value;
+    return Traits::IsArrayType<T>::Value;
 }
 
 template <typename T>
@@ -97,19 +97,19 @@ constexpr bool IsFunction()
 template <typename T>
 constexpr bool IsPointer()
 {
-    return traits::IsPointerType<T>::Value;
+    return Traits::IsPointerType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsLValueReference()
 {
-    return traits::IsLValueReferenceType<T>::Value;
+    return Traits::IsLValueReferenceType<T>::Value;
 }
 
 template <typename T>
 constexpr bool IsRValueReference()
 {
-    return traits::IsLValueReferenceType<T>::Value;
+    return Traits::IsLValueReferenceType<T>::Value;
 }
 
 template <typename T>

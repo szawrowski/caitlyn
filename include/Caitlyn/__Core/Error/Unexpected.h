@@ -58,13 +58,13 @@ inline Unexpected<String> MakeError(const String& error)
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 template <typename E>
-bool operator==(const cait::Unexpected<E>& lhs, const cait::Unexpected<E>& rhs)
+bool operator==(const Caitlyn::Unexpected<E>& lhs, const Caitlyn::Unexpected<E>& rhs)
 {
     return lhs.Get() == rhs.Get();
 }
 
 template <typename E>
-bool operator!=(const cait::Unexpected<E>& lhs, const cait::Unexpected<E>& rhs)
+bool operator!=(const Caitlyn::Unexpected<E>& lhs, const Caitlyn::Unexpected<E>& rhs)
 {
     return !(lhs == rhs);
 }

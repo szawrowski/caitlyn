@@ -23,11 +23,11 @@
 
 #define ASSERT_TRUE(condition)                                                                                         \
     if (!(condition))                                                                                                  \
-        throw std::runtime_error("Assertion failed: " #condition)
+    throw std::runtime_error("Assertion failed: " #condition)
 
 #define ASSERT_FALSE(condition)                                                                                        \
     if (condition)                                                                                                     \
-        throw std::runtime_error("Assertion failed: " #condition)
+    throw std::runtime_error("Assertion failed: " #condition)
 
 #define ASSERT_EQ(val1, val2)                                                                                          \
     if (!((val1) == (val2)))                                                                                           \
@@ -81,8 +81,8 @@
     if (!((val1) == (val2)))                                                                                           \
     {                                                                                                                  \
         static_assert(                                                                                                 \
-            cait::traits::HasOStreamOperatorType<decltype(val1)>::Value &&                                             \
-                cait::traits::HasOStreamOperatorType<decltype(val2)>::Value,                                           \
+            Caitlyn::Traits::HasOStreamOperatorType<decltype(val1)>::Value &&                                          \
+                Caitlyn::Traits::HasOStreamOperatorType<decltype(val2)>::Value,                                        \
             "Types must be printable to use ASSERT_EQ_PRINTABLE");                                                     \
                                                                                                                        \
         std::ostringstream oss;                                                                                        \
@@ -120,6 +120,6 @@
 
 #define FAIL() ASSERT_TRUE(false)
 
-#define FAIL_MESSAGE() cait::test::TestFailMessage(__FILE__, __LINE__)
+#define FAIL_MESSAGE() Caitlyn::Test::TestFailMessage(__FILE__, __LINE__)
 
 #endif // CAITLYN_TEST_MACRO_ASSERT_H_

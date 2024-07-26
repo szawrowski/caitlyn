@@ -62,41 +62,41 @@ void Write(const String& str, Args&&... args)
 inline void WriteLine()
 {
     std::ios::sync_with_stdio(false);
-    std::cout << def::LineFeed << std::flush;
+    std::cout << Def::LineFeed << std::flush;
 }
 
 inline void WriteLine(const String& str)
 {
     std::ios::sync_with_stdio(false);
-    std::cout << str << def::LineFeed << std::flush;
+    std::cout << str << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<Has_to_string<T>()> WriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::cout << value.to_string() << def::LineFeed << std::flush;
+    std::cout << value.to_string() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<Has_str<T>()> WriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::cout << value.str() << def::LineFeed << std::flush;
+    std::cout << value.str() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<ConvertibleToString<T>()> WriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::cout << value.ToString() << def::LineFeed << std::flush;
+    std::cout << value.ToString() << Def::LineFeed << std::flush;
 }
 
 template <typename... Args>
 void WriteLine(const String& str, Args&&... args)
 {
     std::ios::sync_with_stdio(false);
-    std::cout << String::Format(str, std::forward<Args>(args)...) << def::LineFeed << std::flush;
+    std::cout << String::Format(str, std::forward<Args>(args)...) << Def::LineFeed << std::flush;
 }
 
 inline void ErrorWrite(const String& str)
@@ -136,69 +136,69 @@ void ErrorWrite(const String& str, Args&&... args)
 inline void ErrorWriteLine(const String& str)
 {
     std::ios::sync_with_stdio(false);
-    std::cerr << str << def::LineFeed << std::flush;
+    std::cerr << str << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<Has_to_string<T>()> ErrorWriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::cerr << value.to_string() << def::LineFeed << std::flush;
+    std::cerr << value.to_string() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<Has_str<T>()> ErrorWriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::cerr << value.str() << def::LineFeed << std::flush;
+    std::cerr << value.str() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<ConvertibleToString<T>()> ErrorWriteLine(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::cerr << value.ToString() << def::LineFeed << std::flush;
+    std::cerr << value.ToString() << Def::LineFeed << std::flush;
 }
 
 template <typename... Args>
 void ErrorWriteLine(const String& str, Args&&... args)
 {
     std::ios::sync_with_stdio(false);
-    std::cerr << String::Format(str, std::forward<Args>(args)...) << def::LineFeed << std::flush;
+    std::cerr << String::Format(str, std::forward<Args>(args)...) << Def::LineFeed << std::flush;
 }
 
 inline void Log(const String& str)
 {
     std::ios::sync_with_stdio(false);
-    std::clog << str << def::LineFeed << std::flush;
+    std::clog << str << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<Has_to_string<T>()> Log(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::clog << value.to_string() << def::LineFeed << std::flush;
+    std::clog << value.to_string() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<Has_str<T>()> Log(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::clog << value.str() << def::LineFeed << std::flush;
+    std::clog << value.str() << Def::LineFeed << std::flush;
 }
 
 template <typename T>
 Required<ConvertibleToString<T>()> Log(const T& value)
 {
     std::ios::sync_with_stdio(false);
-    std::clog << value.ToString() << def::LineFeed << std::flush;
+    std::clog << value.ToString() << Def::LineFeed << std::flush;
 }
 
 template <typename... Args>
 void Log(const String& str, Args&&... args)
 {
     std::ios::sync_with_stdio(false);
-    std::clog << String::Format(str, std::forward<Args>(args)...) << def::LineFeed << std::flush;
+    std::clog << String::Format(str, std::forward<Args>(args)...) << Def::LineFeed << std::flush;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END

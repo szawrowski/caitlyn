@@ -18,7 +18,7 @@
 #ifndef CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTIES_H_
 #define CAITLUN_CORE_TRAITS_CONSTRAINTS_PROPERTIES_H_
 
-#include "caitlyn/__core/traits/types/properties.h"
+#include "caitlyn/__core/Traits/types/properties.h"
 
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 
@@ -73,13 +73,13 @@ constexpr bool Abstract()
 template <typename T>
 constexpr bool Signed()
 {
-    return traits::IsSignedType<T>::Value;
+    return Traits::IsSignedType<T>::Value;
 }
 
 template <typename T>
 constexpr bool Unsigned()
 {
-    return traits::IsUnsignedType<T>::Value;
+    return Traits::IsUnsignedType<T>::Value;
 }
 
 __CAITLYN_GLOBAL_NAMESPACE_END

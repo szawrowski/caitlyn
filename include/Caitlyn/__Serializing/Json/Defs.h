@@ -18,6 +18,6 @@
 #ifndef CAITLYN_SERIALIZING_JSON_DEFS_H_
 #define CAITLYN_SERIALIZING_JSON_DEFS_H_
 
-#define JSON_STRING(...) cait::json::MakeDocument(#__VA_ARGS__)
+#define JSON_STRING(...) Caitlyn::Json::MakeDocument(#__VA_ARGS__)
 
 #endif // CAITLYN_SERIALIZING_JSON_DEFS_H_

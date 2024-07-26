@@ -81,45 +81,45 @@ using __null_pointer_t = decltype(nullptr);
 __CAITLYN_DETAIL_NAMESPACE_END
 
 // Character
-using StdChar = __detail::__char_t;
-using WChar = __detail::__wide_char_t;
-using Char8 = __detail::__utf8_char_t;
-using Char16 = __detail::__utf16_char_t;
-using Char32 = __detail::__utf32_char_t;
+using StdChar = __Detail::__char_t;
+using WChar = __Detail::__wide_char_t;
+using Char8 = __Detail::__utf8_char_t;
+using Char16 = __Detail::__utf16_char_t;
+using Char32 = __Detail::__utf32_char_t;
 
 // Integer
-using SByte = __detail::__int8_t;
-using Byte = __detail::__uint8_t;
-using Int8 = __detail::__int8_t;
-using UInt8 = __detail::__uint8_t;
-using Int16 = __detail::__int16_t;
-using UInt16 = __detail::__uint16_t;
-using Int32 = __detail::__int32_t;
-using UInt32 = __detail::__uint32_t;
-using Int64 = __detail::__int64_t;
-using UInt64 = __detail::__uint64_t;
+using SByte = __Detail::__int8_t;
+using Byte = __Detail::__uint8_t;
+using Int8 = __Detail::__int8_t;
+using UInt8 = __Detail::__uint8_t;
+using Int16 = __Detail::__int16_t;
+using UInt16 = __Detail::__uint16_t;
+using Int32 = __Detail::__int32_t;
+using UInt32 = __Detail::__uint32_t;
+using Int64 = __Detail::__int64_t;
+using UInt64 = __Detail::__uint64_t;
 
-using Int = __detail::__signed_int_t;
-using UInt = __detail::__unsigned_int_t;
-using IntMax = __detail::__intmax_t;
-using UIntMax = __detail::__uintmax_t;
-using IntPtr = __detail::__intptr_t;
-using UIntPtr = __detail::__uintptr_t;
+using Int = __Detail::__signed_int_t;
+using UInt = __Detail::__unsigned_int_t;
+using IntMax = __Detail::__intmax_t;
+using UIntMax = __Detail::__uintmax_t;
+using IntPtr = __Detail::__intptr_t;
+using UIntPtr = __Detail::__uintptr_t;
 
-using SSizeType = __detail::__signed_size_t;
-using SizeType = __detail::__unsigned_size_t;
-using PtrDiff = __detail::__difference_type_t;
+using SSizeType = __Detail::__signed_size_t;
+using SizeType = __Detail::__unsigned_size_t;
+using PtrDiff = __Detail::__difference_type_t;
 
 // Floating point
-using Float = __detail::__float32_t;
-using Double = __detail::__float64_t;
-using Decimal = __detail::__float_n_t;
+using Float = __Detail::__float32_t;
+using Double = __Detail::__float64_t;
+using Decimal = __Detail::__float_n_t;
 
 // System
-using Bool = __detail::__boolean_t;
-using NullPtr = __detail::__null_pointer_t;
+using Bool = __Detail::__boolean_t;
+using NullPtr = __Detail::__null_pointer_t;
 
-using CodePoint = __detail::__uint32_t;
+using CodePoint = __Detail::__uint32_t;
 
 using CharPtr = char*;
 using CString = const char*;

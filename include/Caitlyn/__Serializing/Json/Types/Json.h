@@ -28,9 +28,9 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 class JsonDocument
 {
 public:
-    using ErrorType = json::JsonError;
-    using DataType = json::__detail::JsonData;
-    using ParserType = json::__detail::JsonParser;
+    using ErrorType = Json::JsonError;
+    using DataType = Json::__Detail::JsonData;
+    using ParserType = Json::__Detail::JsonParser;
 
 public:
     JsonDocument() = default;
@@ -51,7 +51,7 @@ public:
 
     JsonDocument(JsonDocument&& other) noexcept : root_{std::move(other.root_)}, error_{other.error_}
     {
-        other.root_ = json::MakeNull();
+        other.root_ = Json::MakeNull();
         other.error_ = ErrorType::NoError;
     }
 
@@ -86,7 +86,7 @@ public:
         {
             root_ = std::move(other.root_);
             error_ = other.error_;
-            other.root_ = json::MakeNull();
+            other.root_ = Json::MakeNull();
             other.error_ = ErrorType::NoError;
         }
         return *this;
@@ -110,7 +110,7 @@ public:
         if (parser.HasError())
         {
             error_ = parser.GetError();
-            root_ = json::MakeNull();
+            root_ = Json::MakeNull();
         }
         else
         {
@@ -168,10 +168,10 @@ public:
 
     String GetErrorString() const
     {
-        return json::GetErrorString(error_);
+        return Json::GetErrorString(error_);
     }
 
-    json::JsonClass GetType() const
+    Json::JsonClass GetType() const
     {
         return root_.GetType();
     }
@@ -182,7 +182,7 @@ public:
     }
 
 private:
-    DataType root_{json::MakeObject()};
+    DataType root_{Json::MakeObject()};
     ErrorType error_{ErrorType::NoError};
 };
 
@@ -216,7 +216,7 @@ inline JsonDocument MakeDocument(const std::ifstream& stream)
 __CAITLYN_JSON_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline std::istream& operator>>(std::istream& is, cait::JsonDocument& value)
+inline std::istream& operator>>(std::istream& is, Caitlyn::JsonDocument& value)
 {
     std::ostringstream buffer;
     buffer << is.rdbuf();
@@ -224,7 +224,7 @@ inline std::istream& operator>>(std::istream& is, cait::JsonDocument& value)
     return is;
 }
 
-inline std::ostream& operator<<(std::ostream& os, const cait::JsonDocument& value)
+inline std::ostream& operator<<(std::ostream& os, const Caitlyn::JsonDocument& value)
 {
     os << value.ToString();
     return os;

@@ -49,7 +49,7 @@ inline bool kmp(const std::string& pattern, const std::string& text)
 {
     const size_t text_size = text.size();
     const size_t pattern_size = pattern.size();
-    const auto failure = __detail::get_kmp_failure_vec(pattern);
+    const auto failure = __Detail::get_kmp_failure_vec(pattern);
 
     for (size_t i = 0, j = 0; i < text_size; ++i)
     {

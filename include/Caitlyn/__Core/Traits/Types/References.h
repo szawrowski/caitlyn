@@ -57,13 +57,13 @@ struct RemoveReferenceType<T&&>
 __CAITLYN_DETAIL_NAMESPACE_END
 
 template <typename T>
-using AddLValueReferenceType = typename decltype(__detail::TryAddLValueReference<T>(nullptr))::Type;
+using AddLValueReferenceType = typename decltype(__Detail::TryAddLValueReference<T>(nullptr))::Type;
 
 template <typename T>
-using AddRValueReferenceType = typename decltype(__detail::TryAddRValueReference<T>(nullptr))::Type;
+using AddRValueReferenceType = typename decltype(__Detail::TryAddRValueReference<T>(nullptr))::Type;
 
 template <typename T>
-using RemoveReferenceType = typename __detail::RemoveReferenceType<T>::Type;
+using RemoveReferenceType = typename __Detail::RemoveReferenceType<T>::Type;
 
 __CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END

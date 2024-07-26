@@ -63,10 +63,10 @@ struct RemoveReference<T* const volatile>
 __CAITLYN_DETAIL_NAMESPACE_END
 
 template <typename T>
-using AddPointerType = typename decltype(__detail::TryAddPointer<T>(nullptr))::Type;
+using AddPointerType = typename decltype(__Detail::TryAddPointer<T>(nullptr))::Type;
 
 template <typename T>
-using RemovePointerType = typename __detail::RemoveReference<T>::Type;
+using RemovePointerType = typename __Detail::RemoveReference<T>::Type;
 
 __CAITLYN_TRAITS_NAMESPACE_END
 __CAITLYN_GLOBAL_NAMESPACE_END

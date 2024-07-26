@@ -288,7 +288,7 @@ private:
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline std::istream& operator>>(std::istream& is, cait::Char& c)
+inline std::istream& operator>>(std::istream& is, Caitlyn::Char& c)
 {
     if (is.good())
     {
@@ -299,15 +299,15 @@ inline std::istream& operator>>(std::istream& is, cait::Char& c)
     return is;
 }
 
-inline std::ostream& operator<<(std::ostream& os, const cait::Char& c)
+inline std::ostream& operator<<(std::ostream& os, const Caitlyn::Char& c)
 {
     os << c.data();
     return os;
 }
 
-inline cait::Char operator""_char(const char* str, const std::size_t)
+inline Caitlyn::Char operator""_char(const char* str, const std::size_t)
 {
-    return cait::Char{str};
+    return Caitlyn::Char{str};
 }
 
 #endif // CAITLYN_CORE_CHAR_CHAR_H_

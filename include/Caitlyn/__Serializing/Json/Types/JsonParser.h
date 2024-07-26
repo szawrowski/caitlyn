@@ -42,13 +42,13 @@ public:
         const auto first = FindFirstNonSpace(json);
         const auto last = FindLastNonSpace(json);
 
-        if (json[first] != def::LeftCurlyBracket)
+        if (json[first] != Def::LeftCurlyBracket)
         {
             parser.SetError(JsonError::InvalidJson);
             parser.SetErrorPosition(first);
             return parser;
         }
-        if (json[last] != def::RightCurlyBracket)
+        if (json[last] != Def::RightCurlyBracket)
         {
             parser.SetError(JsonError::InvalidJson);
             parser.SetErrorPosition(last);
@@ -88,27 +88,27 @@ private:
         }
         const auto current_char = json_[position_];
 
-        if (current_char == def::QuotationMark)
+        if (current_char == Def::QuotationMark)
         {
             return ParseString();
         }
-        if (current_char == def::LeftCurlyBracket)
+        if (current_char == Def::LeftCurlyBracket)
         {
             return ParseObject();
         }
-        if (current_char == def::LeftSquareBracket)
+        if (current_char == Def::LeftSquareBracket)
         {
             return ParseArray();
         }
-        if (current_char == def::LatinSmallLetterT || current_char == def::LatinSmallLetterF)
+        if (current_char == Def::LatinSmallLetterT || current_char == Def::LatinSmallLetterF)
         {
             return ParseBoolean();
         }
-        if (current_char == def::LatinSmallLetterN)
+        if (current_char == Def::LatinSmallLetterN)
         {
             return ParseNull();
         }
-        if (IsDigit(current_char.GetCodePoint()) || current_char == def::HyphenMinus || current_char == def::PlusSign)
+        if (IsDigit(current_char.GetCodePoint()) || current_char == Def::HyphenMinus || current_char == Def::PlusSign)
         {
             return ParseNumber();
         }
@@ -127,15 +127,15 @@ private:
         {
             SkipSpace();
 
-            if (json_[position_] == def::RightCurlyBracket)
+            if (json_[position_] == Def::RightCurlyBracket)
             {
                 Next();
                 return result;
             }
-            if (json_[position_] == def::QuotationMark)
+            if (json_[position_] == Def::QuotationMark)
             {
                 Next();
-                const auto key_end = json_.Find(def::QuotationMark, position_);
+                const auto key_end = json_.Find(Def::QuotationMark, position_);
 
                 if (key_end == String::NPosition)
                 {
@@ -147,7 +147,7 @@ private:
                 position_ = key_end + 1;
 
                 SkipSpace();
-                if (json_[position_] != def::Colon)
+                if (json_[position_] != Def::Colon)
                 {
                     SetError(JsonError::MissingColon);
                     SetErrorPosition(position_);
@@ -158,19 +158,19 @@ private:
                 result[key] = ParseValue();
 
                 SkipSpace();
-                if (json_[position_] == def::Comma)
+                if (json_[position_] == Def::Comma)
                 {
                     Next();
                     SkipSpace();
 
-                    if (json_[position_] == def::RightCurlyBracket)
+                    if (json_[position_] == Def::RightCurlyBracket)
                     {
                         SetError(JsonError::TrailingComma);
                         SetErrorPosition(position_);
                         return JsonData{};
                     }
                 }
-                else if (json_[position_] == def::RightCurlyBracket)
+                else if (json_[position_] == Def::RightCurlyBracket)
                 {
                     Next();
                     return result;
@@ -204,7 +204,7 @@ private:
         {
             SkipSpace();
 
-            if (json_[position_] == def::RightSquareBracket)
+            if (json_[position_] == Def::RightSquareBracket)
             {
                 Next();
                 return result;
@@ -213,19 +213,19 @@ private:
             result.Append(value);
 
             SkipSpace();
-            if (json_[position_] == def::Comma)
+            if (json_[position_] == Def::Comma)
             {
                 Next();
                 SkipSpace();
 
-                if (json_[position_] == def::RightSquareBracket)
+                if (json_[position_] == Def::RightSquareBracket)
                 {
                     SetError(JsonError::TrailingComma);
                     SetErrorPosition(position_);
                     return JsonData{};
                 }
             }
-            else if (json_[position_] == def::RightSquareBracket)
+            else if (json_[position_] == Def::RightSquareBracket)
             {
                 Next();
                 return result;
@@ -259,9 +259,9 @@ private:
         Next();
         std::ostringstream escaped_stream;
 
-        while (position_ < json_.size() && json_[position_] != def::QuotationMark)
+        while (position_ < json_.size() && json_[position_] != Def::QuotationMark)
         {
-            if (json_[position_] == def::ReverseSolidus)
+            if (json_[position_] == Def::ReverseSolidus)
             {
                 Next();
                 if (position_ >= json_.size())
@@ -270,35 +270,35 @@ private:
                     SetErrorPosition(position_);
                     return JsonData{};
                 }
-                if (json_[position_] == def::QuotationMark)
+                if (json_[position_] == Def::QuotationMark)
                 {
-                    escaped_stream << def::QuotationMark;
+                    escaped_stream << Def::QuotationMark;
                 }
-                else if (json_[position_] == def::ReverseSolidus)
+                else if (json_[position_] == Def::ReverseSolidus)
                 {
-                    escaped_stream << def::ReverseSolidus;
+                    escaped_stream << Def::ReverseSolidus;
                 }
-                else if (json_[position_] == def::LatinSmallLetterB)
+                else if (json_[position_] == Def::LatinSmallLetterB)
                 {
-                    escaped_stream << def::Backspace;
+                    escaped_stream << Def::Backspace;
                 }
-                else if (json_[position_] == def::LatinSmallLetterF)
+                else if (json_[position_] == Def::LatinSmallLetterF)
                 {
-                    escaped_stream << def::FormFeed;
+                    escaped_stream << Def::FormFeed;
                 }
-                else if (json_[position_] == def::LatinSmallLetterN)
+                else if (json_[position_] == Def::LatinSmallLetterN)
                 {
-                    escaped_stream << def::LineFeed;
+                    escaped_stream << Def::LineFeed;
                 }
-                else if (json_[position_] == def::LatinSmallLetterR)
+                else if (json_[position_] == Def::LatinSmallLetterR)
                 {
-                    escaped_stream << def::CarriageReturn;
+                    escaped_stream << Def::CarriageReturn;
                 }
-                else if (json_[position_] == def::LatinSmallLetterT)
+                else if (json_[position_] == Def::LatinSmallLetterT)
                 {
-                    escaped_stream << def::CharacterTabulation;
+                    escaped_stream << Def::CharacterTabulation;
                 }
-                else if (json_[position_] == def::LatinSmallLetterU)
+                else if (json_[position_] == Def::LatinSmallLetterU)
                 {
                     if (position_ + 4 >= json_.size())
                     {
@@ -334,7 +334,7 @@ private:
             }
             Next();
         }
-        if (json_[position_] == def::QuotationMark)
+        if (json_[position_] == Def::QuotationMark)
         {
             Next();
             return escaped_stream.str();
@@ -366,18 +366,18 @@ private:
         JsonData result;
         auto end_number = position_;
         while (end_number < json_.size() &&
-               (IsDigit(json_[end_number].GetCodePoint()) || json_[end_number] == def::FullStop ||
-                json_[end_number] == def::LatinSmallLetterE || json_[end_number] == def::LatinCapitalLetterE ||
-                json_[end_number] == def::HyphenMinus || json_[end_number] == def::PlusSign))
+               (IsDigit(json_[end_number].GetCodePoint()) || json_[end_number] == Def::FullStop ||
+                json_[end_number] == Def::LatinSmallLetterE || json_[end_number] == Def::LatinCapitalLetterE ||
+                json_[end_number] == Def::HyphenMinus || json_[end_number] == Def::PlusSign))
         {
             ++end_number;
         }
         const String number_str = json_.Substring(position_, end_number - position_);
         try
         {
-            if (number_str.Find(def::PlusSign) != String::NPosition ||
-                number_str.Find(def::LatinSmallLetterE) != String::NPosition ||
-                number_str.Find(def::LatinCapitalLetterE) != String::NPosition)
+            if (number_str.Find(Def::PlusSign) != String::NPosition ||
+                number_str.Find(Def::LatinSmallLetterE) != String::NPosition ||
+                number_str.Find(Def::LatinCapitalLetterE) != String::NPosition)
             {
                 result = std::stod(number_str.str());
             }
