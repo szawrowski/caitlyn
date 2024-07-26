@@ -19,6 +19,7 @@
 #define CAITLYN_APPLICATION_H_
 
 #include <cstring>
+#include <ios>
 #include <stdexcept>
 #include <vector>
 
@@ -112,6 +113,7 @@ private:
         SetConsoleOutputCP(CP_UTF8);
         SetConsoleCP(CP_UTF8);
 #endif
+        std::ios::sync_with_stdio(false);
     }
 
 private:
