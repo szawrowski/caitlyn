@@ -1,6 +1,6 @@
 # IO Operations
 
-Easily read and write text with formatting support.
+Easily read and write text from the console with formatting support.
 
 ## Usage
 
