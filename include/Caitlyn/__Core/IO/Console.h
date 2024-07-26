@@ -201,6 +201,32 @@ void Log(const String& str, Args&&... args)
     std::clog << String::Format(str, std::forward<Args>(args)...) << Def::LineFeed << std::flush;
 }
 
+inline String ReadLine(std::istream& is, const String& message = String::Empty())
+{
+    if (message.NotEmpty())
+    {
+        std::cout << message << std::flush;
+    }
+    std::basic_string<char> input;
+    std::getline(is, input);
+    return input;
+}
+
+inline String ReadLine(const String& message = String::Empty())
+{
+    return ReadLine(std::cin, message);
+}
+
+inline Char ReadChar(std::istream& is, const String& message = String::Empty())
+{
+    return ReadLine(is, message)[0];
+}
+
+inline Char ReadChar(const String& message = String::Empty())
+{
+    return ReadLine(std::cin, message)[0];
+}
+
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif // CAITLYN_CORE_IO_CONSOLE_H_

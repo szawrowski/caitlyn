@@ -302,7 +302,6 @@ public:
         data_.clear();
     }
 
-    // Comparison
     bool operator>(const char* other) const
     {
         return str() > other;
@@ -537,6 +536,13 @@ public:
         return tmp;
     }
 
+public:
+    static String Empty()
+    {
+        return "";
+    }
+
+public:
     template <typename T>
     static Required<IsBoolean<T>(), const char*> ValueOf(T value)
     {

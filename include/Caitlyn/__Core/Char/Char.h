@@ -288,17 +288,6 @@ private:
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline std::istream& operator>>(std::istream& is, Caitlyn::Char& c)
-{
-    if (is.good())
-    {
-        std::string input;
-        std::getline(is, input);
-        c = input;
-    }
-    return is;
-}
-
 inline std::ostream& operator<<(std::ostream& os, const Caitlyn::Char& c)
 {
     os << c.data();
