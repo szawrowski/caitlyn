@@ -62,6 +62,8 @@ across different devices and displays UTF-8 characters correctly.
 It also provides important tools for argument handling and debugging.
 
 ```c++
+#include <Caitlyn/IO>
+
 int main(int argc, const char** argv)
 {
     const auto app = Caitlyn::Application::Initialize(argc, argv);
