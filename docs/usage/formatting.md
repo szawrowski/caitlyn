@@ -7,7 +7,6 @@
 
 ```c++
 #include <Caitlyn/IO>
-#include <Caitlyn/String>
 
 using namespace Caitlyn;
 
@@ -31,12 +30,6 @@ int main()
     // Other
     WriteLine("escaped: {{text}}\n");
     
-    auto content = MakeText("Text: ");
-    content.Append("Lorem ipsum dolor sit amet, ");
-    content.AppendLine("consectetur adipiscing elit...");
-    content.AppendLine(data);
-    
-    WriteLine(content);
     return 0;
 }
 ```
@@ -55,7 +48,4 @@ line: ------------------------
 fill: **********TEXT**********
 
 escaped: {text}
-
-Text: Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-Hello, world!
 ```

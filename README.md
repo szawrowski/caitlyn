@@ -26,6 +26,9 @@ Caitlyn aims to provide efficient and easy-to-use tools.
 - **[Text Formatting](docs/usage/formatting.md)**:
   Easily format strings with a variety of options.
 
+- **[I/O Operations](docs/usage/io-operations.md)**:
+  Easily read and write text with formatting support.
+
 - **[File Management](docs/usage/file.md)**:
   Simplify file operations with intuitive functions.
 
