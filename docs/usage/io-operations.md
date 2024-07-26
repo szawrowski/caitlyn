@@ -1,5 +1,7 @@
 # IO Operations
 
+Easily read and write text with formatting support.
+
 ## Usage
 
 ```c++
