@@ -460,7 +460,7 @@ inline File MakeFile(const String& filename)
 
 __CAITLYN_GLOBAL_NAMESPACE_END
 
-inline Caitlyn::File operator""_file(Caitlyn::CString filename, const Caitlyn::SizeType)
+inline Caitlyn::File operator""_file(const char* filename, const Caitlyn::SizeType)
 {
     return Caitlyn::File{filename};
 }

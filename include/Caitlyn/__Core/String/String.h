@@ -52,7 +52,7 @@ public:
 public:
     String() = default;
 
-    String(CString str)
+    String(const char* str)
     {
         while (*str)
         {

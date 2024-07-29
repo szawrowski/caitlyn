@@ -45,7 +45,7 @@ public:
     {
     }
 
-    Char(CString bytes)
+    Char(const char* bytes)
     {
         if (!IsValidUtf8Char(bytes))
         {
@@ -76,7 +76,7 @@ public:
         return *this;
     }
 
-    Char& operator=(CString bytes)
+    Char& operator=(const char* bytes)
     {
         if (!IsValidUtf8Char(bytes))
         {
@@ -106,12 +106,12 @@ public:
         return data_.size();
     }
 
-    CString data() const
+    const char* data() const
     {
         return data_.data();
     }
 
-    CString c_str() const
+    const char* c_str() const
     {
         return data_.c_str();
     }

@@ -44,7 +44,7 @@ public:
     {
     }
 
-    BigInteger(CString number) : BigInteger{String{number}}
+    BigInteger(const char* number) : BigInteger{String{number}}
     {
     }
 

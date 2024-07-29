@@ -31,14 +31,15 @@ __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 class Application
 {
 public:
-    static const Application* Initialize()
+    static const Application* Initialise()
     {
         if (initialized_)
         {
-            throw std::runtime_error("Caitlyn::Initialize can only be called once.");
+            throw std::runtime_error("caitlyn::init can only be called once.");
         }
+
         initialized_ = true;
-        return new Application{};
+        return application_;
     }
 
     static const Application* Initialize(const int& argc, const char** argv)
@@ -47,8 +48,11 @@ public:
         {
             throw std::runtime_error("caitlyn::init can only be called once.");
         }
+
+        application_->SetArgs(argc, argv);
         initialized_ = true;
-        return new Application{argc, argv};
+
+        return application_;
     }
 
     const std::vector<const char*>& GetArgs() const
@@ -58,7 +62,7 @@ public:
 
     const char* GetSystemName() const
     {
-        return systemName_;
+        return system_name_;
     }
 
     const char* GetCompilerInfo() const
@@ -68,22 +72,19 @@ public:
 
     const char* GetCaitlynInfo() const
     {
-        return libVersion_;
+        return lib_version_;
     }
 
 private:
     Application()
-        : libVersion_{__CAITLYN_VERSION},
-          systemName_{__CAITLYN_OS_NAME},
-          compiler_{__CAITLYN_COMPILER_VERSION}
+        : lib_version_(__CAITLYN_VERSION),
+          system_name_(__CAITLYN_OS_NAME),
+          compiler_(__CAITLYN_COMPILER_VERSION)
     {
         configure();
     }
 
-    Application(const int argc, const char** argv)
-        : libVersion_{__CAITLYN_VERSION},
-          systemName_{__CAITLYN_OS_NAME},
-          compiler_{__CAITLYN_COMPILER_VERSION}
+    void SetArgs(const int argc, const char** argv)
     {
         if (argc > 0)
         {
@@ -95,7 +96,6 @@ private:
                 args_.emplace_back(arg_copy);
             }
         }
-        configure();
     }
 
     ~Application()
@@ -117,13 +117,16 @@ private:
     }
 
 private:
-    std::vector<const char*> args_{};
-    const char* libVersion_;
-    const char* systemName_;
-    const char* compiler_;
+    static Application* application_;
     static bool initialized_;
+
+    const char* lib_version_;
+    const char* system_name_;
+    const char* compiler_;
+    std::vector<const char*> args_{};
 };
 
+Application* Application::application_ = new Application();
 bool Application::initialized_ = false;
 
 __CAITLYN_GLOBAL_NAMESPACE_END

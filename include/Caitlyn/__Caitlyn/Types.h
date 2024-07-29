@@ -121,9 +121,6 @@ using NullPtr = __Detail::__null_pointer_t;
 
 using CodePoint = __Detail::__uint32_t;
 
-using CharPtr = char*;
-using CString = const char*;
-
 __CAITLYN_GLOBAL_NAMESPACE_END
 
 #endif //CAITLYN_TYPES_H_

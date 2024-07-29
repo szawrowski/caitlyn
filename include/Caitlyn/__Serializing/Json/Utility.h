@@ -25,7 +25,7 @@
 __CAITLYN_GLOBAL_NAMESPACE_BEGIN
 __CAITLYN_JSON_NAMESPACE_BEGIN
 
-inline CString GetErrorString(const JsonError error)
+inline const char* GetErrorString(const JsonError error)
 {
     switch (error)
     {
