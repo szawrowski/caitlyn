@@ -25,7 +25,7 @@
 #include <iostream>
 #include <streambuf>
 
-#include "Caitlyn/__Core/IO/Console.h"
+#include "Caitlyn/__Core/IO/Stream.h"
 
 #if __CAITLYN_HAS_CXX20
     #include <syncstream>
