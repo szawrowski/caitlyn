@@ -17,18 +17,18 @@ int main()
 
     auto data = String::Format("{} {}", string, emoji);
 
-    WriteLine("string: {}", data);
-    WriteLine("substring from index 7, length 2: {}", data.Substring(7, 2));
-    WriteLine("starts with 'Hello'? {}", data.StartsWith("Hello"));
-    WriteLine("ends with 🙂? {}", data.EndsWith("🙂"));
-    WriteLine("contains '世界'? {}", data.Contains("世界"));
-    WriteLine("index of '世': {}", data.Find("世"));
-    WriteLine("index of '🙂': {}", data.Find("🙂"));
-    WriteLine("last index of ' ': {}", data.ReverseFind(" "));
-    WriteLine("char count: {}", data.Length());
-    WriteLine("byte count: {}", data.ByteCount());
-    WriteLine("char at index 1: {}", data.At(1));
-    WriteLine("char at index 9: {}", data.At(9));
+    OutputStream::WriteLine("string: {}", data);
+    OutputStream::WriteLine("substring from index 7, length 2: {}", data.Substring(7, 2));
+    OutputStream::WriteLine("starts with 'Hello'? {}", data.StartsWith("Hello"));
+    OutputStream::WriteLine("ends with 🙂? {}", data.EndsWith("🙂"));
+    OutputStream::WriteLine("contains '世界'? {}", data.Contains("世界"));
+    OutputStream::WriteLine("index of '世': {}", data.Find("世"));
+    OutputStream::WriteLine("index of '🙂': {}", data.Find("🙂"));
+    OutputStream::WriteLine("last index of ' ': {}", data.ReverseFind(" "));
+    OutputStream::WriteLine("char count: {}", data.Length());
+    OutputStream::WriteLine("byte count: {}", data.ByteCount());
+    OutputStream::WriteLine("char at index 1: {}", data.At(1));
+    OutputStream::WriteLine("char at index 9: {}", data.At(9));
 
     for (auto& elem : data)
     {
@@ -37,7 +37,7 @@ int main()
             elem = "🍉";
         }
     }
-    WriteLine("updated: {}\n", data);
+    OutputStream::WriteLine("updated: {}\n", data);
     return 0;
 }
 ```

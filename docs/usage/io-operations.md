@@ -11,25 +11,25 @@ using namespace Caitlyn;
 
 int main()
 {
-    Write("Some");
-    WriteLine("Other");
-    WriteLine("On new line");
+    OutputStream::Write("Some");
+    OutputStream::WriteLine("Other");
+    OutputStream::WriteLine("On new line");
     
-    const auto str = ReadLine("Input string: "); // standard input
-    WriteLine("stdin: {}", str); // standard output
+    const auto str = InputStream::ReadLine("Input string: "); // standard input
+    OutputStream::WriteLine("stdin: {}", str); // standard output
     
-    const auto c = ReadChar("Input char: ");
-    WriterLine("stdin: {}", c);
+    const auto c = InputStream::ReadChar("Input char: ");
+    OutputStream::WriterLine("stdin: {}", c);
     
-    ErrorWriteLine("Some error"); // standard error (unbuffered)
-    Log("Message"); // standard error (buffered)
+    ErrorStream::WriteLine("Some error"); // standard error (unbuffered)
+    LogStream::WriteLine("Message"); // standard error (buffered)
     
     auto content = MakeText("Text: ");
     content.Append("Lorem ipsum dolor sit amet, ");
     content.AppendLine("consectetur adipiscing elit...");
     content.AppendLine("Hello, world!");
     
-    WriteLine(content);
+    OutputStream::WriteLine(content);
     
     return 0;
 }

@@ -48,9 +48,11 @@ is the source file for your main executable.
 ```c++
 #include <Caitlyn/IO>
 
+using namespace Caitlyn;
+
 int main()
 {
-    Caitlyn::WriteLine("Hello, world!");
+    OutputStream::WriteLine("Hello, world!");
     return 0;
 }
 ```
@@ -64,21 +66,23 @@ It also provides important tools for argument handling and debugging.
 ```c++
 #include <Caitlyn/IO>
 
+using namespace Caitlyn;
+
 int main(int argc, const char** argv)
 {
-    const auto app = Caitlyn::Application::Initialize(argc, argv);
+    const auto app = Application::Initialize(argc, argv);
 
     // Get vector of arguments
     for (const auto& arg : app->GetArgs())
     {
-        Caitlyn::WriteLine("{} ", arg);
+        OutputStream::WriteLine("{} ", arg);
     }
     // Get optional information
-    Caitlyn::WriteLine(app->GetSystemName());
-    Caitlyn::WriteLine(app->GetCompilerInfo());
-    Caitlyn::WriteLine(app->GetCaitlynInfo());
+    OutputStream::WriteLine(app->GetSystemName());
+    OutputStream::WriteLine(app->GetCompilerInfo());
+    OutputStream::WriteLine(app->GetCaitlynInfo());
     
-    Caitlyn::WriteLine("Hello, world!");
+    OutputStream::WriteLine("Hello, world!");
     return 0;
 }
 ```

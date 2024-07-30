@@ -40,11 +40,11 @@ int main()
 
     if (result)
     {
-        WriteLine("64 / 4 = {}", result.Get());
+        OutputStream::WriteLine("64 / 4 = {}", result.Get());
     }
     else if (result.GetError() == MathError::DivideByZero)
     {
-        ErrorWriteLine("Error: divide by zero");
+        ErrorStream::WriteLine("Error: divide by zero");
     }
     return 0;
 }

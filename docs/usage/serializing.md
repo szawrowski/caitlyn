@@ -35,7 +35,7 @@ int main()
     config["address"]["zip"] = "12345";
     config["phone_numbers"] = MakeArray("555-1234", "555-5678");
     
-    WriteLine(config);
+    OutputStream::WriteLine(config);
     return 0;
 }
 ```
@@ -68,7 +68,7 @@ int main()
             ]
         }
     );
-    WriteLine(config);
+    OutputStream::WriteLine(config);
     return 0;
 }
 ```

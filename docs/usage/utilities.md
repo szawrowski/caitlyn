@@ -15,13 +15,13 @@ int main()
 
     for (auto& key : GetMapKeys(numbers))
     {
-        Write("{} ", key);
+        OutputStream::Write("{} ", key);
     }
-    WriteLine();
+    OutputStream::WriteLine();
 
     for (auto& value : GetMapValues(numbers))
     {
-        Write("{} ", value);
+        OutputStream::Write("{} ", value);
     }
     return 0;
 }

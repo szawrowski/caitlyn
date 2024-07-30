@@ -18,17 +18,17 @@ int main()
     const auto data = String::Format("{}, {}!", first, second);
     
     // Alignment
-    WriteLine("l: '{:<25}'", data);
-    WriteLine("c: '{:^25}'", data);
-    WriteLine("r: '{:>25}'\n", data);
+    OutputStream::WriteLine("l: '{:<25}'", data);
+    OutputStream::WriteLine("c: '{:^25}'", data);
+    OutputStream::WriteLine("r: '{:>25}'\n", data);
     // Precision
-    WriteLine("floating: {:.4f}", 64.932698);
-    WriteLine("decimal:  {:d}\n", 6427123266375693);
+    OutputStream::WriteLine("floating: {:.4f}", 64.932698);
+    OutputStream::WriteLine("decimal:  {:d}\n", 6427123266375693);
     // Filling
-    WriteLine("line: {:-<24}", "");
-    WriteLine("fill: {:*^24}\n", "TEXT");
+    OutputStream::WriteLine("line: {:-<24}", "");
+    OutputStream::WriteLine("fill: {:*^24}\n", "TEXT");
     // Other
-    WriteLine("escaped: {{text}}\n");
+    OutputStream::WriteLine("escaped: {{text}}\n");
     
     return 0;
 }

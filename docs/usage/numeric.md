@@ -26,7 +26,7 @@ int main()
     const BigInteger rhs = "10218827321893782973821793709217371273";
     const auto result = lhs * rhs;
     
-    WriteLine(result);
+    OutputStream::WriteLine(result);
     return 0;
 }
 ```
@@ -49,7 +49,7 @@ int main()
     const BigFloat rhs = "7.8827318902910380293782646543821795732418";
     const auto result = lhs * rhs;
     
-    WriteLine(result);
+    OutputStream::WriteLine(result);
     return 0;
 }
 ```

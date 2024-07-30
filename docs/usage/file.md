@@ -45,7 +45,7 @@ int main()
     
     while (file)
     {
-        WriteLine("{}", file.ReadLine());
+        OutputStream::WriteLine("{}", file.ReadLine());
     }
     file.Close();
     return 0;
